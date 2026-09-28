@@ -5,6 +5,7 @@ A modern, cinematic digital film catalogue and discovery platform powered by [Th
 ---
 
 ## 🌟 Highlights & Features
+
 - **Cinematic Discovery Experience**: Immersive dark-mode editorial layout celebrating movie photography, poster art, and cinema culture.
 - **Editorial Hero Showcases**: High-resolution backdrop art, curated key metadata, synopses, and instant trailer playback.
 - **Responsive Media Rails & Grids**: Fluid touch and trackpad momentum scrolling with minimal navigation controls and graceful fallback states.
@@ -20,15 +21,20 @@ A modern, cinematic digital film catalogue and discovery platform powered by [Th
 ## 🚀 Quick Setup
 
 ### 1. Prerequisites
+
 - Node.js 18+ (tested up to Node 24)
 - Yarn package manager
 
 ### 2. Configuration
+
 Copy the sample environment file and provide your API keys:
+
 ```bash
 cp .env.sample .env
 ```
+
 Fill in the following values in `.env`:
+
 ```env
 FRONTEND_URL=http://localhost:3000
 API_KEY=your_tmdb_api_key_here
@@ -38,6 +44,7 @@ API_YOUTUBE_KEY=your_optional_youtube_key
 ```
 
 ### 3. Install & Run
+
 ```bash
 # Install dependencies
 yarn
@@ -66,6 +73,7 @@ This application is optimized for zero-config deployment on **Vercel** with the 
 ---
 
 ## 📄 Canonical Governance Documents
+
 - [PRD.md](PRD.md) — Product Requirements Document
 - [AGENTS.md](AGENTS.md) — Agent operating rules and commands
 - [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) — Tokens, typography, and styling guidelines
@@ -77,5 +85,6 @@ This application is optimized for zero-config deployment on **Vercel** with the 
 ---
 
 ## ⚖️ License & Attribution
+
 - Licensed under the [MIT License](LICENSE).
 - Film data and artwork provided by [The Movie Database (TMDb)](https://www.themoviedb.org/). This product uses the TMDb API but is not endorsed or certified by TMDb.

@@ -1,86 +1,121 @@
 <template>
-  <div>
+  <div :class="$style.heroWrap">
     <div :class="$style.hero">
+      <!-- Backdrop with gradient scrims -->
       <div :class="$style.backdrop">
-        <div>
-          <button
-            v-if="trailer"
-            :class="$style.play"
-            type="button"
-            aria-label="Play Trailer"
-            @click="openModal">
-            <!-- eslint-disable-next-line -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55"><circle cx="27.5" cy="27.5" r="26.75" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.97 40.81L40.64 27.5 20.97 14.19v26.62z"/></svg>
-          </button>
+        <img
+          v-if="backdrop"
+          v-lazyload="backdrop"
+          class="lazyload"
+          :class="$style.image"
+          :alt="name">
 
-          <img
-            v-if="backdrop"
-            v-lazyload="backdrop"
-            class="lazyload"
-            :class="$style.image"
-            :alt="name">
-        </div>
+        <!-- Scrim gradients for contrast -->
+        <div :class="$style.scrimLeft" />
+        <div :class="$style.scrimBottom" />
+        <div :class="$style.scrimTop" />
       </div>
 
-      <div :class="$style.pane">
-        <transition
-          appear
-          name="hero">
-          <div>
-            <h1 :class="$style.name">
+      <!-- Main content pane -->
+      <div :class="$style.contentPane">
+        <transition appear name="fade-slide">
+          <div :class="$style.inner">
+            <div :class="$style.eyebrow">
+              <span :class="$style.pulseDot" />
+              <span>Spotlight {{ type === "tv" ? "Series" : "Feature" }}</span>
+            </div>
+
+            <h1 :class="$style.title">
               <template v-if="isSingle">
                 {{ name }}
               </template>
-
               <template v-else>
-                <nuxt-link :to="{ name: `${type}-id`, params: { id: item.id } }">
+                <nuxt-link
+                  :to="{ name: `${type}-id`, params: { id: item.id } }">
                   {{ name }}
                 </nuxt-link>
               </template>
             </h1>
 
-            <div :class="$style.meta">
-              <div
-                v-if="stars || item.vote_count"
-                :class="$style.rating">
-                <div
-                  v-if="stars"
-                  :class="$style.stars">
-                  <div :style="{ width: `${stars}%` }" />
-                </div>
-
-                <div v-if="item.vote_count > 0">
-                  {{ item.vote_count | numberWithCommas }} Reviews
-                </div>
+            <div :class="$style.metaRow">
+              <div v-if="item.vote_average" :class="$style.scoreBadge">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="currentColor">
+                  <path
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <span>{{ item.vote_average | rating }}</span>
+                <span
+                  v-if="item.vote_count"
+                  :class="$style.voteCount">({{ item.vote_count | numberWithCommas }})</span>
               </div>
 
-              <div :class="$style.info">
-                <span v-if="item.number_of_seasons">Season {{ item.number_of_seasons }}</span>
-                <span v-if="yearStart">{{ yearStart }}</span>
-                <span v-if="item.runtime">{{ item.runtime | runtime }}</span>
-                <span v-if="cert">Cert. {{ cert }}</span>
+              <div :class="$style.specs">
+                <span v-if="yearStart" :class="$style.specItem">{{
+                  yearStart
+                }}</span>
+                <span
+                  v-if="item.number_of_seasons"
+                  :class="$style.specItem">{{ item.number_of_seasons }}
+                  {{
+                    item.number_of_seasons === 1 ? "Season" : "Seasons"
+                  }}</span>
+                <span v-if="item.runtime" :class="$style.specItem">{{
+                  item.runtime | runtime
+                }}</span>
+                <span v-if="cert" :class="$style.certBadge">{{ cert }}</span>
               </div>
             </div>
 
-            <div :class="$style.desc">
-              {{ item.overview | truncate(200) }}
-            </div>
+            <p v-if="item.overview" :class="$style.overview">
+              {{ item.overview | truncate(260) }}
+            </p>
 
-            <button
-              v-if="trailer"
-              class="button button--icon"
-              :class="$style.trailer"
-              type="button"
-              @click="openModal">
-              <!-- eslint-disable-next-line -->
-              <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M3 22v-20l18 10-18 10z"/></svg></span>
-              <span class="txt">Watch Trailer</span>
-            </button>
+            <div :class="$style.actions">
+              <button
+                v-if="trailer"
+                type="button"
+                :class="[$style.btn, $style.btnPrimary]"
+                @click="openModal">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+                <span>Watch Trailer</span>
+              </button>
+
+              <nuxt-link
+                v-if="!isSingle"
+                :to="{ name: `${type}-id`, params: { id: item.id } }"
+                :class="[$style.btn, $style.btnSecondary]">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+                <span>More Info</span>
+              </nuxt-link>
+            </div>
           </div>
         </transition>
       </div>
     </div>
 
+    <!-- YouTube Trailer Modal -->
     <Modal
       v-if="modalVisible"
       :data="trailer"
@@ -90,7 +125,14 @@
 </template>
 
 <script>
-import { name, stars, yearStart, cert, backdrop, trailer } from '~/mixins/Details';
+import {
+  name,
+  stars,
+  yearStart,
+  cert,
+  backdrop,
+  trailer,
+} from '~/mixins/Details';
 import Modal from '~/components/Modal';
 
 export default {
@@ -98,14 +140,7 @@ export default {
     Modal,
   },
 
-  mixins: [
-    name,
-    stars,
-    yearStart,
-    cert,
-    backdrop,
-    trailer,
-  ],
+  mixins: [name, stars, yearStart, cert, backdrop, trailer],
 
   props: {
     item: {
@@ -140,234 +175,283 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
+
+.heroWrap {
+  position: relative;
+  width: 100%;
+}
 
 .hero {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 35rem;
-  color: #999;
-  background-color: #000;
+  align-items: center;
+  min-height: 520px;
+  max-height: 720px;
+  height: 68vh;
+  overflow: hidden;
+  background-color: $base-bg;
 
-  @media (min-width: $breakpoint-xsmall) {
-    height: 50rem;
-  }
-
-  @media (min-width: $breakpoint-medium) {
-    position: relative;
-    display: block;
-    height: 0;
-    padding-bottom: 40%;
+  @media (min-width: $breakpoint-small) {
+    min-height: 600px;
   }
 }
 
 .backdrop {
-  position: relative;
-  display: flex;
-  flex: 1 1 auto;
-  min-height: 0;
-
-  @media (min-width: $breakpoint-medium) {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: block;
-    width: 71.1%;
-    height: 100%;
-  }
-
-  &::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: block;
-    content: '';
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 100%);
-
-    @media (min-width: $breakpoint-medium) {
-      background-image: linear-gradient(to right, #000 0, transparent 50%, transparent 100%);
-    }
-  }
-
-  > div {
-    width: 100%;
-
-    @media (min-width: $breakpoint-medium) {
-      display: inline;
-    }
-  }
-}
-
-.play {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 1;
-  padding: 0;
-  margin: 0;
-  background: none;
-  transform: translate(-50%, -50%);
-
-  @media (min-width: $breakpoint-medium) {
-    display: none;
-  }
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .image {
-  display: inline-block;
-  max-width: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
   height: 100%;
-
-  @media (max-width: $breakpoint-medium - 1) {
-    width: 100%;
-    object-fit: cover;
-  }
-}
-
-.pane {
-  padding: 0 1.5rem 1.5rem;
-
-  @media (min-width: $breakpoint-small) {
-    padding: 0 4rem 4rem;
-  }
+  object-fit: cover;
+  object-position: center 20%;
 
   @media (min-width: $breakpoint-medium) {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    width: 55%;
-    height: 100%;
-    padding: 5rem 4rem;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    padding-right: 5rem;
-    padding-left: 5rem;
-  }
-
-  @media (min-width: $breakpoint-xlarge) {
-    width: 43%;
+    width: 75%;
+    left: auto;
   }
 }
 
-.name {
-  margin: 0 0 1.4rem;
-  font-size: 2.8rem;
-  line-height: 1.1;
+.scrimLeft {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    $base-bg 0%,
+    rgba(10, 11, 14, 0.95) 30%,
+    rgba(10, 11, 14, 0.6) 65%,
+    transparent 100%
+  );
+  z-index: 1;
+
+  @media (max-width: $breakpoint-small) {
+    background: linear-gradient(
+      to bottom,
+      rgba(10, 11, 14, 0.4) 0%,
+      rgba(10, 11, 14, 0.85) 60%,
+      $base-bg 100%
+    );
+  }
+}
+
+.scrimBottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 180px;
+  background: linear-gradient(to top, $base-bg 0%, transparent 100%);
+  z-index: 1;
+}
+
+.scrimTop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 11, 14, 0.5) 0%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.contentPane {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 0 4rem;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    padding: 0 6rem;
+  }
+}
+
+.inner {
+  max-width: 680px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.4rem 1.2rem;
+  margin-bottom: 1.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $primary-color;
+  background-color: rgba(229, 169, 60, 0.12);
+  border: 1px solid rgba(229, 169, 60, 0.25);
+  border-radius: $radius-full;
+}
+
+.pulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: $radius-full;
+  background-color: $primary-color;
+  box-shadow: 0 0 8px $primary-color;
+}
+
+.title {
+  margin: 0 0 1.6rem;
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
   color: #fff;
-  letter-spacing: $letter-spacing;
+
+  a {
+    color: inherit;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
 
   @media (min-width: $breakpoint-small) {
-    margin-bottom: 1.8rem;
+    font-size: 4.4rem;
   }
 
   @media (min-width: $breakpoint-large) {
-    font-size: 2.4vw;
+    font-size: 5.4rem;
   }
 }
 
-.meta {
-  font-size: 1.4rem;
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.6rem;
+  margin-bottom: 1.8rem;
+}
 
-  @media (min-width: $breakpoint-small) {
-    display: flex;
-  }
+.scoreBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: rgba(229, 169, 60, 0.18);
+  border: 1px solid rgba(229, 169, 60, 0.35);
+  border-radius: $radius-sm;
 
-  @media (min-width: 1650px) {
-    font-size: 0.9vw;
+  svg {
+    color: $primary-color;
   }
 }
 
-.rating {
+.voteCount {
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: $text-muted;
+}
+
+.specs {
   display: flex;
   align-items: center;
-  margin-bottom: 1.3rem;
-
-  @media (min-width: $breakpoint-small) {
-    margin: 0 1.2rem 0 0;
-  }
+  gap: 1.2rem;
+  font-size: 1.35rem;
+  color: $text-secondary;
 }
 
-.stars {
-  width: 8.5rem;
-  height: 1.4rem;
-  margin-right: 1rem;
-  background-image: url('~assets/images/stars.png');
-  background-repeat: no-repeat;
-  background-size: auto 100%;
-
-  @media (min-width: $breakpoint-small) {
-    width: 10.3rem;
-    height: 1.7rem;
-  }
-
-  > div {
-    height: 100%;
-    background-image: url('~assets/images/stars-filled.png');
-    background-repeat: no-repeat;
-    background-size: auto 100%;
-  }
+.specItem {
+  font-weight: 500;
 }
 
-.info {
-  display: flex;
-  align-items: center;
-
-  span {
-    margin-right: 0.9rem;
-  }
+.certBadge {
+  padding: 0.2rem 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $text-muted;
+  border: 1px solid $border-medium;
+  border-radius: $radius-xs;
 }
 
-.desc {
-  display: block;
-  margin-top: 2.5rem;
+.overview {
+  margin: 0 0 2.8rem;
   font-size: 1.5rem;
-  color: #fff;
+  line-height: 1.6;
+  color: $text-secondary;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 
-  @media (max-width: $breakpoint-small - 1) {
-    display: none;
+  @media (min-width: $breakpoint-small) {
+    font-size: 1.6rem;
   }
+}
 
-  @media (min-width: 1650px) {
-    font-size: 0.9vw;
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1.2rem 2.4rem;
+  font-size: 1.45rem;
+  font-weight: 600;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: all $transition-fast;
+}
+
+.btnPrimary {
+  color: #0a0b0e;
+  background-color: $primary-color;
+  border: 1px solid $primary-color;
+
+  &:hover {
+    background-color: $primary-hover;
+    box-shadow: 0 4px 20px rgba(229, 169, 60, 0.4);
+    transform: translateY(-2px);
   }
 }
 
-.trailer {
-  margin-top: 3rem;
+.btnSecondary {
+  color: $text-primary;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid $border-medium;
+  backdrop-filter: blur(8px);
 
-  @media (max-width: $breakpoint-medium - 1) {
-    display: none;
+  &:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
   }
-
-  @media (min-width: 1650px) {
-    font-size: 0.9vw;
-  }
-}
-</style>
-
-<style lang="scss">
-.hero-enter-active,
-.hero-leave-active {
-  transition: transform .75s cubic-bezier(.4, .25, .3, 1), opacity .3s cubic-bezier(.4, .25, .3, 1);
-}
-
-.hero-enter,
-.hero-leave-to {
-  opacity: 0;
-  transform: translate3d(0, 2rem, 0);
-}
-
-.hero-enter-to,
-.hero-leave {
-  opacity: 1;
-  transform: translateZ(0);
 }
 </style>

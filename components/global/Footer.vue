@@ -1,100 +1,321 @@
 <template>
   <footer :class="$style.footer">
-    <p>&copy; {{ new Date().getFullYear() }} Jason Ujma-Alvis. All rights reserved. <a target="_blank" href="https://jason.codes/cookie-policy" rel="noopener">Cookie Policy</a>.</p>
-    <p>Designed and built by me, data provided by <a target="_blank" href="https://www.themoviedb.org/" rel="noopener">TMDb</a>.</p>
+    <div :class="$style.container">
+      <div :class="$style.topSection">
+        <div :class="$style.brandCol">
+          <div :class="$style.brandMark">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect
+                x="2"
+                y="2"
+                width="20"
+                height="20"
+                rx="2.18"
+                ry="2.18" />
+              <line x1="7" y1="2" x2="7" y2="22" />
+              <line x1="17" y1="2" x2="17" y2="22" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <line x1="2" y1="7" x2="7" y2="7" />
+              <line x1="2" y1="17" x2="7" y2="17" />
+              <line x1="17" y1="17" x2="22" y2="17" />
+              <line x1="17" y1="7" x2="22" y2="7" />
+            </svg>
+            <span :class="$style.brandTitle">CinemaDB</span>
+          </div>
+          <p :class="$style.brandTagline">
+            A modern, cinematic digital film catalogue and discovery platform.
+          </p>
+        </div>
 
-    <ul class="nolist">
-      <li>
-        <a
-          href="https://twitter.com/jasonujmaalvis"
-          target="_blank"
-          aria-label="Link to Twitter account"
-          rel="noopener">
-          <!-- eslint-disable-next-line -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#585858"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/jasonujmaalvis"
-          target="_blank"
-          aria-label="Link to GitHub account"
-          rel="noopener">
-          <!-- eslint-disable-next-line -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#585858"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://www.linkedin.com/in/jason-ujma-alvis"
-          target="_blank"
-          aria-label="Link to LinkedIn account"
-          rel="noopener">
-          <!-- eslint-disable-next-line -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#585858"><path d="M19 0H5a5 5 0 0 0-5 5v14a5 5 0 0 0 5 5h14a5 5 0 0 0 5-5V5a5 5 0 0 0-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z"/></svg>
-        </a>
-      </li>
-      <li>
-        <a
-          href="mailto:hello@jason.codes"
-          aria-label="Link to Email"
-          rel="noopener">
-          <!-- eslint-disable-next-line -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#585858"><path d="M0 3v18h24V3H0zm21.518 2L12 12.713 2.482 5h19.036zM2 19V7.183l10 8.104 10-8.104V19H2z"/></svg>
-        </a>
-      </li>
-    </ul>
+        <div :class="$style.linksGrid">
+          <div :class="$style.col">
+            <h4 :class="$style.colHeader">
+              Movies
+            </h4>
+            <ul :class="$style.linksList">
+              <li>
+                <nuxt-link
+                  :to="{
+                    name: 'movie-category-name',
+                    params: { name: 'popular' },
+                  }">
+                  Popular
+                </nuxt-link>
+              </li>
+              <li>
+                <nuxt-link
+                  :to="{
+                    name: 'movie-category-name',
+                    params: { name: 'top_rated' },
+                  }">
+                  Top Rated
+                </nuxt-link>
+              </li>
+              <li>
+                <nuxt-link
+                  :to="{
+                    name: 'movie-category-name',
+                    params: { name: 'upcoming' },
+                  }">
+                  Upcoming
+                </nuxt-link>
+              </li>
+              <li>
+                <nuxt-link
+                  :to="{
+                    name: 'movie-category-name',
+                    params: { name: 'now_playing' },
+                  }">
+                  Now Playing
+                </nuxt-link>
+              </li>
+            </ul>
+          </div>
+
+          <div :class="$style.col">
+            <h4 :class="$style.colHeader">
+              TV Series
+            </h4>
+            <ul :class="$style.linksList">
+              <li>
+                <nuxt-link
+                  :to="{
+                    name: 'tv-category-name',
+                    params: { name: 'popular' },
+                  }">
+                  Popular
+                </nuxt-link>
+              </li>
+              <li>
+                <nuxt-link
+                  :to="{
+                    name: 'tv-category-name',
+                    params: { name: 'top_rated' },
+                  }">
+                  Top Rated
+                </nuxt-link>
+              </li>
+              <li>
+                <nuxt-link
+                  :to="{
+                    name: 'tv-category-name',
+                    params: { name: 'on_the_air' },
+                  }">
+                  On The Air
+                </nuxt-link>
+              </li>
+              <li>
+                <nuxt-link
+                  :to="{
+                    name: 'tv-category-name',
+                    params: { name: 'airing_today' },
+                  }">
+                  Airing Today
+                </nuxt-link>
+              </li>
+            </ul>
+          </div>
+
+          <div :class="$style.col">
+            <h4 :class="$style.colHeader">
+              Attribution
+            </h4>
+            <p :class="$style.tmdbNotice">
+              Film data, artwork, and metadata provided by
+              <a
+                href="https://www.themoviedb.org/"
+                target="_blank"
+                rel="noopener">The Movie Database (TMDb)</a>. This product uses the TMDb API but is not endorsed or certified
+              by TMDb.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div :class="$style.bottomSection">
+        <div :class="$style.copyText">
+          &copy; {{ new Date().getFullYear() }} CinemaDB. Designed &amp; built
+          for film enthusiasts.
+        </div>
+
+        <div :class="$style.socialLinks">
+          <a
+            href="https://github.com/designer-darshil/moviedb"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub Repository"
+            :class="$style.socialBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
   </footer>
 </template>
 
 <style lang="scss" module>
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
 .footer {
-  padding: 2rem 1.5rem 6.5rem;
-  color: $text-color-grey;
+  border-top: 1px solid $border-subtle;
+  background-color: $surface-1;
+  padding: 4.8rem 1.6rem 8rem;
 
   @media (min-width: $breakpoint-small) {
-    padding-right: 4rem;
-    padding-left: 4rem;
+    padding: 6rem 3.2rem 8rem;
   }
 
   @media (min-width: $breakpoint-large) {
-    padding: 2rem 5rem;
+    padding: 6.4rem 4.8rem 4.8rem;
   }
+}
 
-  p {
-    margin: 0.3rem 0;
-    font-size: 1.4rem;
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+  gap: 3.6rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid $border-subtle;
+
+  @media (min-width: $breakpoint-medium) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
   }
+}
+
+.brandCol {
+  max-width: 320px;
+}
+
+.brandMark {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  color: $primary-color;
+  margin-bottom: 1.2rem;
+}
+
+.brandTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.brandTagline {
+  font-size: 1.35rem;
+  line-height: 1.6;
+  color: $text-muted;
+}
+
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3.2rem 2.4rem;
+
+  @media (min-width: $breakpoint-small) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+  }
+}
+
+.colHeader {
+  margin: 0 0 1.6rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $text-primary;
+}
+
+.linksList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   a {
-    color: $text-color-grey;
+    font-size: 1.35rem;
+    color: $text-muted;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.tmdbNotice {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: $text-muted;
+
+  a {
+    color: $primary-color;
     text-decoration: underline;
   }
+}
 
-  ul {
-    display: flex;
-    margin: 2rem 0 0 -0.5rem;
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-top: 3.2rem;
 
-    a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 4.4rem;
-      height: 4.4rem;
+  @media (min-width: $breakpoint-small) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
 
-      svg {
-        transition: all 0.3s ease-in-out;
-      }
+.copyText {
+  font-size: 1.25rem;
+  color: $text-subtle;
+}
 
-      &:hover,
-      &:focus {
-        svg {
-          fill: #fff;
-        }
-      }
-    }
+.socialLinks {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.socialBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: $radius-full;
+  color: $text-muted;
+  background-color: $surface-2;
+  border: 1px solid $border-subtle;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: #fff;
+    background-color: $surface-3;
+    border-color: $border-medium;
+    transform: translateY(-2px);
   }
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <main class="main">
-    <TopNav
-      :title="metaTitle" />
+    <TopNav :title="metaTitle" />
 
     <Listing
       v-if="items && items.results.length"
@@ -23,6 +22,18 @@ export default {
     Listing,
   },
 
+  async asyncData ({ params, error }) {
+    try {
+      const items =
+        params.name === 'trending'
+          ? await getTrending('tv')
+          : await getTvShows(params.name);
+      return { items };
+    } catch {
+      error({ message: 'Page not found' });
+    }
+  },
+
   data () {
     return {
       loading: false,
@@ -34,7 +45,11 @@ export default {
       title: this.metaTitle,
       meta: [
         { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-        { hid: 'og:url', property: 'og:url', content: `${process.env.FRONTEND_URL}${this.$route.path}` },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: `${process.env.FRONTEND_URL}${this.$route.path}`,
+        },
       ],
       bodyAttrs: {
         class: 'topnav-active',
@@ -52,35 +67,30 @@ export default {
     },
   },
 
-  async asyncData ({ params, error }) {
-    try {
-      const items = params.name === 'trending' ? await getTrending('tv') : await getTvShows(params.name);
-      return { items };
-    } catch {
-      error({ message: 'Page not found' });
-    }
-  },
-
   methods: {
     loadMore () {
       this.loading = true;
 
       if (this.$route.params.name === 'trending') {
-        getTrending('tv', this.items.page + 1).then((response) => {
-          this.items.results = this.items.results.concat(response.results);
-          this.items.page = response.page;
-          this.loading = false;
-        }).catch(() => {
-          this.loading = false;
-        });
+        getTrending('tv', this.items.page + 1)
+          .then((response) => {
+            this.items.results = this.items.results.concat(response.results);
+            this.items.page = response.page;
+            this.loading = false;
+          })
+          .catch(() => {
+            this.loading = false;
+          });
       } else {
-        getTvShows(this.$route.params.name, this.items.page + 1).then((response) => {
-          this.items.results = this.items.results.concat(response.results);
-          this.items.page = response.page;
-          this.loading = false;
-        }).catch(() => {
-          this.loading = false;
-        });
+        getTvShows(this.$route.params.name, this.items.page + 1)
+          .then((response) => {
+            this.items.results = this.items.results.concat(response.results);
+            this.items.page = response.page;
+            this.loading = false;
+          })
+          .catch(() => {
+            this.loading = false;
+          });
       }
     },
   },

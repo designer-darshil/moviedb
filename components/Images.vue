@@ -68,7 +68,9 @@ export default {
 
   computed: {
     imagesCount () {
-      return `${this.images.length} ${this.images.length > 1 ? 'Images' : 'Image'}`;
+      return `${this.images.length} ${
+        this.images.length > 1 ? 'Images' : 'Image'
+      }`;
     },
   },
 
@@ -80,9 +82,10 @@ export default {
     handleData () {
       this.images.forEach((image) => {
         if (!image.file_path) return;
-        const thumb = this.type === 'poster'
-          ? getPosterUrl(image.file_path, 'w500')
-          : getBackdropUrl(image.file_path, 'w780');
+        const thumb =
+          this.type === 'poster'
+            ? getPosterUrl(image.file_path, 'w500')
+            : getBackdropUrl(image.file_path, 'w780');
         const src = getBackdropUrl(image.file_path, 'original');
         this.$set(image, 'thumb', thumb);
         this.$set(image, 'src', src);
@@ -103,7 +106,7 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
 .head {
   display: flex;

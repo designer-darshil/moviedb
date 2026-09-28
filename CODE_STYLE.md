@@ -1,6 +1,7 @@
 # CODE_STYLE.md — Coding Conventions & Standards
 
 ## 1. Code Formatting & Linting
+
 This project enforces consistent style via **ESLint** (`@nuxtjs/eslint-config`) and **Prettier**.
 
 - **Indentation**: 2 spaces (no tabs).
@@ -12,6 +13,7 @@ This project enforces consistent style via **ESLint** (`@nuxtjs/eslint-config`) 
 ---
 
 ## 2. Vue Component Structure
+
 Every `.vue` Single File Component must follow this structural order:
 
 ```vue
@@ -23,8 +25,8 @@ Every `.vue` Single File Component must follow this structural order:
 
 <script>
 // 1. Imports
-import { mapState } from 'vuex';
-import ComponentA from '~/components/ComponentA';
+import { mapState } from "vuex";
+import ComponentA from "~/components/ComponentA";
 
 export default {
   // 2. Component Registration
@@ -44,7 +46,7 @@ export default {
   },
 
   // 5. Reactive Data
-  data () {
+  data() {
     return {
       isOpen: false,
     };
@@ -52,21 +54,21 @@ export default {
 
   // 6. Computed Properties
   computed: {
-    ...mapState('search', ['searchOpen']),
+    ...mapState("search", ["searchOpen"]),
   },
 
   // 7. Lifecycle Hooks (mounted, created, beforeDestroy)
-  mounted () {
+  mounted() {
     // Event listeners
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     // Teardown event listeners
   },
 
   // 8. Methods
   methods: {
-    handleClick () {
+    handleClick() {
       // Logic
     },
   },
@@ -81,6 +83,7 @@ export default {
 ---
 
 ## 3. CSS & Styling Conventions
+
 - **CSS Modules**: Prefer `<style lang="scss" module>` for component-specific styles to avoid global style leakage and collision.
 - **Design Tokens**: Always use centralized tokens from `assets/css/utilities/_variables.scss` or CSS variables (`var(--bg-base)`, `var(--text-primary)`, etc.).
 - **Typography Units**: The project uses `1rem = 10px` root scale (`html { font-size: 62.5%; }`). Use `rem` for font sizes and layout margins.
@@ -89,6 +92,7 @@ export default {
 ---
 
 ## 4. Lint & Formatting Commands
+
 ```bash
 # Check code formatting and linting
 yarn lint

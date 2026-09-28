@@ -1,33 +1,63 @@
 <template>
-  <div :class="$style.form">
-    <form
-      autocomplete="off"
-      @submit.prevent>
-      <label
-        class="visuallyhidden"
-        for="search">Search</label>
+  <div :class="$style.overlay">
+    <div :class="$style.container">
+      <form autocomplete="off" :class="$style.form" @submit.prevent>
+        <label
+          class="visuallyhidden"
+          for="search">Search Movies, TV Shows, and People</label>
 
-      <div :class="$style.field">
-        <input
-          id="search"
-          ref="input"
-          v-model.trim="query"
-          name="search"
-          type="text"
-          placeholder="Search for a movie, tv show or person..."
-          @keyup="goToRoute"
-          @blur="unFocus">
+        <div :class="$style.field">
+          <span :class="$style.searchIcon">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </span>
 
-        <button
-          v-if="showButton"
-          type="button"
-          aria-label="Close"
-          @click="goBack">
-          <!-- eslint-disable-next-line -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"><path d="M.75.75l13.5 13.5M14.25.75L.75 14.25"/></g></svg>
-        </button>
-      </div>
-    </form>
+          <input
+            id="search"
+            ref="input"
+            v-model.trim="query"
+            name="search"
+            type="text"
+            placeholder="Search for movies, TV series, actors, directors..."
+            :class="$style.input"
+            @keyup="goToRoute"
+            @keydown.esc="handleEscape">
+
+          <div :class="$style.actions">
+            <span :class="$style.kbdHint">ESC</span>
+
+            <button
+              type="button"
+              aria-label="Close Search"
+              :class="$style.closeButton"
+              @click="closeSearch">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -42,17 +72,15 @@ export default {
   },
 
   computed: {
-    showButton () {
-      return this.$route.name === 'search';
-    },
-
-    ...mapState('search', [
-      'fromPage',
-    ]),
+    ...mapState('search', ['fromPage']),
   },
 
   mounted () {
-    this.$refs.input.focus();
+    this.$nextTick(() => {
+      if (this.$refs.input) {
+        this.$refs.input.focus();
+      }
+    });
   },
 
   methods: {
@@ -62,29 +90,20 @@ export default {
           name: 'search',
           query: { q: this.query },
         });
-      } else {
-        this.$router.push({
-          path: this.fromPage,
-        });
       }
     },
 
-    goBack () {
-      this.query = '';
-
-      this.$router.push({
-        path: this.fromPage,
-      });
+    handleEscape () {
+      this.closeSearch();
     },
 
-    unFocus (e) {
-      if (this.$route.name !== 'search') {
-        const target = e.relatedTarget;
-
-        if (!target || !target.classList.contains('search-toggle')) {
-          this.query = '';
-          this.$store.commit('search/closeSearch');
-        }
+    closeSearch () {
+      this.query = '';
+      this.$store.commit('search/closeSearch');
+      if (this.$route.name === 'search') {
+        this.$router.push({
+          path: this.fromPage || '/',
+        });
       }
     },
   },
@@ -92,49 +111,122 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
-.form {
+.overlay {
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
-  z-index: 10;
+  z-index: 90;
+  background-color: rgba(10, 11, 14, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid $border-subtle;
+  box-shadow: $shadow-lg;
+
+  @media (min-width: $breakpoint-medium) {
+    left: 8rem;
+  }
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.2rem 1.6rem;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 1.6rem 3.2rem;
+  }
 
   @media (min-width: $breakpoint-large) {
-    left: 10rem;
+    padding: 2rem 4.8rem;
   }
+}
 
-  input[type='text'] {
-    flex: 1;
-    height: 6rem;
-    padding: 2.1rem 1.5rem;
-    font-size: 1.6rem;
-    color: #fff;
-    background: none;
-    border: 0;
-    outline: 0;
-
-    @media (min-width: $breakpoint-large) {
-      height: 8rem;
-      padding: 3.1rem 5rem;
-    }
-  }
-
-  button {
-    display: flex;
-    align-items: center;
-    padding: 0 1.5rem;
-    background: none;
-
-    @media (min-width: $breakpoint-large) {
-      padding: 0 5rem;
-    }
-  }
+.form {
+  width: 100%;
 }
 
 .field {
   display: flex;
-  background-color: $secondary-color;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 0.8rem 1.6rem;
+  background-color: $surface-2;
+  border: 1px solid $border-medium;
+  border-radius: $radius-md;
+  transition: all $transition-fast;
+
+  &:focus-within {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba(229, 169, 60, 0.15);
+  }
+}
+
+.searchIcon {
+  display: flex;
+  align-items: center;
+  color: $primary-color;
+}
+
+.input {
+  flex: 1;
+  height: 4.4rem;
+  padding: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: $text-primary;
+  background: transparent;
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  @media (min-width: $breakpoint-small) {
+    height: 4.8rem;
+    font-size: 1.8rem;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.kbdHint {
+  display: none;
+  padding: 0.3rem 0.7rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $text-muted;
+  background-color: $surface-3;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-xs;
+
+  @media (min-width: $breakpoint-small) {
+    display: inline-block;
+  }
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: $radius-full;
+  color: $text-muted;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: #fff;
+    background-color: $surface-3;
+  }
 }
 </style>

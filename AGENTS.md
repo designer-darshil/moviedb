@@ -7,6 +7,7 @@ This document specifies repository-specific rules, constraints, and operational 
 ---
 
 ## 1. Project Context & Environment
+
 - **Framework**: Nuxt.js 2.15.8 (Vue.js 2.7.10) configured with `target: 'static'` and `ssr: false`.
 - **Node Environment**: Node.js 18+ (requires `NODE_OPTIONS=--openssl-legacy-provider` for Webpack 4 compilation on Node 17+).
 - **Package Manager**: `yarn` is the canonical package manager. Do not mix with `npm` lockfiles.
@@ -15,6 +16,7 @@ This document specifies repository-specific rules, constraints, and operational 
 ---
 
 ## 2. Core Operational Constraints
+
 1. **Preserve Core APIs and Data Contracts**:
    - Never alter the function signatures or response shapes of `api/index.js` (`getMovies`, `getMovie`, `getTrending`, `getTvShows`, `getTvShow`, `getPerson`, `search`, etc.).
    - Preserve all existing route definitions (`/`, `/movie`, `/movie/:id`, `/movie/category/:name`, `/tv`, `/tv/:id`, `/tv/category/:name`, `/person/:id`, `/search`, `/genre/:id/movie`, `/genre/:id/tv`).
@@ -30,6 +32,7 @@ This document specifies repository-specific rules, constraints, and operational 
 ---
 
 ## 3. Mandatory Commands
+
 - **Install**: `yarn`
 - **Development Server**: `yarn dev` (runs `NODE_OPTIONS=--openssl-legacy-provider nuxt --host`)
 - **Linting**: `yarn lint`
@@ -40,4 +43,5 @@ This document specifies repository-specific rules, constraints, and operational 
 ---
 
 ## 4. Documentation Governance Protocol
+
 Every code modification must be checked against the 8 canonical documents (`PRD.md`, `AGENTS.md`, `DESIGN_SYSTEM.md`, `ARCHITECTURE.md`, `SECURITY.md`, `CODE_STYLE.md`, `TESTING.md`, `README.md`). If a feature, architecture, token, or command changes, synchronize the corresponding canonical documentation before considering the task complete.

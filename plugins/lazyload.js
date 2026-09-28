@@ -28,7 +28,12 @@ const imageError = function (e) {
  * Function to load the image
  */
 const loadImage = function (el, path) {
-  if (!path || typeof path !== 'string' || path === 'null' || path === 'undefined') {
+  if (
+    !path ||
+    typeof path !== 'string' ||
+    path === 'null' ||
+    path === 'undefined'
+  ) {
     if (el && el.parentElement) {
       el.parentElement.classList.remove('lazyloading', 'lazyloaded');
       el.parentElement.classList.add('lazyerror');
@@ -95,7 +100,11 @@ Vue.directive('lazyload', {
 
   update (el, binding) {
     // only run if the value is defined and has changed
-    if (binding.value && binding.value !== binding.oldValue && binding.value !== el.src) {
+    if (
+      binding.value &&
+      binding.value !== binding.oldValue &&
+      binding.value !== el.src
+    ) {
       loadImage(el, binding.value);
     }
   },

@@ -2,7 +2,7 @@
   <div class="spacing">
     <div :class="$style.head">
       <div :class="$style.filter">
-        <label for="credits_category">
+        <label for="credits_category" :class="$style.filterLabel">
           Department
         </label>
 
@@ -12,11 +12,11 @@
           :disabled="!categories.length || categories.length === 1"
           @change="filterCredits">
           <option value="all">
-            All
+            All Departments
           </option>
 
           <option
-            v-for="(category) in categories"
+            v-for="category in categories"
             :key="`credit-filter-${category.toLowerCase()}`"
             :value="category.toLowerCase()">
             {{ category }}
@@ -25,22 +25,17 @@
       </div>
 
       <div :class="$style.filter">
-        <label for="credits_media">
-          Media
-        </label>
+        <label for="credits_media" :class="$style.filterLabel"> Format </label>
 
-        <select
-          id="credits_media"
-          v-model="active_media"
-          @change="getCredits">
+        <select id="credits_media" v-model="active_media" @change="getCredits">
           <option value="combined_credits">
-            All
+            All Formats
           </option>
           <option value="movie_credits">
-            Movies
+            Feature Films
           </option>
           <option value="tv_credits">
-            TV Shows
+            TV Series
           </option>
         </select>
       </div>
@@ -50,18 +45,23 @@
       v-for="category in active_credits"
       :key="`credits-${category.name.toLowerCase()}`"
       :class="$style.category">
-      <h2 :class="$style.title">
-        {{ category.name }}
-      </h2>
+      <div :class="$style.categoryHeader">
+        <span :class="$style.accentBar" />
+        <h2 :class="$style.title">
+          {{ category.name }}
+        </h2>
+      </div>
 
-      <table>
-        <tbody>
-          <CreditsHistoryGroup
-            v-for="group in category.groups"
-            :key="`credit-${category.name.toLowerCase()}-${group.year}`"
-            :group="group" />
-        </tbody>
-      </table>
+      <div :class="$style.tableWrap">
+        <table :class="$style.table">
+          <tbody>
+            <CreditsHistoryGroup
+              v-for="group in category.groups"
+              :key="`credits-group-${group.year}`"
+              :group="group" />
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -84,219 +84,170 @@ export default {
 
   data () {
     return {
-      active_media: 'combined_credits',
       active_category: 'all',
-      categories: [],
       active_credits: null,
-      combined_credits: [],
-      movie_credits: [],
-      tv_credits: [],
+      active_media: 'combined_credits',
+      categories: [],
+      data: null,
     };
   },
 
   created () {
-    const cast = this.handleCast(this.credits.cast);
-    const crew = this.handleCrew(this.credits.crew);
-
-    if (cast) this.$data[this.active_media].push({ name: 'Acting', groups: cast });
-    if (crew) this.$data[this.active_media] = [...this.$data[this.active_media], ...crew];
-
-    // set the active credits
-    this.active_credits = this.$data[this.active_media];
-
-    // set the category filter
-    this.categories = this.getCategories();
+    this.initData(this.credits);
   },
 
   methods: {
-    handleCast (items) {
-      if (!items || !items.length) return;
-
-      // group credits (by year)
-      let groups = this.groupItems(items);
-
-      // get blank group (no year)
-      const blankGroup = groups.find(group => group.year === '');
-
-      // remove blank group
-      if (blankGroup) groups = groups.filter(group => group.year !== '');
-
-      // sort groups by year
-      this.sortGroups(groups);
-
-      // add blank group to the start
-      if (blankGroup) groups.unshift(blankGroup);
-
-      // sort credits in the group by date
-      groups.forEach(group => this.sortCredits(group.credits));
-
-      return groups;
+    initData (credits) {
+      this.data = credits;
+      this.active_category = 'all';
+      this.active_credits = null;
+      this.categories = [];
+      this.formatCredits(credits);
     },
 
-    handleCrew (items) {
-      if (!items || !items.length) return;
+    formatCredits (credits) {
+      if (credits.cast && credits.cast.length) {
+        this.categories.push('Acting');
+      }
 
-      // group by department
-      const categories = this.createCategories(items);
+      if (credits.crew && credits.crew.length) {
+        const departments = credits.crew
+          .map(crew => crew.department)
+          .filter(
+            (department, index, self) => self.indexOf(department) === index,
+          );
+        this.categories = [...this.categories, ...departments];
+      }
 
-      categories.forEach((category) => {
-        // group credits (by year)
-        let groups = this.groupItems(category.groups);
+      const temp = [];
 
-        // get blank group (no year)
-        const blankGroup = groups.find(group => group.year === '');
+      this.categories.forEach((category) => {
+        let items;
 
-        // remove blank group
-        if (blankGroup) groups = groups.filter(group => group.year !== '');
+        if (category === 'Acting') {
+          items = credits.cast;
+        } else {
+          items = credits.crew.filter(
+            credit => credit.department === category,
+          );
+        }
 
-        // sort groups by year
-        this.sortGroups(groups);
+        const dates = items
+          .map((item) => {
+            const date = item.release_date || item.first_air_date;
+            return date ? date.split('-')[0] : '';
+          })
+          .filter((date, index, self) => self.indexOf(date) === index)
+          .sort((a, b) => (a > b ? -1 : 1));
 
-        // add blank group to the start
-        if (blankGroup) groups.unshift(blankGroup);
+        const groups = [];
 
-        // sort credits in the group by date
-        groups.forEach(group => this.sortCredits(group.credits));
+        dates.forEach((date) => {
+          const group = {
+            year: date,
+            credits: items.filter((item) => {
+              const itemDate = item.release_date || item.first_air_date;
+              return itemDate ? itemDate.split('-')[0] === date : date === '';
+            }),
+          };
 
-        // set items to the new group
-        category.groups = groups;
+          groups.push(group);
+        });
+
+        temp.push({
+          name: category,
+          groups,
+        });
       });
 
-      return categories;
-    },
-
-    getCategories () {
-      return this.active_credits.map(category => category.name);
-    },
-
-    getCredits () {
-      const media = this.active_media;
-
-      // if we already have the credits, just show them
-      // else do api call
-      if (this.$data[media] && this.$data[media].length) {
-        this.active_credits = this.$data[media];
-        this.active_category = 'all';
-        this.categories = this.getCategories();
-      } else {
-        getCredits(this.$route.params.id, media).then((response) => {
-          const cast = this.handleCast(response.cast);
-          const crew = this.handleCrew(response.crew);
-
-          if (cast) this.$data[media].push({ name: 'Acting', groups: cast });
-          if (crew) this.$data[media] = [...this.$data[media], ...crew];
-
-          this.active_credits = this.$data[media];
-          this.active_category = 'all';
-          this.categories = this.getCategories();
-        });
-      }
+      this.active_credits = temp;
     },
 
     filterCredits () {
       if (this.active_category === 'all') {
-        this.active_credits = this.$data[this.active_media];
+        this.formatCredits(this.data);
       } else {
-        this.active_credits = this.$data[this.active_media].filter(category => category.name.toLowerCase() === this.active_category);
+        const credits = this.active_credits.filter(
+          credit => credit.name.toLowerCase() === this.active_category,
+        );
+        this.active_credits = credits;
       }
     },
 
-    createCategories (items) {
-      const categories = [];
-
-      items.forEach((item) => {
-        const exists = categories.find(category => category.name === item.department);
-
-        if (exists) {
-          exists.groups.push(item);
-        } else {
-          categories.push({
-            name: item.department,
-            groups: [item],
-          });
-        }
-      });
-
-      return categories;
-    },
-
-    groupItems (items) {
-      return items.reduce(function (arr, current) {
-        const date = current.release_date ? current.release_date : current.first_air_date;
-        const year = date ? date.split('-')[0] : '';
-        const exists = arr.find(item => item.year === year);
-
-        if (exists) {
-          exists.credits.push(current);
-        } else {
-          arr.push({
-            year,
-            credits: [current],
-          });
-        }
-
-        return arr;
-      }, []);
-    },
-
-    sortGroups (items) {
-      return items.sort((a, b) => a.year > b.year ? -1 : 1);
-    },
-
-    sortCredits (items) {
-      // sort items in the group by date
-      return items.sort((a, b) => {
-        const aDate = a.release_date ? a.release_date : a.first_air_date;
-        const bDate = b.release_date ? b.release_date : b.first_air_date;
-
-        if (aDate > bDate) {
-          return -1;
-        } else if (aDate < bDate) {
-          return 1;
-        }
-
-        return 0;
-      });
+    getCredits () {
+      getCredits(this.$route.params.id, this.active_media)
+        .then((response) => {
+          this.initData(response);
+        })
+        .catch(() => {});
     },
   },
 };
 </script>
 
 <style lang="scss" module>
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
 .head {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 1.5rem;
+  gap: 2rem;
+  margin-bottom: 3.2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid $border-subtle;
 }
 
 .filter {
-  margin-right: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
 
-  label {
-    margin-right: 1rem;
-    font-size: 1.2rem;
-    letter-spacing: $letter-spacing;
-
-    @media (min-width: $breakpoint-large) {
-      font-size: 1.4rem;
-    }
-  }
+.filterLabel {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .category {
-  margin-bottom: 3rem;
+  margin-bottom: 4.8rem;
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.accentBar {
+  display: inline-block;
+  width: 4px;
+  height: 2.2rem;
+  background-color: $primary-color;
+  border-radius: $radius-full;
 }
 
 .title {
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  letter-spacing: $letter-spacing;
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: $text-primary;
+  letter-spacing: -0.01em;
+}
 
-  @media (min-width: $breakpoint-large) {
-    margin-bottom: 2rem;
-    font-size: 2.4rem;
-  }
+.tableWrap {
+  background-color: $surface-1;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
 }
 </style>

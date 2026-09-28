@@ -1,52 +1,73 @@
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
 .alert {
-  font-size: 1.4rem;
-  color: #fff;
-  background-color: $secondary-color;
+  position: relative;
+  z-index: 80;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: $text-primary;
+  background-color: $surface-1;
+  border-bottom: 1px solid $border-subtle;
 
   p {
     margin: 0;
   }
 
   a {
-    color: #fff;
+    color: $primary-color;
     text-decoration: underline;
+
+    &:hover {
+      color: $primary-hover;
+    }
   }
 
   button {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 }
 
 .alert + .alert {
-  border-top: 1px solid #000;
+  border-top: 1px solid $border-subtle;
 }
 
 .alert__close {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  padding: 0 3rem;
+  justify-content: center;
+  padding: 0 2rem;
   background: none;
-  border-left: 1px solid #000;
+  border-left: 1px solid $border-subtle;
+  color: $text-muted;
+  cursor: pointer;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: #fff;
+  }
 }
 
 .alert__btn--primary {
-  background-color: $primary-color;
+  color: #0a0b0e !important;
+  background-color: $primary-color !important;
+  font-weight: 700;
 
   &:hover,
   &:focus {
-    background-color: #146fb7;
+    background-color: $primary-hover !important;
   }
 }
 
 .alert__btn--secondary {
-  background-color: #000;
+  color: $text-primary !important;
+  background-color: $surface-2 !important;
+  border: 1px solid $border-subtle !important;
 
   &:hover,
   &:focus {
-    background-color: #2f2f2f;
+    background-color: $surface-3 !important;
+    border-color: $border-medium !important;
   }
 }
 
@@ -55,40 +76,41 @@
 
   p {
     flex: 1;
-    padding: 1.5rem;
-
-    @media (min-width: $breakpoint-small) {
-      padding: 1.5rem 2rem;
-    }
+    padding: 1.4rem 2rem;
   }
 }
 
 .alert--alt {
-  padding: 1.5rem;
+  padding: 1.4rem 2rem;
 
   @media (min-width: $breakpoint-small) {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 2rem;
+    padding: 1.4rem 3.2rem;
   }
 
   p {
     @media (min-width: $breakpoint-small) {
-      margin-right: 1rem;
+      margin-right: 2rem;
     }
   }
 
   div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.2rem;
     flex-shrink: 0;
+
+    @media (min-width: $breakpoint-small) {
+      margin-top: 0;
+    }
   }
 
   .alert__btn {
-    margin: 1.5rem 1rem 0 0;
-
-    @media (min-width: $breakpoint-small) {
-      flex-shrink: 0;
-      margin: 0 0 0 1rem;
-    }
+    padding: 0.8rem 1.8rem;
+    font-size: 1.3rem;
+    border-radius: $radius-sm;
   }
 }

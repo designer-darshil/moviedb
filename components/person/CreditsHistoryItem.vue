@@ -1,21 +1,19 @@
 <template>
   <tr :class="$style.item">
     <td :class="$style.year">
-      {{ year ? year : '—' }}
+      {{ year ? year : "—" }}
     </td>
-    <td>
-      <nuxt-link :to="{ name: `${media}-id`, params: { id: credit.id } }">
-        <strong>{{ name }}</strong>
+    <td :class="$style.titleCell">
+      <nuxt-link
+        :to="{ name: `${media}-id`, params: { id: credit.id } }"
+        :class="$style.link">
+        <strong :class="$style.title">{{ name }}</strong>
 
-        <span
-          v-if="episodes"
-          :class="$style.episodes">
+        <span v-if="episodes" :class="$style.episodes">
           {{ episodes }}
         </span>
 
-        <span
-          v-if="role"
-          :class="$style.role">
+        <span v-if="role" :class="$style.role">
           {{ role }}
         </span>
       </nuxt-link>
@@ -83,30 +81,58 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
 .item {
-  font-size: 1.5rem;
+  transition: background-color $transition-fast;
 
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.6rem;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+
+    .title {
+      color: $primary-color;
+    }
   }
 
   td {
-    padding: 1rem 2rem;
-    border-bottom: 1px solid #141414;
+    padding: 1.4rem 1.6rem;
+    border-bottom: 1px solid $border-subtle;
+    vertical-align: middle;
   }
 }
 
 .year {
-  width: 8rem;
+  width: 9rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: $text-muted;
+}
+
+.titleCell {
+  font-size: 1.5rem;
+}
+
+.link {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.title {
+  color: $text-primary;
+  font-weight: 600;
+  transition: color $transition-fast;
 }
 
 .episodes {
-  color: #999;
+  font-size: 1.25rem;
+  color: $text-muted;
 }
 
 .role {
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.35rem;
+  color: $text-secondary;
 }
 </style>

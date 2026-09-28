@@ -1,27 +1,44 @@
 <template>
-  <div class="credits-item">
+  <div :class="$style.item">
     <nuxt-link
-      class="credits-item__link"
-      :to="{ name: 'person-id', params: { id: person.id } }">
-      <div class="credits-item__img">
+      :class="$style.link"
+      :to="{ name: 'person-id', params: { id: person.id } }"
+      :aria-label="`${person.name} as ${person.character}`">
+      <div :class="$style.photoWrap">
         <img
           v-if="poster"
           v-lazyload="poster"
           class="lazyload"
+          :class="$style.image"
           :alt="person.name">
 
-        <span v-else>
-          <!-- eslint-disable-next-line -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd" fill="#999"><path d="M24 22h-24v-20h24v20zm-1-19h-22v18h22v-18zm-1 16h-19l4-7.492 3 3.048 5.013-7.556 6.987 12zm-11.848-2.865l-2.91-2.956-2.574 4.821h15.593l-5.303-9.108-4.806 7.243zm-4.652-11.135c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5zm0 1c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"/></svg>
-        </span>
+        <div v-else :class="$style.placeholder">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+        </div>
       </div>
 
-      <h2 class="credits-item__name">
-        {{ person.name }}
-      </h2>
-
-      <div class="credits-item__character">
-        {{ person.character }}
+      <div :class="$style.content">
+        <h3 :class="$style.name" :title="person.name">
+          {{ person.name }}
+        </h3>
+        <p
+          v-if="person.character"
+          :class="$style.character"
+          :title="person.character">
+          {{ person.character }}
+        </p>
       </div>
     </nuxt-link>
   </div>
@@ -42,76 +59,108 @@ export default {
     poster () {
       if (this.person.profile_path) {
         return getProfileUrl(this.person.profile_path, 'h632');
-      } else {
-        return null;
       }
+      return null;
     },
   },
 };
 </script>
 
-<style lang="scss">
-@import '~/assets/css/utilities/_variables.scss';
+<style lang="scss" module>
+@import "~/assets/css/utilities/_variables.scss";
 
-.credits-item {
-  margin-bottom: 2rem;
-  line-height: $base-line-height;
+.item {
+  width: 100%;
 }
 
-.credits-item__img {
+.link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  outline: none;
+
+  &:hover {
+    .photoWrap {
+      border-color: $border-medium;
+      box-shadow: $shadow-md;
+      transform: translateY(-3px);
+    }
+
+    .image {
+      transform: scale(1.05);
+    }
+
+    .name {
+      color: $primary-color;
+    }
+  }
+
+  &:focus-visible .photoWrap {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+}
+
+.photoWrap {
   position: relative;
+  width: 100%;
   height: 0;
-  padding-top: 150.27%;
+  padding-top: 150%; // Standard 2:3 portrait ratio
   overflow: hidden;
-  background-color: $secondary-color;
-  transition: transform 0.3s ease-in-out;
-
-  img,
-  span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform: scale(0.97);
-  }
-
-  span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.lazyloaded img {
-    transform: scale(1);
-  }
+  background-color: $surface-2;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-md;
+  transition: all $transition-normal;
 }
 
-.credits-item__link:hover,
-.credits-item__link:focus {
-  .credits-item__img {
-    transform: scale(1.02);
-  }
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform $transition-slow;
 }
 
-.credits-item__name {
-  margin-top: 1rem;
-  font-size: 1.3rem;
-  letter-spacing: $letter-spacing;
-
-  @media (min-width: $breakpoint-large) {
-    margin-bottom: 0.5rem;
-    font-size: 1.5rem;
-  }
+.placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-muted;
+  background-color: $surface-1;
 }
 
-.credits-item__character {
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0.2rem 0;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: $text-primary;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color $transition-fast;
+}
+
+.character {
+  margin: 0.3rem 0 0;
   font-size: 1.2rem;
-  color: $text-color-grey;
-  letter-spacing: $letter-spacing;
-
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.4rem;
-  }
+  color: $text-muted;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

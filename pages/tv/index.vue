@@ -1,7 +1,6 @@
 <template>
   <main class="main">
-    <Hero
-      :item="featured" />
+    <Hero :item="featured" />
 
     <ListingCarousel
       v-if="popular && popular.results.length"
@@ -40,12 +39,30 @@ export default {
     ListingCarousel,
   },
 
+  async asyncData ({ error }) {
+    try {
+      const popular = await getTvShows('popular');
+      const topRated = await getTvShows('top_rated');
+      const onAir = await getTvShows('on_the_air');
+      const airingToday = await getTvShows('airing_today');
+      const featured = await getTvShow(popular.results[0].id);
+
+      return { popular, topRated, onAir, airingToday, featured };
+    } catch {
+      error({ statusCode: 504, message: 'Data not available' });
+    }
+  },
+
   head () {
     return {
       title: 'TV Shows',
       meta: [
         { hid: 'og:title', property: 'og:title', content: 'TV Shows' },
-        { hid: 'og:url', property: 'og:url', content: `${process.env.FRONTEND_URL}${this.$route.path}` },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: `${process.env.FRONTEND_URL}${this.$route.path}`,
+        },
       ],
     };
   },
@@ -82,20 +99,6 @@ export default {
     airingTodayUrl () {
       return { name: 'tv-category-name', params: { name: 'airing_today' } };
     },
-  },
-
-  async asyncData ({ error }) {
-    try {
-      const popular = await getTvShows('popular');
-      const topRated = await getTvShows('top_rated');
-      const onAir = await getTvShows('on_the_air');
-      const airingToday = await getTvShows('airing_today');
-      const featured = await getTvShow(popular.results[0].id);
-
-      return { popular, topRated, onAir, airingToday, featured };
-    } catch {
-      error({ statusCode: 504, message: 'Data not available' });
-    }
   },
 };
 </script>

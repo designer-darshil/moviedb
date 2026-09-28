@@ -1,24 +1,17 @@
 <template>
   <main class="main">
-    <TopNav
-      :title="metaTitle" />
+    <TopNav :title="metaTitle" />
 
-    <PersonInfo
-      :person="person" />
+    <PersonInfo :person="person" />
 
-    <MediaNav
-      :menu="menu"
-      @clicked="navClicked" />
+    <MediaNav :menu="menu" @clicked="navClicked" />
 
     <template v-if="activeMenu === 'known-for'">
-      <Listing
-        v-if="knownFor && knownFor.results.length"
-        :items="knownFor" />
+      <Listing v-if="knownFor && knownFor.results.length" :items="knownFor" />
     </template>
 
     <template v-if="activeMenu === 'credits'">
-      <CreditsHistory
-        :credits="person.combined_credits" />
+      <CreditsHistory :credits="person.combined_credits" />
     </template>
 
     <template v-if="activeMenu === 'photos' && showImages">
@@ -50,20 +43,18 @@ export default {
     Listing,
   },
 
-  head () {
-    return {
-      title: this.metaTitle,
-      meta: [
-        { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-        { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-        { hid: 'description', name: 'description', content: this.metaDescription },
-        { hid: 'og:image', property: 'og:image', content: this.metaImage },
-        { hid: 'og:url', property: 'og:url', content: `${process.env.FRONTEND_URL}${this.$route.path}` },
-      ],
-      bodyAttrs: {
-        class: 'topnav-active',
-      },
-    };
+  async asyncData ({ params, error }) {
+    try {
+      const person = await getPerson(params.id);
+
+      if (person.adult) {
+        error({ message: 'This person is not available' });
+      } else {
+        return { person };
+      }
+    } catch {
+      error({ statusCode: 404, message: 'Page not found' });
+    }
   },
 
   data () {
@@ -71,6 +62,34 @@ export default {
       menu: [],
       activeMenu: 'known-for',
       knownFor: null,
+    };
+  },
+
+  head () {
+    return {
+      title: this.metaTitle,
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: this.metaDescription,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.metaDescription,
+        },
+        { hid: 'og:image', property: 'og:image', content: this.metaImage },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: `${process.env.FRONTEND_URL}${this.$route.path}`,
+        },
+      ],
+      bodyAttrs: {
+        class: 'topnav-active',
+      },
     };
   },
 
@@ -97,22 +116,8 @@ export default {
 
     showImages () {
       const images = this.person.images;
-      return images && (images.profiles && images.profiles.length);
+      return images && images.profiles && images.profiles.length;
     },
-  },
-
-  async asyncData ({ params, error }) {
-    try {
-      const person = await getPerson(params.id);
-
-      if (person.adult) {
-        error({ message: 'This person is not available' });
-      } else {
-        return { person };
-      }
-    } catch {
-      error({ statusCode: 404, message: 'Page not found' });
-    }
   },
 
   created () {
@@ -154,11 +159,17 @@ export default {
       if (department === 'Acting') {
         results = this.person.combined_credits.cast;
       } else if (department === 'Directing') {
-        results = this.person.combined_credits.crew.filter(item => item.department === 'Directing');
+        results = this.person.combined_credits.crew.filter(
+          item => item.department === 'Directing',
+        );
       } else if (department === 'Production') {
-        results = this.person.combined_credits.crew.filter(item => item.department === 'Production');
+        results = this.person.combined_credits.crew.filter(
+          item => item.department === 'Production',
+        );
       } else if (department === 'Writing' || department === 'Creator') {
-        results = this.person.combined_credits.crew.filter(item => item.department === 'Writing');
+        results = this.person.combined_credits.crew.filter(
+          item => item.department === 'Writing',
+        );
       }
 
       // if no results, return
@@ -174,7 +185,7 @@ export default {
       });
 
       // sort by popularity
-      results.sort((a, b) => a.vote_count > b.vote_count ? -1 : 1);
+      results.sort((a, b) => (a.vote_count > b.vote_count ? -1 : 1));
 
       this.knownFor = {
         page: 1,

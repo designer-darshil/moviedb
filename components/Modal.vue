@@ -10,16 +10,27 @@
       :class="modalClass"
       @click="close">
       <div class="modal__wrap">
-        <div
-          class="modal__body"
-          @click.stop>
+        <div class="modal__body" @click.stop>
           <button
             class="modal__close"
             aria-label="Close"
             type="button"
             @click.stop="close">
             <!-- eslint-disable-next-line -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"><path d="M.75.75l13.5 13.5M14.25.75L.75 14.25"/></g></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 15 15">
+              <g
+                fill="none"
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-miterlimit="10"
+                stroke-width="1.5">
+                <path d="M.75.75l13.5 13.5M14.25.75L.75 14.25" />
+              </g>
+            </svg>
           </button>
 
           <div :class="`modal__${type}`">
@@ -37,16 +48,27 @@
               alt="">
           </div>
 
-          <div
-            v-if="showNav"
-            class="modal__nav">
+          <div v-if="showNav" class="modal__nav">
             <button
               class="modal__arrow modal__arrow--prev"
               aria-label="Previous"
               type="button"
               @click.stop="previous">
               <!-- eslint-disable-next-line -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M17.9 23.2L6.1 12 17.9.8"></path></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24">
+                <path
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  d="M17.9 23.2L6.1 12 17.9.8" />
+              </svg>
             </button>
 
             <div class="modal__count">
@@ -60,7 +82,20 @@
               title="Next"
               @click.stop="next">
               <!-- eslint-disable-next-line -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M6.1 23.2L17.9 12 6.1.8"></path></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24">
+                <path
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="10"
+                  d="M6.1 23.2L17.9 12 6.1.8" />
+              </svg>
             </button>
           </div>
         </div>
@@ -118,18 +153,18 @@ export default {
     },
   },
 
+  data () {
+    return {
+      selected: null,
+      activeItem: null,
+    };
+  },
+
   head () {
     return {
       bodyAttrs: {
         class: 'modal-open',
       },
-    };
-  },
-
-  data () {
-    return {
-      selected: null,
-      activeItem: null,
     };
   },
 
@@ -173,7 +208,9 @@ export default {
   },
 
   mounted () {
-    focusableEls = this.$refs.modal.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]');
+    focusableEls = this.$refs.modal.querySelectorAll(
+      'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]',
+    );
     focusableEls = Array.prototype.slice.call(focusableEls);
 
     firstFocusableEl = focusableEls[0];
@@ -203,7 +240,7 @@ export default {
 
   methods: {
     previous () {
-      this.selected = ((this.selected - 1) + this.data.length) % this.data.length;
+      this.selected = (this.selected - 1 + this.data.length) % this.data.length;
     },
 
     next () {
@@ -215,13 +252,17 @@ export default {
     },
 
     handleKeyDown (e) {
-      if (e.keyCode === 27) { // esc key
+      if (e.keyCode === 27) {
+        // esc key
         this.close();
-      } else if (this.nav && e.keyCode === 39) { // right arrow
+      } else if (this.nav && e.keyCode === 39) {
+        // right arrow
         this.next();
-      } else if (this.nav && e.keyCode === 37) { // left arrow
+      } else if (this.nav && e.keyCode === 37) {
+        // left arrow
         this.previous();
-      } else if (e.keyCode === 9) { // tab
+      } else if (e.keyCode === 9) {
+        // tab
         if (focusableEls.length === 1) {
           e.preventDefault();
           return;
@@ -257,8 +298,10 @@ export default {
       let width;
       let height;
 
-      maxWidth -= parseFloat(styles.paddingRight) + parseFloat(styles.paddingLeft);
-      maxHeight -= parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+      maxWidth -=
+        parseFloat(styles.paddingRight) + parseFloat(styles.paddingLeft);
+      maxHeight -=
+        parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
 
       width = maxWidth;
       height = maxHeight;
@@ -269,8 +312,12 @@ export default {
         width = maxHeight * aspectRatio;
       }
 
-      this.$refs.modal.querySelector('.modal__iframe').style.width = `${width}px`;
-      this.$refs.modal.querySelector('.modal__iframe').style.height = `${height}px`;
+      this.$refs.modal.querySelector(
+        '.modal__iframe',
+      ).style.width = `${width}px`;
+      this.$refs.modal.querySelector(
+        '.modal__iframe',
+      ).style.height = `${height}px`;
     },
 
     resizeIframeSize: debounce(function () {
@@ -281,7 +328,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
 body.modal-open {
   overflow: hidden;
@@ -297,7 +344,9 @@ body.modal-open {
   overflow-x: hidden;
   overflow-y: auto;
   cursor: pointer;
-  background-color: #000;
+  background-color: rgba(10, 11, 14, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 
   @media (min-width: $breakpoint-large) {
     padding: 4.4rem 10rem;
@@ -320,20 +369,32 @@ body.modal-open {
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 1;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 4rem;
+  height: 4rem;
   padding: 0;
-  background: none;
+  background-color: $surface-2;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-full;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background-color: $surface-3;
+    border-color: $border-medium;
+    transform: scale(1.08);
+  }
 
   @media (max-width: $breakpoint-large - 1) {
     position: fixed;
-    left: 0;
-    width: 6rem;
-    height: 6rem;
+    top: 1.6rem;
+    right: 1.6rem;
+    left: auto;
+    width: 4.4rem;
+    height: 4.4rem;
   }
 }
 
@@ -419,7 +480,7 @@ body.modal-open {
 
 .modal__image {
   &.lazyloading {
-    background: url('~assets/images/loader.svg') no-repeat center;
+    background: url("~assets/images/loader.svg") no-repeat center;
   }
 
   img {

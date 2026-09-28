@@ -31,9 +31,7 @@ export default {
   },
 
   computed: {
-    ...mapState('search', [
-      'searchOpen',
-    ]),
+    ...mapState('search', ['searchOpen']),
   },
 };
 </script>

@@ -28,7 +28,8 @@ export default {
   methods: {
     calculateState (numberOfItems) {
       let unusableVisibleWidth = 72;
-      const elementWidth = this.$refs.carouselElement.firstChild.getBoundingClientRect().width;
+      const elementWidth =
+        this.$refs.carouselElement.firstChild.getBoundingClientRect().width;
       const carouselWidth = numberOfItems * elementWidth;
       const maximumPosition = this.$refs.carouselElement.scrollWidth;
 
@@ -36,7 +37,8 @@ export default {
         unusableVisibleWidth = 92;
       }
 
-      const visibleWidth = this.$refs.carouselElement.offsetWidth - unusableVisibleWidth;
+      const visibleWidth =
+        this.$refs.carouselElement.offsetWidth - unusableVisibleWidth;
 
       this.unusableVisibleWidth = unusableVisibleWidth;
       this.elementWidth = elementWidth;
@@ -55,8 +57,10 @@ export default {
     },
 
     moveToClickEvent (direction) {
-      const invisible = this.$refs.carouselElement.scrollLeft + (direction === 'left' ? -this.visibleWidth + 1 : this.visibleWidth);
-      const remainder = invisible - invisible % this.elementWidth;
+      const invisible =
+        this.$refs.carouselElement.scrollLeft +
+        (direction === 'left' ? -this.visibleWidth + 1 : this.visibleWidth);
+      const remainder = invisible - (invisible % this.elementWidth);
 
       this.moveTo(remainder);
     },

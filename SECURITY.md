@@ -1,11 +1,13 @@
 # SECURITY.md — Security & Privacy Policy
 
 ## 1. Security Overview
+
 **vue-movies** operates as a client-rendered static web application. It does not run a custom backend server, does not store user credentials, and does not retain personally identifiable information (PII) in databases.
 
 ---
 
 ## 2. API Keys & Secrets Management
+
 - **Environment Variables**:
   - `API_KEY`: The Movie Database (TMDb) v3 API key.
   - `API_YOUTUBE_KEY`: YouTube Data API key (optional).
@@ -19,6 +21,7 @@
 ---
 
 ## 3. External Content & Third-Party Embeds
+
 - **YouTube Embeds**:
   - Embedded inside sandboxed `<iframe>` tags with restrictive permissions:
     `allow="autoplay; encrypted-media"`.
@@ -30,6 +33,7 @@
 ---
 
 ## 4. Content Security & Privacy
+
 - **HTML Sanitization**:
   - Content injected via `v-html` (such as genre tags or director links) must be constructed from trusted sanitizing helpers or strictly filtered fields.
 - **Cookie Consent**:
@@ -38,4 +42,5 @@
 ---
 
 ## 5. Reporting Security Issues
+
 If you identify any security vulnerability or credential leak in this project, please report it privately via GitHub Security Advisories or direct communication with the repository maintainers rather than opening a public issue.

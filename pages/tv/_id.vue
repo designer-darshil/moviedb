@@ -1,32 +1,23 @@
 <template>
   <main class="main">
-    <TopNav
-      :title="metaTitle" />
+    <TopNav :title="metaTitle" />
 
-    <Hero
-      :item="item" />
+    <Hero :item="item" />
 
-    <MediaNav
-      :menu="menu"
-      @clicked="navClicked" />
+    <MediaNav :menu="menu" @clicked="navClicked" />
 
     <template v-if="activeMenu === 'overview'">
-      <TvInfo
-        :item="item" />
+      <TvInfo :item="item" />
 
-      <Credits
-        v-if="showCredits"
-        :people="item.credits.cast" />
+      <Credits v-if="showCredits" :people="item.credits.cast" />
     </template>
 
     <template v-if="activeMenu === 'episodes' && showEpisodes">
-      <Episodes
-        :number-of-seasons="item.number_of_seasons" />
+      <Episodes :number-of-seasons="item.number_of_seasons" />
     </template>
 
     <template v-if="activeMenu === 'videos' && showVideos">
-      <Videos
-        :videos="item.videos.results" />
+      <Videos :videos="item.videos.results" />
     </template>
 
     <template v-if="activeMenu === 'photos' && showImages">
@@ -76,26 +67,20 @@ export default {
     ListingCarousel,
   },
 
-  mixins: [
-    name,
-    yearStart,
-    yearEnd,
-  ],
+  mixins: [name, yearStart, yearEnd],
 
-  head () {
-    return {
-      title: this.metaTitle,
-      meta: [
-        { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-        { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-        { hid: 'description', name: 'description', content: this.metaDescription },
-        { hid: 'og:image', property: 'og:image', content: this.metaImage },
-        { hid: 'og:url', property: 'og:url', content: `${process.env.FRONTEND_URL}${this.$route.path}` },
-      ],
-      bodyAttrs: {
-        class: 'topnav-active',
-      },
-    };
+  async asyncData ({ params, error }) {
+    try {
+      const item = await getTvShow(params.id);
+
+      if (item.adult) {
+        error({ message: 'This tv show is not available' });
+      } else {
+        return { item };
+      }
+    } catch {
+      error({ statusCode: 404, message: 'Page not found' });
+    }
   },
 
   data () {
@@ -103,6 +88,34 @@ export default {
       menu: [],
       activeMenu: 'overview',
       recommended: null,
+    };
+  },
+
+  head () {
+    return {
+      title: this.metaTitle,
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: this.metaDescription,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.metaDescription,
+        },
+        { hid: 'og:image', property: 'og:image', content: this.metaImage },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: `${process.env.FRONTEND_URL}${this.$route.path}`,
+        },
+      ],
+      bodyAttrs: {
+        class: 'topnav-active',
+      },
     };
   },
 
@@ -149,22 +162,12 @@ export default {
 
     showImages () {
       const images = this.item.images;
-      return images && ((images.backdrops && images.backdrops.length) || (images.posters && images.posters.length));
+      return (
+        images &&
+        ((images.backdrops && images.backdrops.length) ||
+          (images.posters && images.posters.length))
+      );
     },
-  },
-
-  async asyncData ({ params, error }) {
-    try {
-      const item = await getTvShow(params.id);
-
-      if (item.adult) {
-        error({ message: 'This tv show is not available' });
-      } else {
-        return { item };
-      }
-    } catch {
-      error({ statusCode: 404, message: 'Page not found' });
-    }
   },
 
   created () {

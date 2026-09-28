@@ -1,6 +1,7 @@
 # ARCHITECTURE.md — System Architecture
 
 ## 1. High-Level Architecture
+
 **vue-movies** is a single-page application (SPA) statically generated using **Nuxt.js 2** in `target: 'static'`, `ssr: false` mode. It consumes external REST APIs to provide real-time media exploration and is hosted on Vercel Edge CDN.
 
 ```
@@ -27,6 +28,7 @@
 ---
 
 ## 2. Directory Structure & Module Breakdown
+
 ```
 vue-movies/
 ├── api/
@@ -90,6 +92,7 @@ vue-movies/
 ---
 
 ## 3. Data Flow & State Management
+
 1. **API Requests (`api/index.js`)**: All communication with TMDb (`api.themoviedb.org/3`) and YouTube uses Axios with parameter injection (`api_key`, `language`, `page`).
 2. **Page Data Fetching**: Pages utilize `asyncData` to pre-load critical catalog data on route transitions. Detail pages fetch secondary data (recommendations, episodes) dynamically on mount or tab change.
 3. **Global State (`store/search.js`)**: Vuex manages search drawer visibility (`searchOpen`) and previous route tracking (`fromPage`).
@@ -98,6 +101,7 @@ vue-movies/
 ---
 
 ## 4. Build & Deployment Lifecycle
+
 - **Build Engine**: Webpack 4 via Nuxt 2.
 - **Node Runtime**: Compatible with Node 18 through 24 using the OpenSSL legacy provider flag.
 - **Static Export**: `yarn generate` writes pre-rendered HTML and client assets to `/dist`.

@@ -1,14 +1,16 @@
 <template>
-  <div :class="$style.nav">
-    <button
-      v-for="(item, index) in menu"
-      :key="`tab-${index}`"
-      :class="[$style.button, { [$style.buttonActive] : active === index }]"
-      type="button"
-      @click="clicked(index, item)">
-      {{ item }}
-    </button>
-  </div>
+  <nav :class="$style.navWrap" aria-label="Media Sections">
+    <div :class="$style.nav">
+      <button
+        v-for="(item, index) in menu"
+        :key="`tab-${index}`"
+        :class="[$style.button, { [$style.buttonActive]: active === index }]"
+        type="button"
+        @click="clicked(index, item)">
+        <span>{{ item }}</span>
+      </button>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -36,59 +38,64 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
-.nav {
+.navWrap {
   display: flex;
-  height: 4.8rem;
-  background-color: #1b1b1b;
+  justify-content: center;
+  margin: 3.2rem 0;
+  padding: 0 1.6rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 
-  @media (min-width: $breakpoint-large) {
-    justify-content: center;
-    margin-top: 2.5rem;
-    background: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
+.nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem;
+  background-color: $surface-1;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-full;
+  box-shadow: $shadow-sm;
+}
+
 .button {
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0 0 -0.2rem;
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: #585858;
-  text-transform: uppercase;
-  letter-spacing: $letter-spacing;
-  background: none;
-  border-right: 1px solid $base-bg;
-  outline: 0;
-  transition: color 0.2s ease;
+  padding: 0.9rem 2.2rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: $text-muted;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: $radius-full;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  transition: all $transition-fast;
 
-  @media (min-width: $breakpoint-large) {
-    width: auto;
-    margin: 0 3rem;
-    font-size: 2rem;
-    border-bottom: 2px solid transparent;
-  }
-
-  &:last-child {
-    border-right: 0;
-  }
-
-  &:hover,
-  &:focus {
+  &:hover {
     color: #fff;
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $primary-color;
   }
 }
 
 .buttonActive {
-  color: #fff;
-  background-color: $base-bg;
+  color: #0a0b0e !important;
+  background-color: $primary-color !important;
+  border-color: $primary-color !important;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(229, 169, 60, 0.35);
 
-  @media (min-width: $breakpoint-large) {
-    background: none;
-    border-bottom-color: #fff;
+  &:hover {
+    background-color: $primary-hover !important;
   }
 }
 </style>

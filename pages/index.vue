@@ -1,7 +1,6 @@
 <template>
   <main class="main">
-    <Hero
-      :item="featured" />
+    <Hero :item="featured" />
 
     <ListingCarousel
       v-if="trendingMovies && trendingMovies.results.length"
@@ -28,24 +27,6 @@ export default {
     ListingCarousel,
   },
 
-  computed: {
-    trendingMoviesTitle () {
-      return getListItem('movie', 'trending').title;
-    },
-
-    trendingMoviesUrl () {
-      return { name: 'movie-category-name', params: { name: 'trending' } };
-    },
-
-    trendingTvTitle () {
-      return getListItem('tv', 'trending').title;
-    },
-
-    trendingTvUrl () {
-      return { name: 'tv-category-name', params: { name: 'trending' } };
-    },
-  },
-
   async asyncData ({ error }) {
     try {
       const trendingMovies = await getTrending('movie');
@@ -67,6 +48,24 @@ export default {
     } catch {
       error({ statusCode: 504, message: 'Data not available' });
     }
+  },
+
+  computed: {
+    trendingMoviesTitle () {
+      return getListItem('movie', 'trending').title;
+    },
+
+    trendingMoviesUrl () {
+      return { name: 'movie-category-name', params: { name: 'trending' } };
+    },
+
+    trendingTvTitle () {
+      return getListItem('tv', 'trending').title;
+    },
+
+    trendingTvUrl () {
+      return { name: 'tv-category-name', params: { name: 'trending' } };
+    },
   },
 };
 </script>

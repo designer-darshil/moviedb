@@ -1,27 +1,30 @@
 <template>
   <div class="spacing">
     <div :class="$style.head">
-      <select
-        v-if="videoTypes.length > 1"
-        v-model="activeType"
-        @change="filterVideos">
-        <option value="all">
-          All
-        </option>
-        <option
-          v-for="type in videoTypes"
-          :key="`video-type-${type}`"
-          :value="type">
-          {{ type }}
-        </option>
-      </select>
+      <div :class="$style.filters">
+        <select
+          v-if="videoTypes.length > 1"
+          v-model="activeType"
+          aria-label="Filter videos by type"
+          @change="filterVideos">
+          <option value="all">
+            All Video Types
+          </option>
+          <option
+            v-for="type in videoTypes"
+            :key="`video-type-${type}`"
+            :value="type">
+            {{ type }}
+          </option>
+        </select>
+      </div>
 
-      <strong :class="$style.count">
+      <div :class="$style.count">
         {{ videoCount }}
-      </strong>
+      </div>
     </div>
 
-    <div :class="$style.items">
+    <div :class="$style.grid">
       <VideosItem
         v-for="(video, index) in activeVideos"
         :key="`video-${video.id}`"
@@ -69,11 +72,15 @@ export default {
 
   computed: {
     videoCount () {
-      return `${this.activeVideos.length} ${this.activeVideos.length > 1 ? 'Videos' : 'Video'}`;
+      return `${this.activeVideos.length} ${
+        this.activeVideos.length > 1 ? 'Videos' : 'Video'
+      }`;
     },
 
     videoTypes () {
-      return this.videos.map(video => video.type).filter((video, index, self) => self.indexOf(video) === index);
+      return this.videos
+        .map(video => video.type)
+        .filter((video, index, self) => self.indexOf(video) === index);
     },
   },
 
@@ -87,23 +94,41 @@ export default {
 
       // video params
       this.videos.forEach((video) => {
-        this.$set(video, 'thumb', `https://img.youtube.com/vi/${video.key}/mqdefault.jpg`);
-        this.$set(video, 'src', `https://www.youtube.com/embed/${video.key}?rel=0&showinfo=0&autoplay=1`);
+        this.$set(
+          video,
+          'thumb',
+          `https://img.youtube.com/vi/${video.key}/mqdefault.jpg`,
+        );
+        this.$set(
+          video,
+          'src',
+          `https://www.youtube.com/embed/${video.key}?rel=0&showinfo=0&autoplay=1`,
+        );
         this.$set(video, 'url', `https://youtube.com/watch?v=${video.key}`);
       });
 
       // get video duration from YouTube api
-      getYouTubeVideo(ids).then((response) => {
-        for (let index = 0; index < this.videos.length; index++) {
-          if (response.items[index]) {
-            this.$set(this.videos[index], 'duration', response.items[index].contentDetails.duration);
+      getYouTubeVideo(ids)
+        .then((response) => {
+          if (response && response.items) {
+            for (let index = 0; index < this.videos.length; index++) {
+              if (response.items[index]) {
+                this.$set(
+                  this.videos[index],
+                  'duration',
+                  response.items[index].contentDetails.duration,
+                );
+              }
+            }
           }
-        }
-      });
+        })
+        .catch(() => {});
     },
 
     filterVideos () {
-      this.activeVideos = this.videos.filter(video => this.activeType === 'all' ? true : video.type === this.activeType);
+      this.activeVideos = this.videos.filter(video =>
+        this.activeType === 'all' ? true : video.type === this.activeType,
+      );
     },
 
     openModal (index) {
@@ -120,36 +145,45 @@ export default {
 </script>
 
 <style lang="scss" module>
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
 .head {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
+  justify-content: space-between;
+  margin-bottom: 2.4rem;
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid $border-subtle;
+}
 
-  @media (min-width: $breakpoint-large) {
-    margin-bottom: 2rem;
-  }
-
-  select {
-    margin-right: 1rem;
-  }
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
 }
 
 .count {
-  font-size: 1.2rem;
-  color: $text-color-grey;
-  letter-spacing: $letter-spacing;
-
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.4rem;
-  }
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: $text-muted;
 }
 
-.items {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -1rem;
-  margin-left: -1rem;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+
+  @media (min-width: $breakpoint-xsmall) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: $breakpoint-xlarge) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.4rem;
+  }
 }
 </style>

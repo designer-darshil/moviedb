@@ -1,4 +1,4 @@
-@import '~/assets/css/utilities/_variables.scss';
+@import "~/assets/css/utilities/_variables.scss";
 
 .carousel {
   position: relative;
@@ -77,7 +77,7 @@
 
 .carousel__items .card {
   display: inline-block;
-  width: calc(.33333 * (100% - 22px));
+  width: calc(0.33333 * (100% - 22px));
   padding-right: 8px;
   margin: 0;
   white-space: normal;
@@ -85,27 +85,27 @@
   scroll-snap-align: start;
 
   @media (min-width: $breakpoint-xsmall) {
-    width: calc(.25 * (100% - 72px));
+    width: calc(0.25 * (100% - 72px));
   }
 
   @media (min-width: $breakpoint-medium) {
-    width: calc(.2 * (100% - 72px));
+    width: calc(0.2 * (100% - 72px));
   }
 
   @media (min-width: $breakpoint-large) {
-    width: calc(.2 * (100% - 92px));
+    width: calc(0.2 * (100% - 92px));
   }
 
   @media (min-width: 1500px) {
-    width: calc(.16667 * (100% - 92px));
+    width: calc(0.16667 * (100% - 92px));
   }
 
   @media (min-width: 1800px) {
-    width: calc(.14286 * (100% - 92px));
+    width: calc(0.14286 * (100% - 92px));
   }
 
   @media (min-width: 2500px) {
-    width: calc(.125 * (100% - 92px));
+    width: calc(0.125 * (100% - 92px));
   }
 
   &:first-child {
@@ -135,7 +135,7 @@
 
 .carousel__items .credits-item {
   display: inline-block;
-  width: calc(.33333 * (100% - 22px));
+  width: calc(0.33333 * (100% - 22px));
   padding-right: 8px;
   margin: 0;
   white-space: normal;
@@ -143,23 +143,23 @@
   scroll-snap-align: start;
 
   @media (min-width: $breakpoint-small) {
-    width: calc(.25 * (100% - 72px));
+    width: calc(0.25 * (100% - 72px));
   }
 
   @media (min-width: 930px) {
-    width: calc(.2 * (100% - 72px));
+    width: calc(0.2 * (100% - 72px));
   }
 
   @media (min-width: 1130px) {
-    width: calc(.16667 * (100% - 72px));
+    width: calc(0.16667 * (100% - 72px));
   }
 
   @media (min-width: $breakpoint-large) {
-    width: calc(.16667 * (100% - 92px));
+    width: calc(0.16667 * (100% - 92px));
   }
 
   @media (min-width: 1450px) {
-    width: calc(.14286 * (100% - 92px));
+    width: calc(0.14286 * (100% - 92px));
   }
 
   &:first-child {

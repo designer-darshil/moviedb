@@ -1,7 +1,6 @@
 <template>
   <main class="main">
-    <Hero
-      :item="featured" />
+    <Hero :item="featured" />
 
     <ListingCarousel
       v-if="popular && popular.results.length"
@@ -40,12 +39,30 @@ export default {
     ListingCarousel,
   },
 
+  async asyncData ({ error }) {
+    try {
+      const popular = await getMovies('popular');
+      const topRated = await getMovies('top_rated');
+      const upcoming = await getMovies('upcoming');
+      const nowPlaying = await getMovies('now_playing');
+      const featured = await getMovie(upcoming.results[0].id);
+
+      return { popular, topRated, upcoming, nowPlaying, featured };
+    } catch {
+      error({ statusCode: 504, message: 'Data not available' });
+    }
+  },
+
   head () {
     return {
       title: 'Movies',
       meta: [
         { hid: 'og:title', property: 'og:title', content: 'Movies' },
-        { hid: 'og:url', property: 'og:url', content: `${process.env.FRONTEND_URL}${this.$route.path}` },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: `${process.env.FRONTEND_URL}${this.$route.path}`,
+        },
       ],
     };
   },
@@ -82,20 +99,6 @@ export default {
     nowPlayingUrl () {
       return { name: 'movie-category-name', params: { name: 'now_playing' } };
     },
-  },
-
-  async asyncData ({ error }) {
-    try {
-      const popular = await getMovies('popular');
-      const topRated = await getMovies('top_rated');
-      const upcoming = await getMovies('upcoming');
-      const nowPlaying = await getMovies('now_playing');
-      const featured = await getMovie(upcoming.results[0].id);
-
-      return { popular, topRated, upcoming, nowPlaying, featured };
-    } catch {
-      error({ statusCode: 504, message: 'Data not available' });
-    }
   },
 };
 </script>
