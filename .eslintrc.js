@@ -18,9 +18,12 @@ module.exports = {
       'multiline': 'never',
     }],
     'vue/no-v-html': 'off',
+    'vue/multi-word-component-names': 'off',
+    'vue/no-reserved-component-names': 'off',
+    'curly': 'off',
     'comma-dangle': ['error', 'always-multiline'],
     'semi': ['error', 'always'],
     'space-before-function-paren': ['error', 'always'],
     'no-console': ['warn'],
   }
-}
+};

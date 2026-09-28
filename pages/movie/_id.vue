@@ -149,7 +149,7 @@ export default {
         return { item };
       }
     } catch {
-      error({ message: 'Page not found' });
+      error({ statusCode: 404, message: 'Page not found' });
     }
   },
 

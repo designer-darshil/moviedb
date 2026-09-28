@@ -1,4 +1,4 @@
-import { apiImgUrl } from '~/api';
+import { getBackdropUrl } from '~/api';
 
 /**
  * Name
@@ -60,9 +60,10 @@ export const yearEnd = {
 export const backdrop = {
   computed: {
     backdrop () {
-      if (this.item.backdrop_path) {
-        return `${apiImgUrl}/original${this.item.backdrop_path}`;
+      if (this.item && this.item.backdrop_path) {
+        return getBackdropUrl(this.item.backdrop_path, 'w1280');
       }
+      return null;
     },
   },
 };

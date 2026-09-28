@@ -111,7 +111,7 @@ export default {
         return { person };
       }
     } catch {
-      error({ message: 'Page not found' });
+      error({ statusCode: 404, message: 'Page not found' });
     }
   },
 

@@ -8,3 +8,8 @@
 .lazyloaded .lazyload {
   opacity: 1;
 }
+
+.lazyerror .lazyload {
+  opacity: 0;
+  display: none;
+}

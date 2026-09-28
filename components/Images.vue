@@ -1,19 +1,16 @@
 <template>
-  <div :class="$style.wrapper">
+  <div class="spacing">
     <div :class="$style.head">
-      <div :class="$style.titleWrap">
-        <span :class="$style.accentPip" />
-        <h2 :class="$style.title">
-          {{ title }}
-        </h2>
-      </div>
+      <h2 :class="$style.title">
+        {{ title }}
+      </h2>
 
-      <span :class="$style.count">
+      <strong :class="$style.count">
         {{ imagesCount }}
-      </span>
+      </strong>
     </div>
 
-    <div :class="[$style.grid, $style[`grid${type}`]]">
+    <div :class="$style.items">
       <ImagesItem
         v-for="(image, index) in images"
         :key="`image-${index}`"
@@ -27,7 +24,7 @@
       v-if="modalVisible"
       :data="images"
       modifier="modal--images"
-      aria-label="High Resolution Film Images"
+      aria-label="Images"
       nav
       :start-at="modalStartAt"
       @close="closeModal" />
@@ -35,7 +32,7 @@
 </template>
 
 <script>
-import { apiImgUrl } from '~/api';
+import { getPosterUrl, getBackdropUrl } from '~/api';
 import ImagesItem from '~/components/ImagesItem';
 import Modal from '~/components/Modal';
 
@@ -71,7 +68,7 @@ export default {
 
   computed: {
     imagesCount () {
-      return `${this.images.length} ${this.images.length > 1 ? 'Photos' : 'Photo'}`;
+      return `${this.images.length} ${this.images.length > 1 ? 'Images' : 'Image'}`;
     },
   },
 
@@ -81,16 +78,14 @@ export default {
 
   methods: {
     handleData () {
-      let thumb;
-      if (this.type === 'poster') {
-        thumb = `${apiImgUrl}/w370_and_h556_bestv2`;
-      } else {
-        thumb = `${apiImgUrl}/w533_and_h300_bestv2`;
-      }
-
       this.images.forEach((image) => {
-        this.$set(image, 'thumb', `${thumb}${image.file_path}`);
-        this.$set(image, 'src', `${apiImgUrl}/original${image.file_path}`);
+        if (!image.file_path) return;
+        const thumb = this.type === 'poster'
+          ? getPosterUrl(image.file_path, 'w500')
+          : getBackdropUrl(image.file_path, 'w780');
+        const src = getBackdropUrl(image.file_path, 'original');
+        this.$set(image, 'thumb', thumb);
+        this.$set(image, 'src', src);
       });
     },
 
@@ -110,103 +105,40 @@ export default {
 <style lang="scss" module>
 @import '~/assets/css/utilities/_variables.scss';
 
-.wrapper {
-  padding: 3.2rem 1.6rem;
-  max-width: 1600px;
-  margin: 0 auto;
-
-  @media (min-width: $breakpoint-small) {
-    padding: 4rem 3.2rem;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    padding: 4.8rem 4.8rem;
-  }
-}
-
 .head {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2.4rem;
-  padding-bottom: 1.6rem;
-  border-bottom: 1px solid $border-subtle;
-}
+  align-items: baseline;
+  margin-bottom: 1.5rem;
 
-.titleWrap {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.accentPip {
-  display: inline-block;
-  width: 4px;
-  height: 2rem;
-  background-color: $primary-color;
-  border-radius: $radius-full;
+  @media (min-width: $breakpoint-large) {
+    margin-bottom: 2rem;
+  }
 }
 
 .title {
-  margin: 0;
   font-size: 1.8rem;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.02em;
+  letter-spacing: $letter-spacing;
 
   @media (min-width: $breakpoint-large) {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
   }
 }
 
 .count {
-  font-size: 1.35rem;
-  font-weight: 500;
-  color: $text-muted;
-}
-
-.grid {
-  display: grid;
-  gap: 1.6rem;
-
-  @media (min-width: $breakpoint-small) {
-    gap: 2rem;
-  }
-}
-
-.gridbackdrop {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  @media (min-width: $breakpoint-small) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  color: $text-color-grey;
+  letter-spacing: $letter-spacing;
 
   @media (min-width: $breakpoint-large) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  @media (min-width: 1600px) {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    font-size: 1.4rem;
   }
 }
 
-.gridposter {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  @media (min-width: $breakpoint-xsmall) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  @media (min-width: $breakpoint-small) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  @media (min-width: $breakpoint-medium) {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-
-  @media (min-width: 1500px) {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -0.4rem;
+  margin-left: -0.4rem;
 }
 </style>

@@ -4,31 +4,49 @@ import Vue from 'vue';
  * Function called when image has loaded
  */
 const imageLoaded = function (e) {
-  e.target.parentElement.classList.remove('lazyerror', 'lazyloading');
-  e.target.parentElement.classList.add('lazyloaded');
+  if (e.target && e.target.parentElement) {
+    e.target.parentElement.classList.remove('lazyerror', 'lazyloading');
+    e.target.parentElement.classList.add('lazyloaded');
+  }
 };
 
 /**
  * Function called when image has error
  */
 const imageError = function (e) {
-  e.target.parentElement.classList.remove('lazyloaded', 'lazyloading');
-  e.target.parentElement.classList.add('lazyerror');
+  if (e.target) {
+    if (e.target.parentElement) {
+      e.target.parentElement.classList.remove('lazyloaded', 'lazyloading');
+      e.target.parentElement.classList.add('lazyerror');
+    }
+    // Prevent broken browser placeholder outline from breaking layout
+    e.target.style.opacity = '0';
+  }
 };
 
 /**
  * Function to load the image
  */
 const loadImage = function (el, path) {
+  if (!path || typeof path !== 'string' || path === 'null' || path === 'undefined') {
+    if (el && el.parentElement) {
+      el.parentElement.classList.remove('lazyloading', 'lazyloaded');
+      el.parentElement.classList.add('lazyerror');
+    }
+    return;
+  }
+
   // setup loading state
-  el.parentElement.classList.remove('lazyerror', 'lazyloaded');
-  el.parentElement.classList.add('lazyloading');
+  if (el.parentElement) {
+    el.parentElement.classList.remove('lazyerror', 'lazyloaded');
+    el.parentElement.classList.add('lazyloading');
+  }
 
   // image successfully loaded
-  el.addEventListener('load', imageLoaded);
+  el.addEventListener('load', imageLoaded, { once: true });
 
   // image failed to load
-  el.addEventListener('error', imageError);
+  el.addEventListener('error', imageError, { once: true });
 
   // set element src to the path
   el.src = path;
@@ -39,6 +57,10 @@ const loadImage = function (el, path) {
  */
 Vue.directive('lazyload', {
   inserted (el, binding) {
+    if (!binding.value) {
+      return;
+    }
+
     function handleIntersect (entries, observer) {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) {
@@ -54,14 +76,13 @@ Vue.directive('lazyload', {
     // Detect that the element is in the viewport.
     function createObserver () {
       const options = {
-        root: null, // defaults to the browser viewport if not specified or if null
-        threshold: '0', // the degree of intersection between the target element and its root (0 - 1)
-        // threshold of 1.0 means that when 100% of the target is visible within
-        // the element specified by the root option, the callback is invoked
+        root: null,
+        rootMargin: '250px 0px',
+        threshold: 0,
       };
 
       const observer = new IntersectionObserver(handleIntersect, options);
-      observer.observe(el); // target element to watch
+      observer.observe(el);
     }
 
     // If IntersectionObserver is not supported, fallback and just load the images
@@ -73,8 +94,8 @@ Vue.directive('lazyload', {
   },
 
   update (el, binding) {
-    // only run if the value is different
-    if (binding.value !== el.src) {
+    // only run if the value is defined and has changed
+    if (binding.value && binding.value !== binding.oldValue && binding.value !== el.src) {
       loadImage(el, binding.value);
     }
   },

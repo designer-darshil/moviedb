@@ -11,6 +11,44 @@ const apiUrl = 'https://api.themoviedb.org/3';
 export const apiImgUrl = 'https://image.tmdb.org/t/p';
 
 /**
+ * Sanitize TMDb image path
+ */
+export const sanitizeImagePath = (path) => {
+  if (!path || typeof path !== 'string') return null;
+  const clean = path.trim();
+  if (!clean || clean === 'null' || clean === 'undefined') return null;
+  return clean.startsWith('/') ? clean : `/${clean}`;
+};
+
+/**
+ * Image helpers for supported TMDb sizes
+ */
+export const getPosterUrl = (path, size = 'w500') => {
+  const clean = sanitizeImagePath(path);
+  return clean ? `${apiImgUrl}/${size}${clean}` : null;
+};
+
+export const getBackdropUrl = (path, size = 'w1280') => {
+  const clean = sanitizeImagePath(path);
+  return clean ? `${apiImgUrl}/${size}${clean}` : null;
+};
+
+export const getProfileUrl = (path, size = 'h632') => {
+  const clean = sanitizeImagePath(path);
+  return clean ? `${apiImgUrl}/${size}${clean}` : null;
+};
+
+export const getStillUrl = (path, size = 'w300') => {
+  const clean = sanitizeImagePath(path);
+  return clean ? `${apiImgUrl}/${size}${clean}` : null;
+};
+
+export const getImageUrl = (path, size = 'original') => {
+  const clean = sanitizeImagePath(path);
+  return clean ? `${apiImgUrl}/${size}${clean}` : null;
+};
+
+/**
  * Different types of lists
  */
 const lists = {
@@ -500,7 +538,7 @@ export function search (query, page = 1) {
  */
 export function getYouTubeVideo (id) {
   return new Promise((resolve, reject) => {
-    axios.get(`https://www.googleapis.com/youtube/v3/videos`, {
+    axios.get('https://www.googleapis.com/youtube/v3/videos', {
       params: {
         key: process.env.API_YOUTUBE_KEY,
         id,
