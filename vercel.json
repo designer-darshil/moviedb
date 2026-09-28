@@ -1,0 +1,5 @@
+{
+  "framework": "nuxtjs",
+  "buildCommand": "yarn generate",
+  "outputDirectory": "dist"
+}
