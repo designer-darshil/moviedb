@@ -49,8 +49,17 @@ export default {
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {
+        rel: "preconnect",
+        href: "https://fonts.googleapis.com",
+      },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossorigin: "anonymous",
+      },
+      {
         rel: "stylesheet",
-        href: "//fonts.googleapis.com/css?family=Roboto:300,400,500",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap",
       },
     ],
   },
@@ -89,8 +98,8 @@ export default {
       name: "Movies",
       short_name: "Movies",
       description: "Browse Movies, TV Shows and People",
-      theme_color: "#2196f3",
-      background_color: "#000000",
+      theme_color: "#e5a93c",
+      background_color: "#0b0c0e",
     },
   },
 
@@ -120,6 +129,6 @@ export default {
 
   // Customize the progress bar color
   loading: {
-    color: "#2196f3",
+    color: "#e5a93c",
   },
 };

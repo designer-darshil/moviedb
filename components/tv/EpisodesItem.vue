@@ -1,32 +1,50 @@
 <template>
-  <div :class="$style.item">
-    <div :class="$style.image">
-      <img
-        v-if="poster"
-        v-lazyload="poster"
-        class="lazyload"
-        :alt="episode.name">
+  <article :class="$style.card">
+    <!-- Still photo / Preview Image -->
+    <div :class="$style.stillWrap">
+      <div :class="$style.still">
+        <img
+          v-if="poster"
+          v-lazyload="poster"
+          class="lazyload"
+          :class="$style.image"
+          :alt="episode.name">
 
-      <span v-else>
-        <!-- eslint-disable-next-line -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd" fill="#999"><path d="M24 22h-24v-20h24v20zm-1-19h-22v18h22v-18zm-1 16h-19l4-7.492 3 3.048 5.013-7.556 6.987 12zm-11.848-2.865l-2.91-2.956-2.574 4.821h15.593l-5.303-9.108-4.806 7.243zm-4.652-11.135c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5zm0 1c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"/></svg>
-      </span>
+        <div v-else :class="$style.placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="20" rx="2" />
+            <line x1="7" y1="2" x2="7" y2="22" />
+            <line x1="17" y1="2" x2="17" y2="22" />
+          </svg>
+          <span>No Still</span>
+        </div>
+
+        <!-- Episode badge on still image -->
+        <span :class="$style.episodeBadge">
+          EP {{ episode.episode_number | numberWithDoubleDigits }}
+        </span>
+      </div>
     </div>
 
-    <h2 :class="$style.name">
-      <strong>E{{ episode.episode_number | numberWithDoubleDigits }}</strong> {{ episode.name }}
-    </h2>
+    <!-- Episode Content -->
+    <div :class="$style.content">
+      <div :class="$style.header">
+        <h3 :class="$style.title">
+          {{ episode.name }}
+        </h3>
+        <span v-if="episode.air_date" :class="$style.aired">
+          {{ episode.air_date | fullDate }}
+        </span>
+      </div>
 
-    <div :class="$style.overview">
-      {{ episode.overview | truncate(300) }}
+      <p v-if="episode.overview" :class="$style.overview">
+        {{ episode.overview | truncate(240) }}
+      </p>
+      <p v-else :class="$style.overviewEmpty">
+        No episode synopsis available.
+      </p>
     </div>
-
-    <div
-      v-if="episode.air_date"
-      :class="$style.aired">
-      {{ episode.air_date | fullDate }}
-    </div>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -44,9 +62,8 @@ export default {
     poster () {
       if (this.episode.still_path) {
         return `${apiImgUrl}/w400${this.episode.still_path}`;
-      } else {
-        return null;
       }
+      return null;
     },
   },
 };
@@ -55,82 +72,130 @@ export default {
 <style lang="scss" module>
 @import '~/assets/css/utilities/_variables.scss';
 
-.item {
+.card {
   display: flex;
   flex-direction: column;
+  background-color: $surface-1;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  transition: transform $transition-fast, border-color $transition-fast;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: $border-medium;
+  }
+
+  @media (min-width: $breakpoint-small) {
+    flex-direction: row;
+  }
+}
+
+.stillWrap {
+  flex: 0 0 24rem;
+
+  @media (min-width: $breakpoint-large) {
+    flex: 0 0 28rem;
+  }
+}
+
+.still {
+  position: relative;
   width: 100%;
-  padding: 0.4rem;
-  margin-bottom: 2rem;
+  height: 0;
+  padding-top: 56.25%; // 16:9 ratio
+  background-color: $surface-2;
+  overflow: hidden;
 
-  @media (min-width: $breakpoint-xsmall) {
-    width: 50%;
-  }
-
-  @media (min-width: $breakpoint-medium) {
-    width: 33.3333333%;
-  }
-
-  @media (min-width: 1450px) {
-    width: 25%;
-  }
-
-  @media (min-width: 2000px) {
-    width: 20%;
-  }
-
-  @media (min-width: 3000px) {
-    width: 16.6666667%;
+  @media (min-width: $breakpoint-small) {
+    height: 100%;
+    padding-top: 0;
+    min-height: 16rem;
   }
 }
 
 .image {
-  position: relative;
-  height: 0;
-  padding-top: 56.25%;
-  margin-bottom: 1.5rem;
-  overflow: hidden;
-  background-color: $secondary-color;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  img,
-  span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+.placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  color: $text-muted;
+  font-size: 1.1rem;
+}
 
-  span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.episodeBadge {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0b0c0e;
+  background-color: $primary-color;
+  border-radius: $radius-sm;
+  letter-spacing: 0.04em;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 2rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+
+  @media (min-width: $breakpoint-xsmall) {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
   }
 }
 
-.name {
-  margin-bottom: 1rem;
+.title {
+  margin: 0;
   font-size: 1.6rem;
-  letter-spacing: $letter-spacing;
-
-  strong {
-    color: $primary-color;
-  }
-}
-
-.overview {
-  flex: 1 0 auto;
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-  color: $text-color;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.01em;
 }
 
 .aired {
-  font-size: 1.2rem;
-  color: $text-color-grey;
-  letter-spacing: $letter-spacing;
+  font-size: 1.25rem;
+  color: $text-muted;
+  white-space: nowrap;
+}
 
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.4rem;
-  }
+.overview {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.6;
+  color: $text-color-grey;
+}
+
+.overviewEmpty {
+  margin: 0;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: $text-muted;
 }
 </style>

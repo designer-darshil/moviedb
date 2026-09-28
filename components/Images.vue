@@ -1,16 +1,19 @@
 <template>
-  <div class="spacing">
+  <div :class="$style.wrapper">
     <div :class="$style.head">
-      <h2 :class="$style.title">
-        {{ title }}
-      </h2>
+      <div :class="$style.titleWrap">
+        <span :class="$style.accentPip" />
+        <h2 :class="$style.title">
+          {{ title }}
+        </h2>
+      </div>
 
-      <strong :class="$style.count">
+      <span :class="$style.count">
         {{ imagesCount }}
-      </strong>
+      </span>
     </div>
 
-    <div :class="$style.items">
+    <div :class="[$style.grid, $style[`grid${type}`]]">
       <ImagesItem
         v-for="(image, index) in images"
         :key="`image-${index}`"
@@ -24,7 +27,7 @@
       v-if="modalVisible"
       :data="images"
       modifier="modal--images"
-      aria-label="Images"
+      aria-label="High Resolution Film Images"
       nav
       :start-at="modalStartAt"
       @close="closeModal" />
@@ -68,7 +71,7 @@ export default {
 
   computed: {
     imagesCount () {
-      return `${this.images.length} ${this.images.length > 1 ? 'Images' : 'Image'}`;
+      return `${this.images.length} ${this.images.length > 1 ? 'Photos' : 'Photo'}`;
     },
   },
 
@@ -79,16 +82,15 @@ export default {
   methods: {
     handleData () {
       let thumb;
-
       if (this.type === 'poster') {
         thumb = `${apiImgUrl}/w370_and_h556_bestv2`;
       } else {
         thumb = `${apiImgUrl}/w533_and_h300_bestv2`;
       }
 
-      this.images.map((image) => {
-        image.thumb = `${thumb}${image.file_path}`;
-        image.src = `${apiImgUrl}/original${image.file_path}`;
+      this.images.forEach((image) => {
+        this.$set(image, 'thumb', `${thumb}${image.file_path}`);
+        this.$set(image, 'src', `${apiImgUrl}/original${image.file_path}`);
       });
     },
 
@@ -108,40 +110,103 @@ export default {
 <style lang="scss" module>
 @import '~/assets/css/utilities/_variables.scss';
 
-.head {
-  display: flex;
-  align-items: baseline;
-  margin-bottom: 1.5rem;
+.wrapper {
+  padding: 3.2rem 1.6rem;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 4rem 3.2rem;
+  }
 
   @media (min-width: $breakpoint-large) {
-    margin-bottom: 2rem;
+    padding: 4.8rem 4.8rem;
   }
 }
 
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.4rem;
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid $border-subtle;
+}
+
+.titleWrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.accentPip {
+  display: inline-block;
+  width: 4px;
+  height: 2rem;
+  background-color: $primary-color;
+  border-radius: $radius-full;
+}
+
 .title {
+  margin: 0;
   font-size: 1.8rem;
-  letter-spacing: $letter-spacing;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
 
   @media (min-width: $breakpoint-large) {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
   }
 }
 
 .count {
-  margin-left: 1rem;
-  font-size: 1.2rem;
-  color: $text-color-grey;
-  letter-spacing: $letter-spacing;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: $text-muted;
+}
 
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.4rem;
+.grid {
+  display: grid;
+  gap: 1.6rem;
+
+  @media (min-width: $breakpoint-small) {
+    gap: 2rem;
   }
 }
 
-.items {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -0.4rem;
-  margin-left: -0.4rem;
+.gridbackdrop {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @media (min-width: $breakpoint-small) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (min-width: $breakpoint-large) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1600px) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.gridposter {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @media (min-width: $breakpoint-xsmall) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (min-width: $breakpoint-small) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1500px) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 </style>

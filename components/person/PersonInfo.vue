@@ -1,83 +1,89 @@
 <template>
-  <div class="spacing" :class="$style.info">
-    <div :class="$style.left">
-      <div :class="$style.poster">
-        <img
-          v-if="avatar"
-          v-lazyload="avatar"
-          class="lazyload"
-          :alt="person.name">
+  <div :class="$style.wrapper">
+    <div :class="$style.layout">
+      <!-- Left Column: Portrait Artwork & Metadata -->
+      <aside :class="$style.left">
+        <div :class="$style.portraitWrap">
+          <div :class="$style.portrait">
+            <img
+              v-if="avatar"
+              v-lazyload="avatar"
+              class="lazyload"
+              :class="$style.image"
+              :alt="person.name">
 
-        <span v-else>
-          <!-- eslint-disable-next-line -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd" fill="#999"><path d="M24 22h-24v-20h24v20zm-1-19h-22v18h22v-18zm-1 16h-19l4-7.492 3 3.048 5.013-7.556 6.987 12zm-11.848-2.865l-2.91-2.956-2.574 4.821h15.593l-5.303-9.108-4.806 7.243zm-4.652-11.135c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5zm0 1c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"/></svg>
-        </span>
-      </div>
-    </div>
-
-    <div :class="$style.right">
-      <div :class="$style.overview">
-        <h2 :class="$style.title">
-          {{ person.name }}
-        </h2>
-
-        <div v-if="person.biography">
-          <img
-            v-if="avatar"
-            :src="avatar"
-            :alt="person.name">
-
-          <div v-html="formatContent(person.biography)" />
+            <div v-else :class="$style.placeholder">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span>No Photo</span>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div :class="$style.stats">
-        <ul class="nolist">
-          <li v-if="person.known_for_department">
-            <div :class="$style.label">
-              Known For
-            </div>
+        <!-- Social Links on Desktop -->
+        <div :class="$style.desktopExternal">
+          <ExternalLinks media="person" :links="person.external_ids" />
+        </div>
+      </aside>
 
-            <div :class="$style.value">
-              {{ person.known_for_department }}
-            </div>
-          </li>
-          <li v-if="person.birthday">
-            <div :class="$style.label">
-              Born
-            </div>
+      <!-- Right Column: Biography & Vital Stats -->
+      <div :class="$style.right">
+        <!-- Header Info -->
+        <div :class="$style.header">
+          <span v-if="person.known_for_department" :class="$style.deptBadge">
+            {{ person.known_for_department }}
+          </span>
+          <h1 :class="$style.name">
+            {{ person.name }}
+          </h1>
+        </div>
 
-            <div :class="$style.value">
+        <!-- Vital Statistics Grid -->
+        <div :class="$style.statsCard">
+          <div v-if="person.birthday" :class="$style.statItem">
+            <span :class="$style.statLabel">Born</span>
+            <span :class="$style.statValue">
               {{ person.birthday | fullDate }}
-              <span v-if="!person.deathday">(age {{ age }})</span>
-            </div>
-          </li>
-          <li v-if="person.place_of_birth">
-            <div :class="$style.label">
-              Place of Birth
-            </div>
+              <strong v-if="!person.deathday && age" :class="$style.ageTag">(age {{ age }})</strong>
+            </span>
+          </div>
 
-            <div :class="$style.value">
-              {{ person.place_of_birth }}
-            </div>
-          </li>
-          <li v-if="person.deathday">
-            <div :class="$style.label">
-              Died
-            </div>
+          <div v-if="person.place_of_birth" :class="$style.statItem">
+            <span :class="$style.statLabel">Place of Birth</span>
+            <span :class="$style.statValue">{{ person.place_of_birth }}</span>
+          </div>
 
-            <div :class="$style.value">
+          <div v-if="person.deathday" :class="$style.statItem">
+            <span :class="$style.statLabel">Died</span>
+            <span :class="$style.statValue">
               {{ person.deathday | fullDate }}
-              <span v-if="person.birthday">(aged {{ age }})</span>
-            </div>
-          </li>
-        </ul>
-      </div>
+              <strong v-if="age" :class="$style.ageTag">(aged {{ age }})</strong>
+            </span>
+          </div>
 
-      <div :class="$style.external">
-        <ExternalLinks
-          media="person"
-          :links="person.external_ids" />
+          <div v-if="person.known_for_department" :class="$style.statItem">
+            <span :class="$style.statLabel">Known For</span>
+            <span :class="$style.statValue">{{ person.known_for_department }}</span>
+          </div>
+        </div>
+
+        <!-- Biography Section -->
+        <section v-if="person.biography" :class="$style.bioSection">
+          <div :class="$style.sectionHeader">
+            <span :class="$style.accentPip" />
+            <h2 :class="$style.sectionTitle">
+              Biography
+            </h2>
+          </div>
+          <div :class="$style.bioText" v-html="formatContent(person.biography)" />
+        </section>
+
+        <!-- Social Links on Mobile -->
+        <div :class="$style.mobileExternal">
+          <ExternalLinks media="person" :links="person.external_ids" />
+        </div>
       </div>
     </div>
   </div>
@@ -103,9 +109,8 @@ export default {
     avatar () {
       if (this.person.profile_path) {
         return `${apiImgUrl}/w370_and_h556_bestv2${this.person.profile_path}`;
-      } else {
-        return null;
       }
+      return null;
     },
 
     age () {
@@ -116,9 +121,8 @@ export default {
         return this.getAge(born);
       } else if (born && died) {
         return this.getAge(born, died);
-      } else {
-        return false;
       }
+      return false;
     },
   },
 
@@ -130,22 +134,15 @@ export default {
 
   methods: {
     formatContent (string) {
-      return string.split('\n').filter(section => section !== '').map(section => `<p>${section}</p>`).join('');
+      return string.split('\n').filter(section => section.trim() !== '').map(section => `<p>${section}</p>`).join('');
     },
 
     getAge (born, died) {
       const startDate = new Date(born);
-      let endDate;
-      let age;
+      const endDate = died ? new Date(died) : new Date();
 
-      if (!died) {
-        endDate = new Date();
-      } else {
-        endDate = new Date(died);
-      }
-
+      let age = endDate.getFullYear() - startDate.getFullYear();
       const month = endDate.getMonth() - startDate.getMonth();
-      age = endDate.getFullYear() - startDate.getFullYear();
 
       if (month < 0 || (month === 0 && endDate.getDate() < startDate.getDate())) {
         age--;
@@ -160,163 +157,222 @@ export default {
 <style lang="scss" module>
 @import '~/assets/css/utilities/_variables.scss';
 
-.info {
-  @media (min-width: $breakpoint-medium) {
-    display: flex;
+.wrapper {
+  padding: 4rem 1.6rem;
+  max-width: 1440px;
+  margin: 0 auto;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 4.8rem 3.2rem;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    padding: 6.4rem 4.8rem;
+  }
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+
+  @media (min-width: $breakpoint-small) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4rem;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    gap: 6.4rem;
   }
 }
 
 .left {
-  display: none;
+  flex: 0 0 22rem;
 
   @media (min-width: $breakpoint-medium) {
-    display: block;
-    width: 25%;
-    max-width: 400px;
-    padding-right: 3rem;
+    flex: 0 0 28rem;
   }
 
   @media (min-width: $breakpoint-large) {
-    padding-right: 5rem;
+    flex: 0 0 32rem;
+  }
+}
+
+.portraitWrap {
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-lg;
+  border: 1px solid $border-subtle;
+}
+
+.portrait {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 150%;
+  background-color: $surface-2;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  color: $text-muted;
+}
+
+.desktopExternal {
+  display: none;
+
+  @media (min-width: $breakpoint-small) {
+    display: block;
+    margin-top: 2rem;
+  }
+}
+
+.mobileExternal {
+  margin-top: 3.2rem;
+
+  @media (min-width: $breakpoint-small) {
+    display: none;
   }
 }
 
 .right {
-  @media (min-width: $breakpoint-medium) {
-    flex: 1;
-  }
-}
-
-.poster {
-  position: relative;
-  height: 0;
-  padding-top: 150.27%;
-  overflow: hidden;
-  background-color: $secondary-color;
-
-  img,
-  span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.overview {
-  max-width: 1000px;
-  margin-bottom: 3rem;
-  overflow: hidden;
-  font-size: 1.5rem;
-  color: $text-color;
-
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.6rem;
-  }
-
-  img {
-    float: left;
-    width: 40%;
-    max-width: 200px;
-    margin: 0 1.5rem 0 0;
-
-    @media (min-width: $breakpoint-medium) {
-      display: none;
-    }
-  }
-}
-
-.title {
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
-  color: #fff;
-  letter-spacing: $letter-spacing;
-
-  @media (min-width: $breakpoint-large) {
-    font-size: 2.4rem;
-  }
-}
-
-.stats {
-  margin-bottom: 3rem;
-  font-size: 1.5rem;
-  color: $text-color;
-
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.6rem;
-  }
-
-  ul {
-    @media (min-width: $breakpoint-medium) {
-      display: flex;
-      flex-wrap: wrap;
-    }
-  }
-
-  li {
-    display: flex;
-    padding: 0.2rem 0;
-
-    @media (min-width: $breakpoint-medium) {
-      width: 50%;
-    }
-
-    @media (min-width: $breakpoint-xlarge) {
-      width: 100%;
-    }
-  }
-
-  a {
-    color: $primary-color;
-    text-decoration: underline;
-  }
-}
-
-.label {
   flex: 1;
-  max-width: 90px;
-  margin-right: 1.5rem;
+  min-width: 0;
+}
+
+.header {
+  margin-bottom: 2.4rem;
+}
+
+.deptBadge {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $primary-color;
+  background-color: rgba(229, 169, 60, 0.12);
+  border: 1px solid rgba(229, 169, 60, 0.25);
+  border-radius: $radius-sm;
+  margin-bottom: 1rem;
+}
+
+.name {
+  margin: 0;
+  font-size: 2.8rem;
+  font-weight: 800;
   color: #fff;
+  letter-spacing: -0.03em;
+
+  @media (min-width: $breakpoint-small) {
+    font-size: 3.6rem;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    font-size: 4.4rem;
+  }
+}
+
+.statsCard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+  padding: 2.4rem;
+  background-color: $surface-1;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+  margin-bottom: 3.6rem;
 
   @media (min-width: $breakpoint-xsmall) {
-    max-width: 110px;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-.value {
-  flex: 2;
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
-.external {
-  ul {
-    display: flex;
-    margin-left: -0.5rem;
+.statLabel {
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $text-muted;
+}
+
+.statValue {
+  font-size: 1.45rem;
+  font-weight: 500;
+  color: $text-primary;
+}
+
+.ageTag {
+  font-weight: 600;
+  color: $primary-color;
+  margin-left: 0.4rem;
+}
+
+.bioSection {
+  margin-top: 3.2rem;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.accentPip {
+  display: inline-block;
+  width: 4px;
+  height: 2rem;
+  background-color: $primary-color;
+  border-radius: $radius-full;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+
+  @media (min-width: $breakpoint-large) {
+    font-size: 2.2rem;
   }
+}
 
-  a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 4.4rem;
-    height: 4.4rem;
+.bioText {
+  font-size: 1.55rem;
+  line-height: 1.7;
+  color: rgba(243, 244, 246, 0.88);
+  max-width: 80rem;
 
-    svg {
-      transition: all 0.3s ease-in-out;
-    }
-
-    &:hover,
-    &:focus {
-      svg {
-        fill: $primary-color;
-      }
-    }
+  p {
+    margin: 0 0 1.6rem;
   }
 }
 </style>

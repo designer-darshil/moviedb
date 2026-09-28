@@ -1,6 +1,7 @@
 <template>
   <main class="main">
     <Hero
+      v-if="featured"
       :item="featured" />
 
     <ListingCarousel
@@ -10,16 +11,16 @@
       :items="popular" />
 
     <ListingCarousel
-      v-if="topRated && topRated.results.length"
-      :title="topRatedTitle"
-      :view-all-url="topRatedUrl"
-      :items="topRated" />
-
-    <ListingCarousel
       v-if="onAir && onAir.results.length"
       :title="onAirTitle"
       :view-all-url="onAirUrl"
       :items="onAir" />
+
+    <ListingCarousel
+      v-if="topRated && topRated.results.length"
+      :title="topRatedTitle"
+      :view-all-url="topRatedUrl"
+      :items="topRated" />
 
     <ListingCarousel
       v-if="airingToday && airingToday.results.length"
@@ -42,9 +43,10 @@ export default {
 
   head () {
     return {
-      title: 'TV Shows',
+      title: 'TV Series — CinemaDB',
       meta: [
-        { hid: 'og:title', property: 'og:title', content: 'TV Shows' },
+        { hid: 'og:title', property: 'og:title', content: 'TV Series — CinemaDB' },
+        { hid: 'og:description', property: 'og:description', content: 'Browse trending television series, currently airing shows, and all-time top rated productions.' },
         { hid: 'og:url', property: 'og:url', content: `${process.env.FRONTEND_URL}${this.$route.path}` },
       ],
     };
@@ -86,11 +88,17 @@ export default {
 
   async asyncData ({ error }) {
     try {
-      const popular = await getTvShows('popular');
-      const topRated = await getTvShows('top_rated');
-      const onAir = await getTvShows('on_the_air');
-      const airingToday = await getTvShows('airing_today');
-      const featured = await getTvShow(popular.results[0].id);
+      const [popular, topRated, onAir, airingToday] = await Promise.all([
+        getTvShows('popular'),
+        getTvShows('top_rated'),
+        getTvShows('on_the_air'),
+        getTvShows('airing_today'),
+      ]);
+
+      let featured = null;
+      if (popular && popular.results && popular.results.length) {
+        featured = await getTvShow(popular.results[0].id);
+      }
 
       return { popular, topRated, onAir, airingToday, featured };
     } catch {

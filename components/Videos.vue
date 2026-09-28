@@ -1,27 +1,34 @@
 <template>
-  <div class="spacing">
+  <div :class="$style.wrapper">
+    <!-- Header with Type Filter -->
     <div :class="$style.head">
-      <select
-        v-if="videoTypes.length > 1"
-        v-model="activeType"
-        @change="filterVideos">
-        <option value="all">
-          All
-        </option>
-        <option
-          v-for="type in videoTypes"
-          :key="`video-type-${type}`"
-          :value="type">
-          {{ type }}
-        </option>
-      </select>
+      <div :class="$style.filterWrap">
+        <label for="video-filter" :class="$style.filterLabel">Filter</label>
+        <select
+          v-if="videoTypes.length > 1"
+          id="video-filter"
+          v-model="activeType"
+          :class="$style.select"
+          @change="filterVideos">
+          <option value="all">
+            All Videos
+          </option>
+          <option
+            v-for="type in videoTypes"
+            :key="`video-type-${type}`"
+            :value="type">
+            {{ type }}
+          </option>
+        </select>
+      </div>
 
-      <strong :class="$style.count">
+      <span :class="$style.count">
         {{ videoCount }}
-      </strong>
+      </span>
     </div>
 
-    <div :class="$style.items">
+    <!-- Video Grid -->
+    <div :class="$style.grid">
       <VideosItem
         v-for="(video, index) in activeVideos"
         :key="`video-${video.id}`"
@@ -30,6 +37,7 @@
         @openModal="openModal" />
     </div>
 
+    <!-- Video Playback Modal -->
     <Modal
       v-if="modalVisible"
       :data="videos"
@@ -85,21 +93,23 @@ export default {
     handleData () {
       const ids = this.videos.map(video => video.key).join(',');
 
-      // video params
       this.videos.forEach((video) => {
         this.$set(video, 'thumb', `https://img.youtube.com/vi/${video.key}/mqdefault.jpg`);
         this.$set(video, 'src', `https://www.youtube.com/embed/${video.key}?rel=0&showinfo=0&autoplay=1`);
         this.$set(video, 'url', `https://youtube.com/watch?v=${video.key}`);
       });
 
-      // get video duration from YouTube api
-      getYouTubeVideo(ids).then((response) => {
-        for (let index = 0; index < this.videos.length; index++) {
-          if (response.items[index]) {
-            this.$set(this.videos[index], 'duration', response.items[index].contentDetails.duration);
+      if (process.env.API_YOUTUBE_KEY) {
+        getYouTubeVideo(ids).then((response) => {
+          if (response && response.items) {
+            for (let index = 0; index < this.videos.length; index++) {
+              if (response.items[index]) {
+                this.$set(this.videos[index], 'duration', response.items[index].contentDetails.duration);
+              }
+            }
           }
-        }
-      });
+        }).catch(() => {});
+      }
     },
 
     filterVideos () {
@@ -122,34 +132,69 @@ export default {
 <style lang="scss" module>
 @import '~/assets/css/utilities/_variables.scss';
 
+.wrapper {
+  padding: 3.2rem 1.6rem;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 4rem 3.2rem;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    padding: 4.8rem 4.8rem;
+  }
+}
+
 .head {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
+  justify-content: space-between;
+  margin-bottom: 2.8rem;
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid $border-subtle;
+}
 
-  @media (min-width: $breakpoint-large) {
-    margin-bottom: 2rem;
-  }
+.filterWrap {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
 
-  select {
-    margin-right: 1rem;
-  }
+.filterLabel {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.select {
+  min-width: 14rem;
 }
 
 .count {
-  font-size: 1.2rem;
-  color: $text-color-grey;
-  letter-spacing: $letter-spacing;
-
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.4rem;
-  }
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: $text-muted;
 }
 
-.items {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -1rem;
-  margin-left: -1rem;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.4rem 2rem;
+
+  @media (min-width: $breakpoint-xsmall) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3.2rem 2.4rem;
+  }
+
+  @media (min-width: 1500px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 </style>

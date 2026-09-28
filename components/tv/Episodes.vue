@@ -1,32 +1,38 @@
 <template>
-  <div class="spacing">
+  <div :class="$style.wrapper">
     <div :class="$style.head">
-      <select
-        v-if="seasons.length > 1"
-        v-model="activeSeason"
-        @change="getEpisodes">
-        <option
-          v-for="season in seasons"
-          :key="`season-${season.season}`"
-          :value="season.season">
-          Season {{ season.season }}
-        </option>
-      </select>
+      <div :class="$style.selectWrap">
+        <label for="season-select" :class="$style.selectLabel">Season</label>
+        <select
+          id="season-select"
+          v-model="activeSeason"
+          :class="$style.select"
+          @change="getEpisodes">
+          <option
+            v-for="season in seasons"
+            :key="`season-${season.season}`"
+            :value="season.season">
+            Season {{ season.season }}
+          </option>
+        </select>
+      </div>
 
-      <strong
-        v-if="activeEpisodes"
-        :class="$style.count">
+      <span v-if="activeEpisodes" :class="$style.count">
         {{ episodeCount }}
-      </strong>
+      </span>
     </div>
 
-    <div
-      v-if="activeEpisodes"
-      :class="$style.items">
+    <!-- Episodes List -->
+    <div v-if="activeEpisodes" :class="$style.items">
       <EpisodesItem
         v-for="episode in activeEpisodes"
         :key="`episode-${episode.id}`"
         :episode="episode" />
+    </div>
+
+    <!-- Loading State -->
+    <div v-else :class="$style.loading">
+      <p>Loading episode guide...</p>
     </div>
   </div>
 </template>
@@ -61,16 +67,13 @@ export default {
 
     seasons () {
       const seasons = [];
-
       for (let index = 0; index < this.numberOfSeasons; index++) {
         seasons.push({
           season: index + 1,
           episodes: null,
         });
       }
-
       seasons.sort((a, b) => a.season > b.season ? -1 : 1);
-
       return seasons;
     },
   },
@@ -81,14 +84,12 @@ export default {
 
   methods: {
     getEpisodes () {
-      const season = this.seasons.find(season => season.season === this.activeSeason);
+      const season = this.seasons.find(s => s.season === this.activeSeason);
+      if (!season) return;
 
-      // if we already have the episodes, just show them
-      // else do api call
       if (season.episodes) {
         this.activeEpisodes = season.episodes;
       } else {
-        // get episodes for a certain season
         getTvShowEpisodes(this.$route.params.id, this.activeSeason).then((response) => {
           season.episodes = response.episodes;
           this.activeEpisodes = season.episodes;
@@ -102,34 +103,67 @@ export default {
 <style lang="scss" module>
 @import '~/assets/css/utilities/_variables.scss';
 
-.head {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
+.wrapper {
+  padding: 3.2rem 1.6rem;
+  max-width: 1440px;
+  margin: 0 auto;
 
-  @media (min-width: $breakpoint-large) {
-    margin-bottom: 2rem;
+  @media (min-width: $breakpoint-small) {
+    padding: 4rem 3.2rem;
   }
 
-  select {
-    margin-right: 1rem;
+  @media (min-width: $breakpoint-large) {
+    padding: 4.8rem 4.8rem;
   }
 }
 
-.count {
-  font-size: 1.2rem;
-  color: $text-color-grey;
-  letter-spacing: $letter-spacing;
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.8rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid $border-subtle;
+}
 
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.4rem;
-  }
+.selectWrap {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.selectLabel {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.select {
+  min-width: 14rem;
+}
+
+.count {
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: $text-muted;
 }
 
 .items {
   display: flex;
-  flex-wrap: wrap;
-  margin-right: -0.4rem;
-  margin-left: -0.4rem;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  @media (min-width: $breakpoint-small) {
+    gap: 2rem;
+  }
+}
+
+.loading {
+  padding: 6rem 2rem;
+  text-align: center;
+  color: $text-muted;
+  font-size: 1.5rem;
 }
 </style>

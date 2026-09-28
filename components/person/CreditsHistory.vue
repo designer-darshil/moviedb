@@ -1,67 +1,75 @@
 <template>
-  <div class="spacing">
+  <div :class="$style.wrapper">
+    <!-- Filmography Filter Controls -->
     <div :class="$style.head">
-      <div :class="$style.filter">
-        <label for="credits_category">
-          Department
-        </label>
+      <div :class="$style.filters">
+        <div :class="$style.filter">
+          <label for="credits_category" :class="$style.label">
+            Department
+          </label>
+          <select
+            id="credits_category"
+            v-model="active_category"
+            :class="$style.select"
+            :disabled="!categories.length || categories.length === 1"
+            @change="filterCredits">
+            <option value="all">
+              All Departments
+            </option>
+            <option
+              v-for="category in categories"
+              :key="`credit-filter-${category.toLowerCase()}`"
+              :value="category.toLowerCase()">
+              {{ category }}
+            </option>
+          </select>
+        </div>
 
-        <select
-          id="credits_category"
-          v-model="active_category"
-          :disabled="!categories.length || categories.length === 1"
-          @change="filterCredits">
-          <option value="all">
-            All
-          </option>
-
-          <option
-            v-for="(category) in categories"
-            :key="`credit-filter-${category.toLowerCase()}`"
-            :value="category.toLowerCase()">
-            {{ category }}
-          </option>
-        </select>
-      </div>
-
-      <div :class="$style.filter">
-        <label for="credits_media">
-          Media
-        </label>
-
-        <select
-          id="credits_media"
-          v-model="active_media"
-          @change="getCredits">
-          <option value="combined_credits">
-            All
-          </option>
-          <option value="movie_credits">
-            Movies
-          </option>
-          <option value="tv_credits">
-            TV Shows
-          </option>
-        </select>
+        <div :class="$style.filter">
+          <label for="credits_media" :class="$style.label">
+            Media Format
+          </label>
+          <select
+            id="credits_media"
+            v-model="active_media"
+            :class="$style.select"
+            @change="getCredits">
+            <option value="combined_credits">
+              All Formats
+            </option>
+            <option value="movie_credits">
+              Feature Films
+            </option>
+            <option value="tv_credits">
+              Television Series
+            </option>
+          </select>
+        </div>
       </div>
     </div>
 
+    <!-- Grouped Department Filmography -->
     <div
       v-for="category in active_credits"
       :key="`credits-${category.name.toLowerCase()}`"
       :class="$style.category">
-      <h2 :class="$style.title">
-        {{ category.name }}
-      </h2>
+      <div :class="$style.categoryHeader">
+        <span :class="$style.accentPip" />
+        <h2 :class="$style.title">
+          {{ category.name }}
+        </h2>
+      </div>
 
-      <table>
-        <tbody>
-          <CreditsHistoryGroup
-            v-for="group in category.groups"
-            :key="`credit-${category.name.toLowerCase()}-${group.year}`"
-            :group="group" />
-        </tbody>
-      </table>
+      <div :class="$style.tableCard">
+        <table :class="$style.table">
+          <tbody>
+            <CreditsHistoryGroup
+              v-for="group in category.groups"
+              :key="`credit-${category.name.toLowerCase()}-${group.year}`"
+              :group="group" />
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -101,67 +109,34 @@ export default {
     if (cast) this.$data[this.active_media].push({ name: 'Acting', groups: cast });
     if (crew) this.$data[this.active_media] = [...this.$data[this.active_media], ...crew];
 
-    // set the active credits
     this.active_credits = this.$data[this.active_media];
-
-    // set the category filter
     this.categories = this.getCategories();
   },
 
   methods: {
     handleCast (items) {
       if (!items || !items.length) return;
-
-      // group credits (by year)
       let groups = this.groupItems(items);
-
-      // get blank group (no year)
       const blankGroup = groups.find(group => group.year === '');
-
-      // remove blank group
       if (blankGroup) groups = groups.filter(group => group.year !== '');
-
-      // sort groups by year
       this.sortGroups(groups);
-
-      // add blank group to the start
       if (blankGroup) groups.unshift(blankGroup);
-
-      // sort credits in the group by date
       groups.forEach(group => this.sortCredits(group.credits));
-
       return groups;
     },
 
     handleCrew (items) {
       if (!items || !items.length) return;
-
-      // group by department
       const categories = this.createCategories(items);
-
       categories.forEach((category) => {
-        // group credits (by year)
         let groups = this.groupItems(category.groups);
-
-        // get blank group (no year)
         const blankGroup = groups.find(group => group.year === '');
-
-        // remove blank group
         if (blankGroup) groups = groups.filter(group => group.year !== '');
-
-        // sort groups by year
         this.sortGroups(groups);
-
-        // add blank group to the start
         if (blankGroup) groups.unshift(blankGroup);
-
-        // sort credits in the group by date
         groups.forEach(group => this.sortCredits(group.credits));
-
-        // set items to the new group
         category.groups = groups;
       });
-
       return categories;
     },
 
@@ -171,9 +146,6 @@ export default {
 
     getCredits () {
       const media = this.active_media;
-
-      // if we already have the credits, just show them
-      // else do api call
       if (this.$data[media] && this.$data[media].length) {
         this.active_credits = this.$data[media];
         this.active_category = 'all';
@@ -182,10 +154,8 @@ export default {
         getCredits(this.$route.params.id, media).then((response) => {
           const cast = this.handleCast(response.cast);
           const crew = this.handleCrew(response.crew);
-
           if (cast) this.$data[media].push({ name: 'Acting', groups: cast });
           if (crew) this.$data[media] = [...this.$data[media], ...crew];
-
           this.active_credits = this.$data[media];
           this.active_category = 'all';
           this.categories = this.getCategories();
@@ -203,10 +173,8 @@ export default {
 
     createCategories (items) {
       const categories = [];
-
       items.forEach((item) => {
         const exists = categories.find(category => category.name === item.department);
-
         if (exists) {
           exists.groups.push(item);
         } else {
@@ -216,7 +184,6 @@ export default {
           });
         }
       });
-
       return categories;
     },
 
@@ -225,7 +192,6 @@ export default {
         const date = current.release_date ? current.release_date : current.first_air_date;
         const year = date ? date.split('-')[0] : '';
         const exists = arr.find(item => item.year === year);
-
         if (exists) {
           exists.credits.push(current);
         } else {
@@ -234,7 +200,6 @@ export default {
             credits: [current],
           });
         }
-
         return arr;
       }, []);
     },
@@ -244,17 +209,11 @@ export default {
     },
 
     sortCredits (items) {
-      // sort items in the group by date
       return items.sort((a, b) => {
         const aDate = a.release_date ? a.release_date : a.first_air_date;
         const bDate = b.release_date ? b.release_date : b.first_air_date;
-
-        if (aDate > bDate) {
-          return -1;
-        } else if (aDate < bDate) {
-          return 1;
-        }
-
+        if (aDate > bDate) return -1;
+        if (aDate < bDate) return 1;
         return 0;
       });
     },
@@ -265,38 +224,94 @@ export default {
 <style lang="scss" module>
 @import '~/assets/css/utilities/_variables.scss';
 
+.wrapper {
+  padding: 3.2rem 1.6rem;
+  max-width: 1440px;
+  margin: 0 auto;
+
+  @media (min-width: $breakpoint-small) {
+    padding: 4rem 3.2rem;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    padding: 4.8rem 4.8rem;
+  }
+}
+
 .head {
+  margin-bottom: 3.6rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid $border-subtle;
+}
+
+.filters {
   display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .filter {
-  margin-right: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-  label {
-    margin-right: 1rem;
-    font-size: 1.2rem;
-    letter-spacing: $letter-spacing;
+.label {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $text-muted;
+}
 
-    @media (min-width: $breakpoint-large) {
-      font-size: 1.4rem;
-    }
-  }
+.select {
+  min-width: 16rem;
 }
 
 .category {
-  margin-bottom: 3rem;
+  margin-bottom: 4.8rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.accentPip {
+  display: inline-block;
+  width: 4px;
+  height: 2rem;
+  background-color: $primary-color;
+  border-radius: $radius-full;
 }
 
 .title {
-  margin-bottom: 1.5rem;
+  margin: 0;
   font-size: 1.8rem;
-  letter-spacing: $letter-spacing;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
 
   @media (min-width: $breakpoint-large) {
-    margin-bottom: 2rem;
-    font-size: 2.4rem;
+    font-size: 2.2rem;
   }
+}
+
+.tableCard {
+  background-color: $surface-1;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
 }
 </style>

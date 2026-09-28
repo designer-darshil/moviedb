@@ -19,3 +19,5 @@ sw.*
 
 # OS Files
 .DS_Store
+.vercel
+.env*

@@ -13,15 +13,21 @@
         <div
           class="modal__body"
           @click.stop>
+          <!-- Close Button -->
           <button
             class="modal__close"
-            aria-label="Close"
+            aria-label="Close dialog"
             type="button"
             @click.stop="close">
-            <!-- eslint-disable-next-line -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"><path d="M.75.75l13.5 13.5M14.25.75L.75 14.25"/></g></svg>
+            <span class="modal__closeIcon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </span>
           </button>
 
+          <!-- Modal Media Content -->
           <div :class="`modal__${type}`">
             <iframe
               v-if="type === 'iframe' && activeItem"
@@ -34,19 +40,23 @@
               v-if="type === 'image' && activeItem"
               v-lazyload="activeItem.src"
               class="lazyload"
-              alt="">
+              alt="Film photograph">
           </div>
 
+          <!-- Gallery Navigation Controls -->
           <div
             v-if="showNav"
             class="modal__nav">
             <button
               class="modal__arrow modal__arrow--prev"
-              aria-label="Previous"
+              aria-label="Previous photograph"
               type="button"
               @click.stop="previous">
-              <!-- eslint-disable-next-line -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M17.9 23.2L6.1 12 17.9.8"></path></svg>
+              <span class="modal__arrowCircle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </span>
             </button>
 
             <div class="modal__count">
@@ -55,12 +65,14 @@
 
             <button
               class="modal__arrow modal__arrow--next"
-              aria-label="Next"
+              aria-label="Next photograph"
               type="button"
-              title="Next"
               @click.stop="next">
-              <!-- eslint-disable-next-line -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M6.1 23.2L17.9 12 6.1.8"></path></svg>
+              <span class="modal__arrowCircle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </span>
             </button>
           </div>
         </div>
@@ -179,10 +191,10 @@ export default {
     firstFocusableEl = focusableEls[0];
     lastFocusableEl = focusableEls[focusableEls.length - 1];
 
-    // focus on the first element
-    firstFocusableEl.focus();
+    if (firstFocusableEl) {
+      firstFocusableEl.focus();
+    }
 
-    // calculate iframe size for responsive sizing on resize
     if (this.type === 'iframe') {
       this.handleIframeSize();
       window.addEventListener('resize', this.resizeIframeSize);
@@ -221,8 +233,8 @@ export default {
         this.next();
       } else if (this.nav && e.keyCode === 37) { // left arrow
         this.previous();
-      } else if (e.keyCode === 9) { // tab
-        if (focusableEls.length === 1) {
+      } else if (e.keyCode === 9) { // tab trap
+        if (focusableEls.length <= 1) {
           e.preventDefault();
           return;
         }
@@ -251,17 +263,16 @@ export default {
 
     handleIframeSize () {
       const aspectRatio = 16 / 9;
+      if (!this.$refs.modal) return;
       const styles = getComputedStyle(this.$refs.modal);
       let maxWidth = this.$refs.modal.offsetWidth;
       let maxHeight = this.$refs.modal.offsetHeight;
-      let width;
-      let height;
 
-      maxWidth -= parseFloat(styles.paddingRight) + parseFloat(styles.paddingLeft);
-      maxHeight -= parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+      maxWidth -= parseFloat(styles.paddingRight) + parseFloat(styles.paddingLeft) + 40;
+      maxHeight -= parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom) + 80;
 
-      width = maxWidth;
-      height = maxHeight;
+      let width = maxWidth;
+      let height = maxHeight;
 
       if (maxHeight > maxWidth / aspectRatio) {
         height = maxWidth / aspectRatio;
@@ -269,13 +280,16 @@ export default {
         width = maxHeight * aspectRatio;
       }
 
-      this.$refs.modal.querySelector('.modal__iframe').style.width = `${width}px`;
-      this.$refs.modal.querySelector('.modal__iframe').style.height = `${height}px`;
+      const iframeEl = this.$refs.modal.querySelector('.modal__iframe');
+      if (iframeEl) {
+        iframeEl.style.width = `${Math.min(width, 1200)}px`;
+        iframeEl.style.height = `${Math.min(height, 675)}px`;
+      }
     },
 
     resizeIframeSize: debounce(function () {
       this.handleIframeSize();
-    }, 600),
+    }, 300),
   },
 };
 </script>
@@ -293,84 +307,80 @@ body.modal-open {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 999;
+  z-index: 1000;
   overflow-x: hidden;
   overflow-y: auto;
   cursor: pointer;
-  background-color: #000;
+  background-color: rgba(11, 12, 14, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 
   @media (min-width: $breakpoint-large) {
-    padding: 4.4rem 10rem;
+    padding: 4rem 10rem;
   }
 }
 
 .modal__wrap {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
 }
 
 .modal__body {
   position: relative;
-  margin: auto;
   cursor: default;
+  max-width: 100%;
 }
 
 .modal__close {
   position: absolute;
-  top: 0;
+  top: -4.8rem;
   right: 0;
-  z-index: 1;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4.4rem;
-  height: 4.4rem;
   padding: 0;
   background: none;
+  border: none;
+  cursor: pointer;
 
-  @media (max-width: $breakpoint-large - 1) {
-    position: fixed;
-    left: 0;
-    width: 6rem;
-    height: 6rem;
+  @media (max-width: $breakpoint-small) {
+    top: -4rem;
   }
 }
 
-.modal--nav {
-  @media (max-width: $breakpoint-large - 1) {
-    padding-bottom: 5rem;
-  }
+.modal__closeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: $radius-full;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all $transition-fast;
 
-  .modal__image img {
-    @media (max-width: $breakpoint-large - 1) {
-      max-height: calc(100vh - 5rem);
-    }
+  &:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
   }
 }
 
 .modal__nav {
-  position: absolute;
-  right: 0;
-  bottom: -4.4rem;
-  left: 0;
   display: flex;
   align-items: center;
-  height: 4.4rem;
-
-  @media (max-width: $breakpoint-large - 1) {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    justify-content: space-between;
-    height: 5rem;
-    background-color: #000;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    justify-content: flex-end;
-  }
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.6rem;
 }
 
 .modal__arrow {
@@ -379,94 +389,83 @@ body.modal-open {
   justify-content: center;
   padding: 0;
   background: none;
-
-  @media (max-width: $breakpoint-large - 1) {
-    flex: 1;
-    height: 5rem;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    position: fixed;
-    top: 50%;
-    width: 10rem;
-    height: 10rem;
-    margin-top: -5rem;
-  }
+  border: none;
+  cursor: pointer;
 }
 
-@media (min-width: $breakpoint-large) {
-  .modal__arrow--prev {
-    left: 0;
-  }
+.modal__arrowCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: $radius-full;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all $transition-fast;
 
-  .modal__arrow--next {
-    right: 0;
+  &:hover {
+    color: $primary-color;
+    border-color: $primary-color;
+    background-color: rgba(229, 169, 60, 0.12);
   }
 }
 
 .modal__count {
-  font-size: 1.6rem;
-  line-height: 1;
-}
-
-@media (min-width: $breakpoint-large) {
-  .modal--images {
-    .modal__close {
-      top: -4.4rem;
-    }
-  }
+  padding: 0.6rem 1.4rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: $radius-full;
+  letter-spacing: 0.04em;
 }
 
 .modal__image {
-  &.lazyloading {
-    background: url('~assets/images/loader.svg') no-repeat center;
-  }
+  border-radius: $radius-md;
+  overflow: hidden;
+  box-shadow: $shadow-elevated;
 
   img {
-    max-height: calc(100vh);
-
-    @media (min-width: $breakpoint-large) {
-      max-height: calc(100vh - 8.8rem);
-    }
-  }
-}
-
-@media (min-width: $breakpoint-large) {
-  .modal--iframe {
-    .modal__close {
-      top: -4.4rem;
-    }
+    max-height: 80vh;
+    max-width: 90vw;
+    display: block;
+    object-fit: contain;
+    border-radius: $radius-md;
   }
 }
 
 .modal__iframe {
   position: relative;
-  width: 100%;
+  width: 90vw;
+  max-width: 1100px;
   height: 0;
   padding-bottom: 56.25%;
   overflow: hidden;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-elevated;
+  border: 1px solid $border-subtle;
 
   iframe {
     position: absolute;
     top: 0;
     left: 0;
-    display: block;
     width: 100%;
     height: 100%;
-    padding: 0;
-    margin: 0;
-    background: #000;
     border: 0;
+    border-radius: $radius-lg;
   }
-}
-
-.modal-enter,
-.modal-leave-active {
-  opacity: 0;
 }
 
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
+}
+
+.modal-enter,
+.modal-leave-to {
+  opacity: 0;
 }
 </style>
