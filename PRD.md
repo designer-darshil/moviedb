@@ -1,81 +1,52 @@
 # Product Requirements Document (PRD)
 
 ## 1. Product Overview
-**vue-movies** is a cinematic, editorial digital movie and television discovery platform powered by [The Movie Database (TMDb)](https://developers.themoviedb.org/3) API. The application serves film enthusiasts and casual viewers looking to discover, explore, and research movies, TV series, actors, and filmmakers through a contemporary, typography-led, content-first interface.
+**vue-movies** is a responsive web application for discovering movies, TV shows, and people, built with Nuxt.js (Vue 2) and powered by The Movie Database (TMDb) API. It provides users with a clean, cinematic catalogue to explore trending, popular, and top-rated media, watch trailers, view high-resolution photography, and inspect full cast/crew filmographies.
 
 ---
 
-## 2. Product Goals & Vision
-- **Cinematic & Editorial Experience**: Move beyond dashboard-like grids or generic streaming clones into an immersive film catalogue with elegant typography, controlled negative space, and evocative media presentation.
-- **Content-First Discovery**: Prioritize film artwork, photography, synopses, and filmography over decorative UI noise.
-- **Superior Usability & Accessibility**: Provide instant search with live categorized suggestions, thumb-friendly mobile navigation, readable metadata, semantic HTML, and full keyboard/touch support.
-- **High Performance**: Maintain instant client-side transitions, smooth horizontal media rails, responsive image lazy loading, and lightweight skeletons.
+## 2. Product Goals
+- **Intuitive Discovery**: Deliver fast, uncluttered browsing of cinema and television media.
+- **Visual Faithfulness**: Preserve the original clean, dark visual design, iconic navigation sidebar, and media cards created by Jason Ujma-Alvis.
+- **Robust Media Delivery**: Ensure all TMDb images (posters, backdrops, cast avatars, episode stills) load reliably across all pages without 400 Bad Request or 401 Unauthorized errors.
+- **Fast Client Navigation**: Leverage Nuxt static generation and client-side routing with lazy-loaded media assets.
 
 ---
 
-## 3. Core Personas
-1. **The Casual Browser**: Wants to quickly see what is trending today or this week, watch a trailer, and check ratings before picking something to watch.
-2. **The Film Enthusiast / Cinephile**: Explores deep filmographies, directors, release details, genres, ratings, box office statistics, and high-resolution photo galleries.
-3. **The Mobile Explorer**: Browses movies on a phone during commute or on the couch; needs thumb-friendly navigation, readable poster cards that never hide titles, and fast-loading media.
+## 3. Core Features & Routes
+
+### 3.1 Global Shell & Navigation
+- **Desktop Sidebar (`Nav.vue`)**: Vertical sidebar on desktop (`10rem` width) with Home, Movies, TV Shows, and Search toggle buttons.
+- **Mobile Bottom Nav**: Compact bottom navigation bar docked on screens `< 1200px`.
+- **Search Slideout (`SearchForm.vue`)**: Full-screen slide-down search form with autocomplete and debounced query submission.
+- **TopNav Header (`TopNav.vue`)**: Contextual top bar with back navigation arrow and page title.
+- **Footer (`Footer.vue`)**: Attribution to TMDb and developer links.
+
+### 3.2 Homepage (`/`)
+- **Featured Hero (`Hero.vue`)**: Displays a randomly selected featured movie or TV show from today's trending list with backdrop, review count, rating stars, year, runtime/seasons, synopsis, and modal trailer player.
+- **Trending Movies Carousel (`ListingCarousel.vue`)**: Horizontal scrollable rail of trending movies with "View All" link to `/movie/category/trending`.
+- **Trending TV Shows Carousel (`ListingCarousel.vue`)**: Horizontal scrollable rail of trending TV shows with "View All" link to `/tv/category/trending`.
+
+### 3.3 Movies (`/movie`, `/movie/:id`, `/movie/category/:name`)
+- **Movie Hub (`/movie`)**: Featured hero plus horizontal carousels for Popular, Top Rated, Upcoming, and Now Playing movies.
+- **Movie Detail (`/movie/:id`)**: Hero banner, tabbed media navigation (Overview, Videos, Photos), movie metadata (directors, release date, runtime, budget, revenue, genres), cast list with links to person profiles, and "More Like This" recommended carousel.
+- **Movie Categories (`/movie/category/:name`)**: Infinite-scroll / paginated grid of movies in the selected category.
+
+### 3.4 TV Shows (`/tv`, `/tv/:id`, `/tv/category/:name`)
+- **TV Hub (`/tv`)**: Featured hero plus carousels for Popular, Top Rated, Currently Airing, and Airing Today shows.
+- **TV Detail (`/tv/:id`)**: Hero banner, tabbed navigation (Overview, Episodes, Videos, Photos), creators, first air date, seasons, genres, cast credits, and recommended shows.
+- **Episodes Browser (`Episodes.vue`)**: Season selector dropdown and episode list with episode still images, episode number, air date, and overview.
+
+### 3.5 People (`/person/:id`)
+- **Person Profile**: Large avatar, biography with expansion, birthday, place of birth, known for, photo gallery, and chronological credits history grouped by department.
+
+### 3.6 Search (`/search?q=...`)
+- **Search Results (`SearchResults.vue`)**: Unified paginated grid of movie, TV show, and person results matching query.
 
 ---
 
-## 4. Key Functional Requirements
-
-### 4.1 Global Navigation & Shell
-- **Desktop Rail**: Compact vertical navigation rail with recognizable brand mark, labeled/icon navigation items (Home, Movies, TV Shows, Search), active indicators, and keyboard accessibility.
-- **Mobile Bottom Bar**: Fixed, thumb-friendly bottom navigation bar with safe-area spacing that never obscures content.
-- **Back Header (TopNav)**: Mobile contextual navigation header with clean back action and truncated title.
-- **Footer**: Refined, product-focused footer featuring brand mark, links, TMDb attribution, and legal/privacy links.
-
-### 4.2 Home Experience (`/`)
-- **Editorial Hero**: Stable, intentional feature showcase (not random flicker on reload) displaying media tag, title, year, runtime/seasons, star/numerical rating, genres, synopsis, and direct "Watch Trailer" / "Explore Details" actions.
-- **Discovery Rails**:
-  - Trending Now (Weekly popular across movies and TV)
-  - Curated Movies (Popular, Top Rated, Now Playing)
-  - Curated TV Series (Popular, Top Rated, On Air)
-  - Genre Quick Browse (Interactive genre tags linking directly to genre collections)
-
-### 4.3 Movie Experience (`/movie`, `/movie/:id`, `/movie/category/:name`)
-- **Movie Hub (`/movie`)**: Hero feature + categorized horizontal discovery rails (Popular, Top Rated, Upcoming, Now Playing) with "View all" links.
-- **Movie Detail (`/movie/:id`)**:
-  - Two-layer cinematic hero with high-res backdrop gradient, poster, key metadata (year, runtime, certification, rating, vote count), and trailer trigger.
-  - Section Navigation (`MediaNav`): Overview, Videos, Photos.
-  - Overview Tab: Editorial storyline, detailed metadata grid (Release date, Director, Budget, Revenue, Genre, Status, Language, Production companies), Cast rail, External IDs (IMDb, Twitter, Facebook, Instagram, Homepage).
-  - Videos Tab: Filterable video gallery with duration badges and embedded modal playback.
-  - Photos Tab: High-resolution backdrops and posters with responsive lightbox.
-  - Recommendations: "More Like This" carousel.
-- **Category Browse (`/movie/category/:name`)**: Infinite-scrolling responsive media grid with page title, count, and skeleton loading.
-
-### 4.4 TV Show Experience (`/tv`, `/tv/:id`, `/tv/category/:name`)
-- **TV Hub (`/tv`)**: Hero feature + categorized rails (Popular, Top Rated, On The Air, Airing Today).
-- **TV Detail (`/tv/:id`)**:
-  - Hero with first air year, season count, rating, network, and trailer trigger.
-  - Section Navigation: Overview, Episodes, Videos, Photos.
-  - Episodes Tab: Season selector dropdown with comprehensive episode list (still photo, episode number, title, overview, air date).
-  - Cast rail, external links, and recommendations carousel.
-- **Category Browse (`/tv/category/:name`)**: Infinite-scrolling media grid.
-
-### 4.5 Person & Filmmaker Experience (`/person/:id`)
-- **Editorial Profile**: Portrait artwork, full name, department, biography with structured paragraph formatting, birthday, age, place of birth, deathday (if applicable), and external social links.
-- **Section Navigation**: Known For, Credits, Photos.
-- **Known For Rail**: Top-billed films and shows sorted by popularity/vote count.
-- **Filmography / Credits History**: Department-grouped, chronological table with media filters (All, Movies, TV).
-
-### 4.6 Command-Style Discovery Search (`/search?q=`)
-- **Modal / Overlay Launcher**: Instant keyboard shortcut support (`/` or click), smooth entry animation, clear button.
-- **Discovery State (Empty Query)**: Quick suggestions (Trending Movies, Trending TV, Popular People) so the user is never faced with a blank canvas.
-- **Typing / Live Results**: Debounced real-time query display with media badges (`Movie`, `TV`, `Person`), high-contrast titles, year, and direct navigation.
-- **Full Results Page**: Dedicated route `/search?q=...` supporting infinite scrolling and graceful zero-results feedback ("You've searched beyond the catalogue").
-
-### 4.7 Lightbox & Media Playback
-- **Trailer Player**: Modal with responsive 16:9 YouTube embed, keyboard trap, Escape-to-close, and backdrop dismissal.
-- **Photo Viewer**: Fullscreen lightbox with previous/next controls, keyboard navigation (left/right arrows, Escape), count indicator, and swipe support.
-
----
-
-## 5. Non-Functional Requirements
-- **Responsive Breakpoints**: Seamless experience across 320px, 375px, 430px, 768px, 1024px, 1280px, 1440px, and 1920px+.
-- **Accessibility**: Semantic elements (`<main>`, `<nav>`, `<header>`, `<footer>`, `<dialog>`), visible focus rings, ARIA labels on icon buttons, WCAG AA contrast.
-- **SEO & Social Sharing**: Complete OpenGraph, Twitter Cards, meta descriptions, and dynamic page titles across all routes.
-- **Bundle & Performance**: Lazy loading on all poster and backdrop images, CSS transitions under 300ms, respects `prefers-reduced-motion`.
+## 4. Technical & Quality Requirements
+1. **API Authentication**: TMDb API requests must include a valid `api_key` query parameter loaded synchronously from environment variables.
+2. **Image Sizing**: Only valid TMDb image dimensions (`w500`, `h632`, `w1280`, `w300`, `original`) must be requested. Legacy sizes (`w370_and_h556_bestv2`) are prohibited.
+3. **Resilience**: Missing image paths fall back to inline SVG placeholders without triggering failed network requests or broken browser icons.
+4. **Node 18+ Compatibility**: Nuxt build scripts execute with `NODE_OPTIONS=--openssl-legacy-provider`.
