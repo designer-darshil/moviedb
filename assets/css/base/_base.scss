@@ -1,8 +1,8 @@
 @import '~/assets/css/utilities/_variables.scss';
 
 *,
-*::before,
-*::after {
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
@@ -13,54 +13,47 @@ html {
   font-weight: $base-font-weight;
   line-height: $base-line-height;
   color: $base-font-color;
-  background-color: $base-bg;
-  letter-spacing: $letter-spacing;
+  background: $base-bg;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
-
-  @media (prefers-reduced-motion: reduce) {
-    scroll-behavior: auto;
-  }
 }
 
-body {
-  margin: 0;
-  color: $base-font-color;
-  background-color: $base-bg;
-  overflow-x: hidden;
+/**
+* Remove text-shadow in selection highlight:
+* https://twitter.com/miketaylr/status/12228805301
+*
+* These selection rule sets have to be separate.
+* Customize the background color to match your design.
+*/
+
+::-moz-selection {
+  text-shadow: none;
+  background: #b3d4fc;
 }
 
 ::selection {
-  color: #fff;
-  background: rgba(229, 169, 60, 0.35);
   text-shadow: none;
+  background: #b3d4fc;
 }
 
-::-moz-selection {
-  color: #fff;
-  background: rgba(229, 169, 60, 0.35);
-  text-shadow: none;
-}
-
-:focus-visible {
-  outline: 2px solid $primary-color;
-  outline-offset: 2px;
-}
-
-button:focus:not(:focus-visible),
-a:focus:not(:focus-visible) {
-  outline: none;
-}
+/**
+* A better looking default horizontal rule
+*/
 
 hr {
   display: block;
   height: 1px;
   padding: 0;
-  margin: 2rem 0;
+  margin: 1em 0;
   border: 0;
-  border-top: 1px solid $border-subtle;
+  border-top: 1px solid #ccc;
 }
+
+/**
+* Remove the gap between audio, canvas, iframes,
+* images, videos and the bottom of their containers:
+* https://github.com/h5bp/base5-boilerplate/issues/440
+*/
 
 audio,
 canvas,
@@ -71,21 +64,34 @@ video {
   vertical-align: middle;
 }
 
+/**
+* Remove default fieldset styles.
+*/
+
 fieldset {
   padding: 0;
   margin: 0;
   border: 0;
 }
 
+/**
+* Allow only vertical resizing of textareas.
+*/
+
 textarea {
   resize: vertical;
 }
+
+/**
+* Responsive images
+*/
 
 img {
   display: inline-block;
   max-width: 100%;
   height: auto;
   vertical-align: middle;
+  -ms-interpolation-mode: bicubic;
 }
 
 table {
@@ -94,14 +100,7 @@ table {
 
   th,
   td {
-    padding: 1.2rem 1.6rem;
+    padding: 0.5rem 0;
     text-align: left;
   }
-}
-
-button {
-  cursor: pointer;
-  font-family: inherit;
-  border: none;
-  background: none;
 }

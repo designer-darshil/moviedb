@@ -1,7 +1,7 @@
 <template>
   <tr :class="$style.group">
     <td :class="$style.row">
-      <table :class="$style.subTable">
+      <table>
         <tbody>
           <CreditsHistoryItem
             v-for="credit in group.credits"
@@ -34,17 +34,11 @@ export default {
 <style lang="scss" module>
 @import '~/assets/css/utilities/_variables.scss';
 
-.group {
-  background-color: transparent;
+.group:nth-child(odd) {
+  background-color: $secondary-color;
 }
 
 .row {
-  padding: 0 !important;
-  border-bottom: none !important;
-}
-
-.subTable {
-  width: 100%;
-  border-collapse: collapse;
+  padding: 0;
 }
 </style>

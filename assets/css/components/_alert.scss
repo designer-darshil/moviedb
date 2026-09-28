@@ -1,80 +1,52 @@
 @import '~/assets/css/utilities/_variables.scss';
 
 .alert {
-  font-size: 1.35rem;
-  color: $text-color;
-  background-color: rgba(20, 21, 26, 0.96);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid $border-subtle;
+  font-size: 1.4rem;
+  color: #fff;
+  background-color: $secondary-color;
 
   p {
     margin: 0;
-    line-height: 1.5;
-    color: $text-secondary;
   }
 
   a {
-    color: $primary-color;
+    color: #fff;
     text-decoration: underline;
-    font-weight: 500;
-
-    &:hover {
-      color: $primary-hover;
-    }
   }
 
   button {
-    font-size: 1.3rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    border-radius: $radius-sm;
-    transition: all $transition-fast;
+    font-size: 1.4rem;
   }
 }
 
 .alert + .alert {
-  border-top: 1px solid $border-subtle;
+  border-top: 1px solid #000;
 }
 
 .alert__close {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  padding: 0 2.4rem;
+  padding: 0 3rem;
   background: none;
-  border: none;
-  border-left: 1px solid $border-subtle;
-  color: $text-secondary;
-  cursor: pointer;
-  transition: color $transition-fast;
-
-  &:hover {
-    color: $text-color;
-  }
+  border-left: 1px solid #000;
 }
 
 .alert__btn--primary {
   background-color: $primary-color;
-  color: #000;
-  border: 1px solid transparent;
 
   &:hover,
   &:focus {
-    background-color: $primary-hover;
-    color: #000;
+    background-color: #146fb7;
   }
 }
 
 .alert__btn--secondary {
-  background-color: $surface-overlay;
-  color: $text-color;
-  border: 1px solid $border-subtle;
+  background-color: #000;
 
   &:hover,
   &:focus {
-    background-color: $surface-card;
-    border-color: $border-medium;
+    background-color: #2f2f2f;
   }
 }
 
@@ -83,27 +55,27 @@
 
   p {
     flex: 1;
-    padding: 1.4rem 1.6rem;
+    padding: 1.5rem;
 
     @media (min-width: $breakpoint-small) {
-      padding: 1.6rem 2.4rem;
+      padding: 1.5rem 2rem;
     }
   }
 }
 
 .alert--alt {
-  padding: 1.4rem 1.6rem;
+  padding: 1.5rem;
 
   @media (min-width: $breakpoint-small) {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.4rem 2.4rem;
+    padding: 1.5rem 2rem;
   }
 
   p {
     @media (min-width: $breakpoint-small) {
-      margin-right: 2rem;
+      margin-right: 1rem;
     }
   }
 
@@ -112,8 +84,7 @@
   }
 
   .alert__btn {
-    padding: 0.8rem 1.6rem;
-    margin: 1.2rem 0.8rem 0 0;
+    margin: 1.5rem 1rem 0 0;
 
     @media (min-width: $breakpoint-small) {
       flex-shrink: 0;

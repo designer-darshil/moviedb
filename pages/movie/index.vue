@@ -1,7 +1,6 @@
 <template>
   <main class="main">
     <Hero
-      v-if="featured"
       :item="featured" />
 
     <ListingCarousel
@@ -9,12 +8,6 @@
       :title="popularTitle"
       :view-all-url="popularUrl"
       :items="popular" />
-
-    <ListingCarousel
-      v-if="nowPlaying && nowPlaying.results.length"
-      :title="nowPlayingTitle"
-      :view-all-url="nowPlayingUrl"
-      :items="nowPlaying" />
 
     <ListingCarousel
       v-if="topRated && topRated.results.length"
@@ -27,6 +20,12 @@
       :title="upcomingTitle"
       :view-all-url="upcomingUrl"
       :items="upcoming" />
+
+    <ListingCarousel
+      v-if="nowPlaying && nowPlaying.results.length"
+      :title="nowPlayingTitle"
+      :view-all-url="nowPlayingUrl"
+      :items="nowPlaying" />
   </main>
 </template>
 
@@ -43,10 +42,9 @@ export default {
 
   head () {
     return {
-      title: 'Movies — CinemaDB',
+      title: 'Movies',
       meta: [
-        { hid: 'og:title', property: 'og:title', content: 'Movies — CinemaDB' },
-        { hid: 'og:description', property: 'og:description', content: 'Browse popular, top-rated, upcoming, and currently playing feature films.' },
+        { hid: 'og:title', property: 'og:title', content: 'Movies' },
         { hid: 'og:url', property: 'og:url', content: `${process.env.FRONTEND_URL}${this.$route.path}` },
       ],
     };
@@ -88,19 +86,11 @@ export default {
 
   async asyncData ({ error }) {
     try {
-      const [popular, topRated, upcoming, nowPlaying] = await Promise.all([
-        getMovies('popular'),
-        getMovies('top_rated'),
-        getMovies('upcoming'),
-        getMovies('now_playing'),
-      ]);
-
-      let featured = null;
-      if (nowPlaying && nowPlaying.results && nowPlaying.results.length) {
-        featured = await getMovie(nowPlaying.results[0].id);
-      } else if (popular && popular.results && popular.results.length) {
-        featured = await getMovie(popular.results[0].id);
-      }
+      const popular = await getMovies('popular');
+      const topRated = await getMovies('top_rated');
+      const upcoming = await getMovies('upcoming');
+      const nowPlaying = await getMovies('now_playing');
+      const featured = await getMovie(upcoming.results[0].id);
 
       return { popular, topRated, upcoming, nowPlaying, featured };
     } catch {

@@ -1,87 +1,41 @@
 <template>
-  <nav :class="$style.nav" aria-label="Main Navigation">
-    <!-- Desktop Brand Logo -->
-    <div :class="$style.brand">
-      <nuxt-link to="/" aria-label="Cinema Home" :class="$style.brandLink">
-        <span :class="$style.brandMark">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.75" />
-            <path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
-          </svg>
-        </span>
-      </nuxt-link>
-    </div>
-
-    <!-- Navigation List -->
-    <ul class="nolist" :class="$style.list">
-      <li :class="$style.item">
+  <nav :class="$style.nav">
+    <ul class="nolist">
+      <li>
         <nuxt-link
           exact
           :to="{ name: 'index' }"
-          :class="$style.link"
           aria-label="Home">
-          <span :class="$style.icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
-          </span>
-          <span :class="$style.label">Home</span>
+          <!-- eslint-disable-next-line -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-miterlimit="10" stroke-linejoin="round" ><path d="M8.5 23.2H1.3V9L12 .8 22.7 9v14.2h-7.2v-5c0-1.9-1.6-3.4-3.5-3.4s-3.5 1.5-3.5 3.4v5z"/></g></svg>
         </nuxt-link>
       </li>
-
-      <li :class="$style.item">
+      <li>
         <nuxt-link
           :to="{ name: 'movie' }"
-          :class="$style.link"
           aria-label="Movies">
-          <span :class="$style.icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18" />
-              <line x1="7" y1="2" x2="7" y2="22" />
-              <line x1="17" y1="2" x2="17" y2="22" />
-              <line x1="2" y1="12" x2="22" y2="12" />
-              <line x1="2" y1="7" x2="7" y2="7" />
-              <line x1="2" y1="17" x2="7" y2="17" />
-              <line x1="17" y1="17" x2="22" y2="17" />
-              <line x1="17" y1="7" x2="22" y2="7" />
-            </svg>
-          </span>
-          <span :class="$style.label">Movies</span>
+          <!-- eslint-disable-next-line -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="1.5" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round"><path d="M3.2 12.8h19.6v9.5c0 .5-.4.9-1 .9H4.1c-.5 0-1-.4-1-.9v-9.5"/><path d="M3.3 13.1l-2-4.4c-.2-.5 0-1 .5-1.2L18 .8c.5-.2 1.1 0 1.3.5l1.8 4-17.5 7.3"/><path d="M15 2.1l-.9 6M8 4.7l-1.2 6.6"/></g></svg>
         </nuxt-link>
       </li>
-
-      <li :class="$style.item">
+      <li>
         <nuxt-link
           :to="{ name: 'tv' }"
-          :class="$style.link"
           aria-label="TV Shows">
-          <span :class="$style.icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="15" rx="2" ry="2" />
-              <polyline points="17 2 12 7 7 2" />
-            </svg>
-          </span>
-          <span :class="$style.label">TV Shows</span>
+          <!-- eslint-disable-next-line -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-miterlimit="10"><path d="M21.4 23H2.6c-.9 0-1.6-.7-1.6-1.6V8.9c0-.9.7-1.6 1.6-1.6h18.9c.8 0 1.5.7 1.5 1.6v12.6c0 .8-.7 1.5-1.6 1.5zM6.4 1L12 7M17.6 1L12 7"/></g></svg>
         </nuxt-link>
       </li>
-
-      <li :class="$style.item">
+      <li>
         <button
           class="search-toggle"
           type="button"
-          :class="[$style.link, $style.searchBtn, { [$style.searchBtnActive]: searchOpen }]"
           aria-label="Search"
           aria-haspopup="true"
           :aria-expanded="`${searchOpen}`"
           @click="toggleSearch">
-          <span :class="$style.icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-          </span>
-          <span :class="$style.label">Search</span>
+          <!-- eslint-disable-next-line -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-miterlimit="10"><path d="M16.4 16.7l6.3 6.5"/><ellipse cx="10.5" cy="9.8" rx="9.2" ry="9.1"/></g></svg>
         </button>
       </li>
     </ul>
@@ -116,160 +70,57 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 100;
-  height: calc(#{$nav-mobile-height} + env(safe-area-inset-bottom, 0px));
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  background-color: rgba(11, 12, 14, 0.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid $border-subtle;
+  z-index: 5;
+  height: 4.5rem;
+  background-color: #000;
 
   @media (min-width: $breakpoint-large) {
     top: 0;
     right: auto;
-    bottom: 0;
-    width: $nav-desktop-width;
+    width: 10rem;
     height: 100%;
-    padding-bottom: 0;
-    background-color: $base-bg;
-    border-top: 0;
-    border-right: 1px solid $border-subtle;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border-right: 1px solid $secondary-color;
   }
-}
 
-.brand {
-  display: none;
+  ul {
+    display: flex;
+    height: 100%;
 
-  @media (min-width: $breakpoint-large) {
+    @media (min-width: $breakpoint-large) {
+      flex-direction: column;
+    }
+
+    li {
+      flex: 1 1 auto;
+      height: 100%;
+
+      @media (min-width: $breakpoint-large) {
+        flex: 0 1 auto;
+        height: 10rem;
+      }
+    }
+  }
+
+  button {
+    padding: 0;
+    margin: 0;
+    background: none;
+  }
+
+  a,
+  button {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 8.4rem;
-    border-bottom: 1px solid $border-subtle;
-  }
-}
+    height: 100%;
+    outline: 0;
+    transition: all 0.2s;
 
-.brandLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $primary-color;
-  transition: transform $transition-fast, color $transition-fast;
-
-  &:hover {
-    color: $primary-hover;
-    transform: scale(1.08);
-  }
-}
-
-.brandMark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 4rem;
-  height: 4rem;
-  border-radius: $radius-md;
-  background-color: rgba(229, 169, 60, 0.1);
-  border: 1px solid rgba(229, 169, 60, 0.2);
-}
-
-.list {
-  display: flex;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-
-  @media (min-width: $breakpoint-large) {
-    flex-direction: column;
-    width: 100%;
-    height: auto;
-    padding-top: 1.6rem;
-    gap: 0.8rem;
-  }
-}
-
-.item {
-  flex: 1 1 0;
-  height: 100%;
-
-  @media (min-width: $breakpoint-large) {
-    flex: 0 0 auto;
-    width: 100%;
-    height: 7.2rem;
-    padding: 0 0.8rem;
-  }
-}
-
-.link {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 0.6rem 0;
-  color: $text-muted;
-  text-decoration: none;
-  border-radius: $radius-md;
-  transition: color $transition-fast, background-color $transition-fast;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    color: $text-color;
-    background-color: rgba(255, 255, 255, 0.04);
-  }
-
-  &:focus-visible {
-    outline: 2px solid $primary-color;
-    outline-offset: -2px;
-  }
-}
-
-.icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.4rem;
-  transition: transform $transition-fast;
-
-  svg {
-    transition: stroke $transition-fast;
-  }
-}
-
-.label {
-  font-size: 1.1rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  transition: color $transition-fast;
-
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.1rem;
-  }
-}
-
-.searchBtn {
-  margin: 0;
-  font-family: inherit;
-}
-
-.searchBtnActive {
-  color: $primary-color;
-
-  .icon svg {
-    stroke: $primary-color;
-  }
-
-  .label {
-    color: $primary-color;
-    font-weight: 600;
+    &:hover,
+    &:focus {
+      opacity: 0.8;
+    }
   }
 }
 </style>
@@ -277,43 +128,14 @@ export default {
 <style lang="scss" scoped>
 @import '~/assets/css/utilities/_variables.scss';
 
-// Active link state
 a.nuxt-link-active {
-  color: $primary-color;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2.4rem;
-    height: 2px;
-    background-color: $primary-color;
-    border-radius: $radius-full;
-
-    @media (min-width: $breakpoint-large) {
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      width: 3px;
-      height: 2.8rem;
-    }
+  &:hover,
+  &:focus {
+    opacity: 1;
   }
 
-  .icon {
-    transform: translateY(-1px);
-
-    svg {
-      stroke: $primary-color;
-    }
+  svg g {
+    stroke: $primary-color;
   }
-
-  .label {
-    color: $primary-color;
-    font-weight: 600;
-  }
-
-  background-color: rgba(229, 169, 60, 0.06);
 }
 </style>

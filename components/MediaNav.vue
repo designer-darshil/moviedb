@@ -1,19 +1,14 @@
 <template>
-  <nav :class="$style.navWrap" aria-label="Media Section Navigation">
-    <div :class="$style.nav" role="tablist">
-      <button
-        v-for="(item, index) in menu"
-        :key="`tab-${index}`"
-        :class="[$style.tab, { [$style.tabActive]: active === index }]"
-        type="button"
-        role="tab"
-        :aria-selected="active === index"
-        @click="clicked(index, item)">
-        <span>{{ item }}</span>
-        <span v-if="active === index" :class="$style.activeIndicator" />
-      </button>
-    </div>
-  </nav>
+  <div :class="$style.nav">
+    <button
+      v-for="(item, index) in menu"
+      :key="`tab-${index}`"
+      :class="[$style.button, { [$style.buttonActive] : active === index }]"
+      type="button"
+      @click="clicked(index, item)">
+      {{ item }}
+    </button>
+  </div>
 </template>
 
 <script>
@@ -43,86 +38,57 @@ export default {
 <style lang="scss" module>
 @import '~/assets/css/utilities/_variables.scss';
 
-.navWrap {
-  width: 100%;
-  border-bottom: 1px solid $border-subtle;
-  background-color: $surface-1;
-}
-
 .nav {
   display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 1.6rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-
-  @media (min-width: $breakpoint-small) {
-    padding: 0 3.2rem;
-    gap: 1.6rem;
-  }
+  height: 4.8rem;
+  background-color: #1b1b1b;
 
   @media (min-width: $breakpoint-large) {
     justify-content: center;
-    padding: 0 4.8rem;
-    gap: 2.4rem;
-  }
-
-  &::-webkit-scrollbar {
-    display: none;
+    margin-top: 2.5rem;
+    background: none;
   }
 }
 
-.tab {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.6rem 1.4rem;
-  font-size: 1.45rem;
+.button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 -0.2rem;
+  font-size: 1.4rem;
   font-weight: 500;
-  color: $text-muted;
+  color: #585858;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing;
   background: none;
-  border: none;
-  cursor: pointer;
-  white-space: nowrap;
-  letter-spacing: -0.01em;
-  transition: color $transition-fast;
-
-  &:hover {
-    color: $text-primary;
-  }
-
-  &:focus-visible {
-    outline: 2px solid $primary-color;
-    outline-offset: -2px;
-  }
+  border-right: 1px solid $base-bg;
+  outline: 0;
+  transition: color 0.2s ease;
 
   @media (min-width: $breakpoint-large) {
-    font-size: 1.6rem;
-    padding: 2rem 2rem;
+    width: auto;
+    margin: 0 3rem;
+    font-size: 2rem;
+    border-bottom: 2px solid transparent;
   }
-}
 
-.tabActive {
-  color: #fff;
-  font-weight: 600;
+  &:last-child {
+    border-right: 0;
+  }
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: #fff;
   }
 }
 
-.activeIndicator {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background-color: $primary-color;
-  border-radius: $radius-full $radius-full 0 0;
-  box-shadow: 0 0 12px rgba(229, 169, 60, 0.4);
+.buttonActive {
+  color: #fff;
+  background-color: $base-bg;
+
+  @media (min-width: $breakpoint-large) {
+    background: none;
+    border-bottom-color: #fff;
+  }
 }
 </style>
