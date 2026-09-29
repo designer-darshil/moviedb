@@ -77,7 +77,7 @@ Vue.filter('truncate', function (text, length, clamp) {
  * Format array to comma separated list
  */
 Vue.filter('arrayToList', function (array) {
-  return array.map(item => item.name).join(', ');
+  return array.map((item) => item.name).join(', ');
 });
 
 /**
@@ -111,7 +111,7 @@ Vue.filter('fullDate', function (string) {
  * Format iso_639_1 to full language
  */
 Vue.filter('fullLang', function (iso) {
-  const fullLang = languages.find(lang => lang.iso_639_1 === iso);
+  const fullLang = languages.find((lang) => lang.iso_639_1 === iso);
 
   if (fullLang) {
     return fullLang.english_name;

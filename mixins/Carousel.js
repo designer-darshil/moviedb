@@ -4,7 +4,7 @@
 import smoothscroll from 'smoothscroll-polyfill';
 
 export default {
-  data () {
+  data() {
     return {
       elementWidth: 0,
       carouselWidth: 0,
@@ -16,17 +16,17 @@ export default {
     };
   },
 
-  mounted () {
+  mounted() {
     smoothscroll.polyfill();
     window.addEventListener('resize', this.resizeEvent);
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     window.removeEventListener('resize', this.resizeEvent);
   },
 
   methods: {
-    calculateState (numberOfItems) {
+    calculateState(numberOfItems) {
       let unusableVisibleWidth = 72;
       const elementWidth =
         this.$refs.carouselElement.firstChild.getBoundingClientRect().width;
@@ -49,14 +49,14 @@ export default {
       this.disableRightButton = visibleWidth >= carouselWidth;
     },
 
-    moveTo (width) {
+    moveTo(width) {
       this.$refs.carouselElement.scrollTo({
         left: width,
         behavior: 'smooth',
       });
     },
 
-    moveToClickEvent (direction) {
+    moveToClickEvent(direction) {
       const invisible =
         this.$refs.carouselElement.scrollLeft +
         (direction === 'left' ? -this.visibleWidth + 1 : this.visibleWidth);
@@ -65,7 +65,7 @@ export default {
       this.moveTo(remainder);
     },
 
-    scrollEvent () {
+    scrollEvent() {
       const scrollLeft = this.$refs.carouselElement.scrollLeft;
       const end = this.maximumPosition - this.visibleWidth - this.elementWidth;
 

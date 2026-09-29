@@ -61,12 +61,12 @@ const loadImage = function (el, path) {
  * Lazy loading images
  */
 Vue.directive('lazyload', {
-  inserted (el, binding) {
+  inserted(el, binding) {
     if (!binding.value) {
       return;
     }
 
-    function handleIntersect (entries, observer) {
+    function handleIntersect(entries, observer) {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) {
           /* eslint-disable-next-line */
@@ -79,7 +79,7 @@ Vue.directive('lazyload', {
     }
 
     // Detect that the element is in the viewport.
-    function createObserver () {
+    function createObserver() {
       const options = {
         root: null,
         rootMargin: '250px 0px',
@@ -98,7 +98,7 @@ Vue.directive('lazyload', {
     }
   },
 
-  update (el, binding) {
+  update(el, binding) {
     // only run if the value is defined and has changed
     if (
       binding.value &&

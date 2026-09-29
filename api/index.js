@@ -264,18 +264,18 @@ export const languages = [
 /**
  * Get list item
  */
-export function getListItem (type, query) {
+export function getListItem(type, query) {
   if (type === 'movie') {
-    return lists.movie.find(list => list.query === query);
+    return lists.movie.find((list) => list.query === query);
   } else if (type === 'tv') {
-    return lists.tv.find(list => list.query === query);
+    return lists.tv.find((list) => list.query === query);
   }
 }
 
 /**
  * Get movies (listing)
  */
-export function getMovies (query, page = 1) {
+export function getMovies(query, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/movie/${query}`, {
@@ -297,7 +297,7 @@ export function getMovies (query, page = 1) {
 /**
  * Get movie (single)
  */
-export function getMovie (id) {
+export function getMovie(id) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/movie/${id}`, {
@@ -321,7 +321,7 @@ export function getMovie (id) {
 /**
  * Get movie recommended (single)
  */
-export function getMovieRecommended (id, page = 1) {
+export function getMovieRecommended(id, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/movie/${id}/recommendations`, {
@@ -343,7 +343,7 @@ export function getMovieRecommended (id, page = 1) {
 /**
  * Get TV shows (listing)
  */
-export function getTvShows (query, page = 1) {
+export function getTvShows(query, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/tv/${query}`, {
@@ -365,7 +365,7 @@ export function getTvShows (query, page = 1) {
 /**
  * Get TV show (single)
  */
-export function getTvShow (id) {
+export function getTvShow(id) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/tv/${id}`, {
@@ -389,7 +389,7 @@ export function getTvShow (id) {
 /**
  * Get TV show recommended (single)
  */
-export function getTvShowRecommended (id, page = 1) {
+export function getTvShowRecommended(id, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/tv/${id}/recommendations`, {
@@ -411,7 +411,7 @@ export function getTvShowRecommended (id, page = 1) {
 /**
  * Get TV show episodes from season (single)
  */
-export function getTvShowEpisodes (id, season) {
+export function getTvShowEpisodes(id, season) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/tv/${id}/season/${season}`, {
@@ -432,7 +432,7 @@ export function getTvShowEpisodes (id, season) {
 /**
  * Get trending
  */
-export function getTrending (media, page = 1) {
+export function getTrending(media, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/trending/${media}/week`, {
@@ -454,7 +454,7 @@ export function getTrending (media, page = 1) {
 /**
  * Discover media by genre
  */
-export function getMediaByGenre (media, genre, page = 1) {
+export function getMediaByGenre(media, genre, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/discover/${media}`, {
@@ -478,7 +478,7 @@ export function getMediaByGenre (media, genre, page = 1) {
 /**
  * Get credits
  */
-export function getCredits (id, type) {
+export function getCredits(id, type) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/person/${id}/${type}`, {
@@ -499,7 +499,7 @@ export function getCredits (id, type) {
 /**
  * Get genre list
  */
-export function getGenreList (media) {
+export function getGenreList(media) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/genre/${media}/list`, {
@@ -519,7 +519,7 @@ export function getGenreList (media) {
 /**
  * Get person (single)
  */
-export function getPerson (id) {
+export function getPerson(id) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/person/${id}`, {
@@ -542,7 +542,7 @@ export function getPerson (id) {
 /**
  * Search (searches movies, tv and people)
  */
-export function search (query, page = 1) {
+export function search(query, page = 1) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/search/multi`, {
@@ -566,7 +566,7 @@ export function search (query, page = 1) {
 /**
  * Get YouTube video info
  */
-export function getYouTubeVideo (id) {
+export function getYouTubeVideo(id) {
   return new Promise((resolve, reject) => {
     axios
       .get('https://www.googleapis.com/youtube/v3/videos', {
