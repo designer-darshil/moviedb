@@ -52,10 +52,12 @@
       <div>
         <div
           v-if="person.known_for_department"
-          class="flex items-center gap-2 mb-2 text-[1.15rem] font-semibold tracking-wider uppercase text-primary-amber"
+          class="flex items-center gap-2 mb-2"
         >
-          <span class="w-1.5 h-1.5 rounded-full bg-primary-amber" />
-          <span>Industry Creative</span>
+          <Tag
+            :value="person.known_for_department"
+            class="cinema-badge-amber !text-[1.15rem] !px-3 !py-1"
+          />
         </div>
         <h1
           class="m-0 font-display text-[3.2rem] sm:text-[4.4rem] font-extrabold -tracking-wide text-white"
@@ -75,14 +77,14 @@
             :class="isBioExpanded ? '' : 'line-clamp-6'"
             v-html="formattedBio"
           />
-          <button
+          <Button
             v-if="isLongBio"
             type="button"
-            class="mt-2 text-[1.3rem] font-semibold text-primary-amber hover:text-primary-hover cursor-pointer"
+            class="p-button-text !p-0 !mt-2 !text-[1.3rem] !font-semibold !text-primary-amber hover:!text-primary-hover"
             @click="isBioExpanded = !isBioExpanded"
           >
             {{ isBioExpanded ? 'Read less' : 'Read full biography' }}
-          </button>
+          </Button>
         </div>
       </div>
 

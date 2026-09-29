@@ -8,6 +8,7 @@
     "
   >
     <a
+      v-ripple
       class="group block w-full h-full outline-none focus-visible:ring-2 focus-visible:ring-primary-amber rounded-xl"
       :href="image.src"
       aria-label="View photo in full size lightbox"

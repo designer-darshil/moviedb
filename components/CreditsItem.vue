@@ -1,6 +1,7 @@
 <template>
   <div class="w-full">
     <nuxt-link
+      v-ripple
       class="group flex flex-col h-full no-underline outline-none focus-visible:ring-2 focus-visible:ring-primary-amber rounded-xl"
       :to="{ name: 'person-id', params: { id: person.id } }"
       :aria-label="`${person.name} as ${person.character}`"

@@ -29,8 +29,9 @@
         <nuxt-link
           v-for="cat in categories"
           :key="cat.query"
+          v-ripple
           :to="{ name: 'tv-category-name', params: { name: cat.query } }"
-          class="inline-flex items-center px-4 py-2 text-[1.25rem] font-semibold rounded-xl whitespace-nowrap transition-all duration-150"
+          class="inline-flex items-center px-4 py-2 text-[1.25rem] font-semibold rounded-xl whitespace-nowrap transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
           :class="
             $route.params.name === cat.query
               ? 'text-white bg-surface-3 border border-border-medium shadow-cinema-sm'

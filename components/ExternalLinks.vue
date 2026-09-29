@@ -2,6 +2,8 @@
   <ul class="flex items-center gap-2.5 list-none m-0 p-0">
     <li v-if="links.imdb_id">
       <a
+        v-ripple
+        v-tooltip.top="'View on IMDb'"
         :href="`https://www.imdb.com/${imdb}/${links.imdb_id}`"
         target="_blank"
         aria-label="View on IMDb"
@@ -24,6 +26,8 @@
 
     <li v-if="links.homepage">
       <a
+        v-ripple
+        v-tooltip.top="'Official Website'"
         :href="links.homepage"
         target="_blank"
         aria-label="Official Website"
@@ -51,6 +55,8 @@
 
     <li v-if="links.twitter_id">
       <a
+        v-ripple
+        v-tooltip.top="'Twitter'"
         :href="`https://twitter.com/${links.twitter_id}`"
         target="_blank"
         aria-label="Twitter Profile"
@@ -67,6 +73,8 @@
 
     <li v-if="links.instagram_id">
       <a
+        v-ripple
+        v-tooltip.top="'Instagram'"
         :href="`https://instagram.com/${links.instagram_id}`"
         target="_blank"
         aria-label="Instagram Profile"
@@ -92,6 +100,8 @@
 
     <li v-if="links.facebook_id">
       <a
+        v-ripple
+        v-tooltip.top="'Facebook'"
         :href="`https://www.facebook.com/${links.facebook_id}`"
         target="_blank"
         aria-label="Facebook Profile"

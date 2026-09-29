@@ -122,10 +122,10 @@
 
             <!-- Main Actions -->
             <div class="flex flex-wrap items-center gap-3.5">
-              <button
+              <Button
                 v-if="trailerData"
                 type="button"
-                class="inline-flex items-center justify-center gap-2.5 h-12 px-6 text-[1.4rem] font-bold rounded-xl cursor-pointer text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active shadow-cinema-sm hover:shadow-glow transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary-amber"
+                class="p-button-primary !h-12 !px-6 !text-[1.4rem] !font-bold !rounded-xl !gap-2.5"
                 @click="openModal"
               >
                 <svg
@@ -137,14 +137,15 @@
                   <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
                 <span>Watch Trailer</span>
-              </button>
+              </Button>
 
               <a
                 v-if="item.homepage"
+                v-ripple
                 :href="item.homepage"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center justify-center gap-2 h-12 px-6 text-[1.4rem] font-semibold rounded-xl text-text-primary bg-surface-2/80 backdrop-blur-md border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-white transition-all duration-200"
+                class="inline-flex items-center justify-center gap-2 h-12 px-6 text-[1.4rem] font-semibold rounded-xl text-text-primary bg-surface-2/80 backdrop-blur-md border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-white transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
               >
                 <span>Official Site</span>
                 <svg
@@ -165,10 +166,10 @@
                 </svg>
               </a>
 
-              <button
+              <Button
                 type="button"
                 aria-label="Share Movie Link"
-                class="inline-flex items-center justify-center gap-2 h-12 px-4 text-[1.35rem] font-medium rounded-xl text-text-muted bg-surface-2/80 border border-border-subtle hover:bg-surface-3 hover:text-white transition-all duration-200"
+                class="p-button-secondary !h-12 !px-4 !text-[1.35rem] !font-medium !rounded-xl !gap-2"
                 @click="copyShareLink"
               >
                 <svg
@@ -186,7 +187,7 @@
                   <line x1="12" y1="2" x2="12" y2="15" />
                 </svg>
                 <span>{{ shareFeedback || 'Share' }}</span>
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -635,6 +636,14 @@ export default {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(window.location.href);
         this.shareFeedback = 'Copied!';
+        if (this.$toast) {
+          this.$toast.add({
+            severity: 'success',
+            summary: 'Link Copied',
+            detail: 'Movie link copied to your clipboard',
+            life: 2500,
+          });
+        }
         setTimeout(() => {
           this.shareFeedback = null;
         }, 2000);

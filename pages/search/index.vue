@@ -11,7 +11,7 @@
           class="flex items-center gap-2 mb-2 text-[1.2rem] font-semibold tracking-wider uppercase text-primary-amber"
         >
           <span
-            class="w-1.5 h-1.5 rounded-full bg-primary-amber animate-pulse"
+            class="w-2 h-2 rounded-full bg-primary-amber animate-pulse shadow-glow"
           />
           <span>Universal Search</span>
         </div>
@@ -32,7 +32,7 @@
         @submit.prevent="executeSearch"
       >
         <div
-          class="relative flex items-center w-full h-14 sm:h-16 px-5 rounded-2xl bg-surface-1 border border-border-medium focus-within:border-primary-amber focus-within:ring-2 focus-within:ring-primary-amber/20 shadow-cinema-md transition-all duration-200"
+          class="relative flex items-center w-full h-14 sm:h-16 px-5 rounded-2xl bg-surface-1 border border-border-medium focus-within:border-primary-amber focus-within:ring-2 focus-within:ring-primary-amber/25 shadow-cinema-md transition-all duration-200"
         >
           <span class="flex items-center text-text-muted mr-3">
             <svg
@@ -50,13 +50,13 @@
             </svg>
           </span>
 
-          <input
+          <InputText
             id="search-destination-input"
             ref="searchInput"
             v-model="currentQuery"
             type="text"
             placeholder="Search by title, director, actor..."
-            class="flex-1 h-full text-[1.6rem] sm:text-[1.8rem] font-medium text-white bg-transparent border-none outline-none placeholder:text-text-subtle"
+            class="flex-1 !h-full !text-[1.6rem] sm:!text-[1.8rem] !font-medium !text-white !bg-transparent !border-none !outline-none !shadow-none placeholder:text-text-subtle !p-0"
             @input="handleInput"
           />
 
@@ -65,7 +65,7 @@
             v-if="currentQuery"
             type="button"
             aria-label="Clear Search Input"
-            class="flex items-center justify-center w-7 h-7 mr-2 rounded-full text-text-muted hover:text-white bg-surface-3 transition-colors duration-150"
+            class="flex items-center justify-center w-7 h-7 mr-2 rounded-full text-text-muted hover:text-white bg-surface-3 transition-colors duration-150 cursor-pointer"
             @click="clearSearch"
           >
             <svg
@@ -84,12 +84,12 @@
           </button>
 
           <!-- Submit / Action Button -->
-          <button
+          <Button
             type="submit"
-            class="hidden sm:inline-flex items-center justify-center h-10 px-5 text-[1.3rem] font-bold rounded-xl text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active transition-colors duration-150"
+            class="p-button-primary !hidden sm:!inline-flex !items-center !justify-center !h-10 !px-5 !text-[1.3rem] !font-bold !rounded-xl"
           >
             Search
-          </button>
+          </Button>
         </div>
 
         <!-- Quick Trending Suggestions Pills -->
@@ -100,8 +100,9 @@
           <button
             v-for="term in popularTags"
             :key="`trending-tag-${term}`"
+            v-ripple
             type="button"
-            class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-lg cursor-pointer hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150"
+            class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-lg cursor-pointer hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             @click="selectTrending(term)"
           >
             {{ term }}
@@ -138,8 +139,9 @@
             class="inline-flex items-center p-1 rounded-xl bg-surface-1 border border-border-subtle overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             <button
+              v-ripple
               type="button"
-              class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150"
+              class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
               :class="
                 activeFilter === 'all'
                   ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
@@ -151,8 +153,9 @@
             </button>
             <button
               v-if="counts.movie"
+              v-ripple
               type="button"
-              class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150"
+              class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
               :class="
                 activeFilter === 'movie'
                   ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
@@ -164,8 +167,9 @@
             </button>
             <button
               v-if="counts.tv"
+              v-ripple
               type="button"
-              class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150"
+              class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
               :class="
                 activeFilter === 'tv'
                   ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
@@ -177,8 +181,9 @@
             </button>
             <button
               v-if="counts.person"
+              v-ripple
               type="button"
-              class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150"
+              class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
               :class="
                 activeFilter === 'person'
                   ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
@@ -190,16 +195,15 @@
             </button>
           </div>
 
-          <!-- Sort Select -->
-          <select
+          <!-- Sort Select with PrimeVue Dropdown -->
+          <Dropdown
             v-model="sortBy"
+            :options="sortOptions"
+            option-label="label"
+            option-value="value"
             aria-label="Sort Results"
-            class="bg-surface-2 text-text-secondary border border-border-subtle rounded-xl px-3 py-1.5 text-[1.25rem] outline-none focus:border-border-medium cursor-pointer"
-          >
-            <option value="relevance">Most Relevant</option>
-            <option value="rating">Highest Rated</option>
-            <option value="newest">Release Year</option>
-          </select>
+            class="!bg-surface-2 !rounded-xl w-44"
+          />
         </div>
       </div>
 
@@ -256,8 +260,10 @@
           v-if="loading"
           class="flex items-center gap-3 text-text-muted text-[1.3rem]"
         >
-          <span
-            class="w-5 h-5 border-2 border-white/20 border-t-primary-amber rounded-full animate-spin"
+          <ProgressSpinner
+            style="width: 28px; height: 28px"
+            stroke-width="4"
+            aria-label="Loading more results"
           />
           <span>Loading more results...</span>
         </div>
@@ -276,7 +282,7 @@
           <div
             class="flex items-center gap-2 mb-1.5 text-[1.15rem] font-semibold tracking-wider uppercase text-primary-amber"
           >
-            <span class="w-1.5 h-1.5 rounded-full bg-primary-amber" />
+            <span class="w-2 h-2 rounded-full bg-primary-amber" />
             <span>In Demand</span>
           </div>
           <h2
@@ -338,6 +344,11 @@ export default {
       loading: false,
       activeFilter: 'all',
       sortBy: 'relevance',
+      sortOptions: [
+        { label: 'Most Relevant', value: 'relevance' },
+        { label: 'Highest Rated', value: 'rating' },
+        { label: 'Release Year', value: 'newest' },
+      ],
       debounceTimer: null,
       popularTags: [
         'Dune',
@@ -419,7 +430,9 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      if (this.$refs.searchInput) {
+      if (this.$refs.searchInput && this.$refs.searchInput.$el) {
+        this.$refs.searchInput.$el.focus();
+      } else if (this.$refs.searchInput && this.$refs.searchInput.focus) {
         this.$refs.searchInput.focus();
       }
     });
@@ -449,7 +462,9 @@ export default {
       this.currentQuery = '';
       this.items = null;
       this.$router.push({ name: 'search' });
-      if (this.$refs.searchInput) {
+      if (this.$refs.searchInput && this.$refs.searchInput.$el) {
+        this.$refs.searchInput.$el.focus();
+      } else if (this.$refs.searchInput && this.$refs.searchInput.focus) {
         this.$refs.searchInput.focus();
       }
     },

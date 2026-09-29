@@ -57,8 +57,9 @@
 
       <div class="flex flex-wrap items-center justify-center gap-3">
         <nuxt-link
+          v-ripple
           to="/"
-          class="inline-flex items-center justify-center gap-2 h-11 px-6 text-[1.35rem] font-semibold text-[#07080b] bg-primary-amber hover:bg-primary-hover rounded-xl shadow-cinema-sm transition-all duration-200"
+          class="inline-flex items-center justify-center gap-2 h-11 px-6 text-[1.35rem] font-semibold text-[#07080b] bg-primary-amber hover:bg-primary-hover rounded-xl shadow-cinema-sm transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         >
           <svg
             width="16"
@@ -76,8 +77,9 @@
         </nuxt-link>
 
         <nuxt-link
+          v-ripple
           to="/search"
-          class="inline-flex items-center justify-center gap-2 h-11 px-6 text-[1.35rem] font-medium text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:text-white rounded-xl transition-all duration-200"
+          class="inline-flex items-center justify-center gap-2 h-11 px-6 text-[1.35rem] font-medium text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:text-white rounded-xl transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         >
           <svg
             width="16"

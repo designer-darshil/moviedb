@@ -110,7 +110,8 @@ vue-movies/
 ## 4. Build & Deployment Lifecycle
 
 - **Build Engine**: Webpack 4 via Nuxt 2.15.8 with `@nuxt/postcss8`, `tailwindcss` v3.4.19, and `autoprefixer` v10.6.1.
-- **Styling Architecture**: Tailwind-first styling system with standard unprefixed utilities. Zero scoped SCSS modules in Vue components.
+- **Component Architecture**: **PrimeVue 2** provides functional UI primitives (`Dialog`, `InputText`, `Button`, `Dropdown`, `Skeleton`, `Badge`, `Tag`, `Tooltip`, `Toast`, `ScrollTop`, `ProgressSpinner`), styled and customized via `assets/css/primevue-custom.scss` to strictly adhere to `DESIGN_SYSTEM.md`.
+- **Styling Architecture**: Tailwind-first styling system with standard unprefixed utilities for layout, composition, spacing, typography, and responsive behavior. Zero scoped SCSS modules in Vue components.
 - **Node Runtime**: Compatible with Node 18 through 24 using `NODE_OPTIONS=--openssl-legacy-provider`.
 - **Development Server**: Hosted on `http://localhost:5173`.
 - **Static Export**: `yarn generate` pre-renders pages into `/dist`.

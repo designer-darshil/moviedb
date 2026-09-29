@@ -1,0 +1,60 @@
+import Vue from 'vue';
+import PrimeVue from 'primevue/config';
+
+import Button from 'primevue/button';
+import InputText from 'primevue/inputtext';
+import Dropdown from 'primevue/dropdown';
+import Dialog from 'primevue/dialog';
+import Sidebar from 'primevue/sidebar';
+import TabMenu from 'primevue/tabmenu';
+import TabView from 'primevue/tabview';
+import TabPanel from 'primevue/tabpanel';
+import Skeleton from 'primevue/skeleton';
+import Badge from 'primevue/badge';
+import Tag from 'primevue/tag';
+import Tooltip from 'primevue/tooltip';
+import Toast from 'primevue/toast';
+import ToastService from 'primevue/toastservice';
+import ProgressBar from 'primevue/progressbar';
+import ProgressSpinner from 'primevue/progressspinner';
+import Rating from 'primevue/rating';
+import ScrollTop from 'primevue/scrolltop';
+
+Vue.use(PrimeVue, { ripple: true });
+Vue.use(ToastService);
+
+Vue.directive('tooltip', Tooltip);
+
+// Register PrimeVue components globally
+Vue.component('PButton', Button);
+Vue.component('Button', Button);
+Vue.component('PInputText', InputText);
+Vue.component('InputText', InputText);
+Vue.component('PDropdown', Dropdown);
+Vue.component('Dropdown', Dropdown);
+Vue.component('PDialog', Dialog);
+Vue.component('Dialog', Dialog);
+Vue.component('PSidebar', Sidebar);
+Vue.component('Sidebar', Sidebar);
+Vue.component('PTabMenu', TabMenu);
+Vue.component('TabMenu', TabMenu);
+Vue.component('PTabView', TabView);
+Vue.component('TabView', TabView);
+Vue.component('PTabPanel', TabPanel);
+Vue.component('TabPanel', TabPanel);
+Vue.component('PSkeleton', Skeleton);
+Vue.component('Skeleton', Skeleton);
+Vue.component('PBadge', Badge);
+Vue.component('Badge', Badge);
+Vue.component('PTag', Tag);
+Vue.component('Tag', Tag);
+Vue.component('PToast', Toast);
+Vue.component('Toast', Toast);
+Vue.component('PProgressBar', ProgressBar);
+Vue.component('ProgressBar', ProgressBar);
+Vue.component('PProgressSpinner', ProgressSpinner);
+Vue.component('ProgressSpinner', ProgressSpinner);
+Vue.component('PRating', Rating);
+Vue.component('Rating', Rating);
+Vue.component('PScrollTop', ScrollTop);
+Vue.component('ScrollTop', ScrollTop);

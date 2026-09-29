@@ -1,6 +1,7 @@
 <template>
   <div class="relative flex flex-col w-full group">
     <nuxt-link
+      v-ripple
       class="relative flex flex-col h-full no-underline outline-none focus-visible:ring-2 focus-visible:ring-primary-amber focus-visible:ring-offset-2 focus-visible:ring-offset-base-bg rounded-xl"
       :to="itemLink"
       :aria-label="accessibleLabel"
@@ -70,19 +71,19 @@
           </div>
 
           <!-- Rank Indicator Badge (for Top 10/Ranked Rails) -->
-          <div
-            v-if="rank"
-            class="absolute top-2 left-2 z-10 flex items-center justify-center w-7 h-7 rounded-lg bg-black/75 backdrop-blur-md border border-white/20 text-[1.2rem] font-extrabold text-primary-amber shadow-cinema-sm"
-          >
-            {{ rank }}
+          <div v-if="rank" class="absolute top-2 left-2 z-10">
+            <Badge
+              :value="rank"
+              class="cinema-badge-amber !text-[1.2rem] !font-extrabold !px-2.5 !py-1 !shadow-cinema-sm"
+            />
           </div>
 
           <!-- Media Type Chip on mixed lists -->
-          <div
-            v-if="showMediaBadge"
-            class="absolute top-2 right-2 z-10 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md border border-white/15 text-[1rem] font-bold uppercase tracking-wider text-text-muted"
-          >
-            {{ mediaLabel }}
+          <div v-if="showMediaBadge" class="absolute top-2 right-2 z-10">
+            <Tag
+              :value="mediaLabel"
+              class="cinema-badge-neutral !text-[0.95rem] !font-bold !px-2 !py-0.5"
+            />
           </div>
         </div>
       </div>

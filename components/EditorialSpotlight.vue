@@ -20,8 +20,9 @@
 
       <nuxt-link
         v-if="viewAllUrl"
+        v-ripple
         :to="viewAllUrl"
-        class="inline-flex items-center gap-1.5 text-[1.25rem] font-semibold text-text-muted hover:text-primary-amber transition-colors duration-200 group"
+        class="inline-flex items-center gap-1.5 px-3 py-1 text-[1.25rem] font-semibold text-text-muted hover:text-primary-amber rounded-lg transition-colors duration-200 group outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
       >
         <span>Browse all</span>
         <svg
@@ -68,10 +69,10 @@
           <div
             class="flex items-center gap-2 text-[1.15rem] font-semibold uppercase tracking-wider text-primary-amber"
           >
-            <span
-              class="px-2.5 py-0.5 rounded-md bg-primary-amber/15 border border-primary-amber/30 text-[1.1rem]"
-              >Spotlight</span
-            >
+            <Tag
+              value="Spotlight"
+              class="cinema-badge-amber !text-[1.1rem] !px-2.5 !py-0.5"
+            />
             <span
               v-if="featureRating"
               class="flex items-center gap-1 text-white font-bold"
@@ -106,8 +107,9 @@
 
           <div class="flex items-center gap-3 pt-2">
             <nuxt-link
+              v-ripple
               :to="{ name: `${featureMedia}-id`, params: { id: feature.id } }"
-              class="inline-flex items-center gap-2 h-11 px-5 text-[1.3rem] font-bold text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active rounded-xl shadow-cinema-sm hover:shadow-glow transition-all duration-200"
+              class="inline-flex items-center gap-2 h-11 px-5 text-[1.3rem] font-bold text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active rounded-xl shadow-cinema-sm hover:shadow-glow transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             >
               <svg
                 width="14"
@@ -135,8 +137,9 @@
         <nuxt-link
           v-for="item in supportingItems"
           :key="`supporting-${item.id}`"
+          v-ripple
           :to="{ name: `${getMediaType(item)}-id`, params: { id: item.id } }"
-          class="group relative flex items-center gap-4 p-3.5 rounded-2xl bg-surface-1 border border-border-subtle hover:bg-surface-2 hover:border-primary-amber/30 transition-all duration-200 no-underline"
+          class="group relative flex items-center gap-4 p-3.5 rounded-2xl bg-surface-1 border border-border-subtle hover:bg-surface-2 hover:border-primary-amber/30 transition-all duration-200 no-underline outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         >
           <!-- Thumbnail -->
           <div

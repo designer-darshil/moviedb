@@ -12,24 +12,17 @@
           Department
         </label>
 
-        <select
+        <Dropdown
           id="credits_category"
           v-model="active_category"
+          :options="categoryOptions"
+          option-label="label"
+          option-value="value"
           aria-label="Filter by Department"
-          class="bg-surface-2 text-text-primary border border-border-subtle rounded-xl px-3.5 py-1.5 text-[1.25rem] outline-none focus:border-border-medium cursor-pointer"
+          class="w-52 !bg-surface-2 !rounded-xl"
           :disabled="!categories.length || categories.length === 1"
           @change="filterCredits"
-        >
-          <option value="all">All Departments</option>
-
-          <option
-            v-for="category in categories"
-            :key="`credit-filter-${category.toLowerCase()}`"
-            :value="category.toLowerCase()"
-          >
-            {{ category }}
-          </option>
-        </select>
+        />
       </div>
 
       <div class="flex items-center gap-3">
@@ -40,17 +33,16 @@
           Format
         </label>
 
-        <select
+        <Dropdown
           id="credits_media"
           v-model="active_media"
+          :options="mediaOptions"
+          option-label="label"
+          option-value="value"
           aria-label="Filter by Format"
-          class="bg-surface-2 text-text-primary border border-border-subtle rounded-xl px-3.5 py-1.5 text-[1.25rem] outline-none focus:border-border-medium cursor-pointer"
+          class="w-44 !bg-surface-2 !rounded-xl"
           @change="getCredits"
-        >
-          <option value="combined_credits">All Formats</option>
-          <option value="movie_credits">Movies</option>
-          <option value="tv_credits">TV Shows</option>
-        </select>
+        />
       </div>
     </div>
 
@@ -107,6 +99,24 @@ export default {
       categories: [],
       data: null,
     };
+  },
+
+  computed: {
+    categoryOptions() {
+      const options = [{ label: 'All Departments', value: 'all' }];
+      this.categories.forEach((cat) => {
+        options.push({ label: cat, value: cat.toLowerCase() });
+      });
+      return options;
+    },
+
+    mediaOptions() {
+      return [
+        { label: 'All Formats', value: 'combined_credits' },
+        { label: 'Movies', value: 'movie_credits' },
+        { label: 'TV Shows', value: 'tv_credits' },
+      ];
+    },
   },
 
   created() {

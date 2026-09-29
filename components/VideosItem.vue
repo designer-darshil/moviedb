@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col w-full">
     <a
+      v-ripple
       class="group flex flex-col h-full no-underline outline-none focus-visible:ring-2 focus-visible:ring-primary-amber rounded-xl"
       :href="video.url"
       :aria-label="`Play ${video.name}`"

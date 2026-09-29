@@ -74,10 +74,18 @@ export default {
   },
 
   // Global CSS
-  css: ['@/assets/css/tailwind.css', '@/assets/css/global.scss'],
+  css: [
+    'primevue/resources/themes/lara-dark-indigo/theme.css',
+    'primevue/resources/primevue.min.css',
+    'primeicons/primeicons.css',
+    '@/assets/css/primevue-custom.scss',
+    '@/assets/css/tailwind.css',
+    '@/assets/css/global.scss',
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/primevue.js',
     '~/plugins/lazyload.js',
     '~/plugins/filters.js',
     { src: '~/plugins/ga.js', ssr: false },
@@ -115,6 +123,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: ['primevue'],
     postcss: {
       plugins: {
         tailwindcss: {},

@@ -59,8 +59,9 @@
           class="inline-flex items-center p-1 rounded-xl bg-surface-1 border border-border-subtle"
         >
           <button
+            v-ripple
             type="button"
-            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200"
+            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             :class="
               activeDiscoverTab === 'popular'
                 ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
@@ -72,8 +73,9 @@
           </button>
           <button
             v-if="topRatedMovies && topRatedMovies.results.length"
+            v-ripple
             type="button"
-            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200"
+            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             :class="
               activeDiscoverTab === 'top_rated'
                 ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
@@ -85,8 +87,9 @@
           </button>
           <button
             v-if="upcomingMovies && upcomingMovies.results.length"
+            v-ripple
             type="button"
-            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200"
+            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             :class="
               activeDiscoverTab === 'upcoming'
                 ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
@@ -116,8 +119,9 @@
       <!-- View All Link Footer -->
       <div class="flex items-center justify-center mt-10">
         <nuxt-link
+          v-ripple
           :to="activeDiscoverUrl"
-          class="inline-flex items-center gap-2 h-11 px-6 text-[1.35rem] font-semibold rounded-xl text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:border-primary-amber/40 hover:text-white transition-all duration-200 shadow-cinema-sm"
+          class="inline-flex items-center gap-2 h-11 px-6 text-[1.35rem] font-semibold rounded-xl text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:border-primary-amber/40 hover:text-white transition-all duration-200 shadow-cinema-sm outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         >
           <span>Browse All {{ activeDiscoverTabLabel }}</span>
           <svg

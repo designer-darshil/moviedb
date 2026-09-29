@@ -5,29 +5,26 @@
       class="flex items-center justify-between mb-6 pb-3 border-b border-border-subtle"
     >
       <div class="flex items-center gap-3">
-        <select
+        <Dropdown
           v-if="videoTypes.length > 1"
           v-model="activeType"
+          :options="videoTypeOptions"
+          option-label="label"
+          option-value="value"
           aria-label="Filter videos by type"
-          class="bg-surface-2 text-text-primary border border-border-subtle rounded-md px-3 py-1.5 text-[1.25rem] outline-none focus:border-border-medium"
+          class="w-48 !bg-surface-2 !rounded-xl"
           @change="filterVideos"
-        >
-          <option value="all">All Videos</option>
-          <option
-            v-for="type in videoTypes"
-            :key="`video-type-${type}`"
-            :value="type"
-          >
-            {{ type }}
-          </option>
-        </select>
+        />
         <span v-else class="text-[1.4rem] font-semibold text-white"
           >Videos</span
         >
       </div>
 
       <div class="text-[1.25rem] text-text-muted">
-        {{ videoCount }}
+        <Tag
+          :value="videoCount"
+          class="cinema-badge-neutral !text-[1.15rem] !px-3 !py-1"
+        />
       </div>
     </div>
 
@@ -94,6 +91,14 @@ export default {
       return this.videos
         .map((video) => video.type)
         .filter((video, index, self) => self.indexOf(video) === index);
+    },
+
+    videoTypeOptions() {
+      const options = [{ label: 'All Videos', value: 'all' }];
+      this.videoTypes.forEach((type) => {
+        options.push({ label: type, value: type });
+      });
+      return options;
     },
   },
 

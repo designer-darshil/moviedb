@@ -12,8 +12,8 @@
       </h2>
 
       <div class="hidden sm:flex items-center gap-1.5">
-        <button
-          class="flex items-center justify-center w-8 h-8 rounded-full text-text-muted bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 disabled:opacity-20 disabled:cursor-not-allowed transition-colors duration-150"
+        <Button
+          class="p-button-secondary p-button-rounded !w-8 !h-8 !p-0 !min-w-0"
           aria-label="Previous Cast"
           type="button"
           :disabled="disableLeftButton"
@@ -31,10 +31,10 @@
           >
             <polyline points="15 18 9 12 15 6" />
           </svg>
-        </button>
+        </Button>
 
-        <button
-          class="flex items-center justify-center w-8 h-8 rounded-full text-text-muted bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 disabled:opacity-20 disabled:cursor-not-allowed transition-colors duration-150"
+        <Button
+          class="p-button-secondary p-button-rounded !w-8 !h-8 !p-0 !min-w-0"
           aria-label="Next Cast"
           type="button"
           :disabled="disableRightButton"
@@ -52,7 +52,7 @@
           >
             <polyline points="9 18 15 12 9 6" />
           </svg>
-        </button>
+        </Button>
       </div>
     </div>
 

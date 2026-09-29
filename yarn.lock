@@ -7366,6 +7366,16 @@ pretty-time@^1.1.0:
   resolved "https://registry.npmjs.org/pretty-time/-/pretty-time-1.1.0.tgz"
   integrity sha512-28iF6xPQrP8Oa6uxE6a1biz+lWeTOAPKggvjB8HAs6nVMKZwf5bG++632Dx614hIWgUPkgivRfG+a8uAXGTIbA==
 
+primeicons@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-8.0.2.tgz#2bdcc8a9679791e7dd20b65c2c32121cd1aa5b38"
+  integrity sha512-o3UQey3nXMEQRAudVYZZWswz6mmnWpPnksYb7wIu4rEEVfdS3pLnxnmSJx5gKBRMer1MxnhJZG5QRDxVVJFNkA==
+
+primevue@^2.10.4:
+  version "2.10.4"
+  resolved "https://registry.yarnpkg.com/primevue/-/primevue-2.10.4.tgz#f803404ef1580f5b229bd126a46b754f52776e14"
+  integrity sha512-lJWtocP4l6C6K8VzMo58xPhyWERtWWhd+OTCoXHuQDKLI9o+YZKbLqAw42EdyGcA05eXLSvXXz1ESEMnIxBB7A==
+
 process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz"

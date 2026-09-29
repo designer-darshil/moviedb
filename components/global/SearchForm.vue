@@ -1,22 +1,28 @@
 <template>
-  <div
-    class="fixed inset-0 z-[150] flex items-start justify-center pt-16 sm:pt-28 px-4 pb-8 bg-[rgba(7,8,11,0.88)] backdrop-blur-xl"
-    @click.self="closeSearch"
+  <Dialog
+    :visible="searchOpen"
+    :modal="true"
+    :dismissable-mask="true"
+    :close-on-escape="true"
+    :closable="false"
+    class="cinema-search-dialog w-full max-w-[680px] mx-4"
+    :content-style="{ padding: '0', background: 'transparent' }"
+    @hide="closeSearch"
   >
     <div
-      class="w-full max-w-[680px] bg-surface-1/95 border border-border-medium rounded-2xl shadow-cinema-xl p-5 sm:p-7 backdrop-blur-2xl transform transition-all duration-200"
+      class="w-full bg-surface-1 border border-border-medium rounded-2xl shadow-cinema-xl p-5 sm:p-7 backdrop-blur-2xl"
     >
       <form
         autocomplete="off"
         class="flex flex-col gap-4 w-full"
         @submit.prevent="goToRoute"
       >
-        <label class="sr-only" for="search"
-          >Search Movies, TV Shows, and People</label
-        >
+        <label class="sr-only" for="search-input">
+          Search Movies, TV Shows, and People
+        </label>
 
         <div
-          class="flex items-center gap-3 px-4 py-1.5 bg-surface-2 border border-border-subtle rounded-xl focus-within:border-primary-amber focus-within:ring-2 focus-within:ring-primary-amber/20 transition-all duration-200"
+          class="flex items-center gap-3 px-4 py-1.5 bg-surface-2 border border-border-subtle rounded-xl focus-within:border-primary-amber focus-within:ring-2 focus-within:ring-primary-amber/25 transition-all duration-200"
         >
           <span class="flex items-center text-text-muted">
             <svg
@@ -34,14 +40,14 @@
             </svg>
           </span>
 
-          <input
-            id="search"
+          <InputText
+            id="search-input"
             ref="input"
             v-model.trim="query"
             name="search"
             type="text"
             placeholder="Search movies, TV series, actors..."
-            class="flex-1 h-12 text-[1.6rem] font-medium text-text-primary bg-transparent border-none outline-none placeholder:text-text-subtle"
+            class="flex-1 !h-12 !text-[1.6rem] !font-medium !text-text-primary !bg-transparent !border-none !outline-none !shadow-none placeholder:text-text-subtle !p-0"
             @keyup.enter="goToRoute"
             @input="handleInput"
             @keydown.esc="handleEscape"
@@ -52,7 +58,7 @@
               v-if="query"
               type="button"
               aria-label="Clear search input"
-              class="flex items-center justify-center w-6 h-6 rounded-full text-text-muted hover:text-white bg-surface-3 transition-colors duration-150"
+              class="flex items-center justify-center w-6 h-6 rounded-full text-text-muted hover:text-white bg-surface-3 transition-colors duration-150 cursor-pointer"
               @click="clearQuery"
             >
               <svg
@@ -71,7 +77,7 @@
             </button>
 
             <span
-              class="hidden sm:inline-block px-2 py-0.5 text-[1rem] font-bold text-text-subtle bg-surface-3 border border-border-subtle rounded-md"
+              class="hidden sm:inline-block px-2 py-0.5 text-[1rem] font-bold text-text-subtle bg-surface-3 border border-border-subtle rounded-md select-none"
             >
               ESC
             </span>
@@ -79,7 +85,7 @@
             <button
               type="button"
               aria-label="Close Search Dialog"
-              class="flex items-center justify-center w-8 h-8 rounded-lg text-text-muted hover:text-white hover:bg-surface-3 transition-colors duration-150"
+              class="flex items-center justify-center w-8 h-8 rounded-lg text-text-muted hover:text-white hover:bg-surface-3 transition-colors duration-150 cursor-pointer"
               @click="closeSearch"
             >
               <svg
@@ -107,8 +113,9 @@
           <button
             v-for="tag in popularTags"
             :key="tag"
+            v-ripple
             type="button"
-            class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-lg cursor-pointer hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150"
+            class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-lg cursor-pointer hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             @click="selectTag(tag)"
           >
             {{ tag }}
@@ -116,7 +123,7 @@
         </div>
       </form>
     </div>
-  </div>
+  </Dialog>
 </template>
 
 <script>
@@ -138,18 +145,34 @@ export default {
   },
 
   computed: {
-    ...mapState('search', ['fromPage']),
+    ...mapState('search', ['searchOpen', 'fromPage']),
+  },
+
+  watch: {
+    searchOpen(val) {
+      if (val) {
+        this.$nextTick(() => {
+          this.focusInput();
+        });
+      }
+    },
   },
 
   mounted() {
     this.$nextTick(() => {
-      if (this.$refs.input) {
-        this.$refs.input.focus();
-      }
+      this.focusInput();
     });
   },
 
   methods: {
+    focusInput() {
+      if (this.$refs.input && this.$refs.input.$el) {
+        this.$refs.input.$el.focus();
+      } else if (this.$refs.input && this.$refs.input.focus) {
+        this.$refs.input.focus();
+      }
+    },
+
     handleInput() {
       if (this.query.length >= 2) {
         this.goToRoute();
@@ -163,9 +186,7 @@ export default {
 
     clearQuery() {
       this.query = '';
-      if (this.$refs.input) {
-        this.$refs.input.focus();
-      }
+      this.focusInput();
     },
 
     goToRoute() {
@@ -174,6 +195,7 @@ export default {
           name: 'search',
           query: { q: this.query },
         });
+        this.closeSearch();
       }
     },
 
@@ -184,7 +206,7 @@ export default {
     closeSearch() {
       this.query = '';
       this.$store.commit('search/closeSearch');
-      if (this.$route.name === 'search') {
+      if (this.$route.name === 'search' && !this.$route.query.q) {
         this.$router.push({
           path: this.fromPage || '/',
         });

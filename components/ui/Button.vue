@@ -1,5 +1,11 @@
 <template>
-  <nuxt-link v-if="to" :to="to" :class="classes" :aria-label="ariaLabel">
+  <nuxt-link
+    v-if="to"
+    v-ripple
+    :to="to"
+    :class="classes"
+    :aria-label="ariaLabel"
+  >
     <slot name="icon-left" />
     <slot />
     <slot name="icon-right" />
@@ -7,6 +13,7 @@
 
   <a
     v-else-if="href"
+    v-ripple
     :href="href"
     :target="target"
     :rel="target === '_blank' ? 'noopener noreferrer' : undefined"
@@ -20,6 +27,7 @@
 
   <button
     v-else
+    v-ripple
     :type="type"
     :class="classes"
     :disabled="disabled || loading"
@@ -86,7 +94,7 @@ export default {
   computed: {
     classes() {
       const base =
-        'inline-flex items-center justify-center gap-2 font-medium rounded-xl cursor-pointer select-none no-underline transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber focus-visible:ring-offset-2 focus-visible:ring-offset-base-bg disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none active:scale-[0.98]';
+        'p-ripple inline-flex items-center justify-center gap-2 font-medium rounded-xl cursor-pointer select-none no-underline transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber focus-visible:ring-offset-2 focus-visible:ring-offset-base-bg disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none active:scale-[0.98]';
 
       const sizes = {
         sm: 'h-8 px-3 text-[1.2rem]',

@@ -63,4 +63,5 @@
 2. **Image Sizing**: Only valid TMDb image dimensions (`w500`, `h632`, `w1280`, `w300`, `original`) are requested.
 3. **Resilience**: Missing image paths fall back to inline SVG placeholders without triggering failed network requests or broken browser icons.
 4. **Node 18+ Compatibility**: Nuxt build scripts execute with `NODE_OPTIONS=--openssl-legacy-provider`.
-5. **Port**: Default local development server runs on port 5173.
+5. **Component Primitives**: Uses PrimeVue 2 functional UI primitives (`Dialog`, `InputText`, `Button`, `Dropdown`, `Skeleton`, `Badge`, `Tag`, `Tooltip`, `Toast`, `ScrollTop`, `ProgressSpinner`) styled with Tailwind CSS tokens and custom theme overrides.
+6. **Port**: Default local development server runs on port 5173.

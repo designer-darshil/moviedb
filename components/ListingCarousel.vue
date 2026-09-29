@@ -26,8 +26,9 @@
         <!-- View All Link -->
         <nuxt-link
           v-if="viewAllUrl"
+          v-ripple
           :to="viewAllUrl"
-          class="inline-flex items-center gap-1.5 text-[1.25rem] font-semibold text-text-muted hover:text-primary-amber transition-colors duration-200 group"
+          class="inline-flex items-center gap-1.5 px-3 py-1 text-[1.25rem] font-semibold text-text-muted hover:text-primary-amber rounded-lg transition-colors duration-200 group outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         >
           <span>View all</span>
           <svg
@@ -47,10 +48,10 @@
 
         <!-- Carousel Chevrons -->
         <div class="hidden sm:flex items-center gap-1.5">
-          <button
-            class="flex items-center justify-center w-8 h-8 rounded-full text-text-muted bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary-amber"
-            aria-label="Scroll left"
+          <Button
             type="button"
+            class="p-button-secondary p-button-rounded !w-8 !h-8 !p-0 !min-w-0"
+            aria-label="Scroll left"
             :disabled="disableLeftButton"
             @click="moveToClickEvent('left')"
           >
@@ -66,12 +67,12 @@
             >
               <polyline points="15 18 9 12 15 6" />
             </svg>
-          </button>
+          </Button>
 
-          <button
-            class="flex items-center justify-center w-8 h-8 rounded-full text-text-muted bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary-amber"
-            aria-label="Scroll right"
+          <Button
             type="button"
+            class="p-button-secondary p-button-rounded !w-8 !h-8 !p-0 !min-w-0"
+            aria-label="Scroll right"
             :disabled="disableRightButton"
             @click="moveToClickEvent('right')"
           >
@@ -87,7 +88,7 @@
             >
               <polyline points="9 18 15 12 9 6" />
             </svg>
-          </button>
+          </Button>
         </div>
       </div>
     </div>
@@ -113,8 +114,9 @@
           class="shrink-0 snap-start w-[140px] xs:w-[160px] sm:w-[180px] md:w-[195px] lg:w-[210px]"
         >
           <nuxt-link
+            v-ripple
             :to="viewAllUrl"
-            class="group relative flex flex-col items-center justify-center w-full h-0 pt-[150%] rounded-xl bg-surface-1 border border-border-subtle no-underline hover:bg-surface-2 hover:border-primary-amber/40 hover:shadow-glow transition-all duration-300"
+            class="group relative flex flex-col items-center justify-center w-full h-0 pt-[150%] rounded-xl bg-surface-1 border border-border-subtle no-underline hover:bg-surface-2 hover:border-primary-amber/40 hover:shadow-glow transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
           >
             <div
               class="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center"

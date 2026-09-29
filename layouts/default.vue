@@ -1,15 +1,18 @@
 <template>
-  <div>
+  <div class="relative min-h-screen bg-base-bg text-text-primary antialiased">
+    <Toast position="top-right" />
     <CookieConsent />
     <InstallPrompt />
 
-    <transition name="slidedown">
-      <SearchForm v-if="searchOpen" />
-    </transition>
+    <SearchForm v-if="searchOpen" />
 
     <Nav />
-    <nuxt />
+    <main id="main-content" class="min-h-[calc(100vh-200px)]">
+      <nuxt />
+    </main>
     <Footer />
+
+    <ScrollTop :threshold="400" />
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <div class="my-8 sm:my-10 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
-    <!-- Header with Season Select & Episode Count -->
+    <!-- Header with Season Dropdown & Episode Count -->
     <div
-      class="flex items-center justify-between mb-8 pb-3 border-b border-border-subtle"
+      class="flex flex-wrap items-center justify-between gap-4 mb-8 pb-3 border-b border-border-subtle"
     >
       <div class="flex items-center gap-3">
         <label
@@ -10,24 +10,19 @@
           for="season-select"
           class="text-[1.2rem] font-semibold uppercase tracking-wider text-text-subtle"
         >
-          Select Season:
+          Season:
         </label>
-        <select
+        <Dropdown
           v-if="seasons.length > 1"
           id="season-select"
           v-model="activeSeason"
+          :options="seasonOptions"
+          option-label="label"
+          option-value="value"
           aria-label="Select TV Season"
-          class="bg-surface-2 text-text-primary border border-border-subtle rounded-xl px-4 py-2 text-[1.3rem] font-semibold outline-none focus:border-primary-amber cursor-pointer"
+          class="w-48 !bg-surface-2 !rounded-xl"
           @change="getEpisodes"
-        >
-          <option
-            v-for="season in seasons"
-            :key="`season-${season.season}`"
-            :value="season.season"
-          >
-            Season {{ season.season }}
-          </option>
-        </select>
+        />
         <h2
           v-else
           class="m-0 font-display text-[2rem] font-bold text-white -tracking-wide"
@@ -40,7 +35,10 @@
         v-if="activeEpisodes"
         class="text-[1.3rem] font-medium text-text-muted"
       >
-        {{ episodeCount }}
+        <Tag
+          :value="episodeCount"
+          class="cinema-badge-neutral !text-[1.15rem] !px-3 !py-1"
+        />
       </div>
     </div>
 
@@ -56,7 +54,7 @@
       />
     </div>
 
-    <!-- Loading Skeleton -->
+    <!-- Loading Skeleton with PrimeVue Skeleton -->
     <div
       v-else
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
@@ -64,12 +62,24 @@
       <div
         v-for="n in 8"
         :key="`ep-skel-${n}`"
-        class="flex flex-col rounded-2xl overflow-hidden bg-surface-1 border border-border-subtle animate-pulse"
+        class="flex flex-col rounded-2xl overflow-hidden bg-surface-1 border border-border-subtle"
       >
-        <div class="w-full h-0 pt-[56.25%] bg-surface-2" />
+        <Skeleton
+          width="100%"
+          height="0"
+          class="!pt-[56.25%] !rounded-none !bg-surface-2"
+        />
         <div class="p-4 flex flex-col gap-2">
-          <div class="h-4 w-3/4 bg-surface-2 rounded" />
-          <div class="h-3 w-1/2 bg-surface-2/60 rounded" />
+          <Skeleton
+            width="75%"
+            height="1.4rem"
+            class="!rounded !bg-surface-2"
+          />
+          <Skeleton
+            width="50%"
+            height="1.1rem"
+            class="!rounded !bg-surface-2/60"
+          />
         </div>
       </div>
     </div>
@@ -119,6 +129,13 @@ export default {
       seasons.sort((a, b) => (a.season > b.season ? -1 : 1));
 
       return seasons;
+    },
+
+    seasonOptions() {
+      return this.seasons.map((s) => ({
+        label: `Season ${s.season}`,
+        value: s.season,
+      }));
     },
   },
 

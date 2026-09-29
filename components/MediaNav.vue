@@ -9,6 +9,7 @@
       <button
         v-for="(item, index) in menu"
         :key="`tab-${index}`"
+        v-ripple
         class="px-5 py-2 text-[1.3rem] font-medium rounded-xl cursor-pointer whitespace-nowrap transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         :class="
           active === index

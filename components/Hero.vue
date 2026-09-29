@@ -46,17 +46,16 @@
                 class="flex items-center gap-2.5 mb-3 text-[1.2rem] font-semibold tracking-wider uppercase text-primary-amber"
               >
                 <span
-                  class="w-1.5 h-1.5 rounded-full bg-primary-amber animate-pulse"
+                  class="w-2 h-2 rounded-full bg-primary-amber animate-pulse shadow-glow"
                 />
                 <span
                   >Featured {{ mediaType === 'tv' ? 'Series' : 'Film' }}</span
                 >
-                <span
+                <Tag
                   v-if="itemCert"
-                  class="ml-1 px-1.5 py-0.5 text-[1.05rem] font-bold text-text-muted bg-surface-2 border border-border-medium rounded"
-                >
-                  {{ itemCert }}
-                </span>
+                  :value="itemCert"
+                  class="ml-1 cinema-badge-neutral"
+                />
               </div>
 
               <!-- Movie / TV Title -->
@@ -139,10 +138,10 @@
 
               <!-- Action Buttons -->
               <div class="flex flex-wrap items-center gap-3">
-                <button
+                <Button
                   v-if="trailerData"
                   type="button"
-                  class="inline-flex items-center justify-center gap-2 h-11 px-6 text-[1.35rem] font-bold rounded-xl cursor-pointer text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active shadow-cinema-sm hover:shadow-glow transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary-amber"
+                  class="p-button-primary !h-11 !px-6 !text-[1.35rem] !font-bold !rounded-xl !gap-2"
                   @click="openModal"
                 >
                   <svg
@@ -154,15 +153,16 @@
                     <polygon points="5 3 19 12 5 21 5 3" />
                   </svg>
                   <span>Watch Trailer</span>
-                </button>
+                </Button>
 
                 <nuxt-link
                   v-if="!isSingle"
+                  v-ripple
                   :to="{
                     name: `${mediaType}-id`,
                     params: { id: activeItem.id },
                   }"
-                  class="inline-flex items-center justify-center gap-2 h-11 px-5 text-[1.35rem] font-semibold rounded-xl cursor-pointer text-text-primary bg-surface-2/80 backdrop-blur-md border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-white transition-all duration-200"
+                  class="inline-flex items-center justify-center gap-2 h-11 px-5 text-[1.35rem] font-semibold rounded-xl cursor-pointer text-text-primary bg-surface-2/80 backdrop-blur-md border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-white transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
                 >
                   <span>Explore Story</span>
                 </nuxt-link>
@@ -179,8 +179,9 @@
           <button
             v-for="(feat, idx) in featuredList.slice(0, 5)"
             :key="`indicator-${feat.id}`"
+            v-ripple
             type="button"
-            class="h-2 rounded-full cursor-pointer transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary-amber"
+            class="h-2 rounded-full cursor-pointer transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary-amber outline-none"
             :class="
               selectedIndex === idx
                 ? 'w-10 bg-primary-amber shadow-glow'

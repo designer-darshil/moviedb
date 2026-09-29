@@ -8,39 +8,45 @@
       :key="`skeleton-card-${n}`"
       class="flex flex-col gap-2"
     >
-      <div
-        class="relative w-full h-0 pt-[150%] rounded-xl overflow-hidden bg-surface-2 border border-border-subtle animate-pulse"
+      <Skeleton
+        width="100%"
+        height="0"
+        class="!pt-[150%] !rounded-xl !bg-surface-2 border border-border-subtle"
       />
-      <div class="h-4 w-3/4 bg-surface-2 rounded animate-pulse" />
-      <div class="h-3 w-1/2 bg-surface-2/60 rounded animate-pulse" />
+      <Skeleton width="80%" height="1.4rem" class="!rounded !bg-surface-2" />
+      <Skeleton width="50%" height="1.1rem" class="!rounded !bg-surface-2/60" />
     </div>
   </div>
 
   <div
     v-else-if="type === 'hero'"
-    class="relative w-full h-[60vh] min-h-[480px] bg-surface-1 animate-pulse overflow-hidden"
+    class="relative w-full h-[60vh] min-h-[480px] bg-surface-1 overflow-hidden"
   >
     <div
-      class="absolute bottom-12 left-4 sm:left-8 lg:left-12 max-w-[600px] flex flex-col gap-4"
+      class="absolute bottom-12 left-4 sm:left-8 lg:left-12 max-w-[600px] flex flex-col gap-4 w-full"
     >
-      <div class="h-6 w-32 bg-surface-3 rounded-full" />
-      <div class="h-12 w-96 bg-surface-3 rounded-lg" />
-      <div class="h-4 w-64 bg-surface-3 rounded" />
-      <div class="h-16 w-full bg-surface-3 rounded-lg" />
+      <Skeleton
+        width="8rem"
+        height="1.8rem"
+        class="!rounded-full !bg-surface-3"
+      />
+      <Skeleton width="75%" height="3.5rem" class="!rounded-xl !bg-surface-3" />
+      <Skeleton width="45%" height="1.5rem" class="!rounded !bg-surface-3" />
+      <Skeleton width="90%" height="4.5rem" class="!rounded-xl !bg-surface-3" />
     </div>
   </div>
 
-  <div
-    v-else-if="type === 'circle'"
-    class="w-12 h-12 rounded-full bg-surface-2 animate-pulse"
-  />
+  <div v-else-if="type === 'circle'">
+    <Skeleton shape="circle" size="3.5rem" class="!bg-surface-2" />
+  </div>
 
   <div v-else class="flex flex-col gap-3">
-    <div
+    <Skeleton
       v-for="n in count"
       :key="`skeleton-line-${n}`"
-      class="h-4 bg-surface-2 rounded animate-pulse"
-      :style="{ width: `${80 - (n % 3) * 15}%` }"
+      height="1.4rem"
+      :width="`${85 - (n % 3) * 15}%`"
+      class="!rounded !bg-surface-2"
     />
   </div>
 </template>

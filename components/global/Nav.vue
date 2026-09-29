@@ -9,8 +9,9 @@
       <div class="flex items-center gap-8 lg:gap-12">
         <!-- Brand Logo -->
         <nuxt-link
+          v-ripple
           to="/"
-          class="inline-flex items-center gap-3 no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber rounded-lg"
+          class="inline-flex items-center gap-3 no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber rounded-xl p-1"
           aria-label="CINEPULSE Home"
         >
           <div
@@ -38,6 +39,7 @@
           <ul class="flex items-center gap-1.5 list-none m-0 p-0">
             <li>
               <nuxt-link
+                v-ripple
                 exact
                 :to="{ name: 'index' }"
                 class="inline-flex items-center px-4 py-2 text-[1.3rem] font-medium text-text-muted rounded-xl hover:text-white hover:bg-white/5 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
@@ -49,6 +51,7 @@
             </li>
             <li>
               <nuxt-link
+                v-ripple
                 :to="{ name: 'movie' }"
                 class="inline-flex items-center px-4 py-2 text-[1.3rem] font-medium text-text-muted rounded-xl hover:text-white hover:bg-white/5 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
                 active-class="is-nav-active"
@@ -58,6 +61,7 @@
             </li>
             <li>
               <nuxt-link
+                v-ripple
                 :to="{ name: 'tv' }"
                 class="inline-flex items-center px-4 py-2 text-[1.3rem] font-medium text-text-muted rounded-xl hover:text-white hover:bg-white/5 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
                 active-class="is-nav-active"
@@ -73,6 +77,8 @@
       <div class="flex items-center gap-3">
         <!-- Desktop Search Pill -->
         <button
+          v-ripple
+          v-tooltip.bottom="'Search Catalog (⌘K)'"
           type="button"
           class="hidden md:inline-flex items-center gap-3 h-10 px-3.5 text-[1.25rem] font-normal text-text-muted bg-surface-2/80 backdrop-blur-md border border-border-subtle rounded-xl cursor-pointer hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
           :class="searchOpen ? '!border-primary-amber !text-white' : ''"
@@ -103,6 +109,7 @@
 
         <!-- Mobile Search Icon Button -->
         <button
+          v-ripple
           type="button"
           class="flex md:hidden items-center justify-center w-10 h-10 rounded-xl text-text-muted hover:text-white bg-surface-2 border border-border-subtle transition-colors duration-150"
           aria-label="Search Catalog"
@@ -133,6 +140,7 @@
       <ul class="flex items-center justify-around w-full list-none m-0 p-0">
         <li class="flex-1 flex justify-center">
           <nuxt-link
+            v-ripple
             exact
             :to="{ name: 'index' }"
             class="flex flex-col items-center justify-center gap-1 w-full py-1.5 text-text-muted no-underline text-[1.1rem] font-medium transition-colors duration-150"
@@ -164,6 +172,7 @@
 
         <li class="flex-1 flex justify-center">
           <nuxt-link
+            v-ripple
             :to="{ name: 'movie' }"
             class="flex flex-col items-center justify-center gap-1 w-full py-1.5 text-text-muted no-underline text-[1.1rem] font-medium transition-colors duration-150"
             active-class="is-dock-active"
@@ -197,6 +206,7 @@
 
         <li class="flex-1 flex justify-center">
           <nuxt-link
+            v-ripple
             :to="{ name: 'tv' }"
             class="flex flex-col items-center justify-center gap-1 w-full py-1.5 text-text-muted no-underline text-[1.1rem] font-medium transition-colors duration-150"
             active-class="is-dock-active"
@@ -224,6 +234,7 @@
 
         <li class="flex-1 flex justify-center">
           <button
+            v-ripple
             type="button"
             class="flex flex-col items-center justify-center gap-1 w-full py-1.5 text-text-muted no-underline text-[1.1rem] font-medium transition-colors duration-150"
             :class="searchOpen ? 'is-dock-active' : ''"
@@ -278,6 +289,7 @@ export default {
       } else {
         const input =
           document.getElementById('search-destination-input') ||
+          document.getElementById('search-input') ||
           document.getElementById('search');
         if (input) input.focus();
       }

@@ -139,3 +139,22 @@ animation: {
   shimmer: 'shimmer 1.5s ease-in-out infinite',
 },
 ```
+
+---
+
+## 8. PrimeVue Component Foundation & Customization
+
+The application uses **PrimeVue 2** as its functional UI primitive library, configured with **Tailwind CSS v3** for layout, spacing, typography, and responsive composition. All PrimeVue default appearances are heavily customized via `assets/css/primevue-custom.scss` to ensure the UI feels like a bespoke luxury cinema product:
+
+| PrimeVue Component    | Role in Product                                                                                        | Customization & Styling                                                                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`Dialog`**          | Video trailers, photo gallery lightbox, command-palette search overlay (`SearchForm.vue`, `Modal.vue`) | Deep blur mask (`rgba(7, 8, 11, 0.9)`), rounded-2xl container (`#0e1117`), zero standard dialog header, cinema-xl shadows, accessible ESC & focus trap. |
+| **`InputText`**       | Modal search input, Universal Search page query field                                                  | Frameless dark input (`#151922`), crisp typography, golden focus ring (`rgba(229, 169, 60, 0.4)`).                                                      |
+| **`Button`**          | Hero actions, modal controls, carousel chevrons, interactive triggers                                  | Golden amber primary (`#e5a93c`), dark surface secondary (`#151922`), ghost text buttons, smooth ripple transitions.                                    |
+| **`Dropdown`**        | Television season selector in `Episodes.vue`, search sort picker in `pages/search/index.vue`           | Frosted dark panel, golden selected highlights, rounded-xl borders matching design system.                                                              |
+| **`Skeleton`**        | Shimmer loading states for movie cards, heroes, and episode rows                                       | Dark surface shimmer (`#151922` to `#1e2430`) with smooth pulse animation.                                                                              |
+| **`Badge` & `Tag`**   | Top 10 rank numbers, certifications, media type chips, department labels                               | Restrained amber badge (`cinema-badge-amber`), muted dark badge (`cinema-badge-neutral`).                                                               |
+| **`Tooltip`**         | Accessible action helpers (`⌘K` shortcut, rating details)                                              | Minimal dark surface tooltip with crisp Inter typography.                                                                                               |
+| **`Toast`**           | Action confirmations (e.g. copied share links)                                                         | Floating glass notification with golden amber accent icons.                                                                                             |
+| **`ScrollTop`**       | Catalog floating back-to-top control                                                                   | Rounded-full dark floating trigger with golden chevron.                                                                                                 |
+| **`ProgressSpinner`** | Infinite scroll and search pagination loading                                                          | Golden amber animated spinner.                                                                                                                          |

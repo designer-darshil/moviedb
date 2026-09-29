@@ -1,0 +1,439 @@
+// PrimeVue Custom Theme Overrides — Strictly matching DESIGN_SYSTEM.md
+// Canvas: #07080b, Surface-1: #0e1117, Surface-2: #151922, Surface-3: #1e2430, Primary-Amber: #e5a93c
+
+:root {
+  --surface-ground: #07080b;
+  --surface-section: #07080b;
+  --surface-card: #0e1117;
+  --surface-overlay: #151922;
+  --surface-border: rgba(255, 255, 255, 0.08);
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  --primary-color: #e5a93c;
+  --primary-color-text: #07080b;
+  --text-color: #f8fafc;
+  --text-color-secondary: #94a3b8;
+  --focus-ring: 0 0 0 2px rgba(229, 169, 60, 0.4);
+  --border-radius: 12px;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+  --maskbg: rgba(7, 8, 11, 0.88);
+}
+
+// 1. PrimeVue Dialog (Lightboxes, Modals, Popups)
+.p-dialog-mask {
+  background-color: rgba(7, 8, 11, 0.9) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  transition: all 0.25s ease-out !important;
+}
+
+.p-dialog {
+  background: #0e1117 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 1.25rem !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85) !important;
+  color: #f8fafc !important;
+  overflow: hidden !important;
+
+  .p-dialog-header {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+    padding: 1.25rem 1.5rem !important;
+    color: #f8fafc !important;
+
+    .p-dialog-title {
+      font-size: 1.4rem !important;
+      font-weight: 700 !important;
+      color: #f8fafc !important;
+      letter-spacing: -0.02em !important;
+    }
+
+    .p-dialog-header-icon {
+      width: 2.25rem !important;
+      height: 2.25rem !important;
+      border-radius: 0.75rem !important;
+      color: #94a3b8 !important;
+      background: #151922 !important;
+      border: 1px solid rgba(255, 255, 255, 0.07) !important;
+      transition: all 0.15s ease !important;
+
+      &:hover {
+        color: #ffffff !important;
+        background: #1e2430 !important;
+        border-color: rgba(229, 169, 60, 0.4) !important;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(229, 169, 60, 0.5) !important;
+      }
+    }
+  }
+
+  .p-dialog-content {
+    background: transparent !important;
+    color: #cbd5e1 !important;
+    padding: 1.5rem !important;
+  }
+
+  &.cinema-dialog-clean {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+
+    .p-dialog-header {
+      display: none !important;
+    }
+    .p-dialog-content {
+      padding: 0 !important;
+      background: transparent !important;
+    }
+  }
+}
+
+// 2. PrimeVue Button Overrides
+.p-button {
+  font-family: inherit !important;
+  font-weight: 600 !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  outline: none !important;
+
+  &:focus-visible,
+  &:focus {
+    box-shadow: 0 0 0 2px #07080b, 0 0 0 4px rgba(229, 169, 60, 0.6) !important;
+  }
+
+  &.p-button-primary,
+  &:not(.p-button-secondary):not(.p-button-text):not(.p-button-outlined):not(.p-button-link) {
+    background: #e5a93c !important;
+    border-color: #e5a93c !important;
+    color: #07080b !important;
+
+    &:hover {
+      background: #f5b748 !important;
+      border-color: #f5b748 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(229, 169, 60, 0.3) !important;
+    }
+
+    &:active {
+      background: #d49528 !important;
+      transform: translateY(0);
+    }
+  }
+
+  &.p-button-secondary {
+    background: #151922 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #f8fafc !important;
+
+    &:hover {
+      background: #1e2430 !important;
+      border-color: rgba(255, 255, 255, 0.2) !important;
+      color: #ffffff !important;
+    }
+  }
+
+  &.p-button-outlined {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #f8fafc !important;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+      border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+  }
+
+  &.p-button-text {
+    background: transparent !important;
+    border: none !important;
+    color: #94a3b8 !important;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06) !important;
+      color: #ffffff !important;
+    }
+  }
+
+  &.p-button-rounded {
+    border-radius: 9999px !important;
+  }
+}
+
+// 3. PrimeVue InputText
+.p-inputtext {
+  font-family: inherit !important;
+  background: #151922 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.75rem !important;
+  color: #f8fafc !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 1.35rem !important;
+  transition: all 0.2s ease !important;
+
+  &::placeholder {
+    color: #64748b !important;
+  }
+
+  &:enabled:hover {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  &:enabled:focus {
+    background: #151922 !important;
+    border-color: #e5a93c !important;
+    box-shadow: 0 0 0 2px rgba(229, 169, 60, 0.25) !important;
+  }
+}
+
+// 4. PrimeVue Dropdown (Season picker, Filter selector)
+.p-dropdown {
+  background: #151922 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 0.75rem !important;
+  transition: all 0.2s ease !important;
+
+  &:not(.p-disabled):hover {
+    border-color: rgba(229, 169, 60, 0.4) !important;
+  }
+
+  &:not(.p-disabled).p-focus {
+    border-color: #e5a93c !important;
+    box-shadow: 0 0 0 2px rgba(229, 169, 60, 0.3) !important;
+  }
+
+  .p-dropdown-label {
+    color: #f8fafc !important;
+    font-size: 1.35rem !important;
+    font-weight: 500 !important;
+    padding: 0.65rem 1rem !important;
+  }
+
+  .p-dropdown-trigger {
+    color: #94a3b8 !important;
+    width: 2.75rem !important;
+  }
+}
+
+.p-dropdown-panel {
+  background: #0e1117 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+
+  .p-dropdown-items {
+    padding: 0.5rem !important;
+
+    .p-dropdown-item {
+      color: #cbd5e1 !important;
+      font-size: 1.3rem !important;
+      font-weight: 500 !important;
+      border-radius: 0.5rem !important;
+      padding: 0.65rem 0.85rem !important;
+      transition: all 0.15s ease !important;
+
+      &:hover,
+      &.p-highlight {
+        background: #1e2430 !important;
+        color: #e5a93c !important;
+      }
+    }
+  }
+}
+
+// 5. PrimeVue TabView / TabMenu
+.p-tabview {
+  .p-tabview-nav {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    gap: 0.5rem !important;
+    display: flex !important;
+
+    li {
+      margin-bottom: -1px !important;
+
+      .p-tabview-nav-link {
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 2px solid transparent !important;
+        color: #94a3b8 !important;
+        font-size: 1.35rem !important;
+        font-weight: 600 !important;
+        padding: 0.85rem 1.25rem !important;
+        border-radius: 0 !important;
+        transition: all 0.2s ease !important;
+        cursor: pointer !important;
+
+        &:hover {
+          color: #f8fafc !important;
+        }
+      }
+
+      &.p-highlight .p-tabview-nav-link {
+        color: #e5a93c !important;
+        border-bottom-color: #e5a93c !important;
+      }
+    }
+  }
+
+  .p-tabview-panels {
+    background: transparent !important;
+    padding: 1.5rem 0 !important;
+    color: #cbd5e1 !important;
+  }
+}
+
+// TabMenu minimal
+.p-tabmenu {
+  .p-tabmenu-nav {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    gap: 0.25rem !important;
+
+    .p-tabmenuitem {
+      .p-menuitem-link {
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 2px solid transparent !important;
+        color: #94a3b8 !important;
+        font-size: 1.3rem !important;
+        font-weight: 600 !important;
+        padding: 0.75rem 1.15rem !important;
+        transition: all 0.15s ease !important;
+
+        &:hover {
+          color: #f8fafc !important;
+          background: rgba(255, 255, 255, 0.04) !important;
+          border-radius: 0.5rem 0.5rem 0 0 !important;
+        }
+      }
+
+      &.p-highlight .p-menuitem-link {
+        color: #e5a93c !important;
+        border-bottom-color: #e5a93c !important;
+      }
+    }
+  }
+}
+
+// 6. PrimeVue Skeleton
+.p-skeleton {
+  background: #151922 !important;
+  border-radius: 0.75rem !important;
+
+  &::after {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0)
+    ) !important;
+  }
+}
+
+// 7. PrimeVue Badge & Tag
+.p-badge,
+.p-tag {
+  font-family: inherit !important;
+  font-weight: 700 !important;
+  font-size: 1.05rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  border-radius: 0.5rem !important;
+  padding: 0.2rem 0.6rem !important;
+
+  &.p-tag-warning,
+  &.p-badge-warning,
+  &.cinema-badge-amber {
+    background: rgba(229, 169, 60, 0.12) !important;
+    border: 1px solid rgba(229, 169, 60, 0.28) !important;
+    color: #e5a93c !important;
+  }
+
+  &.p-tag-info,
+  &.cinema-badge-neutral {
+    background: #151922 !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #cbd5e1 !important;
+  }
+}
+
+// 8. PrimeVue Tooltip
+.p-tooltip {
+  .p-tooltip-text {
+    background: #0e1117 !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    color: #f8fafc !important;
+    font-size: 1.15rem !important;
+    font-weight: 500 !important;
+    border-radius: 0.5rem !important;
+    padding: 0.4rem 0.75rem !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  .p-tooltip-arrow {
+    border-top-color: #0e1117 !important;
+  }
+}
+
+// 9. PrimeVue ScrollTop
+.p-scrolltop {
+  background: #151922 !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  width: 3.25rem !important;
+  height: 3.25rem !important;
+
+  .p-scrolltop-icon {
+    color: #e5a93c !important;
+    font-size: 1.25rem !important;
+  }
+
+  &:hover {
+    background: #1e2430 !important;
+    border-color: rgba(229, 169, 60, 0.5) !important;
+    transform: translateY(-2px);
+  }
+}
+
+// 10. PrimeVue ProgressSpinner
+.p-progress-spinner-circle {
+  stroke: #e5a93c !important;
+  animation: p-progress-spinner-dash 1.5s ease-in-out infinite !important;
+}
+
+// 11. PrimeVue Toast
+.p-toast {
+  .p-toast-message {
+    background: #0e1117 !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(16px) !important;
+    color: #f8fafc !important;
+
+    .p-toast-message-content {
+      padding: 1rem 1.25rem !important;
+      gap: 0.75rem !important;
+
+      .p-toast-message-icon {
+        color: #e5a93c !important;
+        font-size: 1.5rem !important;
+      }
+
+      .p-toast-title {
+        font-weight: 700 !important;
+        font-size: 1.3rem !important;
+        color: #f8fafc !important;
+      }
+
+      .p-toast-detail {
+        font-size: 1.2rem !important;
+        color: #94a3b8 !important;
+      }
+    }
+  }
+}
