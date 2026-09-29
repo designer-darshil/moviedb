@@ -7,7 +7,8 @@
             v-for="credit in group.credits"
             :key="`credit-${credit.credit_id}`"
             :year="group.year"
-            :credit="credit" />
+            :credit="credit"
+          />
         </tbody>
       </table>
     </td>

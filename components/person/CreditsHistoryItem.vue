@@ -1,13 +1,21 @@
 <template>
   <tr class="group hover:bg-white/[0.03] transition-colors duration-200">
-    <td class="w-24 px-4 py-3.5 border-b border-border-subtle text-[1.4rem] font-semibold text-text-muted align-middle">
-      {{ year ? year : "—" }}
+    <td
+      class="w-24 px-4 py-3.5 border-b border-border-subtle text-[1.4rem] font-semibold text-text-muted align-middle"
+    >
+      {{ year ? year : '—' }}
     </td>
-    <td class="px-4 py-3.5 border-b border-border-subtle text-[1.5rem] align-middle">
+    <td
+      class="px-4 py-3.5 border-b border-border-subtle text-[1.5rem] align-middle"
+    >
       <nuxt-link
         :to="{ name: `${media}-id`, params: { id: credit.id } }"
-        class="inline-flex flex-wrap items-baseline gap-1.5 no-underline">
-        <strong class="text-text-primary font-semibold group-hover:text-primary-amber transition-colors duration-200">{{ name }}</strong>
+        class="inline-flex flex-wrap items-baseline gap-1.5 no-underline"
+      >
+        <strong
+          class="text-text-primary font-semibold group-hover:text-primary-amber transition-colors duration-200"
+          >{{ name }}</strong
+        >
 
         <span v-if="episodes" class="text-[1.25rem] text-text-muted">
           {{ episodes }}
@@ -36,7 +44,7 @@ export default {
   },
 
   computed: {
-    media () {
+    media() {
       if (this.credit.media_type) {
         return this.credit.media_type;
       } else if (this.credit.name) {
@@ -46,11 +54,11 @@ export default {
       }
     },
 
-    name () {
+    name() {
       return this.credit.title ? this.credit.title : this.credit.name;
     },
 
-    role () {
+    role() {
       const character = this.credit.character;
       const job = this.credit.job;
 
@@ -63,7 +71,7 @@ export default {
       }
     },
 
-    episodes () {
+    episodes() {
       const episodes = this.credit.episode_count;
 
       if (episodes) {
