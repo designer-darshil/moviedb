@@ -56,7 +56,7 @@
             v-model="currentQuery"
             type="text"
             placeholder="Search by title, director, actor..."
-            class="flex-1 !h-full !text-[1.6rem] sm:!text-[1.8rem] !font-medium !text-white !bg-transparent !border-none !outline-none !shadow-none placeholder:text-text-subtle !p-0"
+            class="flex-1 !h-full !text-[1.6rem] sm:!text-[1.8rem] !font-medium !text-text-primary !bg-transparent !border-none !outline-none !shadow-none placeholder:text-text-subtle !p-0"
             @input="handleInput"
           />
 
@@ -65,7 +65,7 @@
             v-if="currentQuery"
             type="button"
             aria-label="Clear Search Input"
-            class="flex items-center justify-center w-7 h-7 mr-2 rounded-full text-text-muted hover:text-white bg-surface-3 transition-colors duration-150 cursor-pointer"
+            class="flex items-center justify-center w-7 h-7 mr-2 rounded-full text-text-muted hover:text-text-primary bg-surface-3 transition-colors duration-150 cursor-pointer"
             @click="clearSearch"
           >
             <svg
@@ -102,7 +102,7 @@
             :key="`trending-tag-${term}`"
             v-ripple
             type="button"
-            class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-lg cursor-pointer hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+            class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-lg cursor-pointer hover:text-text-primary hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             @click="selectTrending(term)"
           >
             {{ term }}
@@ -122,7 +122,7 @@
       >
         <div>
           <h2
-            class="m-0 text-[1.8rem] sm:text-[2.2rem] font-bold text-white -tracking-wide"
+            class="m-0 text-[1.8rem] sm:text-[2.2rem] font-bold text-text-primary leading-[1.2] -tracking-wide"
           >
             Results for &ldquo;{{ currentQuery }}&rdquo;
           </h2>
@@ -144,8 +144,8 @@
               class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
               :class="
                 activeFilter === 'all'
-                  ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
-                  : 'text-text-muted hover:text-white hover:bg-surface-2'
+                  ? 'text-text-primary bg-surface-3 font-semibold shadow-cinema-sm'
+                  : 'text-text-muted hover:text-text-primary hover:bg-surface-2'
               "
               @click="activeFilter = 'all'"
             >
@@ -158,8 +158,8 @@
               class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
               :class="
                 activeFilter === 'movie'
-                  ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
-                  : 'text-text-muted hover:text-white hover:bg-surface-2'
+                  ? 'text-text-primary bg-surface-3 font-semibold shadow-cinema-sm'
+                  : 'text-text-muted hover:text-text-primary hover:bg-surface-2'
               "
               @click="activeFilter = 'movie'"
             >
@@ -172,8 +172,8 @@
               class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
               :class="
                 activeFilter === 'tv'
-                  ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
-                  : 'text-text-muted hover:text-white hover:bg-surface-2'
+                  ? 'text-text-primary bg-surface-3 font-semibold shadow-cinema-sm'
+                  : 'text-text-muted hover:text-text-primary hover:bg-surface-2'
               "
               @click="activeFilter = 'tv'"
             >
@@ -186,8 +186,8 @@
               class="px-3.5 py-1.5 text-[1.25rem] font-medium rounded-lg whitespace-nowrap cursor-pointer transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
               :class="
                 activeFilter === 'person'
-                  ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
-                  : 'text-text-muted hover:text-white hover:bg-surface-2'
+                  ? 'text-text-primary bg-surface-3 font-semibold shadow-cinema-sm'
+                  : 'text-text-muted hover:text-text-primary hover:bg-surface-2'
               "
               @click="activeFilter = 'person'"
             >
@@ -242,7 +242,9 @@
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
         </div>
-        <h3 class="m-0 mb-2 font-display text-[2rem] font-bold text-white">
+        <h3
+          class="m-0 mb-2 font-display text-[2rem] font-bold text-text-primary"
+        >
           No matches found
         </h3>
         <p class="m-0 text-[1.4rem] text-text-muted leading-relaxed">
@@ -286,7 +288,7 @@
             <span>In Demand</span>
           </div>
           <h2
-            class="m-0 font-display text-[2.2rem] font-bold text-white -tracking-wide"
+            class="m-0 font-display text-[2.2rem] font-bold text-text-primary leading-[1.2] -tracking-wide"
           >
             Trending Across Entertainment
           </h2>

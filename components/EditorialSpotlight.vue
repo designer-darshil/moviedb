@@ -75,7 +75,7 @@
             />
             <span
               v-if="featureRating"
-              class="flex items-center gap-1 text-white font-bold"
+              class="flex items-center gap-1 text-text-primary font-bold"
             >
               <svg
                 class="text-primary-amber"
@@ -159,7 +159,7 @@
           <!-- Info -->
           <div class="flex-1 min-w-0 pr-2">
             <h4
-              class="m-0 text-[1.4rem] font-semibold text-white leading-snug truncate group-hover:text-primary-amber transition-colors duration-200"
+              class="m-0 text-[1.4rem] font-semibold text-text-primary leading-snug truncate group-hover:text-primary-amber transition-colors duration-200"
             >
               {{ getItemTitle(item) }}
             </h4>

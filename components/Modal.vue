@@ -72,7 +72,7 @@
       >
         <button
           type="button"
-          class="flex items-center justify-center w-10 h-10 rounded-xl text-text-muted hover:text-white hover:bg-surface-3 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+          class="flex items-center justify-center w-10 h-10 rounded-xl text-text-muted hover:text-text-primary hover:bg-surface-3 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
           aria-label="Previous item"
           @click="previous"
         >
@@ -98,7 +98,7 @@
 
         <button
           type="button"
-          class="flex items-center justify-center w-10 h-10 rounded-xl text-text-muted hover:text-white hover:bg-surface-3 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+          class="flex items-center justify-center w-10 h-10 rounded-xl text-text-muted hover:text-text-primary hover:bg-surface-3 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
           aria-label="Next item"
           @click="next"
         >

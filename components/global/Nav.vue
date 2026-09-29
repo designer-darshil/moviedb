@@ -28,7 +28,7 @@
             </svg>
           </div>
           <span
-            class="font-display text-[1.65rem] font-black tracking-tight text-white uppercase group-hover:text-primary-amber transition-colors duration-200"
+            class="font-display text-[1.65rem] font-black tracking-tight text-text-primary uppercase group-hover:text-primary-amber transition-colors duration-200"
           >
             CINEPULSE
           </span>
@@ -42,7 +42,7 @@
                 v-ripple
                 exact
                 :to="{ name: 'index' }"
-                class="inline-flex items-center px-4 py-2 text-[1.3rem] font-medium text-text-muted rounded-xl hover:text-white hover:bg-white/5 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+                class="inline-flex items-center px-4 py-2 text-[1.3rem] font-medium text-text-muted rounded-xl hover:text-text-primary hover:bg-white/5 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
                 active-class="is-nav-active"
                 exact-active-class="is-nav-active"
               >
@@ -53,7 +53,7 @@
               <nuxt-link
                 v-ripple
                 :to="{ name: 'movie' }"
-                class="inline-flex items-center px-4 py-2 text-[1.3rem] font-medium text-text-muted rounded-xl hover:text-white hover:bg-white/5 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+                class="inline-flex items-center px-4 py-2 text-[1.3rem] font-medium text-text-muted rounded-xl hover:text-text-primary hover:bg-white/5 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
                 active-class="is-nav-active"
               >
                 Movies
@@ -63,7 +63,7 @@
               <nuxt-link
                 v-ripple
                 :to="{ name: 'tv' }"
-                class="inline-flex items-center px-4 py-2 text-[1.3rem] font-medium text-text-muted rounded-xl hover:text-white hover:bg-white/5 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+                class="inline-flex items-center px-4 py-2 text-[1.3rem] font-medium text-text-muted rounded-xl hover:text-text-primary hover:bg-white/5 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
                 active-class="is-nav-active"
               >
                 TV Series
@@ -80,8 +80,8 @@
           v-ripple
           v-tooltip.bottom="'Search Catalog (⌘K)'"
           type="button"
-          class="hidden md:inline-flex items-center gap-3 h-10 px-3.5 text-[1.25rem] font-normal text-text-muted bg-surface-2/80 backdrop-blur-md border border-border-subtle rounded-xl cursor-pointer hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
-          :class="searchOpen ? '!border-primary-amber !text-white' : ''"
+          class="hidden md:inline-flex items-center gap-3 h-10 px-3.5 text-[1.25rem] font-normal text-text-muted bg-surface-2/80 backdrop-blur-md border border-border-subtle rounded-xl cursor-pointer hover:text-text-primary hover:bg-surface-3 hover:border-primary-amber/40 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+          :class="searchOpen ? '!border-primary-amber !text-text-primary' : ''"
           aria-label="Search Catalog (Press Command + K)"
           :aria-expanded="`${searchOpen}`"
           @click="toggleSearch"
@@ -111,7 +111,7 @@
         <button
           v-ripple
           type="button"
-          class="flex md:hidden items-center justify-center w-10 h-10 rounded-xl text-text-muted hover:text-white bg-surface-2 border border-border-subtle transition-colors duration-150"
+          class="flex md:hidden items-center justify-center w-10 h-10 rounded-xl text-text-muted hover:text-text-primary bg-surface-2 border border-border-subtle transition-colors duration-150"
           aria-label="Search Catalog"
           @click="toggleSearch"
         >

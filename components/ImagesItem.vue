@@ -25,10 +25,10 @@
         />
 
         <div
-          class="absolute inset-0 flex items-center justify-center text-white bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          class="absolute inset-0 flex items-center justify-center text-text-primary bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
         >
           <span
-            class="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white transform scale-90 group-hover:scale-100 transition-transform duration-200"
+            class="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md border border-border-medium text-text-primary transform scale-90 group-hover:scale-100 transition-transform duration-200"
           >
             <svg
               width="18"

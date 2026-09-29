@@ -15,7 +15,7 @@
           class="w-48 !bg-surface-2 !rounded-xl"
           @change="filterVideos"
         />
-        <span v-else class="text-[1.4rem] font-semibold text-white"
+        <span v-else class="text-[1.4rem] font-semibold text-text-primary"
           >Videos</span
         >
       </div>

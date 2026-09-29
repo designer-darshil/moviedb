@@ -13,8 +13,8 @@
         class="px-5 py-2 text-[1.3rem] font-medium rounded-xl cursor-pointer whitespace-nowrap transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         :class="
           active === index
-            ? 'text-white bg-surface-3 border border-border-medium font-bold shadow-cinema-sm'
-            : 'text-text-muted hover:text-white hover:bg-surface-2'
+            ? 'text-text-primary bg-surface-3 border border-border-medium font-bold shadow-cinema-sm'
+            : 'text-text-muted hover:text-text-primary hover:bg-surface-2'
         "
         type="button"
         @click="clicked(index, item)"

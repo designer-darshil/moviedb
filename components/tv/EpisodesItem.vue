@@ -30,7 +30,7 @@
       </div>
 
       <div
-        class="absolute top-2.5 left-2.5 px-2 py-0.5 text-[1.1rem] font-bold text-white bg-[rgba(7,8,11,0.85)] backdrop-blur-md rounded-md border border-white/10"
+        class="absolute top-2.5 left-2.5 px-2 py-0.5 text-[1.1rem] font-bold text-text-primary bg-[rgba(7,8,11,0.85)] backdrop-blur-md rounded-md border border-border-subtle"
       >
         EP {{ episode.episode_number | numberWithDoubleDigits }}
       </div>

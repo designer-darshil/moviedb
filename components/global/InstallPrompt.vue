@@ -16,7 +16,7 @@
     </p>
 
     <button
-      class="flex shrink-0 items-center justify-center w-8 h-8 rounded-lg bg-surface-2 text-text-muted hover:text-white hover:bg-surface-3 cursor-pointer transition-colors duration-150"
+      class="flex shrink-0 items-center justify-center w-8 h-8 rounded-lg bg-surface-2 text-text-muted hover:text-text-primary hover:bg-surface-3 cursor-pointer transition-colors duration-150"
       type="button"
       aria-label="Close"
       @click="close"

@@ -19,7 +19,7 @@
 
         <div
           v-if="video.duration"
-          class="absolute right-2.5 bottom-2.5 px-2 py-0.5 text-[1.1rem] font-bold text-white bg-[rgba(7,8,11,0.85)] backdrop-blur-md rounded-md border border-white/10"
+          class="absolute right-2.5 bottom-2.5 px-2 py-0.5 text-[1.1rem] font-bold text-text-primary bg-[rgba(7,8,11,0.85)] backdrop-blur-md rounded-md border border-border-subtle"
         >
           {{ formatDuration(video.duration) }}
         </div>
@@ -28,7 +28,7 @@
           class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors duration-200"
         >
           <span
-            class="flex items-center justify-center w-11 h-11 rounded-full text-white bg-primary-amber text-[#07080b] shadow-glow transform transition-transform duration-200 group-hover:scale-110"
+            class="flex items-center justify-center w-11 h-11 rounded-full text-[#07080b] bg-primary-amber shadow-glow transform transition-transform duration-200 group-hover:scale-110"
           >
             <svg
               class="ml-0.5"

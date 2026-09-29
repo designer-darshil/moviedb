@@ -75,7 +75,7 @@
             <line x1="8" y1="12" x2="16" y2="12" />
           </svg>
         </span>
-        <h3 class="m-0 mb-1 text-[1.8rem] font-bold text-white">
+        <h3 class="m-0 mb-1 text-[1.8rem] font-bold text-text-primary">
           No titles available
         </h3>
         <p class="m-0 text-[1.3rem] text-text-muted">

@@ -18,10 +18,10 @@
 
 ## 2. Typography System
 
-The application uses an optimized Inter sans-serif stack:
+The application uses an optimized General sans stack:
 
 ```scss
-$font-family--sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+$font-family--sans-serif: 'General-sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
   Roboto, sans-serif;
 ```
 

@@ -30,7 +30,7 @@
               </svg>
             </div>
             <span
-              class="font-display text-[1.65rem] font-black tracking-tight text-white uppercase"
+              class="font-display text-[1.65rem] font-black tracking-tight text-text-primary uppercase"
               >CINEPULSE</span
             >
           </nuxt-link>
@@ -182,7 +182,7 @@
         <div class="flex items-center gap-5">
           <nuxt-link
             to="/search"
-            class="text-text-muted hover:text-white transition-colors duration-150"
+            class="text-text-muted hover:text-text-primary transition-colors duration-150"
           >
             Search
           </nuxt-link>
@@ -190,7 +190,7 @@
             href="https://github.com/designer-darshil/moviedb"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-text-muted hover:text-white transition-colors duration-150"
+            class="text-text-muted hover:text-text-primary transition-colors duration-150"
           >
             GitHub
           </a>

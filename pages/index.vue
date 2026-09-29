@@ -64,8 +64,8 @@
             class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             :class="
               activeDiscoverTab === 'popular'
-                ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
-                : 'text-text-muted hover:text-white hover:bg-surface-2'
+                ? 'text-text-primary bg-surface-3 font-semibold shadow-cinema-sm'
+                : 'text-text-muted hover:text-text-primary hover:bg-surface-2'
             "
             @click="activeDiscoverTab = 'popular'"
           >
@@ -78,8 +78,8 @@
             class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             :class="
               activeDiscoverTab === 'top_rated'
-                ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
-                : 'text-text-muted hover:text-white hover:bg-surface-2'
+                ? 'text-text-primary bg-surface-3 font-semibold shadow-cinema-sm'
+                : 'text-text-muted hover:text-text-primary hover:bg-surface-2'
             "
             @click="activeDiscoverTab = 'top_rated'"
           >
@@ -92,8 +92,8 @@
             class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             :class="
               activeDiscoverTab === 'upcoming'
-                ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
-                : 'text-text-muted hover:text-white hover:bg-surface-2'
+                ? 'text-text-primary bg-surface-3 font-semibold shadow-cinema-sm'
+                : 'text-text-muted hover:text-text-primary hover:bg-surface-2'
             "
             @click="activeDiscoverTab = 'upcoming'"
           >
@@ -121,7 +121,7 @@
         <nuxt-link
           v-ripple
           :to="activeDiscoverUrl"
-          class="inline-flex items-center gap-2 h-11 px-6 text-[1.35rem] font-semibold rounded-xl text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:border-primary-amber/40 hover:text-white transition-all duration-200 shadow-cinema-sm outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+          class="inline-flex items-center gap-2 h-11 px-6 text-[1.35rem] font-semibold rounded-xl text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:border-primary-amber/40 hover:text-text-primary transition-all duration-200 shadow-cinema-sm outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         >
           <span>Browse All {{ activeDiscoverTabLabel }}</span>
           <svg

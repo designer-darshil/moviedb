@@ -138,7 +138,7 @@
                 </svg>
               </span>
               <span
-                class="text-[1.3rem] font-semibold text-text-secondary group-hover:text-white transition-colors duration-200"
+                class="text-[1.3rem] font-semibold text-text-secondary group-hover:text-text-primary transition-colors duration-200"
               >
                 Explore All
               </span>

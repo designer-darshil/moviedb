@@ -3,7 +3,7 @@
     <div
       class="flex items-baseline gap-3 mb-4 pb-3 border-b border-border-subtle"
     >
-      <h2 class="m-0 text-[1.8rem] font-bold text-white -tracking-wide">
+      <h2 class="m-0 text-[1.8rem] font-bold text-text-primary -tracking-wide">
         {{ title }}
       </h2>
 

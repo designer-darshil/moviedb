@@ -19,6 +19,8 @@ import ProgressBar from 'primevue/progressbar';
 import ProgressSpinner from 'primevue/progressspinner';
 import Rating from 'primevue/rating';
 import ScrollTop from 'primevue/scrolltop';
+import Avatar from 'primevue/avatar';
+import Divider from 'primevue/divider';
 
 Vue.use(PrimeVue, { ripple: true });
 Vue.use(ToastService);
@@ -58,3 +60,7 @@ Vue.component('PRating', Rating);
 Vue.component('Rating', Rating);
 Vue.component('PScrollTop', ScrollTop);
 Vue.component('ScrollTop', ScrollTop);
+Vue.component('PAvatar', Avatar);
+Vue.component('Avatar', Avatar);
+Vue.component('PDivider', Divider);
+Vue.component('Divider', Divider);

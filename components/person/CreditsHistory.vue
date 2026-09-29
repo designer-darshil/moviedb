@@ -53,7 +53,9 @@
       class="mb-10"
     >
       <div class="flex items-center gap-2.5 mb-3">
-        <h2 class="m-0 text-[1.8rem] font-bold text-white -tracking-wide">
+        <h2
+          class="m-0 text-[1.8rem] font-bold text-text-primary -tracking-wide"
+        >
           {{ category.name }}
         </h2>
       </div>

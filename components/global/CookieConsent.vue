@@ -12,7 +12,7 @@
     <div class="flex items-center gap-2.5 mt-3 sm:mt-0 shrink-0">
       <button
         v-ripple
-        class="px-4 py-2 text-[1.3rem] font-semibold text-text-muted bg-surface-2 border border-border-subtle rounded-xl hover:text-white hover:bg-surface-3 cursor-pointer transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+        class="px-4 py-2 text-[1.3rem] font-semibold text-text-muted bg-surface-2 border border-border-subtle rounded-xl hover:text-text-primary hover:bg-surface-3 cursor-pointer transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         type="button"
         aria-label="Decline cookies"
         @click="decline"

@@ -64,7 +64,7 @@
             >
               <div
                 v-if="item.vote_average"
-                class="flex items-center gap-1.5 font-bold text-white"
+                class="flex items-center gap-1.5 font-bold text-text-primary"
               >
                 <svg
                   class="text-primary-amber"
@@ -114,7 +114,7 @@
                 v-for="genre in item.genres"
                 :key="`tv-genre-${genre.id}`"
                 :to="`/genre/${genre.id}/tv`"
-                class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2/80 backdrop-blur-sm border border-border-subtle rounded-lg hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150"
+                class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2/80 backdrop-blur-sm border border-border-subtle rounded-lg hover:text-text-primary hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150"
               >
                 {{ genre.name }}
               </nuxt-link>
@@ -123,7 +123,7 @@
             <!-- Description / Synopsis -->
             <p
               v-if="item.overview"
-              class="m-0 mb-8 text-[1.5rem] sm:text-[1.65rem] leading-relaxed text-text-secondary max-w-[820px]"
+              class="m-0 mb-8 text-[1.5rem] sm:text-[1.65rem] leading-[1.6] text-text-secondary max-w-[820px]"
             >
               {{ item.overview }}
             </p>
@@ -153,7 +153,7 @@
                 :href="item.homepage"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center justify-center gap-2 h-12 px-6 text-[1.4rem] font-semibold rounded-xl text-text-primary bg-surface-2/80 backdrop-blur-md border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-white transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+                class="inline-flex items-center justify-center gap-2 h-12 px-6 text-[1.4rem] font-semibold rounded-xl text-text-primary bg-surface-2/80 backdrop-blur-md border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-text-primary transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
               >
                 <span>Official Site</span>
                 <svg
@@ -248,7 +248,7 @@
               class="bg-surface-1 border border-border-subtle rounded-2xl p-6 sm:p-8 shadow-cinema-sm"
             >
               <h2
-                class="m-0 mb-6 font-display text-[1.8rem] sm:text-[2rem] font-bold text-white -tracking-wide"
+                class="m-0 mb-6 font-display text-[1.8rem] sm:text-[2rem] font-bold text-text-primary -tracking-wide"
               >
                 Series Specifications
               </h2>

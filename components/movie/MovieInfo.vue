@@ -59,12 +59,12 @@
       <!-- Storyline -->
       <div v-if="item.overview" class="flex flex-col gap-2.5">
         <h2
-          class="m-0 font-display text-[2rem] font-bold text-white -tracking-wide"
+          class="m-0 font-display text-[1.8rem] sm:text-[2rem] font-bold text-text-primary -tracking-wide"
         >
           Storyline
         </h2>
         <p
-          class="m-0 text-[1.5rem] leading-relaxed text-text-secondary"
+          class="m-0 text-[1.4rem] sm:text-[1.5rem] leading-[1.6] text-text-secondary"
           v-html="item.overview"
         />
       </div>
@@ -77,8 +77,9 @@
         <nuxt-link
           v-for="genre in item.genres"
           :key="genre.id"
+          v-ripple
           :to="`/genre/${genre.id}/movie`"
-          class="inline-flex items-center px-3.5 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-lg hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150"
+          class="inline-flex items-center px-3.5 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-lg hover:text-text-primary hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         >
           {{ genre.name }}
         </nuxt-link>
@@ -89,7 +90,7 @@
         class="bg-surface-1 border border-border-subtle rounded-2xl p-6 sm:p-7 shadow-cinema-sm"
       >
         <h3
-          class="m-0 mb-5 font-display text-[1.6rem] font-bold text-white -tracking-wide"
+          class="m-0 mb-5 font-display text-[1.6rem] font-bold text-text-primary -tracking-wide"
         >
           Production &amp; Release Specifications
         </h3>

@@ -55,7 +55,7 @@
             class="absolute inset-0 bg-gradient-to-t from-base-bg/90 via-base-bg/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-3 pointer-events-none"
           >
             <span
-              class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[1.15rem] font-semibold text-white bg-black/60 backdrop-blur-md border border-white/20 rounded-full shadow-cinema-sm transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[1.15rem] font-semibold text-text-primary bg-black/60 backdrop-blur-md border border-border-medium rounded-full shadow-cinema-sm transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300"
             >
               <svg
                 width="12"

@@ -7,7 +7,7 @@
         :href="`https://www.imdb.com/${imdb}/${links.imdb_id}`"
         target="_blank"
         aria-label="View on IMDb"
-        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-text-primary hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         rel="noopener"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -31,7 +31,7 @@
         :href="links.homepage"
         target="_blank"
         aria-label="Official Website"
-        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-text-primary hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         rel="noopener"
       >
         <svg
@@ -60,7 +60,7 @@
         :href="`https://twitter.com/${links.twitter_id}`"
         target="_blank"
         aria-label="Twitter Profile"
-        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-text-primary hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         rel="noopener"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -78,7 +78,7 @@
         :href="`https://instagram.com/${links.instagram_id}`"
         target="_blank"
         aria-label="Instagram Profile"
-        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-text-primary hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         rel="noopener"
       >
         <svg
@@ -105,7 +105,7 @@
         :href="`https://www.facebook.com/${links.facebook_id}`"
         target="_blank"
         aria-label="Facebook Profile"
-        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-text-primary hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         rel="noopener"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

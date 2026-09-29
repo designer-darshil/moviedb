@@ -61,6 +61,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
+          'General-sans',
           'Inter',
           '-apple-system',
           'BlinkMacSystemFont',
@@ -71,6 +72,7 @@ module.exports = {
           'sans-serif',
         ],
         display: [
+          'General-sans',
           'Inter',
           '-apple-system',
           'BlinkMacSystemFont',

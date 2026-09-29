@@ -12,7 +12,7 @@
           <span>Genre Discovery</span>
         </div>
         <h1
-          class="m-0 font-display text-[2.8rem] sm:text-[3.6rem] font-extrabold text-white -tracking-wide"
+          class="m-0 font-display text-[2.8rem] sm:text-[3.6rem] font-extrabold text-text-primary leading-[1.1] -tracking-wide"
         >
           {{ title }}
         </h1>
@@ -34,8 +34,8 @@
           class="inline-flex items-center px-4 py-2 text-[1.25rem] font-semibold rounded-xl whitespace-nowrap transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
           :class="
             genre && genre.id === g.id
-              ? 'text-white bg-surface-3 border border-border-medium shadow-cinema-sm'
-              : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'
+              ? 'text-text-primary bg-surface-3 border border-border-medium shadow-cinema-sm'
+              : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-text-primary hover:bg-surface-2'
           "
         >
           {{ g.name }}

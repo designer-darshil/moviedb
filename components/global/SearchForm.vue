@@ -58,7 +58,7 @@
               v-if="query"
               type="button"
               aria-label="Clear search input"
-              class="flex items-center justify-center w-6 h-6 rounded-full text-text-muted hover:text-white bg-surface-3 transition-colors duration-150 cursor-pointer"
+              class="flex items-center justify-center w-6 h-6 rounded-full text-text-muted hover:text-text-primary bg-surface-3 transition-colors duration-150 cursor-pointer"
               @click="clearQuery"
             >
               <svg
@@ -85,7 +85,7 @@
             <button
               type="button"
               aria-label="Close Search Dialog"
-              class="flex items-center justify-center w-8 h-8 rounded-lg text-text-muted hover:text-white hover:bg-surface-3 transition-colors duration-150 cursor-pointer"
+              class="flex items-center justify-center w-8 h-8 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-3 transition-colors duration-150 cursor-pointer"
               @click="closeSearch"
             >
               <svg
@@ -115,7 +115,7 @@
             :key="tag"
             v-ripple
             type="button"
-            class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-lg cursor-pointer hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+            class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-lg cursor-pointer hover:text-text-primary hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             @click="selectTag(tag)"
           >
             {{ tag }}

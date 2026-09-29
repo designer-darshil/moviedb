@@ -60,7 +60,7 @@
 
               <!-- Movie / TV Title -->
               <h1
-                class="m-0 mb-3.5 font-display text-[2.6rem] sm:text-[3.6rem] lg:text-[4.4rem] font-extrabold leading-[1.1] -tracking-tight text-white drop-shadow-md"
+                class="m-0 mb-3.5 font-display text-[2.6rem] sm:text-[3.6rem] lg:text-[4.4rem] font-extrabold leading-[1.1] -tracking-tight text-text-primary drop-shadow-md"
               >
                 <template v-if="isSingle">
                   {{ itemName }}
@@ -71,7 +71,7 @@
                       name: `${mediaType}-id`,
                       params: { id: activeItem.id },
                     }"
-                    class="text-white hover:text-primary-amber transition-colors duration-200"
+                    class="text-text-primary hover:text-primary-amber transition-colors duration-200"
                   >
                     {{ itemName }}
                   </nuxt-link>
@@ -84,7 +84,7 @@
               >
                 <div
                   v-if="activeItem.vote_average"
-                  class="flex items-center gap-1 font-bold text-white"
+                  class="flex items-center gap-1 font-bold text-text-primary"
                 >
                   <svg
                     class="text-primary-amber"
@@ -162,7 +162,7 @@
                     name: `${mediaType}-id`,
                     params: { id: activeItem.id },
                   }"
-                  class="inline-flex items-center justify-center gap-2 h-11 px-5 text-[1.35rem] font-semibold rounded-xl cursor-pointer text-text-primary bg-surface-2/80 backdrop-blur-md border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-white transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+                  class="inline-flex items-center justify-center gap-2 h-11 px-5 text-[1.35rem] font-semibold rounded-xl cursor-pointer text-text-primary bg-surface-2/80 backdrop-blur-md border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-text-primary transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
                 >
                   <span
                     >Explore {{ mediaType === 'tv' ? 'Series' : 'Movie' }}</span

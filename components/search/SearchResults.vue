@@ -2,7 +2,7 @@
   <div class="my-6 sm:my-8 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
     <div v-if="title" class="flex items-baseline gap-3 mb-6">
       <h2
-        class="m-0 font-display text-[2rem] sm:text-[2.4rem] font-bold text-white -tracking-wide"
+        class="m-0 font-display text-[2rem] sm:text-[2.4rem] font-bold text-text-primary leading-[1.2] -tracking-wide"
       >
         {{ title }}
       </h2>

@@ -7,7 +7,7 @@
     <button
       type="button"
       aria-label="Go Back"
-      class="flex items-center justify-center w-9 h-9 text-text-muted hover:text-white bg-surface-2/80 border border-border-subtle rounded-xl cursor-pointer transition-colors duration-150 active:scale-95"
+      class="flex items-center justify-center w-9 h-9 text-text-muted hover:text-text-primary bg-surface-2/80 border border-border-subtle rounded-xl cursor-pointer transition-colors duration-150 active:scale-95"
       @click="handleBack"
     >
       <svg
@@ -26,7 +26,7 @@
 
     <!-- Page Title -->
     <h2
-      class="m-0 px-3 overflow-hidden font-display text-[1.45rem] font-bold text-white text-center truncate flex-1"
+      class="m-0 px-3 overflow-hidden font-display text-[1.45rem] font-bold text-text-primary text-center truncate flex-1"
     >
       {{ title }}
     </h2>
@@ -35,7 +35,7 @@
     <nuxt-link
       to="/search"
       aria-label="Search"
-      class="flex items-center justify-center w-9 h-9 text-text-muted hover:text-white bg-surface-2/80 border border-border-subtle rounded-xl cursor-pointer transition-colors duration-150"
+      class="flex items-center justify-center w-9 h-9 text-text-muted hover:text-text-primary bg-surface-2/80 border border-border-subtle rounded-xl cursor-pointer transition-colors duration-150"
     >
       <svg
         width="16"

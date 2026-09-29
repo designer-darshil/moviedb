@@ -35,7 +35,7 @@
       </div>
 
       <h1
-        class="m-0 mb-3 font-display text-[2.4rem] font-bold text-white -tracking-wide"
+        class="m-0 mb-3 font-display text-[2.4rem] font-bold text-text-primary leading-[1.2] -tracking-wide"
       >
         {{ message }}
       </h1>
@@ -79,7 +79,7 @@
         <nuxt-link
           v-ripple
           to="/search"
-          class="inline-flex items-center justify-center gap-2 h-11 px-6 text-[1.35rem] font-medium text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:text-white rounded-xl transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+          class="inline-flex items-center justify-center gap-2 h-11 px-6 text-[1.35rem] font-medium text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:text-text-primary rounded-xl transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         >
           <svg
             width="16"

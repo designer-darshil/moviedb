@@ -17,22 +17,15 @@
 
           <div
             v-else
-            class="absolute inset-0 flex flex-col items-center justify-center gap-2 text-text-subtle bg-surface-2"
+            class="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-surface-2"
           >
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-            <span class="text-[1.1rem] font-medium tracking-wider uppercase"
+            <Avatar
+              icon="pi pi-user"
+              shape="circle"
+              class="!w-20 !h-20 !text-[2.2rem] !bg-surface-3 !text-text-subtle"
+            />
+            <span
+              class="text-[1.1rem] font-medium tracking-wider uppercase text-text-subtle"
               >No Portrait</span
             >
           </div>
