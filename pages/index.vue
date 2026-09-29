@@ -5,30 +5,58 @@
       v-if="featured"
       :item="featured" />
 
-    <!-- Movie & TV Discovery Sections -->
-    <div class="flex flex-col gap-2 mt-4 sm:mt-6">
-      <!-- Popular Movies -->
-      <ListingCarousel
-        v-if="popularMovies && popularMovies.results.length"
-        :title="popularMoviesTitle"
-        :view-all-url="popularMoviesUrl"
-        :items="popularMovies" />
-
-      <!-- Trending Movies -->
+    <!-- Movie & TV Discovery Hierarchy -->
+    <div class="flex flex-col gap-6 sm:gap-8 mt-4 sm:mt-6">
+      <!-- 1. TRENDING: Horizontal movie rail -->
       <ListingCarousel
         v-if="trendingMovies && trendingMovies.results.length"
         :title="trendingMoviesTitle"
         :view-all-url="trendingMoviesUrl"
         :items="trendingMovies" />
 
-      <!-- Top Rated Movies -->
+      <!-- 2. POPULAR: Movie grid -->
+      <section
+        v-if="popularMovies && popularMovies.results.length"
+        class="my-4 sm:my-6 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto w-full">
+        <div class="flex items-center justify-between mb-4 sm:mb-6">
+          <h2 class="m-0 font-display text-[2rem] sm:text-[2.2rem] font-bold text-white -tracking-wide">
+            {{ popularMoviesTitle }}
+          </h2>
+
+          <nuxt-link
+            :to="popularMoviesUrl"
+            class="inline-flex items-center gap-1 text-[1.25rem] font-medium text-text-muted hover:text-primary-amber transition-colors duration-200">
+            <span>View all</span>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </nuxt-link>
+        </div>
+
+        <div class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-5">
+          <Card
+            v-for="item in popularGridItems"
+            :key="`home-popular-${item.id}`"
+            :item="item" />
+        </div>
+      </section>
+
+      <!-- 3. TOP RATED: Movie rail -->
       <ListingCarousel
         v-if="topRatedMovies && topRatedMovies.results.length"
         :title="topRatedMoviesTitle"
         :view-all-url="topRatedMoviesUrl"
         :items="topRatedMovies" />
 
-      <!-- Trending TV Shows -->
+      <!-- 4. TRENDING TV: TV rail -->
       <ListingCarousel
         v-if="trendingTv && trendingTv.results.length"
         :title="trendingTvTitle"
@@ -41,11 +69,13 @@
 <script>
 import { getTrending, getMovies, getMovie, getListItem } from '~/api';
 import Hero from '~/components/Hero';
+import Card from '~/components/Card';
 import ListingCarousel from '~/components/ListingCarousel';
 
 export default {
   components: {
     Hero,
+    Card,
     ListingCarousel,
   },
 
@@ -124,6 +154,12 @@ export default {
 
     trendingTvUrl () {
       return { name: 'tv-category-name', params: { name: 'trending' } };
+    },
+
+    popularGridItems () {
+      return this.popularMovies && this.popularMovies.results
+        ? this.popularMovies.results.slice(0, 12)
+        : [];
     },
   },
 };

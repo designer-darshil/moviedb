@@ -74,6 +74,11 @@
                   <span>{{ activeItem.number_of_seasons }} {{ activeItem.number_of_seasons === 1 ? 'Season' : 'Seasons' }}</span>
                 </template>
 
+                <template v-if="genresList">
+                  <span class="opacity-40">&middot;</span>
+                  <span>{{ genresList }}</span>
+                </template>
+
                 <span
                   v-if="itemCert"
                   class="px-1.5 py-0.5 text-[1.1rem] font-semibold text-text-muted border border-border-medium rounded">
@@ -219,6 +224,13 @@ export default {
           r => r.iso_3166_1 === 'US' || r.iso_3166_1 === process.env.API_COUNTRY,
         );
         if (releases) return releases.rating;
+      }
+      return null;
+    },
+
+    genresList () {
+      if (this.activeItem.genres && this.activeItem.genres.length) {
+        return this.activeItem.genres.slice(0, 3).map(g => g.name).join(' · ');
       }
       return null;
     },

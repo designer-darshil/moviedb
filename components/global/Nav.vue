@@ -28,7 +28,7 @@
                 class="inline-flex items-center px-3.5 py-1.5 text-[1.3rem] font-medium text-text-muted rounded-md hover:text-white hover:bg-white/5 transition-colors duration-150"
                 active-class="is-nav-active"
                 exact-active-class="is-nav-active">
-                Discover
+                Home
               </nuxt-link>
             </li>
             <li>
@@ -44,15 +44,7 @@
                 :to="{ name: 'tv' }"
                 class="inline-flex items-center px-3.5 py-1.5 text-[1.3rem] font-medium text-text-muted rounded-md hover:text-white hover:bg-white/5 transition-colors duration-150"
                 active-class="is-nav-active">
-                TV Shows
-              </nuxt-link>
-            </li>
-            <li>
-              <nuxt-link
-                :to="{ name: 'movie-category-name', params: { name: 'trending' } }"
-                class="inline-flex items-center px-3.5 py-1.5 text-[1.3rem] font-medium text-text-muted rounded-md hover:text-white hover:bg-white/5 transition-colors duration-150"
-                active-class="is-nav-active">
-                Trending
+                TV
               </nuxt-link>
             </li>
           </ul>
@@ -131,7 +123,7 @@
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
             </span>
-            <span>Discover</span>
+            <span>Home</span>
           </nuxt-link>
         </li>
 
@@ -189,7 +181,7 @@
                 <polyline points="17 2 12 7 7 2" />
               </svg>
             </span>
-            <span>TV Shows</span>
+            <span>TV</span>
           </nuxt-link>
         </li>
 

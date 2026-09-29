@@ -83,9 +83,9 @@ TMDb image URLs are generated using verified production sizes to prevent HTTP 40
 
 ## 5. Component Standards
 
-- **`Card.vue`**: Strictly poster-first, `pt-[150%]` 2:3 aspect ratio, subtle rating badge, smooth hover scaling (`group-hover:scale-[1.03]`), clean title and year/type below.
-- **`Hero.vue`**: Atmospheric backdrop banner with fade scrims, clean title, metadata specs, synopsis, "Watch Trailer" button, and modal player.
+- **`Card.vue`**: Strictly poster-first, `pt-[150%]` 2:3 aspect ratio, uncluttered poster surface (zero intrusive overlay badges), subtle hover scaling and brightness lift (`group-hover:scale-[1.03] group-hover:brightness-105`), clean truncated title and `Year · Rating` metadata below the poster.
+- **`Hero.vue`**: Atmospheric backdrop banner with fade scrims, clean title, metadata specs (rating, year, runtime, genres), synopsis, "Watch Trailer" button, and modal player.
 - **`ListingCarousel.vue`**: Minimal section header, smooth horizontal snap rail, compact chevron arrows.
 - **`Listing.vue`**: Clean responsive grid (`grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6`) with infinite scroll loading.
-- **`MovieInfo.vue` / `TvInfo.vue` / `PersonInfo.vue`**: Content-first detail layouts featuring poster, clean storyline, genres, specs, and external links.
+- **Movie & TV Details (`pages/movie/_id.vue`, `pages/tv/_id.vue`)**: Unified cinematic layout featuring full-width backdrop fading naturally into the dark canvas, prominent poster alongside title, rating, year, runtime, genres, description, "Watch Trailer" primary action, details grid, cast rail, media tabs, and similar movies rail.
 - **`SearchForm.vue`**: Fast, simple modal dialog with auto-focus, ESC trigger, clear button, and trending query tags.
