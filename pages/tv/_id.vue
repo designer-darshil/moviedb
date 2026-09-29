@@ -1,102 +1,108 @@
 <template>
-  <main class="main pb-16">
+  <main class="main pb-20">
     <TopNav :title="metaTitle" />
 
-    <!-- Unified Cinematic TV Series Details -->
+    <!-- 1. FULL-WIDTH CINEMATIC BACKDROP & EDITORIAL HERO -->
     <div class="relative w-full overflow-hidden bg-base-bg">
-      <!-- Atmospheric Full-Width Backdrop -->
-      <div class="absolute inset-x-0 top-0 h-[480px] sm:h-[580px] lg:h-[640px] overflow-hidden pointer-events-none">
-        <img
-          v-if="backdropUrl"
-          :src="backdropUrl"
-          :alt="name"
-          class="w-full h-full object-cover object-[center_20%] opacity-40">
-        <div class="absolute inset-0 bg-gradient-to-t from-base-bg via-base-bg/75 to-transparent" />
-        <div class="absolute inset-0 bg-gradient-to-b from-base-bg/60 via-transparent to-base-bg" />
-        <div class="hidden lg:block absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-base-bg via-base-bg/80 to-transparent" />
-      </div>
+      <!-- Full-Width Cinematic Backdrop Atmosphere -->
+      <div
+        class="relative min-h-[520px] sm:min-h-[600px] lg:min-h-[680px] flex items-end">
+        <div
+          class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+          <img
+            v-if="backdropUrl"
+            :src="backdropUrl"
+            :alt="name"
+            class="w-full h-full object-cover object-[center_20%] opacity-45 scale-[1.02]">
 
-      <!-- TV Hero & Presentation -->
-      <div class="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 pt-20 sm:pt-24 lg:pt-32 pb-8">
-        <div class="flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
-          <!-- Poster Column -->
-          <div class="w-[200px] sm:w-[240px] md:w-[280px] lg:w-[320px] shrink-0 mx-auto md:mx-0">
-            <div class="relative w-full rounded-xl overflow-hidden bg-surface-2 border border-border-subtle shadow-cinema-lg">
-              <div class="relative w-full h-0 pt-[150%] overflow-hidden bg-surface-2">
-                <img
-                  v-if="posterUrl"
-                  v-lazyload="posterUrl"
-                  class="lazyload absolute inset-0 w-full h-full object-cover"
-                  :alt="name">
-                <div v-else class="absolute inset-0 flex flex-col items-center justify-center gap-2 text-text-subtle bg-surface-2">
-                  <span class="text-[1.1rem] font-medium uppercase tracking-wider">No Poster</span>
-                </div>
-              </div>
+          <!-- Multi-Directional Atmospheric Dark Gradients -->
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-base-bg via-base-bg/75 to-transparent" />
+          <div
+            class="absolute inset-0 bg-gradient-to-b from-base-bg/80 via-transparent to-base-bg" />
+          <div
+            class="hidden lg:block absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-base-bg via-base-bg/85 to-transparent" />
+        </div>
+
+        <!-- Hero Content Overlay: Title, Specs, Description, Actions -->
+        <div
+          class="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 pt-28 sm:pt-36 pb-12 sm:pb-16">
+          <div class="max-w-[920px]">
+            <!-- Eyebrow Navigation & Tag -->
+            <div
+              class="flex items-center gap-3 mb-4 text-[1.2rem] font-semibold tracking-wider uppercase text-primary-amber">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary-amber" />
+              <span>Television Series</span>
+              <span
+                v-if="itemCert"
+                class="px-2 py-0.5 text-[1.05rem] font-bold text-text-muted bg-surface-2 border border-border-medium rounded">
+                {{ itemCert }}
+              </span>
             </div>
-            <p v-if="item.tagline" class="mt-3 text-center italic text-[1.3rem] text-text-muted">
-              &ldquo;{{ item.tagline }}&rdquo;
-            </p>
-          </div>
 
-          <!-- Series Information Column -->
-          <div class="flex-1 flex flex-col max-w-[900px] w-full">
-            <!-- Series Title -->
-            <h1 class="m-0 mb-3 font-display text-[2.8rem] sm:text-[4rem] lg:text-[4.6rem] font-extrabold leading-tight text-white -tracking-tight">
+            <!-- Massive Cinematic Series Title -->
+            <h1
+              class="m-0 mb-4 font-display text-[3.2rem] sm:text-[4.6rem] lg:text-[5.6rem] font-extrabold leading-[1.08] text-white -tracking-tight">
               {{ name }}
             </h1>
 
-            <!-- Rating · Year · Seasons -->
-            <div class="flex flex-wrap items-center gap-3 mb-4 text-[1.35rem] text-text-secondary">
-              <div v-if="item.vote_average" class="flex items-center gap-1.5 font-bold text-white">
-                <svg class="text-primary-amber" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+            <!-- Metadata Specs: Year · Seasons · Rating · Genres -->
+            <div
+              class="flex flex-wrap items-center gap-3 sm:gap-4 mb-5 text-[1.35rem] sm:text-[1.4rem] text-text-secondary">
+              <div
+                v-if="item.vote_average"
+                class="flex items-center gap-1.5 font-bold text-white">
+                <svg
+                  class="text-primary-amber"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor">
+                  <path
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                 </svg>
                 <span>{{ item.vote_average | rating }}</span>
               </div>
 
               <span v-if="yearStart" class="opacity-40">&middot;</span>
-              <span v-if="yearStart">
-                {{ yearStart }}<template v-if="yearEnd && yearEnd !== yearStart">&ndash;{{ yearEnd }}</template>
+              <span v-if="yearStart" class="font-medium text-text-primary">
+                {{ yearStart
+                }}<template v-if="yearEnd && yearEnd !== yearStart">&ndash;{{ yearEnd }}</template>
               </span>
 
               <template v-if="item.number_of_seasons">
                 <span class="opacity-40">&middot;</span>
-                <span>{{ item.number_of_seasons }} {{ item.number_of_seasons === 1 ? 'Season' : 'Seasons' }}</span>
+                <span>{{ item.number_of_seasons }}
+                  {{
+                    item.number_of_seasons === 1 ? 'Season' : 'Seasons'
+                  }}</span>
               </template>
 
-              <span
-                v-if="itemCert"
-                class="px-1.5 py-0.5 text-[1.1rem] font-semibold text-text-muted border border-border-medium rounded">
-                {{ itemCert }}
-              </span>
+              <template v-if="item.genres && item.genres.length">
+                <span class="opacity-40">&middot;</span>
+                <span class="text-text-muted">{{ genresList }}</span>
+              </template>
             </div>
 
-            <!-- Genres -->
-            <div v-if="item.genres && item.genres.length" class="flex flex-wrap gap-2 mb-6">
-              <nuxt-link
-                v-for="genre in item.genres"
-                :key="genre.id"
-                :to="`/genre/${genre.id}/tv`"
-                class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-md hover:text-white hover:bg-surface-3 transition-colors duration-150">
-                {{ genre.name }}
-              </nuxt-link>
-            </div>
+            <!-- Description / Synopsis -->
+            <p
+              v-if="item.overview"
+              class="m-0 mb-8 text-[1.5rem] sm:text-[1.65rem] leading-relaxed text-text-secondary max-w-[820px]">
+              {{ item.overview }}
+            </p>
 
-            <!-- Description -->
-            <div v-if="item.overview" class="mb-6">
-              <p class="m-0 text-[1.5rem] sm:text-[1.6rem] leading-relaxed text-text-secondary">
-                {{ item.overview }}
-              </p>
-            </div>
-
-            <!-- Primary Action: Watch Trailer -->
-            <div class="flex flex-wrap items-center gap-3 mb-8">
+            <!-- Main Actions -->
+            <div class="flex flex-wrap items-center gap-3.5">
               <button
                 v-if="trailerData"
                 type="button"
-                class="inline-flex items-center justify-center gap-2 h-11 px-5 text-[1.35rem] font-semibold rounded-lg cursor-pointer text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active transition-colors duration-200"
+                class="inline-flex items-center justify-center gap-2.5 h-12 px-6 text-[1.4rem] font-semibold rounded-lg cursor-pointer text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active shadow-cinema-sm transition-all duration-200"
                 @click="openModal">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor">
                   <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
                 <span>Watch Trailer</span>
@@ -107,8 +113,8 @@
                 :href="item.homepage"
                 target="_blank"
                 rel="noopener"
-                class="inline-flex items-center justify-center gap-2 h-11 px-5 text-[1.35rem] font-medium rounded-lg text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:text-white transition-colors duration-200">
-                <span>Website</span>
+                class="inline-flex items-center justify-center gap-2 h-12 px-6 text-[1.4rem] font-medium rounded-lg text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:text-white transition-colors duration-200">
+                <span>Official Site</span>
                 <svg
                   width="13"
                   height="13"
@@ -118,60 +124,127 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <path
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                   <polyline points="15 3 21 3 21 9" />
                   <line x1="10" y1="14" x2="21" y2="3" />
                 </svg>
               </a>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <!-- Additional Information -->
-            <div class="bg-surface-1 border border-border-subtle rounded-xl p-5 sm:p-6">
-              <h3 class="m-0 mb-4 text-[1.5rem] font-semibold text-white -tracking-wide">
-                Details
-              </h3>
+      <!-- 2. ASYMMETRIC POSTER ARTWORK & SERIES DETAILS -->
+      <div
+        class="relative z-20 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-10">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          <!-- Floating Poster Artwork (4 cols) -->
+          <div class="lg:col-span-4 w-[240px] sm:w-[280px] lg:w-full mx-auto">
+            <div
+              class="relative w-full rounded-xl overflow-hidden bg-surface-2 border border-border-medium shadow-cinema-lg -mt-8 sm:-mt-14 lg:-mt-20">
+              <div
+                class="relative w-full h-0 pt-[150%] overflow-hidden bg-surface-2">
+                <img
+                  v-if="posterUrl"
+                  v-lazyload="posterUrl"
+                  class="lazyload absolute inset-0 w-full h-full object-cover"
+                  :alt="name">
+                <div
+                  v-else
+                  class="absolute inset-0 flex flex-col items-center justify-center gap-2 text-text-subtle bg-surface-2">
+                  <span
+                    class="text-[1.1rem] font-medium uppercase tracking-wider">No Poster</span>
+                </div>
+              </div>
+            </div>
 
-              <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 list-none m-0 p-0 text-[1.3rem]">
-                <li v-if="creators" class="flex flex-col gap-1">
-                  <span class="text-[1.1rem] font-medium uppercase tracking-wider text-text-subtle">Created by</span>
-                  <span class="font-medium text-text-primary" v-html="creators" />
+            <p
+              v-if="item.tagline"
+              class="mt-4 text-center italic text-[1.35rem] text-text-muted">
+              &ldquo;{{ item.tagline }}&rdquo;
+            </p>
+          </div>
+
+          <!-- Additional Information & Specs (8 cols) -->
+          <div class="lg:col-span-8 flex flex-col gap-6">
+            <div
+              class="bg-surface-1 border border-border-subtle rounded-xl p-6 sm:p-8">
+              <h2
+                class="m-0 mb-6 font-display text-[1.8rem] sm:text-[2rem] font-bold text-white -tracking-wide">
+                Series &amp; Broadcast Details
+              </h2>
+
+              <ul
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 list-none m-0 p-0 text-[1.35rem]">
+                <li v-if="creators" class="flex flex-col gap-1.5">
+                  <span
+                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Created by</span>
+                  <span
+                    class="font-medium text-text-primary"
+                    v-html="creators" />
                 </li>
 
-                <li v-if="item.first_air_date" class="flex flex-col gap-1">
-                  <span class="text-[1.1rem] font-medium uppercase tracking-wider text-text-subtle">First Aired</span>
-                  <span class="font-medium text-text-primary">{{ item.first_air_date | fullDate }}</span>
+                <li v-if="item.first_air_date" class="flex flex-col gap-1.5">
+                  <span
+                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">First Broadcast</span>
+                  <span class="font-medium text-text-primary">{{
+                    item.first_air_date | fullDate
+                  }}</span>
                 </li>
 
-                <li v-if="item.last_air_date" class="flex flex-col gap-1">
-                  <span class="text-[1.1rem] font-medium uppercase tracking-wider text-text-subtle">Last Aired</span>
-                  <span class="font-medium text-text-primary">{{ item.last_air_date | fullDate }}</span>
+                <li v-if="item.last_air_date" class="flex flex-col gap-1.5">
+                  <span
+                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Latest Broadcast</span>
+                  <span class="font-medium text-text-primary">{{
+                    item.last_air_date | fullDate
+                  }}</span>
                 </li>
 
-                <li v-if="item.number_of_seasons" class="flex flex-col gap-1">
-                  <span class="text-[1.1rem] font-medium uppercase tracking-wider text-text-subtle">Seasons &amp; Episodes</span>
+                <li v-if="item.number_of_seasons" class="flex flex-col gap-1.5">
+                  <span
+                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Seasons &amp; Episodes</span>
                   <span class="font-medium text-text-primary">
-                    {{ item.number_of_seasons }} {{ item.number_of_seasons === 1 ? 'Season' : 'Seasons' }}
-                    <span v-if="item.number_of_episodes" class="text-text-muted font-normal">({{ item.number_of_episodes }} ep)</span>
+                    {{ item.number_of_seasons }}
+                    {{ item.number_of_seasons === 1 ? 'Season' : 'Seasons' }}
+                    <span
+                      v-if="item.number_of_episodes"
+                      class="text-text-muted font-normal">({{ item.number_of_episodes }} ep)</span>
                   </span>
                 </li>
 
-                <li v-if="item.status" class="flex flex-col gap-1">
-                  <span class="text-[1.1rem] font-medium uppercase tracking-wider text-text-subtle">Status</span>
-                  <span class="font-medium text-text-primary">{{ item.status }}</span>
+                <li v-if="item.status" class="flex flex-col gap-1.5">
+                  <span
+                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Status</span>
+                  <span class="font-medium text-text-primary">{{
+                    item.status
+                  }}</span>
                 </li>
 
-                <li v-if="item.networks && item.networks.length" class="flex flex-col gap-1">
-                  <span class="text-[1.1rem] font-medium uppercase tracking-wider text-text-subtle">Network</span>
-                  <span class="font-medium text-text-primary">{{ item.networks | arrayToList }}</span>
+                <li
+                  v-if="item.networks && item.networks.length"
+                  class="flex flex-col gap-1.5">
+                  <span
+                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Original Network</span>
+                  <span class="font-medium text-text-primary">{{
+                    item.networks | arrayToList
+                  }}</span>
                 </li>
 
-                <li v-if="item.original_language" class="flex flex-col gap-1">
-                  <span class="text-[1.1rem] font-medium uppercase tracking-wider text-text-subtle">Language</span>
-                  <span class="font-medium text-text-primary">{{ item.original_language | fullLang }}</span>
+                <li v-if="item.original_language" class="flex flex-col gap-1.5">
+                  <span
+                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Original Language</span>
+                  <span class="font-medium text-text-primary">{{
+                    item.original_language | fullLang
+                  }}</span>
                 </li>
               </ul>
 
-              <div v-if="item.external_ids" class="pt-4 mt-4 border-t border-border-subtle">
+              <!-- External Links / Social -->
+              <div
+                v-if="item.external_ids"
+                class="pt-6 mt-6 border-t border-border-subtle">
                 <ExternalLinks :links="item.external_ids" />
               </div>
             </div>
@@ -180,16 +253,16 @@
       </div>
     </div>
 
-    <!-- Media Switcher (Overview / Episodes / Videos / Photos) -->
-    <div v-if="menu.length > 1" class="mt-4">
+    <!-- 3. MEDIA NAVIGATION (Overview / Episodes / Videos / Photos) -->
+    <div v-if="menu.length > 1" class="my-4">
       <MediaNav :menu="menu" @clicked="navClicked" />
     </div>
 
-    <!-- Dynamic Section Container -->
+    <!-- 4. CAST, EPISODES & MEDIA GALLERIES -->
     <transition name="fade" mode="out-in">
       <div :key="`tv-tab-content-${activeMenu}`">
         <template v-if="activeMenu === 'overview'">
-          <!-- Top Cast -->
+          <!-- Top Cast Section -->
           <Credits v-if="showCredits" :people="item.credits.cast" />
         </template>
 
@@ -217,7 +290,7 @@
       </div>
     </transition>
 
-    <!-- Similar TV Shows -->
+    <!-- 5. SIMILAR TV SHOWS -->
     <ListingCarousel
       v-if="recommended && recommended.results.length"
       title="More Like This"
@@ -234,7 +307,13 @@
 </template>
 
 <script>
-import { apiImgUrl, getBackdropUrl, getPosterUrl, getTvShow, getTvShowRecommended } from '~/api';
+import {
+  apiImgUrl,
+  getBackdropUrl,
+  getPosterUrl,
+  getTvShow,
+  getTvShowRecommended,
+} from '~/api';
 import { name, yearStart, yearEnd, creators } from '~/mixins/Details';
 import TopNav from '~/components/global/TopNav';
 import MediaNav from '~/components/MediaNav';
@@ -351,11 +430,19 @@ export default {
     itemCert () {
       if (this.item.content_ratings) {
         const releases = this.item.content_ratings.results.find(
-          r => r.iso_3166_1 === 'US' || r.iso_3166_1 === process.env.API_COUNTRY,
+          r =>
+            r.iso_3166_1 === 'US' || r.iso_3166_1 === process.env.API_COUNTRY,
         );
         if (releases) return releases.rating;
       }
       return null;
+    },
+
+    genresList () {
+      if (this.item.genres && this.item.genres.length) {
+        return this.item.genres.map(g => g.name).join(' · ');
+      }
+      return '';
     },
 
     showCredits () {

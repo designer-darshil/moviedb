@@ -83,9 +83,15 @@ TMDb image URLs are generated using verified production sizes to prevent HTTP 40
 
 ## 5. Component Standards
 
-- **`Card.vue`**: Strictly poster-first, `pt-[150%]` 2:3 aspect ratio, uncluttered poster surface (zero intrusive overlay badges), subtle hover scaling and brightness lift (`group-hover:scale-[1.03] group-hover:brightness-105`), clean truncated title and `Year · Rating` metadata below the poster.
-- **`Hero.vue`**: Atmospheric backdrop banner with fade scrims, clean title, metadata specs (rating, year, runtime, genres), synopsis, "Watch Trailer" button, and modal player.
-- **`ListingCarousel.vue`**: Minimal section header, smooth horizontal snap rail, compact chevron arrows.
+- **`Card.vue`**: Strictly poster-first, `pt-[150%]` 2:3 aspect ratio, uncluttered poster surface with subtle hover scaling (`scale-[1.04]`), dark atmospheric vignette overlay, subtle "Explore" action indicator, and optional rank badges for ranked rails. Clean truncated title and `Year · Rating` subline below the poster.
+- **`Hero.vue`**: Atmospheric backdrop banner with multi-directional dark gradient scrims, high-impact editorial title, metadata specs (rating with golden star, year, runtime, genres, certification), synopsis, "Watch Trailer" and "Explore Movie" action buttons, interactive featured item indicators, and embedded YouTube trailer modal.
+- **`EditorialSpotlight.vue`**: Asymmetric curated showcase creating visual rhythm on the homepage. Left side features a 7-column standout cinematic backdrop card with editorial review snippet and primary action; right side features a 5-column stack of supporting curated titles with backdrop thumbnails and metadata.
+- **`ListingCarousel.vue`**: Minimal section header, smooth horizontal snap rail, compact chevron arrows, and numbered ranking support.
 - **`Listing.vue`**: Clean responsive grid (`grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6`) with infinite scroll loading.
-- **Movie & TV Details (`pages/movie/_id.vue`, `pages/tv/_id.vue`)**: Unified cinematic layout featuring full-width backdrop fading naturally into the dark canvas, prominent poster alongside title, rating, year, runtime, genres, description, "Watch Trailer" primary action, details grid, cast rail, media tabs, and similar movies rail.
-- **`SearchForm.vue`**: Fast, simple modal dialog with auto-focus, ESC trigger, clear button, and trending query tags.
+- **Movie & TV Details (`pages/movie/_id.vue`, `pages/tv/_id.vue`)**: Reimagined vertical and asymmetric editorial flow:
+  1. Full-width cinematic backdrop with multi-directional dark atmospheric gradients.
+  2. Hero title in massive display typography, specs (year, runtime, rating, genres, cert), overview, and action buttons ("Watch Trailer", "Official Site").
+  3. Asymmetric lower section with floating high-res poster artwork overlapping the hero atmosphere paired with comprehensive production & release details (director, status, release date, box office, budget, language, companies, external links).
+  4. Media switcher (Overview, Videos, Photos, Episodes) followed by cast carousel and similar titles rail.
+- **`pages/search/index.vue`**: First-class discovery destination with large, focused search input, quick trending search pills, trending exploration grid for empty states, instant multi-type filter tabs (All, Movies, TV, People), and clean poster grid.
+- **`SearchForm.vue`**: Quick-access modal dialog triggered via keyboard shortcut (`⌘K` or `/`) with auto-focus, ESC trigger, clear button, and trending query tags.

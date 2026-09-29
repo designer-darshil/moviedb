@@ -47,10 +47,11 @@ vue-movies/
 │   ├── tv/                  # TvInfo, Episodes, EpisodesItem
 │   ├── person/              # PersonInfo, CreditsHistory, CreditsHistoryGroup, CreditsHistoryItem
 │   ├── search/              # SearchResults (media type filters: All, Movies, TV, People)
-│   ├── Card.vue             # Cinematic media card with rank ribbon support & hover glow
-│   ├── Hero.vue             # Multi-featured interactive hero ticker & ambient lighting
+│   ├── Card.vue             # Poster-first media card with hover explore action & rank badges
+│   ├── Hero.vue             # Cinematic full-width hero with interactive featured switcher
+│   ├── EditorialSpotlight.vue # Asymmetric curated spotlight (7-col feature + 5-col supporting stack)
 │   ├── Listing.vue          # Infinite scroll grid listing
-│   ├── ListingCarousel.vue  # Horizontal media rail with scroll snapping & Top 10 rank display
+│   ├── ListingCarousel.vue  # Horizontal media rail with scroll snapping & ranked badges
 │   ├── MediaNav.vue         # Detail section tab navigation
 │   ├── Modal.vue            # Accessible modal for trailers and gallery lightbox
 │   ├── Videos.vue & VideosItem.vue  # Video gallery

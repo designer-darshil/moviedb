@@ -45,8 +45,29 @@
             <span class="text-[1.1rem] font-medium tracking-wider uppercase">No Poster</span>
           </div>
 
-          <!-- Subtle hover overlay -->
-          <div class="absolute inset-0 bg-white/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+          <!-- Subtle hover overlay & action -->
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-3 pointer-events-none">
+            <span
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[1.15rem] font-medium text-white bg-black/60 backdrop-blur-md border border-white/20 rounded-full shadow-cinema-sm transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="text-primary-amber">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              <span>Explore</span>
+            </span>
+          </div>
+
+          <!-- Rank Indicator (when specified) -->
+          <div
+            v-if="rank"
+            class="absolute top-2 left-2 z-10 flex items-center justify-center w-6 h-6 rounded-md bg-black/75 backdrop-blur-md border border-white/15 text-[1.1rem] font-bold text-primary-amber">
+            {{ rank }}
+          </div>
         </div>
       </div>
 
@@ -58,16 +79,29 @@
           {{ name }}
         </h3>
 
-        <div class="flex items-center gap-1.5 mt-1 text-[1.2rem] text-text-muted">
+        <div
+          class="flex items-center gap-1.5 mt-1 text-[1.2rem] text-text-muted">
           <span v-if="year">{{ year }}</span>
-          <span v-if="year && formattedRating" class="opacity-40">&middot;</span>
-          <span v-if="formattedRating" class="flex items-center gap-1 font-medium text-text-secondary">
-            <svg class="text-primary-amber" width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          <span
+            v-if="year && formattedRating"
+            class="opacity-40">&middot;</span>
+          <span
+            v-if="formattedRating"
+            class="flex items-center gap-1 font-medium text-text-secondary">
+            <svg
+              class="text-primary-amber"
+              width="11"
+              height="11"
+              viewBox="0 0 24 24"
+              fill="currentColor">
+              <path
+                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
             </svg>
             <span>{{ formattedRating }}</span>
           </span>
-          <span v-else-if="mediaLabel && !year" class="text-[1.15rem] text-text-subtle">{{ mediaLabel }}</span>
+          <span
+            v-else-if="mediaLabel && !year"
+            class="text-[1.15rem] text-text-subtle">{{ mediaLabel }}</span>
         </div>
       </div>
     </nuxt-link>

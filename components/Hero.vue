@@ -1,9 +1,11 @@
 <template>
   <div class="relative w-full overflow-hidden bg-base-bg">
     <!-- Hero Container -->
-    <div class="relative flex items-center min-h-[480px] sm:min-h-[560px] h-[65vh] sm:h-[70vh] max-h-[720px] overflow-hidden">
+    <div
+      class="relative flex items-center min-h-[480px] sm:min-h-[560px] h-[65vh] sm:h-[70vh] max-h-[720px] overflow-hidden">
       <!-- Backdrop Atmosphere -->
-      <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+      <div
+        class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
         <transition name="fade" mode="out-in">
           <img
             v-if="backdropUrl"
@@ -14,30 +16,39 @@
         </transition>
 
         <!-- Seamless Dark Cinematic Gradient Overlays -->
-        <div class="absolute inset-y-0 left-0 w-full lg:w-2/3 bg-gradient-to-r from-base-bg via-base-bg/90 to-transparent" />
-        <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-base-bg to-transparent" />
-        <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-base-bg/80 to-transparent" />
+        <div
+          class="absolute inset-y-0 left-0 w-full lg:w-2/3 bg-gradient-to-r from-base-bg via-base-bg/90 to-transparent" />
+        <div
+          class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-base-bg to-transparent" />
+        <div
+          class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-base-bg/80 to-transparent" />
       </div>
 
       <!-- Hero Content -->
-      <div class="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-12">
+      <div
+        class="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-12">
         <div class="max-w-[680px]">
           <transition name="fade-slide" mode="out-in">
             <div :key="`hero-content-${activeItem.id}`" class="flex flex-col">
               <!-- Eyebrow Tag -->
-              <div class="flex items-center gap-2 mb-3 text-[1.2rem] font-semibold tracking-wider uppercase text-primary-amber">
+              <div
+                class="flex items-center gap-2 mb-3 text-[1.2rem] font-semibold tracking-wider uppercase text-primary-amber">
                 <span class="w-1.5 h-1.5 rounded-full bg-primary-amber" />
                 <span>Featured {{ mediaType === 'tv' ? 'Series' : 'Film' }}</span>
               </div>
 
               <!-- Movie / TV Title -->
-              <h1 class="m-0 mb-3.5 font-display text-[3.2rem] sm:text-[4.4rem] lg:text-[5.2rem] font-extrabold leading-[1.1] -tracking-tight text-white">
+              <h1
+                class="m-0 mb-3.5 font-display text-[3.2rem] sm:text-[4.4rem] lg:text-[5.2rem] font-extrabold leading-[1.1] -tracking-tight text-white">
                 <template v-if="isSingle">
                   {{ itemName }}
                 </template>
                 <template v-else>
                   <nuxt-link
-                    :to="{ name: `${mediaType}-id`, params: { id: activeItem.id } }"
+                    :to="{
+                      name: `${mediaType}-id`,
+                      params: { id: activeItem.id },
+                    }"
                     class="text-white hover:text-primary-amber transition-colors duration-200">
                     {{ itemName }}
                   </nuxt-link>
@@ -45,7 +56,8 @@
               </h1>
 
               <!-- Metadata Specs -->
-              <div class="flex flex-wrap items-center gap-3.5 mb-4 text-[1.3rem] text-text-secondary">
+              <div
+                class="flex flex-wrap items-center gap-3.5 mb-4 text-[1.3rem] text-text-secondary">
                 <div
                   v-if="activeItem.vote_average"
                   class="flex items-center gap-1 font-bold text-white">
@@ -71,7 +83,10 @@
 
                 <template v-if="activeItem.number_of_seasons">
                   <span class="opacity-40">&middot;</span>
-                  <span>{{ activeItem.number_of_seasons }} {{ activeItem.number_of_seasons === 1 ? 'Season' : 'Seasons' }}</span>
+                  <span>{{ activeItem.number_of_seasons }}
+                    {{
+                      activeItem.number_of_seasons === 1 ? 'Season' : 'Seasons'
+                    }}</span>
                 </template>
 
                 <template v-if="genresList">
@@ -112,9 +127,12 @@
 
                 <nuxt-link
                   v-if="!isSingle"
-                  :to="{ name: `${mediaType}-id`, params: { id: activeItem.id } }"
+                  :to="{
+                    name: `${mediaType}-id`,
+                    params: { id: activeItem.id },
+                  }"
                   class="inline-flex items-center justify-center gap-2 h-11 px-5 text-[1.35rem] font-medium rounded-lg cursor-pointer text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:text-white transition-colors duration-200">
-                  <span>More Details</span>
+                  <span>Explore {{ mediaType === 'tv' ? 'Series' : 'Movie' }}</span>
                 </nuxt-link>
               </div>
             </div>
@@ -130,7 +148,11 @@
             :key="`indicator-${feat.id}`"
             type="button"
             class="h-1.5 rounded-full transition-all duration-300"
-            :class="selectedIndex === idx ? 'w-8 bg-primary-amber' : 'w-2 bg-white/20 hover:bg-white/40'"
+            :class="
+              selectedIndex === idx
+                ? 'w-8 bg-primary-amber'
+                : 'w-2 bg-white/20 hover:bg-white/40'
+            "
             :aria-label="`Switch to featured ${feat.title || feat.name}`"
             @click="selectedIndex = idx" />
         </div>
@@ -206,22 +228,27 @@ export default {
     },
 
     releaseYear () {
-      const date = this.activeItem.release_date || this.activeItem.first_air_date;
+      const date =
+        this.activeItem.release_date || this.activeItem.first_air_date;
       return date ? date.split('-')[0] : null;
     },
 
     itemCert () {
       if (this.activeItem.release_dates) {
         const releases = this.activeItem.release_dates.results.find(
-          r => r.iso_3166_1 === 'US' || r.iso_3166_1 === process.env.API_COUNTRY,
+          r =>
+            r.iso_3166_1 === 'US' || r.iso_3166_1 === process.env.API_COUNTRY,
         );
         if (releases) {
-          const cert = releases.release_dates.find(d => d.certification !== '');
+          const cert = releases.release_dates.find(
+            d => d.certification !== '',
+          );
           if (cert) return cert.certification;
         }
       } else if (this.activeItem.content_ratings) {
         const releases = this.activeItem.content_ratings.results.find(
-          r => r.iso_3166_1 === 'US' || r.iso_3166_1 === process.env.API_COUNTRY,
+          r =>
+            r.iso_3166_1 === 'US' || r.iso_3166_1 === process.env.API_COUNTRY,
         );
         if (releases) return releases.rating;
       }
@@ -230,13 +257,17 @@ export default {
 
     genresList () {
       if (this.activeItem.genres && this.activeItem.genres.length) {
-        return this.activeItem.genres.slice(0, 3).map(g => g.name).join(' · ');
+        return this.activeItem.genres
+          .slice(0, 3)
+          .map(g => g.name)
+          .join(' · ');
       }
       return null;
     },
 
     trailerData () {
-      if (!this.activeItem.videos || !this.activeItem.videos.results) return null;
+      if (!this.activeItem.videos || !this.activeItem.videos.results)
+        return null;
       const videos = this.activeItem.videos.results;
       const trailer = videos.find(v => v.type === 'Trailer');
       if (!trailer) return null;

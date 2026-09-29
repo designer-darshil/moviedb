@@ -1,11 +1,17 @@
 <template>
-  <header class="fixed top-0 inset-x-0 z-50 bg-[rgba(7,8,11,0.85)] backdrop-blur-md border-b border-border-subtle transition-all duration-200">
-    <div class="flex items-center justify-between w-full max-w-[1600px] h-[5.6rem] sm:h-[6.4rem] mx-auto px-4 sm:px-8 lg:px-12">
+  <header
+    class="fixed top-0 inset-x-0 z-50 bg-[rgba(7,8,11,0.85)] backdrop-blur-md border-b border-border-subtle transition-all duration-200">
+    <div
+      class="flex items-center justify-between w-full max-w-[1600px] h-[5.6rem] sm:h-[6.4rem] mx-auto px-4 sm:px-8 lg:px-12">
       <!-- Left: Brand & Desktop Navigation -->
       <div class="flex items-center gap-8 lg:gap-10">
         <!-- Brand Logo -->
-        <nuxt-link to="/" class="inline-flex items-center gap-2.5 no-underline group" aria-label="CINEPULSE Home">
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-amber text-[#07080b]">
+        <nuxt-link
+          to="/"
+          class="inline-flex items-center gap-2.5 no-underline group"
+          aria-label="CINEPULSE Home">
+          <div
+            class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-amber text-[#07080b]">
             <svg
               class="ml-0.5"
               width="16"
@@ -15,7 +21,8 @@
               <polygon points="5 3 19 12 5 21 5 3" />
             </svg>
           </div>
-          <span class="font-display text-[1.6rem] font-bold tracking-tight text-white uppercase">CINEPULSE</span>
+          <span
+            class="font-display text-[1.6rem] font-bold tracking-tight text-white uppercase">CINEPULSE</span>
         </nuxt-link>
 
         <!-- Desktop Navigation Links -->
@@ -28,7 +35,7 @@
                 class="inline-flex items-center px-3.5 py-1.5 text-[1.3rem] font-medium text-text-muted rounded-md hover:text-white hover:bg-white/5 transition-colors duration-150"
                 active-class="is-nav-active"
                 exact-active-class="is-nav-active">
-                Home
+                Discover
               </nuxt-link>
             </li>
             <li>
@@ -74,7 +81,8 @@
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
           <span class="text-text-subtle">Search...</span>
-          <span class="px-1.5 py-0.5 text-[1rem] font-semibold text-text-subtle bg-surface-3 border border-border-subtle rounded">⌘K</span>
+          <span
+            class="px-1.5 py-0.5 text-[1rem] font-semibold text-text-subtle bg-surface-3 border border-border-subtle rounded">⌘K</span>
         </button>
 
         <!-- Mobile Search Icon Button -->
@@ -100,7 +108,9 @@
     </div>
 
     <!-- Mobile Bottom Navigation Dock -->
-    <nav class="fixed inset-x-0 bottom-0 z-50 md:hidden flex items-center justify-around h-[5.6rem] bg-[rgba(7,8,11,0.92)] backdrop-blur-lg border-t border-border-subtle pb-[env(safe-area-inset-bottom,0)]" aria-label="Mobile Navigation">
+    <nav
+      class="fixed inset-x-0 bottom-0 z-50 md:hidden flex items-center justify-around h-[5.6rem] bg-[rgba(7,8,11,0.92)] backdrop-blur-lg border-t border-border-subtle pb-[env(safe-area-inset-bottom,0)]"
+      aria-label="Mobile Navigation">
       <ul class="flex items-center justify-around w-full list-none m-0 p-0">
         <li class="flex-1 flex justify-center">
           <nuxt-link
@@ -109,7 +119,8 @@
             class="flex flex-col items-center justify-center gap-1 w-full py-1 text-text-muted no-underline text-[1.05rem] font-medium transition-colors duration-150"
             active-class="is-dock-active"
             exact-active-class="is-dock-active">
-            <span class="dock-icon flex items-center justify-center transition-transform duration-150">
+            <span
+              class="dock-icon flex items-center justify-center transition-transform duration-150">
               <svg
                 width="18"
                 height="18"
@@ -119,11 +130,12 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
+                <circle cx="12" cy="12" r="10" />
+                <polygon
+                  points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
               </svg>
             </span>
-            <span>Home</span>
+            <span>Discover</span>
           </nuxt-link>
         </li>
 
@@ -132,7 +144,8 @@
             :to="{ name: 'movie' }"
             class="flex flex-col items-center justify-center gap-1 w-full py-1 text-text-muted no-underline text-[1.05rem] font-medium transition-colors duration-150"
             active-class="is-dock-active">
-            <span class="dock-icon flex items-center justify-center transition-transform duration-150">
+            <span
+              class="dock-icon flex items-center justify-center transition-transform duration-150">
               <svg
                 width="18"
                 height="18"
@@ -161,7 +174,8 @@
             :to="{ name: 'tv' }"
             class="flex flex-col items-center justify-center gap-1 w-full py-1 text-text-muted no-underline text-[1.05rem] font-medium transition-colors duration-150"
             active-class="is-dock-active">
-            <span class="dock-icon flex items-center justify-center transition-transform duration-150">
+            <span
+              class="dock-icon flex items-center justify-center transition-transform duration-150">
               <svg
                 width="18"
                 height="18"
@@ -192,7 +206,8 @@
             :class="searchOpen ? 'is-dock-active' : ''"
             aria-label="Search Catalog"
             @click="toggleSearch">
-            <span class="dock-icon flex items-center justify-center transition-transform duration-150">
+            <span
+              class="dock-icon flex items-center justify-center transition-transform duration-150">
               <svg
                 width="18"
                 height="18"
