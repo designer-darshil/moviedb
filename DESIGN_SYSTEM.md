@@ -21,19 +21,20 @@
 The application uses an optimized Inter sans-serif stack:
 
 ```scss
-$font-family--sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-family--sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, sans-serif;
 ```
 
 ### Type Scale & Hierarchy
 
-| Level / Component        | Desktop Size    | Mobile Size     | Weight | Line Height | Description |
-| ------------------------ | --------------- | --------------- | ------ | ----------- | ----------- |
-| **Hero Display Title**   | 3.2rem – 4.4rem | 2.4rem – 3.2rem | 800    | 1.1         | Primary spotlight headline |
-| **Section Header**       | 2.0rem – 2.4rem | 1.8rem – 2.0rem | 700    | 1.2         | Content rail and grid headings |
-| **Card Title**           | 1.35rem         | 1.25rem         | 500    | 1.3         | Single-line truncated card title |
-| **Card Meta**            | 1.15rem – 1.2rem| 1.1rem          | 400    | 1.3         | Release year, media type, rating |
-| **Body / Storyline**     | 1.5rem          | 1.4rem          | 400    | 1.6         | Legible, comfortable reading line |
-| **Badge / Kicker**       | 1.1rem – 1.2rem | 1.0rem          | 600    | 1.0         | Uppercase section indicators |
+| Level / Component      | Desktop Size     | Mobile Size     | Weight | Line Height | Description                       |
+| ---------------------- | ---------------- | --------------- | ------ | ----------- | --------------------------------- |
+| **Hero Display Title** | 3.2rem – 4.4rem  | 2.4rem – 3.2rem | 800    | 1.1         | Primary spotlight headline        |
+| **Section Header**     | 2.0rem – 2.4rem  | 1.8rem – 2.0rem | 700    | 1.2         | Content rail and grid headings    |
+| **Card Title**         | 1.35rem          | 1.25rem         | 500    | 1.3         | Single-line truncated card title  |
+| **Card Meta**          | 1.15rem – 1.2rem | 1.1rem          | 400    | 1.3         | Release year, media type, rating  |
+| **Body / Storyline**   | 1.5rem           | 1.4rem          | 400    | 1.6         | Legible, comfortable reading line |
+| **Badge / Kicker**     | 1.1rem – 1.2rem  | 1.0rem          | 600    | 1.0         | Uppercase section indicators      |
 
 ---
 
@@ -70,14 +71,14 @@ Configured in `tailwind.config.js` and `assets/css/utilities/_variables.scss`:
 
 TMDb image URLs are generated using verified production sizes to prevent HTTP 400 errors:
 
-| Asset Type                   | TMDb Size       | Target Display               | Helper Function                    |
-| ---------------------------- | --------------- | ---------------------------- | ---------------------------------- |
-| **Movie / TV Posters**       | `w500`          | Card posters, detail posters | `getPosterUrl(path, 'w500')`       |
-| **Person Profile**           | `h632`          | Cast items, person avatar    | `getProfileUrl(path, 'h632')`      |
-| **Hero & Backdrops**         | `w1280`         | Hero backdrop banner         | `getBackdropUrl(path, 'w1280')`    |
-| **Gallery Backdrop Thumbs**  | `w780`          | Photo gallery preview        | `getBackdropUrl(path, 'w780')`     |
-| **TV Episode Stills**        | `w300`          | Episode cards                | `getStillUrl(path, 'w300')`        |
-| **Modal Fullscreen Photos**  | `original`      | Photo lightbox               | `getImageUrl(path, 'original')`    |
+| Asset Type                  | TMDb Size  | Target Display               | Helper Function                 |
+| --------------------------- | ---------- | ---------------------------- | ------------------------------- |
+| **Movie / TV Posters**      | `w500`     | Card posters, detail posters | `getPosterUrl(path, 'w500')`    |
+| **Person Profile**          | `h632`     | Cast items, person avatar    | `getProfileUrl(path, 'h632')`   |
+| **Hero & Backdrops**        | `w1280`    | Hero backdrop banner         | `getBackdropUrl(path, 'w1280')` |
+| **Gallery Backdrop Thumbs** | `w780`     | Photo gallery preview        | `getBackdropUrl(path, 'w780')`  |
+| **TV Episode Stills**       | `w300`     | Episode cards                | `getStillUrl(path, 'w300')`     |
+| **Modal Fullscreen Photos** | `original` | Photo lightbox               | `getImageUrl(path, 'original')` |
 
 ---
 
@@ -93,5 +94,48 @@ TMDb image URLs are generated using verified production sizes to prevent HTTP 40
   2. Hero title in massive display typography, specs (year, runtime, rating, genres, cert), overview, and action buttons ("Watch Trailer", "Official Site").
   3. Asymmetric lower section with floating high-res poster artwork overlapping the hero atmosphere paired with comprehensive production & release details (director, status, release date, box office, budget, language, companies, external links).
   4. Media switcher (Overview, Videos, Photos, Episodes) followed by cast carousel and similar titles rail.
-- **`pages/search/index.vue`**: First-class discovery destination with large, focused search input, quick trending search pills, trending exploration grid for empty states, instant multi-type filter tabs (All, Movies, TV, People), and clean poster grid.
+- **`pages/search/index.vue`**: First-class discovery destination with large, focused search input, quick trending search pills, trending exploration grid for empty states, instant multi-type filter tabs (All, Movies, TV, People), sort options (Relevance, Highest Rated, Newest), and clean poster grid.
 - **`SearchForm.vue`**: Quick-access modal dialog triggered via keyboard shortcut (`⌘K` or `/`) with auto-focus, ESC trigger, clear button, and trending query tags.
+
+---
+
+## 6. UI Primitives Library (`components/ui/`)
+
+Reusable, composable base components used across the application:
+
+| Component                 | Purpose                                                                                                                                                                            |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`Button.vue`**          | Multi-variant button (`primary`, `secondary`, `ghost`, `danger`), three sizes (`sm`, `md`, `lg`), loading spinner state, polymorphic rendering (`<button>`, `<nuxt-link>`, `<a>`). |
+| **`Badge.vue`**           | Semantic label tags with color variants (`default`, `success`, `warning`, `danger`, `info`) and optional pulsing dot indicator.                                                    |
+| **`RatingBadge.vue`**     | Accessible star-icon rating display with formatted numeric score and screen-reader text.                                                                                           |
+| **`EmptyState.vue`**      | High-contrast empty state card with icon slot, title, description, and optional action slot.                                                                                       |
+| **`LoadingSkeleton.vue`** | Configurable pulse-shimmer placeholder for cards, heroes, and list rows. Variants: `card`, `hero`, `text`, `avatar`.                                                               |
+
+---
+
+## 7. Elevation & Shadow Tokens
+
+Extended shadow tokens configured in `tailwind.config.js`:
+
+| Token       | Value                                  | Usage                             |
+| ----------- | -------------------------------------- | --------------------------------- |
+| `glow-lg`   | `0 0 40px rgba(229, 169, 60, 0.15)`    | Primary amber glow on hover/focus |
+| `cinema-xl` | `0 25px 60px -12px rgba(0, 0, 0, 0.5)` | Hero and spotlight card elevation |
+| `poster`    | `0 8px 30px rgba(0, 0, 0, 0.4)`        | Floating poster artwork           |
+
+### Shimmer Animation
+
+A `shimmer` keyframe animation is registered for skeleton loading states:
+
+```js
+// tailwind.config.js
+keyframes: {
+  shimmer: {
+    '0%': { backgroundPosition: '-200% 0' },
+    '100%': { backgroundPosition: '200% 0' },
+  },
+},
+animation: {
+  shimmer: 'shimmer 1.5s ease-in-out infinite',
+},
+```

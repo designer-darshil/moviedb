@@ -47,6 +47,7 @@ vue-movies/
 │   ├── tv/                  # TvInfo, Episodes, EpisodesItem
 │   ├── person/              # PersonInfo, CreditsHistory, CreditsHistoryGroup, CreditsHistoryItem
 │   ├── search/              # SearchResults (media type filters: All, Movies, TV, People)
+│   ├── ui/                 # Reusable UI primitives: Button, Badge, RatingBadge, EmptyState, LoadingSkeleton
 │   ├── Card.vue             # Poster-first media card with hover explore action & rank badges
 │   ├── Hero.vue             # Cinematic full-width hero with interactive featured switcher
 │   ├── EditorialSpotlight.vue # Asymmetric curated spotlight (7-col feature + 5-col supporting stack)

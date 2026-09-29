@@ -46,7 +46,7 @@ export default {
   },
 
   // 5. Reactive Data
-  data () {
+  data() {
     return {
       isOpen: false,
     };
@@ -58,17 +58,17 @@ export default {
   },
 
   // 7. Lifecycle Hooks (mounted, created, beforeDestroy)
-  mounted () {
+  mounted() {
     // Event listeners
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     // Teardown event listeners
   },
 
   // 8. Methods
   methods: {
-    handleClick () {
+    handleClick() {
       // Logic
     },
   },
