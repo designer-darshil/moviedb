@@ -53,7 +53,7 @@
 
             <!-- Massive Cinematic Series Title -->
             <h1
-              class="m-0 mb-4 font-display text-[3.2rem] sm:text-[4.6rem] lg:text-[5.6rem] font-extrabold leading-[1.08] text-white -tracking-tight drop-shadow-md"
+              class="m-0 mb-4 font-display text-[2.8rem] sm:text-[3.8rem] lg:text-[4.4rem] font-extrabold leading-[1.1] text-text-primary -tracking-tight drop-shadow-md"
             >
               {{ name }}
             </h1>
@@ -211,7 +211,7 @@
           <!-- Floating Poster Artwork (4 cols) -->
           <div class="lg:col-span-4 w-[240px] sm:w-[280px] lg:w-full mx-auto">
             <div
-              class="relative w-full rounded-2xl overflow-hidden bg-surface-2 border border-border-medium shadow-cinema-xl -mt-8 sm:-mt-14 lg:-mt-24"
+              class="relative w-full rounded-2xl overflow-hidden bg-surface-2 border border-border-medium shadow-poster -mt-8 sm:-mt-14 lg:-mt-24"
             >
               <div
                 class="relative w-full h-0 pt-[150%] overflow-hidden bg-surface-2"

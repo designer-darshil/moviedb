@@ -12,7 +12,7 @@
           <span>{{ tag }}</span>
         </div>
         <h2
-          class="m-0 font-display text-[2.2rem] sm:text-[2.6rem] font-bold text-white -tracking-wide"
+          class="m-0 font-display text-[1.8rem] sm:text-[2rem] lg:text-[2.4rem] font-bold leading-[1.2] text-text-primary -tracking-wide"
         >
           {{ title }}
         </h2>
@@ -93,14 +93,14 @@
           </div>
 
           <h3
-            class="m-0 font-display text-[2.6rem] sm:text-[3.2rem] font-extrabold text-white leading-tight -tracking-tight"
+            class="m-0 font-display text-[2.4rem] sm:text-[3.2rem] font-extrabold text-text-primary leading-[1.15] -tracking-tight"
           >
             {{ featureTitle }}
           </h3>
 
           <p
             v-if="feature.overview"
-            class="m-0 text-[1.4rem] sm:text-[1.5rem] text-text-secondary leading-relaxed line-clamp-2 max-w-[620px]"
+            class="m-0 text-[1.4rem] sm:text-[1.5rem] leading-[1.6] text-text-secondary line-clamp-2 max-w-[620px]"
           >
             {{ feature.overview }}
           </p>
@@ -109,7 +109,7 @@
             <nuxt-link
               v-ripple
               :to="{ name: `${featureMedia}-id`, params: { id: feature.id } }"
-              class="inline-flex items-center gap-2 h-11 px-5 text-[1.3rem] font-bold text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active rounded-xl shadow-cinema-sm hover:shadow-glow transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
+              class="inline-flex items-center gap-2 h-11 px-5 text-[1.3rem] font-bold text-base-bg bg-primary-amber hover:bg-primary-hover active:bg-primary-active rounded-xl shadow-cinema-sm hover:shadow-glow transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
             >
               <svg
                 width="14"

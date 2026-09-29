@@ -42,12 +42,12 @@ module.exports = {
       },
       boxShadow: {
         glow: '0 0 28px rgba(229, 169, 60, 0.22)',
-        'glow-lg': '0 0 44px rgba(229, 169, 60, 0.32)',
-        poster: '0 12px 30px rgba(0, 0, 0, 0.65), 0 2px 8px rgba(0, 0, 0, 0.4)',
+        'glow-lg': '0 0 40px rgba(229, 169, 60, 0.15)',
+        poster: '0 8px 30px rgba(0, 0, 0, 0.4)',
         'cinema-sm': '0 4px 12px rgba(0, 0, 0, 0.4)',
         'cinema-md': '0 8px 24px rgba(0, 0, 0, 0.55)',
         'cinema-lg': '0 16px 40px rgba(0, 0, 0, 0.7)',
-        'cinema-xl': '0 24px 60px rgba(0, 0, 0, 0.85)',
+        'cinema-xl': '0 25px 60px -12px rgba(0, 0, 0, 0.5)',
       },
       animation: {
         'pulse-subtle': 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',

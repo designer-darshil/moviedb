@@ -91,14 +91,14 @@
       <!-- Card Metadata -->
       <div class="flex flex-col pt-2.5 px-0.5">
         <h3
-          class="m-0 text-[1.35rem] font-semibold leading-snug text-text-primary -tracking-wide truncate transition-colors duration-200 group-hover:text-primary-amber"
+          class="m-0 text-[1.25rem] sm:text-[1.35rem] font-medium leading-[1.3] text-text-primary -tracking-wide truncate transition-colors duration-200 group-hover:text-primary-amber"
           :title="name"
         >
           {{ name }}
         </h3>
 
         <div
-          class="flex items-center gap-1.5 mt-1 text-[1.2rem] text-text-muted"
+          class="flex items-center gap-1.5 mt-1 text-[1.1rem] sm:text-[1.2rem] font-normal text-text-muted"
         >
           <span v-if="year">{{ year }}</span>
           <span v-if="year && formattedRating" class="opacity-40"

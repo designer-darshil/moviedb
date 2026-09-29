@@ -11,8 +11,9 @@
         <nuxt-link
           v-for="cat in quickCategories"
           :key="cat.query"
+          v-ripple
           :to="{ name: 'movie-category-name', params: { name: cat.query } }"
-          class="inline-flex items-center px-4 py-2 text-[1.25rem] font-semibold rounded-xl whitespace-nowrap text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-primary-amber/40 transition-all duration-150"
+          class="inline-flex items-center px-4 py-2 text-[1.25rem] font-semibold rounded-xl whitespace-nowrap text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-primary-amber/40 transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         >
           {{ cat.title }}
         </nuxt-link>

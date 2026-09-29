@@ -16,7 +16,7 @@
           <span>Universal Search</span>
         </div>
         <h1
-          class="m-0 mb-3 font-display text-[2.8rem] sm:text-[4rem] font-extrabold text-white -tracking-tight"
+          class="m-0 mb-3 font-display text-[2.8rem] sm:text-[4rem] font-extrabold text-text-primary -tracking-tight"
         >
           Find Any Film, Series, or Actor
         </h1>

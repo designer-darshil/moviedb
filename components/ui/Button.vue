@@ -104,11 +104,11 @@ export default {
 
       const variants = {
         primary:
-          'text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active shadow-cinema-sm hover:shadow-glow',
+          'text-base-bg bg-primary-amber hover:bg-primary-hover active:bg-primary-active shadow-cinema-sm hover:shadow-glow',
         secondary:
           'text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-white',
         ghost:
-          'text-text-muted hover:text-white hover:bg-white/10 active:bg-white/15',
+          'text-text-muted hover:text-text-primary hover:bg-white/10 active:bg-white/15',
         danger:
           'text-white bg-accent-red hover:bg-accent-red/90 shadow-cinema-sm',
       };

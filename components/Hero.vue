@@ -60,7 +60,7 @@
 
               <!-- Movie / TV Title -->
               <h1
-                class="m-0 mb-3.5 font-display text-[3.2rem] sm:text-[4.6rem] lg:text-[5.4rem] font-extrabold leading-[1.08] -tracking-tight text-white drop-shadow-md"
+                class="m-0 mb-3.5 font-display text-[2.6rem] sm:text-[3.6rem] lg:text-[4.4rem] font-extrabold leading-[1.1] -tracking-tight text-white drop-shadow-md"
               >
                 <template v-if="isSingle">
                   {{ itemName }}
@@ -131,7 +131,7 @@
               <!-- Synopsis Overview -->
               <p
                 v-if="activeItem.overview"
-                class="m-0 mb-6 text-[1.45rem] sm:text-[1.55rem] leading-relaxed text-text-secondary line-clamp-3 max-w-[640px]"
+                class="m-0 mb-6 text-[1.4rem] sm:text-[1.5rem] leading-[1.6] text-text-secondary line-clamp-3 max-w-[640px]"
               >
                 {{ activeItem.overview | truncate(260) }}
               </p>
@@ -164,7 +164,9 @@
                   }"
                   class="inline-flex items-center justify-center gap-2 h-11 px-5 text-[1.35rem] font-semibold rounded-xl cursor-pointer text-text-primary bg-surface-2/80 backdrop-blur-md border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-white transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
                 >
-                  <span>Explore Story</span>
+                  <span
+                    >Explore {{ mediaType === 'tv' ? 'Series' : 'Movie' }}</span
+                  >
                 </nuxt-link>
               </div>
             </div>

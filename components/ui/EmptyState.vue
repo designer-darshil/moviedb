@@ -23,7 +23,7 @@
     </div>
 
     <h3
-      class="m-0 mb-2 font-display text-[2rem] sm:text-[2.2rem] font-bold text-white -tracking-wide"
+      class="m-0 mb-2 font-display text-[2rem] sm:text-[2.2rem] font-bold text-text-primary -tracking-wide"
     >
       {{ title }}
     </h3>
@@ -39,8 +39,9 @@
       <slot name="action">
         <nuxt-link
           v-if="actionTo"
+          v-ripple
           :to="actionTo"
-          class="inline-flex items-center justify-center h-10 px-5 text-[1.3rem] font-semibold rounded-xl text-[#07080b] bg-primary-amber hover:bg-primary-hover transition-colors duration-150"
+          class="inline-flex items-center justify-center h-10 px-5 text-[1.3rem] font-semibold rounded-xl text-base-bg bg-primary-amber hover:bg-primary-hover shadow-cinema-sm transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         >
           {{ actionText }}
         </nuxt-link>

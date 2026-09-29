@@ -6,7 +6,7 @@
     <!-- Header -->
     <div class="flex items-center justify-between mb-4 px-4 sm:px-8 lg:px-12">
       <h2
-        class="m-0 text-[1.8rem] sm:text-[2rem] font-bold text-white -tracking-wide"
+        class="m-0 text-[1.8rem] sm:text-[2rem] font-bold leading-[1.2] text-text-primary -tracking-wide"
       >
         Top Cast
       </h2>

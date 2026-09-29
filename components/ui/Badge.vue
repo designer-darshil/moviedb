@@ -13,6 +13,9 @@ export default {
       default: 'neutral',
       validator: (v) =>
         [
+          'default',
+          'warning',
+          'info',
           'amber',
           'neutral',
           'surface',
@@ -43,6 +46,10 @@ export default {
       };
 
       const variants = {
+        default: 'text-text-muted bg-surface-2 border border-border-medium',
+        warning:
+          'text-primary-amber bg-primary-amber/10 border border-primary-amber/25',
+        info: 'text-text-secondary bg-surface-3 border border-border-subtle',
         amber:
           'text-primary-amber bg-primary-amber/10 border border-primary-amber/25',
         neutral: 'text-text-muted bg-surface-2 border border-border-medium',
@@ -50,25 +57,28 @@ export default {
         outline:
           'text-text-secondary bg-transparent border border-border-medium',
         success:
-          'text-accent-green bg-accent-green/10 border border-accent-green/25',
-        danger: 'text-accent-red bg-accent-red/10 border border-accent-red/25',
+          'text-emerald-400 bg-emerald-500/10 border border-emerald-500/25',
+        danger: 'text-rose-400 bg-rose-500/10 border border-rose-500/25',
       };
 
       return [
         base,
         sizes[this.size] || sizes.sm,
-        variants[this.variant] || variants.neutral,
+        variants[this.variant] || variants.default,
       ].join(' ');
     },
 
     dotClass() {
       const dots = {
+        default: 'bg-text-muted',
+        warning: 'bg-primary-amber',
+        info: 'bg-text-secondary',
         amber: 'bg-primary-amber',
         neutral: 'bg-text-muted',
         surface: 'bg-text-secondary',
         outline: 'bg-text-secondary',
-        success: 'bg-accent-green',
-        danger: 'bg-accent-red',
+        success: 'bg-emerald-400',
+        danger: 'bg-rose-400',
       };
       return dots[this.variant] || 'bg-primary-amber';
     },

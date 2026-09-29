@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <div v-else-if="type === 'circle'">
+  <div v-else-if="type === 'circle' || type === 'avatar'">
     <Skeleton shape="circle" size="3.5rem" class="!bg-surface-2" />
   </div>
 
@@ -57,7 +57,8 @@ export default {
     type: {
       type: String,
       default: 'card',
-      validator: (t) => ['card', 'hero', 'circle', 'line'].includes(t),
+      validator: (t) =>
+        ['card', 'hero', 'circle', 'avatar', 'text', 'line'].includes(t),
     },
     count: {
       type: Number,

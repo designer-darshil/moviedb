@@ -60,7 +60,7 @@
           />
         </div>
         <h1
-          class="m-0 font-display text-[3.2rem] sm:text-[4.4rem] font-extrabold -tracking-wide text-white"
+          class="m-0 font-display text-[2.8rem] sm:text-[3.8rem] lg:text-[4.4rem] font-extrabold leading-[1.1] -tracking-wide text-text-primary"
         >
           {{ person.name }}
         </h1>
@@ -68,10 +68,14 @@
 
       <!-- Biography with Expand/Collapse -->
       <div v-if="person.biography" class="flex flex-col gap-2.5">
-        <h2 class="m-0 text-[1.8rem] font-bold text-white -tracking-wide">
+        <h2
+          class="m-0 text-[1.8rem] sm:text-[2rem] font-bold text-text-primary -tracking-wide"
+        >
           Biography
         </h2>
-        <div class="text-[1.5rem] leading-relaxed text-text-secondary">
+        <div
+          class="text-[1.4rem] sm:text-[1.5rem] leading-[1.6] text-text-secondary"
+        >
           <p
             class="m-0 transition-all duration-300"
             :class="isBioExpanded ? '' : 'line-clamp-6'"
@@ -93,7 +97,7 @@
         class="bg-surface-1 border border-border-subtle rounded-2xl p-6 sm:p-7 shadow-cinema-sm"
       >
         <h3
-          class="m-0 mb-4 font-display text-[1.6rem] font-bold text-white -tracking-wide"
+          class="m-0 mb-4 font-display text-[1.6rem] font-bold text-text-primary -tracking-wide"
         >
           Personal Details
         </h3>

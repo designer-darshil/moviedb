@@ -10,7 +10,7 @@
       <div class="flex items-baseline gap-3">
         <h2
           v-if="title"
-          class="m-0 font-display text-[2rem] sm:text-[2.4rem] font-bold text-white -tracking-wide"
+          class="m-0 font-display text-[1.8rem] sm:text-[2rem] lg:text-[2.4rem] font-bold leading-[1.2] text-text-primary -tracking-wide"
         >
           {{ title }}
         </h2>
@@ -44,7 +44,7 @@
     <!-- Responsive Grid -->
     <div
       v-if="items.results && items.results.length"
-      class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-5"
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5"
     >
       <Card
         v-for="item in items.results"

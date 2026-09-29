@@ -10,7 +10,7 @@
       <div class="flex items-baseline gap-3">
         <h2
           v-if="title"
-          class="m-0 font-display text-[2rem] sm:text-[2.4rem] font-bold text-white -tracking-wide"
+          class="m-0 font-display text-[1.8rem] sm:text-[2rem] lg:text-[2.4rem] font-bold leading-[1.2] text-text-primary -tracking-wide"
         >
           {{ title }}
         </h2>

@@ -25,7 +25,7 @@
         />
         <h2
           v-else
-          class="m-0 font-display text-[2rem] font-bold text-white -tracking-wide"
+          class="m-0 font-display text-[2rem] font-bold text-text-primary -tracking-wide"
         >
           Episodes
         </h2>
