@@ -1,8 +1,13 @@
 <template>
-  <div v-if="people && people.length" class="relative my-8 sm:my-10 max-w-[1600px] mx-auto">
+  <div
+    v-if="people && people.length"
+    class="relative my-8 sm:my-10 max-w-[1600px] mx-auto"
+  >
     <!-- Header -->
     <div class="flex items-center justify-between mb-4 px-4 sm:px-8 lg:px-12">
-      <h2 class="m-0 text-[1.8rem] sm:text-[2rem] font-bold text-white -tracking-wide">
+      <h2
+        class="m-0 text-[1.8rem] sm:text-[2rem] font-bold text-white -tracking-wide"
+      >
         Top Cast
       </h2>
 
@@ -12,7 +17,8 @@
           aria-label="Previous Cast"
           type="button"
           :disabled="disableLeftButton"
-          @click="moveToClickEvent('left')">
+          @click="moveToClickEvent('left')"
+        >
           <svg
             width="15"
             height="15"
@@ -21,7 +27,8 @@
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
-            stroke-linejoin="round">
+            stroke-linejoin="round"
+          >
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
@@ -31,7 +38,8 @@
           aria-label="Next Cast"
           type="button"
           :disabled="disableRightButton"
-          @click="moveToClickEvent('right')">
+          @click="moveToClickEvent('right')"
+        >
           <svg
             width="15"
             height="15"
@@ -40,7 +48,8 @@
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
-            stroke-linejoin="round">
+            stroke-linejoin="round"
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </button>
@@ -52,11 +61,13 @@
       <div
         ref="carouselElement"
         class="flex gap-4 px-4 sm:px-8 lg:px-12 pb-3 overflow-x-auto scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        @scroll="scrollEvent">
+        @scroll="scrollEvent"
+      >
         <div
           v-for="person in people"
           :key="`credit-${person.id}`"
-          class="shrink-0 snap-start w-[110px] xs:w-[125px] sm:w-[140px] md:w-[150px]">
+          class="shrink-0 snap-start w-[110px] xs:w-[125px] sm:w-[140px] md:w-[150px]"
+        >
           <CreditsItem :person="person" />
         </div>
       </div>
@@ -83,7 +94,7 @@ export default {
     },
   },
 
-  mounted () {
+  mounted() {
     this.calculateState(this.people.length);
   },
 

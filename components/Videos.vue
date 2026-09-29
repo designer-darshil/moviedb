@@ -1,25 +1,29 @@
 <template>
   <div class="my-6 sm:my-8 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
     <!-- Header with Filter & Count -->
-    <div class="flex items-center justify-between mb-6 pb-3 border-b border-border-subtle">
+    <div
+      class="flex items-center justify-between mb-6 pb-3 border-b border-border-subtle"
+    >
       <div class="flex items-center gap-3">
         <select
           v-if="videoTypes.length > 1"
           v-model="activeType"
           aria-label="Filter videos by type"
           class="bg-surface-2 text-text-primary border border-border-subtle rounded-md px-3 py-1.5 text-[1.25rem] outline-none focus:border-border-medium"
-          @change="filterVideos">
-          <option value="all">
-            All Videos
-          </option>
+          @change="filterVideos"
+        >
+          <option value="all">All Videos</option>
           <option
             v-for="type in videoTypes"
             :key="`video-type-${type}`"
-            :value="type">
+            :value="type"
+          >
             {{ type }}
           </option>
         </select>
-        <span v-else class="text-[1.4rem] font-semibold text-white">Videos</span>
+        <span v-else class="text-[1.4rem] font-semibold text-white"
+          >Videos</span
+        >
       </div>
 
       <div class="text-[1.25rem] text-text-muted">
@@ -28,13 +32,16 @@
     </div>
 
     <!-- Videos Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
+    >
       <VideosItem
         v-for="(video, index) in activeVideos"
         :key="`video-${video.id}`"
         :video="video"
         :index="index"
-        @openModal="openModal" />
+        @openModal="openModal"
+      />
     </div>
 
     <!-- YouTube Modal Player -->
@@ -44,7 +51,8 @@
       type="iframe"
       nav
       :start-at="modalStartAt"
-      @close="closeModal" />
+      @close="closeModal"
+    />
   </div>
 </template>
 
@@ -66,7 +74,7 @@ export default {
     },
   },
 
-  data () {
+  data() {
     return {
       activeType: 'all',
       activeVideos: this.videos,
@@ -76,26 +84,26 @@ export default {
   },
 
   computed: {
-    videoCount () {
+    videoCount() {
       return `${this.activeVideos.length} ${
         this.activeVideos.length > 1 ? 'videos' : 'video'
       }`;
     },
 
-    videoTypes () {
+    videoTypes() {
       return this.videos
-        .map(video => video.type)
+        .map((video) => video.type)
         .filter((video, index, self) => self.indexOf(video) === index);
     },
   },
 
-  created () {
+  created() {
     this.handleData();
   },
 
   methods: {
-    handleData () {
-      const ids = this.videos.map(video => video.key).join(',');
+    handleData() {
+      const ids = this.videos.map((video) => video.key).join(',');
 
       this.videos.forEach((video) => {
         this.$set(
@@ -128,18 +136,18 @@ export default {
         .catch(() => {});
     },
 
-    filterVideos () {
-      this.activeVideos = this.videos.filter(video =>
+    filterVideos() {
+      this.activeVideos = this.videos.filter((video) =>
         this.activeType === 'all' ? true : video.type === this.activeType,
       );
     },
 
-    openModal (index) {
+    openModal(index) {
       this.modalStartAt = index;
       this.modalVisible = true;
     },
 
-    closeModal () {
+    closeModal() {
       this.modalVisible = false;
       this.modalStartAt = 0;
     },

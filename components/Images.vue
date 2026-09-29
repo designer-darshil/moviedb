@@ -1,6 +1,8 @@
 <template>
   <div class="my-6 sm:my-8 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
-    <div class="flex items-baseline gap-3 mb-4 pb-3 border-b border-border-subtle">
+    <div
+      class="flex items-baseline gap-3 mb-4 pb-3 border-b border-border-subtle"
+    >
       <h2 class="m-0 text-[1.8rem] font-bold text-white -tracking-wide">
         {{ title }}
       </h2>
@@ -17,7 +19,8 @@
         :image="image"
         :index="index"
         :type="type"
-        @openModal="openModal" />
+        @openModal="openModal"
+      />
     </div>
 
     <Modal
@@ -27,7 +30,8 @@
       aria-label="Images"
       nav
       :start-at="modalStartAt"
-      @close="closeModal" />
+      @close="closeModal"
+    />
   </div>
 </template>
 
@@ -59,7 +63,7 @@ export default {
     },
   },
 
-  data () {
+  data() {
     return {
       modalVisible: false,
       modalStartAt: 0,
@@ -67,19 +71,19 @@ export default {
   },
 
   computed: {
-    imagesCount () {
+    imagesCount() {
       return `${this.images.length} ${
         this.images.length > 1 ? 'images' : 'image'
       }`;
     },
   },
 
-  created () {
+  created() {
     this.handleData();
   },
 
   methods: {
-    handleData () {
+    handleData() {
       this.images.forEach((image) => {
         if (!image.file_path) return;
         const thumb =
@@ -92,12 +96,12 @@ export default {
       });
     },
 
-    openModal (index) {
+    openModal(index) {
       this.modalStartAt = index;
       this.modalVisible = true;
     },
 
-    closeModal () {
+    closeModal() {
       this.modalVisible = false;
       this.modalStartAt = 0;
     },
