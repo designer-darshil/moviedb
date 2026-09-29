@@ -42,10 +42,22 @@ module.exports = {
       },
       boxShadow: {
         glow: '0 0 28px rgba(229, 169, 60, 0.22)',
+        'glow-lg': '0 0 44px rgba(229, 169, 60, 0.32)',
         poster: '0 12px 30px rgba(0, 0, 0, 0.65), 0 2px 8px rgba(0, 0, 0, 0.4)',
         'cinema-sm': '0 4px 12px rgba(0, 0, 0, 0.4)',
         'cinema-md': '0 8px 24px rgba(0, 0, 0, 0.55)',
         'cinema-lg': '0 16px 40px rgba(0, 0, 0, 0.7)',
+        'cinema-xl': '0 24px 60px rgba(0, 0, 0, 0.85)',
+      },
+      animation: {
+        'pulse-subtle': 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        shimmer: 'shimmer 1.8s infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
       },
       fontFamily: {
         sans: [

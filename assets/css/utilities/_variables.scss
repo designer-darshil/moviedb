@@ -3,9 +3,9 @@
 // ==============================================================================
 
 // --- Typography System ---
-$font-family--sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+$font-family--sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
   Roboto, Helvetica, Arial, sans-serif;
-$font-family--display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+$font-family--display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
   Roboto, sans-serif;
 
 // Base font scale: 1rem = 10px (html font-size: 62.5%)
@@ -24,30 +24,30 @@ $letter-spacing: -0.01em;
 $secondary-color: #151922;
 
 // --- Canvas & Surface Palette (Cinematic OLED Dark) ---
-$base-bg: #07080b;            // Deepest OLED background
-$surface-1: #0e1117;          // Primary surface / panels
-$surface-2: #151922;          // Elevated cards & controls
-$surface-3: #1e2430;          // Interactive hover & inputs
-$surface-4: #283040;          // High-elevation flyouts & active controls
+$base-bg: #07080b; // Deepest OLED background
+$surface-1: #0e1117; // Primary surface / panels
+$surface-2: #151922; // Elevated cards & controls
+$surface-3: #1e2430; // Interactive hover & inputs
+$surface-4: #283040; // High-elevation flyouts & active controls
 $surface-glass: rgba(14, 17, 23, 0.78);
 $surface-glass-heavy: rgba(7, 8, 11, 0.88);
 
 // --- Brand & Cinematic Accents ---
-$primary-color: #e5a93c;      // Cinematic warm amber / gold
-$primary-hover: #f5b748;      // Hover state
-$primary-active: #d49528;     // Active click state
+$primary-color: #e5a93c; // Cinematic warm amber / gold
+$primary-hover: #f5b748; // Hover state
+$primary-active: #d49528; // Active click state
 $primary-glow: rgba(229, 169, 60, 0.28);
 $primary-subtle: rgba(229, 169, 60, 0.12);
 
-$accent-cyan: #38bdf8;        // Informational & category accent
-$accent-red: #f43f5e;         // Live, hot & alert accent
-$accent-green: #10b981;       // High score & success accent
+$accent-cyan: #38bdf8; // Informational & category accent
+$accent-red: #f43f5e; // Live, hot & alert accent
+$accent-green: #10b981; // High score & success accent
 
 // --- Foregrounds & Typography Hierarchy ---
-$text-primary: #f8fafc;       // High emphasis headlines & active text
-$text-secondary: #cbd5e1;     // Body text & secondary labels
-$text-muted: #94a3b8;         // Metadata, specs & supporting notes
-$text-subtle: #64748b;        // Low emphasis icons, dates & footers
+$text-primary: #f8fafc; // High emphasis headlines & active text
+$text-secondary: #cbd5e1; // Body text & secondary labels
+$text-muted: #94a3b8; // Metadata, specs & supporting notes
+$text-subtle: #64748b; // Low emphasis icons, dates & footers
 $text-color: #f8fafc;
 $text-color-grey: #94a3b8;
 
