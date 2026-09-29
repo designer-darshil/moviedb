@@ -1,7 +1,23 @@
 <template>
-  <main class="main pb-16">
+  <main class="main pb-20">
     <!-- Featured Cinema Spotlight -->
     <Hero :item="featured" />
+
+    <!-- Movie Category Quick Jump Bar -->
+    <div class="px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 max-w-[1600px] mx-auto">
+      <div
+        class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-1"
+      >
+        <nuxt-link
+          v-for="cat in quickCategories"
+          :key="cat.query"
+          :to="{ name: 'movie-category-name', params: { name: cat.query } }"
+          class="inline-flex items-center px-4 py-2 text-[1.25rem] font-semibold rounded-xl whitespace-nowrap text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-primary-amber/40 transition-all duration-150"
+        >
+          {{ cat.title }}
+        </nuxt-link>
+      </div>
+    </div>
 
     <!-- Movie Rails -->
     <div class="flex flex-col gap-2 mt-4 sm:mt-6">
@@ -9,29 +25,37 @@
       <ListingCarousel
         v-if="popular && popular.results.length"
         :title="popularTitle"
+        subtitle="Current box office leaders and audience favorites"
         :view-all-url="popularUrl"
-        :items="popular" />
+        :items="popular"
+      />
 
       <!-- Top Rated Films -->
       <ListingCarousel
         v-if="topRated && topRated.results.length"
         :title="topRatedTitle"
+        subtitle="Critically acclaimed cinema rated by global film lovers"
         :view-all-url="topRatedUrl"
-        :items="topRated" />
+        :items="topRated"
+      />
 
       <!-- Upcoming Releases -->
       <ListingCarousel
         v-if="upcoming && upcoming.results.length"
         :title="upcomingTitle"
+        subtitle="Anticipated cinematic titles arriving soon"
         :view-all-url="upcomingUrl"
-        :items="upcoming" />
+        :items="upcoming"
+      />
 
       <!-- Now In Theatres -->
       <ListingCarousel
         v-if="nowPlaying && nowPlaying.results.length"
         :title="nowPlayingTitle"
+        subtitle="Currently screening in cinema theatres worldwide"
         :view-all-url="nowPlayingUrl"
-        :items="nowPlaying" />
+        :items="nowPlaying"
+      />
     </div>
   </main>
 </template>
@@ -47,7 +71,7 @@ export default {
     ListingCarousel,
   },
 
-  async asyncData ({ error }) {
+  async asyncData({ error }) {
     try {
       const [popular, topRated, upcoming, nowPlaying] = await Promise.all([
         getMovies('popular'),
@@ -56,7 +80,9 @@ export default {
         getMovies('now_playing'),
       ]);
 
-      const heroId = upcoming.results[0] ? upcoming.results[0].id : popular.results[0].id;
+      const heroId = upcoming.results[0]
+        ? upcoming.results[0].id
+        : popular.results[0].id;
       const featured = await getMovie(heroId);
 
       return { popular, topRated, upcoming, nowPlaying, featured };
@@ -65,15 +91,28 @@ export default {
     }
   },
 
-  head () {
+  data() {
     return {
-      title: 'Movies — CINEPULSE',
+      quickCategories: [
+        { title: 'Popular', query: 'popular' },
+        { title: 'Top Rated', query: 'top_rated' },
+        { title: 'Upcoming', query: 'upcoming' },
+        { title: 'Now Playing', query: 'now_playing' },
+        { title: 'Trending', query: 'trending' },
+      ],
+    };
+  },
+
+  head() {
+    return {
+      title: 'Feature Films — CINEPULSE',
       meta: [
-        { hid: 'og:title', property: 'og:title', content: 'Movies' },
+        { hid: 'og:title', property: 'og:title', content: 'Feature Films' },
         {
           hid: 'description',
           name: 'description',
-          content: 'Explore popular, top rated, upcoming and now playing movies.',
+          content:
+            'Explore popular, top rated, upcoming and now playing movies.',
         },
         {
           hid: 'og:url',
@@ -85,35 +124,35 @@ export default {
   },
 
   computed: {
-    popularTitle () {
+    popularTitle() {
       return getListItem('movie', 'popular').title;
     },
 
-    popularUrl () {
+    popularUrl() {
       return { name: 'movie-category-name', params: { name: 'popular' } };
     },
 
-    topRatedTitle () {
+    topRatedTitle() {
       return getListItem('movie', 'top_rated').title;
     },
 
-    topRatedUrl () {
+    topRatedUrl() {
       return { name: 'movie-category-name', params: { name: 'top_rated' } };
     },
 
-    upcomingTitle () {
+    upcomingTitle() {
       return getListItem('movie', 'upcoming').title;
     },
 
-    upcomingUrl () {
+    upcomingUrl() {
       return { name: 'movie-category-name', params: { name: 'upcoming' } };
     },
 
-    nowPlayingTitle () {
+    nowPlayingTitle() {
       return getListItem('movie', 'now_playing').title;
     },
 
-    nowPlayingUrl () {
+    nowPlayingUrl() {
       return { name: 'movie-category-name', params: { name: 'now_playing' } };
     },
   },

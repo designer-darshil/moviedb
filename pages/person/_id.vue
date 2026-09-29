@@ -14,7 +14,8 @@
         <template v-if="activeMenu === 'known-for'">
           <Listing
             v-if="knownFor && knownFor.results.length"
-            :items="knownFor" />
+            :items="knownFor"
+          />
         </template>
 
         <template v-if="activeMenu === 'credits'">
@@ -26,7 +27,8 @@
             v-if="person.images.profiles.length"
             title="Photos"
             type="poster"
-            :images="person.images.profiles" />
+            :images="person.images.profiles"
+          />
         </template>
       </div>
     </transition>
@@ -52,7 +54,7 @@ export default {
     Listing,
   },
 
-  async asyncData ({ params, error }) {
+  async asyncData({ params, error }) {
     try {
       const person = await getPerson(params.id);
       return { person };
@@ -61,7 +63,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       menu: [],
       activeMenu: 'known-for',
@@ -69,7 +71,7 @@ export default {
     };
   },
 
-  head () {
+  head() {
     return {
       title: `${this.metaTitle} — CINEPULSE`,
       meta: [
@@ -98,11 +100,11 @@ export default {
   },
 
   computed: {
-    metaTitle () {
+    metaTitle() {
       return this.person.name;
     },
 
-    metaDescription () {
+    metaDescription() {
       if (this.person.biography) {
         return this.truncate(this.person.biography, 200);
       } else {
@@ -110,7 +112,7 @@ export default {
       }
     },
 
-    metaImage () {
+    metaImage() {
       if (this.person.profile_path) {
         return `${apiImgUrl}/w500${this.person.profile_path}`;
       } else {
@@ -118,23 +120,23 @@ export default {
       }
     },
 
-    showImages () {
+    showImages() {
       const images = this.person.images;
       return images && images.profiles && images.profiles.length;
     },
   },
 
-  created () {
+  created() {
     this.createMenu();
     this.initKnownFor();
   },
 
   methods: {
-    truncate (string, length) {
+    truncate(string, length) {
       return this.$options.filters.truncate(string, length);
     },
 
-    createMenu () {
+    createMenu() {
       const menu = [];
 
       // known for
@@ -149,11 +151,11 @@ export default {
       this.menu = menu;
     },
 
-    navClicked (label) {
+    navClicked(label) {
       this.activeMenu = label;
     },
 
-    initKnownFor () {
+    initKnownFor() {
       if (this.knownFor !== null) return;
 
       const department = this.person.known_for_department;
@@ -163,15 +165,15 @@ export default {
         results = this.person.combined_credits.cast;
       } else if (department === 'Directing') {
         results = this.person.combined_credits.crew.filter(
-          item => item.department === 'Directing',
+          (item) => item.department === 'Directing',
         );
       } else if (department === 'Production') {
         results = this.person.combined_credits.crew.filter(
-          item => item.department === 'Production',
+          (item) => item.department === 'Production',
         );
       } else if (department === 'Writing' || department === 'Creator') {
         results = this.person.combined_credits.crew.filter(
-          item => item.department === 'Writing',
+          (item) => item.department === 'Writing',
         );
       }
 
@@ -189,10 +191,10 @@ export default {
       };
     },
 
-    removeDuplicates (myArr) {
+    removeDuplicates(myArr) {
       return myArr.filter((obj, pos, arr) => {
         const prop = obj.title ? 'title' : 'name';
-        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+        return arr.map((mapObj) => mapObj[prop]).indexOf(obj[prop]) === pos;
       });
     },
   },

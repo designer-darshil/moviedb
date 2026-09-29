@@ -1,7 +1,23 @@
 <template>
-  <main class="main pb-16">
+  <main class="main pb-20">
     <!-- Featured Series Spotlight -->
     <Hero :item="featured" />
+
+    <!-- TV Category Quick Jump Bar -->
+    <div class="px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 max-w-[1600px] mx-auto">
+      <div
+        class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-1"
+      >
+        <nuxt-link
+          v-for="cat in quickCategories"
+          :key="cat.query"
+          :to="{ name: 'tv-category-name', params: { name: cat.query } }"
+          class="inline-flex items-center px-4 py-2 text-[1.25rem] font-semibold rounded-xl whitespace-nowrap text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-primary-amber/40 transition-all duration-150"
+        >
+          {{ cat.title }}
+        </nuxt-link>
+      </div>
+    </div>
 
     <!-- TV Series Rails -->
     <div class="flex flex-col gap-2 mt-4 sm:mt-6">
@@ -9,29 +25,37 @@
       <ListingCarousel
         v-if="popular && popular.results.length"
         :title="popularTitle"
+        subtitle="The most watched television shows capturing audience attention"
         :view-all-url="popularUrl"
-        :items="popular" />
+        :items="popular"
+      />
 
       <!-- Top Rated TV Shows -->
       <ListingCarousel
         v-if="topRated && topRated.results.length"
         :title="topRatedTitle"
+        subtitle="Masterpiece series and landmark television accomplishments"
         :view-all-url="topRatedUrl"
-        :items="topRated" />
+        :items="topRated"
+      />
 
       <!-- Currently Airing Series -->
       <ListingCarousel
         v-if="onAir && onAir.results.length"
         :title="onAirTitle"
+        subtitle="Series currently broadcasting new weekly episodes"
         :view-all-url="onAirUrl"
-        :items="onAir" />
+        :items="onAir"
+      />
 
       <!-- Airing Today -->
       <ListingCarousel
         v-if="airingToday && airingToday.results.length"
         :title="airingTodayTitle"
+        subtitle="New episodes scheduled to broadcast within the next 24 hours"
         :view-all-url="airingTodayUrl"
-        :items="airingToday" />
+        :items="airingToday"
+      />
     </div>
   </main>
 </template>
@@ -47,7 +71,7 @@ export default {
     ListingCarousel,
   },
 
-  async asyncData ({ error }) {
+  async asyncData({ error }) {
     try {
       const [popular, topRated, onAir, airingToday] = await Promise.all([
         getTvShows('popular'),
@@ -65,11 +89,23 @@ export default {
     }
   },
 
-  head () {
+  data() {
     return {
-      title: 'TV Shows — CINEPULSE',
+      quickCategories: [
+        { title: 'Popular', query: 'popular' },
+        { title: 'Top Rated', query: 'top_rated' },
+        { title: 'Currently Airing', query: 'on_the_air' },
+        { title: 'Airing Today', query: 'airing_today' },
+        { title: 'Trending', query: 'trending' },
+      ],
+    };
+  },
+
+  head() {
+    return {
+      title: 'Television Series — CINEPULSE',
       meta: [
-        { hid: 'og:title', property: 'og:title', content: 'TV Shows' },
+        { hid: 'og:title', property: 'og:title', content: 'Television Series' },
         {
           hid: 'description',
           name: 'description',
@@ -85,35 +121,35 @@ export default {
   },
 
   computed: {
-    popularTitle () {
+    popularTitle() {
       return getListItem('tv', 'popular').title;
     },
 
-    popularUrl () {
+    popularUrl() {
       return { name: 'tv-category-name', params: { name: 'popular' } };
     },
 
-    topRatedTitle () {
+    topRatedTitle() {
       return getListItem('tv', 'top_rated').title;
     },
 
-    topRatedUrl () {
+    topRatedUrl() {
       return { name: 'tv-category-name', params: { name: 'top_rated' } };
     },
 
-    onAirTitle () {
+    onAirTitle() {
       return getListItem('tv', 'on_the_air').title;
     },
 
-    onAirUrl () {
+    onAirUrl() {
       return { name: 'tv-category-name', params: { name: 'on_the_air' } };
     },
 
-    airingTodayTitle () {
+    airingTodayTitle() {
       return getListItem('tv', 'airing_today').title;
     },
 
-    airingTodayUrl () {
+    airingTodayUrl() {
       return { name: 'tv-category-name', params: { name: 'airing_today' } };
     },
   },

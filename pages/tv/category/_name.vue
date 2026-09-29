@@ -1,18 +1,42 @@
 <template>
-  <main class="main">
+  <main class="main pb-20">
     <TopNav :title="metaTitle" />
 
-    <!-- Category Pill Switcher -->
-    <div class="px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 max-w-[1600px] mx-auto">
-      <div class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <!-- Category Header Banner -->
+    <div class="px-4 sm:px-8 lg:px-12 pt-8 sm:pt-12 max-w-[1600px] mx-auto">
+      <div class="flex flex-col gap-2 mb-6">
+        <div
+          class="flex items-center gap-2 text-[1.15rem] font-semibold tracking-wider uppercase text-primary-amber"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-primary-amber" />
+          <span>Television Catalog</span>
+        </div>
+        <h1
+          class="m-0 font-display text-[2.8rem] sm:text-[3.6rem] font-extrabold text-white -tracking-wide"
+        >
+          {{ metaTitle }}
+        </h1>
+        <p class="m-0 text-[1.4rem] text-text-muted max-w-[640px]">
+          Discover {{ metaTitle.toLowerCase() }} television shows, broadcast
+          releases, and critical achievements.
+        </p>
+      </div>
+
+      <!-- Category Pill Switcher -->
+      <div
+        class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-2 border-b border-border-subtle"
+      >
         <nuxt-link
           v-for="cat in categories"
           :key="cat.query"
           :to="{ name: 'tv-category-name', params: { name: cat.query } }"
-          class="inline-flex items-center px-4 py-1.5 text-[1.25rem] font-medium rounded-md whitespace-nowrap transition-colors duration-150"
-          :class="$route.params.name === cat.query
-            ? 'text-white bg-surface-3 font-semibold'
-            : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'">
+          class="inline-flex items-center px-4 py-2 text-[1.25rem] font-semibold rounded-xl whitespace-nowrap transition-all duration-150"
+          :class="
+            $route.params.name === cat.query
+              ? 'text-white bg-surface-3 border border-border-medium shadow-cinema-sm'
+              : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'
+          "
+        >
           {{ cat.title }}
         </nuxt-link>
       </div>
@@ -20,10 +44,10 @@
 
     <Listing
       v-if="items && items.results.length"
-      :title="title"
       :items="items"
       :loading="loading"
-      @loadMore="loadMore" />
+      @loadMore="loadMore"
+    />
   </main>
 </template>
 
@@ -38,7 +62,7 @@ export default {
     Listing,
   },
 
-  beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     this.loading = true;
     const fetcher =
       to.params.name === 'trending'
@@ -56,7 +80,7 @@ export default {
       });
   },
 
-  async asyncData ({ params, error }) {
+  async asyncData({ params, error }) {
     try {
       const items =
         params.name === 'trending'
@@ -68,7 +92,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       loading: false,
       categories: [
@@ -81,9 +105,9 @@ export default {
     };
   },
 
-  head () {
+  head() {
     return {
-      title: `${this.metaTitle} — CINEPULSE`,
+      title: `${this.metaTitle} — Television — CINEPULSE`,
       meta: [
         { hid: 'og:title', property: 'og:title', content: this.metaTitle },
         {
@@ -92,21 +116,24 @@ export default {
           content: `${process.env.FRONTEND_URL}${this.$route.path}`,
         },
       ],
+      bodyAttrs: {
+        class: 'topnav-active',
+      },
     };
   },
 
   computed: {
-    metaTitle () {
+    metaTitle() {
       return this.title;
     },
 
-    title () {
+    title() {
       return getListItem('tv', this.$route.params.name).title;
     },
   },
 
   methods: {
-    loadMore () {
+    loadMore() {
       this.loading = true;
 
       if (this.$route.params.name === 'trending') {

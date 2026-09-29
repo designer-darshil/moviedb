@@ -3,69 +3,91 @@
     <TopNav :title="metaTitle" />
 
     <!-- 1. FULL-WIDTH CINEMATIC BACKDROP & EDITORIAL HERO -->
-    <div class="relative w-full overflow-hidden bg-base-bg">
+    <div class="relative w-full overflow-hidden bg-base-bg select-none">
       <!-- Full-Width Cinematic Backdrop Atmosphere -->
       <div
-        class="relative min-h-[520px] sm:min-h-[600px] lg:min-h-[680px] flex items-end">
+        class="relative min-h-[540px] sm:min-h-[620px] lg:min-h-[700px] flex items-end"
+      >
         <div
-          class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+          class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none"
+        >
           <img
             v-if="backdropUrl"
             :src="backdropUrl"
             :alt="name"
-            class="w-full h-full object-cover object-[center_20%] opacity-45 scale-[1.02]">
+            class="w-full h-full object-cover object-[center_20%] opacity-50 scale-[1.01] transition-transform duration-1000"
+          />
 
           <!-- Multi-Directional Atmospheric Dark Gradients -->
           <div
-            class="absolute inset-0 bg-gradient-to-t from-base-bg via-base-bg/75 to-transparent" />
+            class="absolute inset-0 bg-gradient-to-t from-base-bg via-base-bg/75 to-transparent"
+          />
           <div
-            class="absolute inset-0 bg-gradient-to-b from-base-bg/80 via-transparent to-base-bg" />
+            class="absolute inset-0 bg-gradient-to-b from-base-bg/85 via-transparent to-base-bg"
+          />
           <div
-            class="hidden lg:block absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-base-bg via-base-bg/85 to-transparent" />
+            class="hidden lg:block absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-base-bg via-base-bg/85 to-transparent"
+          />
         </div>
 
         <!-- Hero Content Overlay: Title, Specs, Description, Actions -->
         <div
-          class="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 pt-28 sm:pt-36 pb-12 sm:pb-16">
+          class="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 pt-28 sm:pt-36 pb-12 sm:pb-16"
+        >
           <div class="max-w-[920px]">
             <!-- Eyebrow Navigation & Tag -->
             <div
-              class="flex items-center gap-3 mb-4 text-[1.2rem] font-semibold tracking-wider uppercase text-primary-amber">
-              <span class="w-1.5 h-1.5 rounded-full bg-primary-amber" />
+              class="flex items-center gap-3 mb-4 text-[1.2rem] font-semibold tracking-wider uppercase text-primary-amber"
+            >
+              <span
+                class="w-1.5 h-1.5 rounded-full bg-primary-amber animate-pulse"
+              />
               <span>Feature Film</span>
               <span
                 v-if="itemCert"
-                class="px-2 py-0.5 text-[1.05rem] font-bold text-text-muted bg-surface-2 border border-border-medium rounded">
+                class="px-2 py-0.5 text-[1.05rem] font-bold text-text-muted bg-surface-2 border border-border-medium rounded-md"
+              >
                 {{ itemCert }}
               </span>
             </div>
 
             <!-- Massive Cinematic Movie Title -->
             <h1
-              class="m-0 mb-4 font-display text-[3.2rem] sm:text-[4.6rem] lg:text-[5.6rem] font-extrabold leading-[1.08] text-white -tracking-tight">
+              class="m-0 mb-4 font-display text-[3.2rem] sm:text-[4.6rem] lg:text-[5.6rem] font-extrabold leading-[1.08] text-white -tracking-tight drop-shadow-md"
+            >
               {{ name }}
             </h1>
 
             <!-- Metadata Specs: Year · Runtime · Rating · Genres -->
             <div
-              class="flex flex-wrap items-center gap-3 sm:gap-4 mb-5 text-[1.35rem] sm:text-[1.4rem] text-text-secondary">
+              class="flex flex-wrap items-center gap-3 sm:gap-4 mb-5 text-[1.35rem] sm:text-[1.4rem] text-text-secondary"
+            >
               <div
                 v-if="item.vote_average"
-                class="flex items-center gap-1.5 font-bold text-white">
+                class="flex items-center gap-1.5 font-bold text-white"
+              >
                 <svg
                   class="text-primary-amber"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
-                  fill="currentColor">
+                  fill="currentColor"
+                >
                   <path
-                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  />
                 </svg>
                 <span>{{ item.vote_average | rating }}</span>
+                <span
+                  v-if="item.vote_count"
+                  class="font-normal text-text-muted text-[0.85em]"
+                >
+                  ({{ item.vote_count | numberWithCommas }})
+                </span>
               </div>
 
               <span v-if="yearStart" class="opacity-40">&middot;</span>
-              <span v-if="yearStart" class="font-medium text-text-primary">{{
+              <span v-if="yearStart" class="font-semibold text-text-primary">{{
                 yearStart
               }}</span>
 
@@ -73,17 +95,28 @@
                 <span class="opacity-40">&middot;</span>
                 <span>{{ item.runtime | runtime }}</span>
               </template>
+            </div>
 
-              <template v-if="item.genres && item.genres.length">
-                <span class="opacity-40">&middot;</span>
-                <span class="text-text-muted">{{ genresList }}</span>
-              </template>
+            <!-- Genre Link Chips -->
+            <div
+              v-if="item.genres && item.genres.length"
+              class="flex flex-wrap items-center gap-2 mb-6"
+            >
+              <nuxt-link
+                v-for="genre in item.genres"
+                :key="`hero-genre-${genre.id}`"
+                :to="`/genre/${genre.id}/movie`"
+                class="inline-flex items-center px-3 py-1 text-[1.2rem] font-medium text-text-secondary bg-surface-2/80 backdrop-blur-sm border border-border-subtle rounded-lg hover:text-white hover:bg-surface-3 hover:border-primary-amber/40 transition-colors duration-150"
+              >
+                {{ genre.name }}
+              </nuxt-link>
             </div>
 
             <!-- Description / Synopsis -->
             <p
               v-if="item.overview"
-              class="m-0 mb-8 text-[1.5rem] sm:text-[1.65rem] leading-relaxed text-text-secondary max-w-[820px]">
+              class="m-0 mb-8 text-[1.5rem] sm:text-[1.65rem] leading-relaxed text-text-secondary max-w-[820px]"
+            >
               {{ item.overview }}
             </p>
 
@@ -92,13 +125,15 @@
               <button
                 v-if="trailerData"
                 type="button"
-                class="inline-flex items-center justify-center gap-2.5 h-12 px-6 text-[1.4rem] font-semibold rounded-lg cursor-pointer text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active shadow-cinema-sm transition-all duration-200"
-                @click="openModal">
+                class="inline-flex items-center justify-center gap-2.5 h-12 px-6 text-[1.4rem] font-bold rounded-xl cursor-pointer text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active shadow-cinema-sm hover:shadow-glow transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary-amber"
+                @click="openModal"
+              >
                 <svg
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
-                  fill="currentColor">
+                  fill="currentColor"
+                >
                   <polygon points="5 3 19 12 5 21 5 3" />
                 </svg>
                 <span>Watch Trailer</span>
@@ -108,8 +143,9 @@
                 v-if="item.homepage"
                 :href="item.homepage"
                 target="_blank"
-                rel="noopener"
-                class="inline-flex items-center justify-center gap-2 h-12 px-6 text-[1.4rem] font-medium rounded-lg text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:text-white transition-colors duration-200">
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 h-12 px-6 text-[1.4rem] font-semibold rounded-xl text-text-primary bg-surface-2/80 backdrop-blur-md border border-border-subtle hover:bg-surface-3 hover:border-border-medium hover:text-white transition-all duration-200"
+              >
                 <span>Official Site</span>
                 <svg
                   width="13"
@@ -117,15 +153,40 @@
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
+                  stroke-width="2.5"
                   stroke-linecap="round"
-                  stroke-linejoin="round">
+                  stroke-linejoin="round"
+                >
                   <path
-                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                  />
                   <polyline points="15 3 21 3 21 9" />
                   <line x1="10" y1="14" x2="21" y2="3" />
                 </svg>
               </a>
+
+              <button
+                type="button"
+                aria-label="Share Movie Link"
+                class="inline-flex items-center justify-center gap-2 h-12 px-4 text-[1.35rem] font-medium rounded-xl text-text-muted bg-surface-2/80 border border-border-subtle hover:bg-surface-3 hover:text-white transition-all duration-200"
+                @click="copyShareLink"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                  <polyline points="16 6 12 2 8 6" />
+                  <line x1="12" y1="2" x2="12" y2="15" />
+                </svg>
+                <span>{{ shareFeedback || 'Share' }}</span>
+              </button>
             </div>
           </div>
         </div>
@@ -133,32 +194,41 @@
 
       <!-- 2. ASYMMETRIC POSTER ARTWORK & FILM DETAILS -->
       <div
-        class="relative z-20 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-10">
+        class="relative z-20 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-10"
+      >
         <div
-          class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start"
+        >
           <!-- Floating Poster Artwork (4 cols) -->
           <div class="lg:col-span-4 w-[240px] sm:w-[280px] lg:w-full mx-auto">
             <div
-              class="relative w-full rounded-xl overflow-hidden bg-surface-2 border border-border-medium shadow-cinema-lg -mt-8 sm:-mt-14 lg:-mt-20">
+              class="relative w-full rounded-2xl overflow-hidden bg-surface-2 border border-border-medium shadow-cinema-xl -mt-8 sm:-mt-14 lg:-mt-24"
+            >
               <div
-                class="relative w-full h-0 pt-[150%] overflow-hidden bg-surface-2">
+                class="relative w-full h-0 pt-[150%] overflow-hidden bg-surface-2"
+              >
                 <img
                   v-if="posterUrl"
                   v-lazyload="posterUrl"
                   class="lazyload absolute inset-0 w-full h-full object-cover"
-                  :alt="name">
+                  :alt="name"
+                />
                 <div
                   v-else
-                  class="absolute inset-0 flex flex-col items-center justify-center gap-2 text-text-subtle bg-surface-2">
+                  class="absolute inset-0 flex flex-col items-center justify-center gap-2 text-text-subtle bg-surface-2"
+                >
                   <span
-                    class="text-[1.1rem] font-medium uppercase tracking-wider">No Poster</span>
+                    class="text-[1.1rem] font-medium uppercase tracking-wider"
+                    >No Poster</span
+                  >
                 </div>
               </div>
             </div>
 
             <p
               v-if="item.tagline"
-              class="mt-4 text-center italic text-[1.35rem] text-text-muted">
+              class="mt-4 text-center italic text-[1.35rem] text-text-muted font-normal"
+            >
               &ldquo;{{ item.tagline }}&rdquo;
             </p>
           </div>
@@ -166,25 +236,33 @@
           <!-- Additional Information & Specs (8 cols) -->
           <div class="lg:col-span-8 flex flex-col gap-6">
             <div
-              class="bg-surface-1 border border-border-subtle rounded-xl p-6 sm:p-8">
+              class="bg-surface-1 border border-border-subtle rounded-2xl p-6 sm:p-8 shadow-cinema-sm"
+            >
               <h2
-                class="m-0 mb-6 font-display text-[1.8rem] sm:text-[2rem] font-bold text-white -tracking-wide">
+                class="m-0 mb-6 font-display text-[1.8rem] sm:text-[2rem] font-bold text-white -tracking-wide"
+              >
                 Production &amp; Release Specifications
               </h2>
 
               <ul
-                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 list-none m-0 p-0 text-[1.35rem]">
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 list-none m-0 p-0 text-[1.35rem]"
+              >
                 <li v-if="directors" class="flex flex-col gap-1.5">
                   <span
-                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Directed by</span>
+                    class="text-[1.15rem] font-semibold uppercase tracking-wider text-text-subtle"
+                    >Directed by</span
+                  >
                   <span
                     class="font-medium text-text-primary"
-                    v-html="directors" />
+                    v-html="directors"
+                  />
                 </li>
 
                 <li v-if="item.release_date" class="flex flex-col gap-1.5">
                   <span
-                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Release Date</span>
+                    class="text-[1.15rem] font-semibold uppercase tracking-wider text-text-subtle"
+                    >Release Date</span
+                  >
                   <span class="font-medium text-text-primary">{{
                     item.release_date | fullDate
                   }}</span>
@@ -192,7 +270,9 @@
 
                 <li v-if="item.runtime" class="flex flex-col gap-1.5">
                   <span
-                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Duration</span>
+                    class="text-[1.15rem] font-semibold uppercase tracking-wider text-text-subtle"
+                    >Duration</span
+                  >
                   <span class="font-medium text-text-primary">{{
                     item.runtime | runtime
                   }}</span>
@@ -200,7 +280,9 @@
 
                 <li v-if="item.status" class="flex flex-col gap-1.5">
                   <span
-                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Status</span>
+                    class="text-[1.15rem] font-semibold uppercase tracking-wider text-text-subtle"
+                    >Status</span
+                  >
                   <span class="font-medium text-text-primary">{{
                     item.status
                   }}</span>
@@ -208,19 +290,35 @@
 
                 <li v-if="item.budget" class="flex flex-col gap-1.5">
                   <span
-                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Budget</span>
-                  <span class="font-medium text-text-primary">${{ item.budget | numberWithCommas }}</span>
+                    class="text-[1.15rem] font-semibold uppercase tracking-wider text-text-subtle"
+                    >Budget</span
+                  >
+                  <span class="font-medium text-text-primary"
+                    >${{ item.budget | numberWithCommas }}</span
+                  >
                 </li>
 
                 <li v-if="item.revenue" class="flex flex-col gap-1.5">
                   <span
-                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Box Office</span>
-                  <span class="font-medium text-text-primary">${{ item.revenue | numberWithCommas }}</span>
+                    class="text-[1.15rem] font-semibold uppercase tracking-wider text-text-subtle"
+                    >Box Office</span
+                  >
+                  <span class="font-medium text-text-primary">
+                    ${{ item.revenue | numberWithCommas }}
+                    <span
+                      v-if="boxOfficeMultiplier"
+                      class="ml-1 text-[1.1rem] font-bold text-accent-green"
+                    >
+                      ({{ boxOfficeMultiplier }}x)
+                    </span>
+                  </span>
                 </li>
 
                 <li v-if="item.original_language" class="flex flex-col gap-1.5">
                   <span
-                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Original Language</span>
+                    class="text-[1.15rem] font-semibold uppercase tracking-wider text-text-subtle"
+                    >Original Language</span
+                  >
                   <span class="font-medium text-text-primary">{{
                     item.original_language | fullLang
                   }}</span>
@@ -229,11 +327,14 @@
                 <li
                   v-if="
                     item.production_companies &&
-                      item.production_companies.length
+                    item.production_companies.length
                   "
-                  class="flex flex-col gap-1.5 sm:col-span-2">
+                  class="flex flex-col gap-1.5 sm:col-span-2"
+                >
                   <span
-                    class="text-[1.15rem] font-medium uppercase tracking-wider text-text-subtle">Production Companies</span>
+                    class="text-[1.15rem] font-semibold uppercase tracking-wider text-text-subtle"
+                    >Production Companies</span
+                  >
                   <span class="font-medium text-text-primary">{{
                     item.production_companies | arrayToList
                   }}</span>
@@ -243,7 +344,11 @@
               <!-- External Links / Social -->
               <div
                 v-if="item.external_ids"
-                class="pt-6 mt-6 border-t border-border-subtle">
+                class="pt-6 mt-6 border-t border-border-subtle flex items-center justify-between flex-wrap gap-4"
+              >
+                <span class="text-[1.2rem] font-medium text-text-subtle"
+                  >External References:</span
+                >
                 <ExternalLinks :links="item.external_ids" />
               </div>
             </div>
@@ -271,33 +376,37 @@
 
         <template v-if="activeMenu === 'photos' && showImages">
           <Images
-            v-if="item.images.backdrops.length"
+            v-if="item.images.backdrops && item.images.backdrops.length"
             title="Backdrops"
             type="backdrop"
-            :images="item.images.backdrops" />
+            :images="item.images.backdrops"
+          />
 
           <Images
-            v-if="item.images.posters.length"
+            v-if="item.images.posters && item.images.posters.length"
             title="Posters"
             type="poster"
-            :images="item.images.posters" />
+            :images="item.images.posters"
+          />
         </template>
       </div>
     </transition>
 
-    <!-- 5. SIMILAR MOVIES -->
+    <!-- 5. SIMILAR MOVIES RAIL -->
     <ListingCarousel
       v-if="recommended && recommended.results.length"
       title="Similar Movies"
       subtitle="Titles you may also enjoy"
-      :items="recommended" />
+      :items="recommended"
+    />
 
     <!-- YouTube Trailer Modal -->
     <Modal
       v-if="modalVisible && trailerData"
       :data="trailerData"
       type="iframe"
-      @close="closeModal" />
+      @close="closeModal"
+    />
   </main>
 </template>
 
@@ -333,7 +442,7 @@ export default {
 
   mixins: [name, yearStart, directors],
 
-  async asyncData ({ params, error }) {
+  async asyncData({ params, error }) {
     try {
       const item = await getMovie(params.id);
       return { item };
@@ -342,16 +451,17 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       menu: [],
       activeMenu: 'overview',
       recommended: null,
       modalVisible: false,
+      shareFeedback: null,
     };
   },
 
-  head () {
+  head() {
     return {
       title: `${this.metaTitle} — CINEPULSE`,
       meta: [
@@ -380,7 +490,7 @@ export default {
   },
 
   computed: {
-    metaTitle () {
+    metaTitle() {
       if (this.yearStart) {
         return `${this.name} (${this.yearStart})`;
       } else {
@@ -388,7 +498,7 @@ export default {
       }
     },
 
-    metaDescription () {
+    metaDescription() {
       if (this.item.overview) {
         return this.truncate(this.item.overview, 200);
       } else {
@@ -396,7 +506,7 @@ export default {
       }
     },
 
-    metaImage () {
+    metaImage() {
       if (this.item.poster_path) {
         return `${apiImgUrl}/w500${this.item.poster_path}`;
       } else {
@@ -404,29 +514,29 @@ export default {
       }
     },
 
-    backdropUrl () {
+    backdropUrl() {
       if (this.item && this.item.backdrop_path) {
         return getBackdropUrl(this.item.backdrop_path, 'w1280');
       }
       return null;
     },
 
-    posterUrl () {
+    posterUrl() {
       if (this.item && this.item.poster_path) {
         return getPosterUrl(this.item.poster_path, 'w500');
       }
       return null;
     },
 
-    itemCert () {
+    itemCert() {
       if (this.item.release_dates) {
         const releases = this.item.release_dates.results.find(
-          r =>
+          (r) =>
             r.iso_3166_1 === 'US' || r.iso_3166_1 === process.env.API_COUNTRY,
         );
         if (releases) {
           const cert = releases.release_dates.find(
-            d => d.certification !== '',
+            (d) => d.certification !== '',
           );
           if (cert) return cert.certification;
         }
@@ -434,17 +544,36 @@ export default {
       return null;
     },
 
-    genresList () {
-      if (this.item.genres && this.item.genres.length) {
-        return this.item.genres.map(g => g.name).join(' · ');
+    boxOfficeMultiplier() {
+      if (this.item.budget && this.item.revenue && this.item.budget > 1000000) {
+        return (this.item.revenue / this.item.budget).toFixed(1);
       }
-      return '';
+      return null;
     },
 
-    trailerData () {
+    showCredits() {
+      const credits = this.item.credits;
+      return credits && credits.cast && credits.cast.length;
+    },
+
+    showVideos() {
+      const videos = this.item.videos;
+      return videos && videos.results && videos.results.length;
+    },
+
+    showImages() {
+      const images = this.item.images;
+      return (
+        images &&
+        ((images.backdrops && images.backdrops.length) ||
+          (images.posters && images.posters.length))
+      );
+    },
+
+    trailerData() {
       if (!this.item.videos || !this.item.videos.results) return null;
       const videos = this.item.videos.results;
-      const trailer = videos.find(v => v.type === 'Trailer');
+      const trailer = videos.find((v) => v.type === 'Trailer');
       if (!trailer) return null;
 
       return [
@@ -454,46 +583,22 @@ export default {
         },
       ];
     },
-
-    showCredits () {
-      const credits = this.item.credits;
-      return credits && credits.cast && credits.cast.length;
-    },
-
-    showVideos () {
-      const videos = this.item.videos;
-      return videos && videos.results && videos.results.length;
-    },
-
-    showImages () {
-      const images = this.item.images;
-      return (
-        images &&
-        ((images.backdrops && images.backdrops.length) ||
-          (images.posters && images.posters.length))
-      );
-    },
   },
 
-  created () {
+  created() {
     this.createMenu();
-    this.initRecommended();
+  },
+
+  mounted() {
+    this.getRecommended();
   },
 
   methods: {
-    truncate (string, length) {
+    truncate(string, length) {
       return this.$options.filters.truncate(string, length);
     },
 
-    openModal () {
-      this.modalVisible = true;
-    },
-
-    closeModal () {
-      this.modalVisible = false;
-    },
-
-    createMenu () {
+    createMenu() {
       const menu = [];
 
       // overview
@@ -508,16 +613,32 @@ export default {
       this.menu = menu;
     },
 
-    navClicked (label) {
+    navClicked(label) {
       this.activeMenu = label;
     },
 
-    initRecommended () {
-      if (this.recommended !== null) return;
-
-      getMovieRecommended(this.$route.params.id).then((response) => {
+    getRecommended() {
+      getMovieRecommended(this.item.id).then((response) => {
         this.recommended = response;
       });
+    },
+
+    openModal() {
+      this.modalVisible = true;
+    },
+
+    closeModal() {
+      this.modalVisible = false;
+    },
+
+    copyShareLink() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href);
+        this.shareFeedback = 'Copied!';
+        setTimeout(() => {
+          this.shareFeedback = null;
+        }, 2000);
+      }
     },
   },
 };

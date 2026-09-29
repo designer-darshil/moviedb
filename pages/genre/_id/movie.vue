@@ -1,18 +1,42 @@
 <template>
-  <main class="main">
+  <main class="main pb-20">
     <TopNav :title="metaTitle" />
 
-    <!-- Genre Pill Switcher -->
-    <div class="px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 max-w-[1600px] mx-auto">
-      <div class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-1">
+    <!-- Genre Header Banner -->
+    <div class="px-4 sm:px-8 lg:px-12 pt-8 sm:pt-12 max-w-[1600px] mx-auto">
+      <div class="flex flex-col gap-2 mb-6">
+        <div
+          class="flex items-center gap-2 text-[1.15rem] font-semibold tracking-wider uppercase text-primary-amber"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-primary-amber" />
+          <span>Genre Discovery</span>
+        </div>
+        <h1
+          class="m-0 font-display text-[2.8rem] sm:text-[3.6rem] font-extrabold text-white -tracking-wide"
+        >
+          {{ title }}
+        </h1>
+        <p class="m-0 text-[1.4rem] text-text-muted max-w-[640px]">
+          Explore the finest {{ genre ? genre.name.toLowerCase() : '' }} feature
+          films and cinematic releases.
+        </p>
+      </div>
+
+      <!-- Genre Pill Switcher -->
+      <div
+        class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-2 border-b border-border-subtle"
+      >
         <nuxt-link
           v-for="g in allGenres"
           :key="g.id"
           :to="`/genre/${g.id}/movie`"
-          class="inline-flex items-center px-4 py-1.5 text-[1.25rem] font-medium rounded-md whitespace-nowrap transition-colors duration-150"
-          :class="genre.id === g.id
-            ? 'text-white bg-surface-3 font-semibold'
-            : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'">
+          class="inline-flex items-center px-4 py-2 text-[1.25rem] font-semibold rounded-xl whitespace-nowrap transition-all duration-150"
+          :class="
+            genre && genre.id === g.id
+              ? 'text-white bg-surface-3 border border-border-medium shadow-cinema-sm'
+              : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'
+          "
+        >
           {{ g.name }}
         </nuxt-link>
       </div>
@@ -20,10 +44,10 @@
 
     <Listing
       v-if="items && items.results.length"
-      :title="title"
       :items="items"
       :loading="loading"
-      @loadMore="loadMore" />
+      @loadMore="loadMore"
+    />
   </main>
 </template>
 
@@ -38,11 +62,11 @@ export default {
     Listing,
   },
 
-  async asyncData ({ params, error }) {
+  async asyncData({ params, error }) {
     try {
       const items = await getMediaByGenre('movie', params.id);
       const allGenres = await getGenreList('movie');
-      const genre = allGenres.find(g => g.id === parseInt(params.id));
+      const genre = allGenres.find((g) => g.id === parseInt(params.id));
 
       if (genre) {
         return { items, genre, allGenres };
@@ -54,13 +78,13 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       loading: false,
     };
   },
 
-  head () {
+  head() {
     return {
       title: `${this.metaTitle} — CINEPULSE`,
       meta: [
@@ -71,15 +95,18 @@ export default {
           content: `${process.env.FRONTEND_URL}${this.$route.path}`,
         },
       ],
+      bodyAttrs: {
+        class: 'topnav-active',
+      },
     };
   },
 
   computed: {
-    metaTitle () {
+    metaTitle() {
       return this.title;
     },
 
-    title () {
+    title() {
       if (this.genre) {
         return `${this.genre.name} Movies`;
       } else {
@@ -89,7 +116,7 @@ export default {
   },
 
   methods: {
-    loadMore () {
+    loadMore() {
       this.loading = true;
 
       getMediaByGenre('movie', this.$route.params.id, this.items.page + 1)

@@ -10,7 +10,8 @@
       subtitle="Today's most watched films worldwide"
       :is-ranked="true"
       :view-all-url="trendingMoviesUrl"
-      :items="trendingMovies" />
+      :items="trendingMovies"
+    />
 
     <!-- 2. EDITORIAL SPOTLIGHT: Asymmetric Curated Feature + Supporting Picks -->
     <EditorialSpotlight
@@ -19,7 +20,8 @@
       tag="Editorial Spotlight"
       :feature="editorialFeature"
       :supporting="editorialSupporting"
-      :view-all-url="topRatedMoviesUrl" />
+      :view-all-url="topRatedMoviesUrl"
+    />
 
     <!-- 3. ACCLAIMED TELEVISION: Curated Series Rail -->
     <ListingCarousel
@@ -27,48 +29,71 @@
       title="Acclaimed Television"
       subtitle="Compelling stories defining episodic entertainment"
       :view-all-url="trendingTvUrl"
-      :items="trendingTv" />
+      :items="trendingTv"
+    />
 
     <!-- 4. MORE TO DISCOVER: Clean Poster-First Grid with Interactive Category Switcher -->
     <section
-      class="my-8 sm:my-12 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto w-full">
+      class="my-10 sm:my-14 lg:my-16 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto w-full"
+      aria-label="Explore Catalog"
+    >
       <div
-        class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8">
+        class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-8 pb-3 border-b border-border-subtle"
+      >
         <div>
           <div
-            class="flex items-center gap-2 mb-1.5 text-[1.15rem] font-semibold tracking-wider uppercase text-primary-amber">
+            class="flex items-center gap-2 mb-1.5 text-[1.15rem] font-semibold tracking-wider uppercase text-primary-amber"
+          >
             <span class="w-1.5 h-1.5 rounded-full bg-primary-amber" />
             <span>Discover More</span>
           </div>
           <h2
-            class="m-0 font-display text-[2.2rem] sm:text-[2.6rem] font-bold text-white -tracking-wide">
+            class="m-0 font-display text-[2.2rem] sm:text-[2.6rem] font-bold text-white -tracking-wide"
+          >
             Explore The Catalog
           </h2>
         </div>
 
         <!-- Filter Tab Buttons -->
-        <div class="flex items-center gap-2">
+        <div
+          class="inline-flex items-center p-1 rounded-xl bg-surface-1 border border-border-subtle"
+        >
           <button
             type="button"
-            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-colors duration-150"
+            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200"
             :class="
               activeDiscoverTab === 'popular'
-                ? 'text-white bg-surface-3 font-semibold border border-border-medium'
-                : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'
+                ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
+                : 'text-text-muted hover:text-white hover:bg-surface-2'
             "
-            @click="activeDiscoverTab = 'popular'">
+            @click="activeDiscoverTab = 'popular'"
+          >
             Popular
+          </button>
+          <button
+            v-if="topRatedMovies && topRatedMovies.results.length"
+            type="button"
+            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200"
+            :class="
+              activeDiscoverTab === 'top_rated'
+                ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
+                : 'text-text-muted hover:text-white hover:bg-surface-2'
+            "
+            @click="activeDiscoverTab = 'top_rated'"
+          >
+            Top Rated
           </button>
           <button
             v-if="upcomingMovies && upcomingMovies.results.length"
             type="button"
-            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-colors duration-150"
+            class="px-4 py-1.5 text-[1.25rem] font-medium rounded-lg cursor-pointer transition-all duration-200"
             :class="
               activeDiscoverTab === 'upcoming'
-                ? 'text-white bg-surface-3 font-semibold border border-border-medium'
-                : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'
+                ? 'text-white bg-surface-3 font-semibold shadow-cinema-sm'
+                : 'text-text-muted hover:text-white hover:bg-surface-2'
             "
-            @click="activeDiscoverTab = 'upcoming'">
+            @click="activeDiscoverTab = 'upcoming'"
+          >
             Upcoming
           </button>
         </div>
@@ -78,11 +103,13 @@
       <transition name="fade" mode="out-in">
         <div
           :key="`discover-grid-${activeDiscoverTab}`"
-          class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-5">
+          class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-5"
+        >
           <Card
             v-for="item in activeDiscoverItems"
             :key="`discover-${activeDiscoverTab}-${item.id}`"
-            :item="item" />
+            :item="item"
+          />
         </div>
       </transition>
 
@@ -90,22 +117,19 @@
       <div class="flex items-center justify-center mt-10">
         <nuxt-link
           :to="activeDiscoverUrl"
-          class="inline-flex items-center gap-2 h-11 px-6 text-[1.35rem] font-medium rounded-lg text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:text-white transition-colors duration-200">
-          <span>Browse All
-            {{
-              activeDiscoverTab === 'popular'
-                ? 'Popular Films'
-                : 'Upcoming Releases'
-            }}</span>
+          class="inline-flex items-center gap-2 h-11 px-6 text-[1.35rem] font-semibold rounded-xl text-text-primary bg-surface-2 border border-border-subtle hover:bg-surface-3 hover:border-primary-amber/40 hover:text-white transition-all duration-200 shadow-cinema-sm"
+        >
+          <span>Browse All {{ activeDiscoverTabLabel }}</span>
           <svg
             width="14"
             height="14"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
+            stroke-width="2.5"
             stroke-linecap="round"
-            stroke-linejoin="round">
+            stroke-linejoin="round"
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </nuxt-link>
@@ -129,7 +153,7 @@ export default {
     EditorialSpotlight,
   },
 
-  async asyncData ({ error }) {
+  async asyncData({ error }) {
     try {
       const [
         popularMovies,
@@ -164,13 +188,13 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       activeDiscoverTab: 'popular',
     };
   },
 
-  head () {
+  head() {
     return {
       title: 'CINEPULSE — Discover Movies, TV Shows & People',
       meta: [
@@ -178,39 +202,39 @@ export default {
           hid: 'description',
           name: 'description',
           content:
-            'Discover popular, trending, and top-rated movies and television series.',
+            'Discover popular, trending, and top-rated movies and television series worldwide.',
         },
         { hid: 'og:title', property: 'og:title', content: 'CINEPULSE' },
         {
           hid: 'og:description',
           property: 'og:description',
-          content: 'Simple, modern movie discovery product.',
+          content: 'Modern cinematic movie discovery product.',
         },
       ],
     };
   },
 
   computed: {
-    heroFeaturedList () {
+    heroFeaturedList() {
       if (this.trendingMovies && this.trendingMovies.results) {
         return this.trendingMovies.results.slice(0, 5);
       }
       return null;
     },
 
-    trendingMoviesUrl () {
+    trendingMoviesUrl() {
       return { name: 'movie-category-name', params: { name: 'trending' } };
     },
 
-    topRatedMoviesUrl () {
+    topRatedMoviesUrl() {
       return { name: 'movie-category-name', params: { name: 'top_rated' } };
     },
 
-    trendingTvUrl () {
+    trendingTvUrl() {
       return { name: 'tv-category-name', params: { name: 'trending' } };
     },
 
-    editorialFeature () {
+    editorialFeature() {
       if (
         this.topRatedMovies &&
         this.topRatedMovies.results &&
@@ -221,7 +245,7 @@ export default {
       return null;
     },
 
-    editorialSupporting () {
+    editorialSupporting() {
       if (
         this.topRatedMovies &&
         this.topRatedMovies.results &&
@@ -232,16 +256,25 @@ export default {
       return [];
     },
 
-    activeDiscoverItems () {
+    activeDiscoverItems() {
       if (this.activeDiscoverTab === 'upcoming' && this.upcomingMovies) {
         return this.upcomingMovies.results.slice(0, 12);
+      }
+      if (this.activeDiscoverTab === 'top_rated' && this.topRatedMovies) {
+        return this.topRatedMovies.results.slice(0, 12);
       }
       return this.popularMovies && this.popularMovies.results
         ? this.popularMovies.results.slice(0, 12)
         : [];
     },
 
-    activeDiscoverUrl () {
+    activeDiscoverTabLabel() {
+      if (this.activeDiscoverTab === 'upcoming') return 'Upcoming Releases';
+      if (this.activeDiscoverTab === 'top_rated') return 'Top Rated Classics';
+      return 'Popular Films';
+    },
+
+    activeDiscoverUrl() {
       return {
         name: 'movie-category-name',
         params: { name: this.activeDiscoverTab },
