@@ -1,15 +1,15 @@
 <template>
   <div
-    class="tw-fixed tw-inset-0 tw-z-[150] tw-flex tw-items-start tw-justify-center tw-pt-16 sm:tw-pt-24 tw-px-4 tw-pb-8 tw-bg-[rgba(7,8,11,0.85)] tw-backdrop-blur-2xl"
+    class="fixed inset-0 z-[150] flex items-start justify-center pt-16 sm:pt-24 px-4 pb-8 bg-[rgba(7,8,11,0.85)] backdrop-blur-2xl"
     @click.self="closeSearch">
-    <div class="tw-w-full tw-max-w-[760px] tw-bg-surface-1 tw-border tw-border-white/15 tw-rounded-2xl tw-shadow-2xl tw-p-5 sm:tw-p-7">
-      <form autocomplete="off" class="tw-flex tw-flex-col tw-gap-5 tw-w-full" @submit.prevent="goToRoute">
+    <div class="w-full max-w-[760px] bg-surface-1 border border-white/15 rounded-2xl shadow-2xl p-5 sm:p-7">
+      <form autocomplete="off" class="flex flex-col gap-5 w-full" @submit.prevent="goToRoute">
         <label
-          class="tw-sr-only"
+          class="sr-only"
           for="search">Search Movies, TV Shows, and People</label>
 
-        <div class="tw-flex tw-items-center tw-gap-3.5 tw-px-4 tw-py-1.5 tw-bg-surface-2 tw-border tw-border-white/15 tw-rounded-xl focus-within:tw-border-primary-amber focus-within:tw-ring-2 focus-within:tw-ring-primary-amber/30 tw-transition-all tw-duration-200">
-          <span class="tw-flex tw-items-center tw-text-primary-amber">
+        <div class="flex items-center gap-3.5 px-4 py-1.5 bg-surface-2 border border-white/15 rounded-xl focus-within:border-primary-amber focus-within:ring-2 focus-within:ring-primary-amber/30 transition-all duration-200">
+          <span class="flex items-center text-primary-amber">
             <svg
               width="22"
               height="22"
@@ -31,17 +31,17 @@
             name="search"
             type="text"
             placeholder="Search by title, director, actor, genre..."
-            class="tw-flex-1 tw-h-12 sm:tw-h-13 tw-text-[1.6rem] sm:tw-text-[1.8rem] tw-font-medium tw-text-text-primary tw-bg-transparent tw-border-none tw-outline-none placeholder:tw-text-text-subtle"
+            class="flex-1 h-12 sm:h-13 text-[1.6rem] sm:text-[1.8rem] font-medium text-text-primary bg-transparent border-none outline-none placeholder:text-text-subtle"
             @keyup.enter="goToRoute"
             @input="handleInput"
             @keydown.esc="handleEscape">
 
-          <div class="tw-flex tw-items-center tw-gap-2.5">
+          <div class="flex items-center gap-2.5">
             <button
               v-if="query"
               type="button"
               aria-label="Clear query"
-              class="tw-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-rounded-full tw-text-text-muted tw-bg-surface-3 hover:tw-text-white hover:tw-bg-surface-4 tw-transition-colors tw-duration-200"
+              class="flex items-center justify-center w-6 h-6 rounded-full text-text-muted bg-surface-3 hover:text-white hover:bg-surface-4 transition-colors duration-200"
               @click="clearQuery">
               <svg
                 width="14"
@@ -57,12 +57,12 @@
               </svg>
             </button>
 
-            <span class="tw-hidden sm:tw-inline-block tw-px-2 tw-py-1 tw-text-[1.1rem] tw-font-bold tw-tracking-wide tw-text-text-muted tw-bg-surface-3 tw-border tw-border-border-subtle tw-rounded">ESC</span>
+            <span class="hidden sm:inline-block px-2 py-1 text-[1.1rem] font-bold tracking-wide text-text-muted bg-surface-3 border border-border-subtle rounded">ESC</span>
 
             <button
               type="button"
               aria-label="Close Search"
-              class="tw-flex tw-items-center tw-justify-center tw-w-9 tw-h-9 tw-rounded-full tw-text-text-muted hover:tw-text-white hover:tw-bg-surface-3 tw-transition-colors tw-duration-200"
+              class="flex items-center justify-center w-9 h-9 rounded-full text-text-muted hover:text-white hover:bg-surface-3 transition-colors duration-200"
               @click="closeSearch">
               <svg
                 width="18"
@@ -81,14 +81,14 @@
         </div>
 
         <!-- Quick Trending Suggestions -->
-        <div class="tw-flex tw-flex-col sm:tw-flex-row sm:tw-items-center tw-gap-2.5 tw-pt-3 tw-border-t tw-border-border-subtle">
-          <span class="tw-text-[1.2rem] tw-font-semibold tw-uppercase tw-tracking-wide tw-text-text-subtle tw-shrink-0">Popular Searches:</span>
-          <div class="tw-flex tw-flex-wrap tw-gap-2">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2.5 pt-3 border-t border-border-subtle">
+          <span class="text-[1.2rem] font-semibold uppercase tracking-wide text-text-subtle shrink-0">Popular Searches:</span>
+          <div class="flex flex-wrap gap-2">
             <button
               v-for="tag in popularTags"
               :key="tag"
               type="button"
-              class="tw-inline-flex tw-items-center tw-px-3 tw-py-1 tw-text-[1.25rem] tw-font-medium tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-full tw-cursor-pointer hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-primary-amber hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200"
+              class="inline-flex items-center px-3 py-1 text-[1.25rem] font-medium text-text-secondary bg-surface-2 border border-border-subtle rounded-full cursor-pointer hover:text-white hover:bg-surface-3 hover:border-primary-amber hover:-translate-y-0.5 transition-all duration-200"
               @click="selectTag(tag)">
               {{ tag }}
             </button>

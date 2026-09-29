@@ -1,12 +1,12 @@
 <template>
-  <div class="tw-my-7 tw-mx-4 sm:tw-my-10 sm:tw-mx-8 lg:tw-my-12 lg:tw-mx-12">
-    <div class="tw-flex tw-items-center tw-justify-between tw-mb-6 tw-pb-4 tw-border-b tw-border-border-subtle">
-      <div class="tw-flex tw-items-center">
+  <div class="my-7 mx-4 sm:my-10 sm:mx-8 lg:my-12 lg:mx-12">
+    <div class="flex items-center justify-between mb-6 pb-4 border-b border-border-subtle">
+      <div class="flex items-center">
         <select
           v-if="seasons.length > 1"
           v-model="activeSeason"
           aria-label="Select TV Season"
-          class="tw-bg-surface-2 tw-text-text-primary tw-border tw-border-border-subtle tw-rounded-lg tw-px-3 tw-py-2 tw-text-[1.3rem] tw-outline-none focus:tw-border-primary-amber"
+          class="bg-surface-2 text-text-primary border border-border-subtle rounded-lg px-3 py-2 text-[1.3rem] outline-none focus:border-primary-amber"
           @change="getEpisodes">
           <option
             v-for="season in seasons"
@@ -17,12 +17,12 @@
         </select>
       </div>
 
-      <div v-if="activeEpisodes" class="tw-text-[1.35rem] tw-font-medium tw-text-text-muted">
+      <div v-if="activeEpisodes" class="text-[1.35rem] font-medium text-text-muted">
         {{ episodeCount }}
       </div>
     </div>
 
-    <div v-if="activeEpisodes" class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-gap-5">
+    <div v-if="activeEpisodes" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
       <EpisodesItem
         v-for="episode in activeEpisodes"
         :key="`episode-${episode.id}`"

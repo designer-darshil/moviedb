@@ -1,15 +1,15 @@
 <template>
-  <div class="tw-my-7 tw-mx-4 sm:tw-my-10 sm:tw-mx-8 lg:tw-my-12 lg:tw-mx-12">
-    <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-6 tw-mb-8 tw-pb-4 tw-border-b tw-border-border-subtle">
-      <div class="tw-flex tw-items-center tw-gap-3">
-        <label for="credits_category" class="tw-text-[1.2rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">
+  <div class="my-7 mx-4 sm:my-10 sm:mx-8 lg:my-12 lg:mx-12">
+    <div class="flex flex-wrap items-center gap-6 mb-8 pb-4 border-b border-border-subtle">
+      <div class="flex items-center gap-3">
+        <label for="credits_category" class="text-[1.2rem] font-bold uppercase tracking-widest text-text-subtle">
           Department
         </label>
 
         <select
           id="credits_category"
           v-model="active_category"
-          class="tw-bg-surface-2 tw-text-text-primary tw-border tw-border-border-subtle tw-rounded-lg tw-px-3 tw-py-2 tw-text-[1.3rem] tw-outline-none focus:tw-border-primary-amber"
+          class="bg-surface-2 text-text-primary border border-border-subtle rounded-lg px-3 py-2 text-[1.3rem] outline-none focus:border-primary-amber"
           :disabled="!categories.length || categories.length === 1"
           @change="filterCredits">
           <option value="all">
@@ -25,13 +25,13 @@
         </select>
       </div>
 
-      <div class="tw-flex tw-items-center tw-gap-3">
-        <label for="credits_media" class="tw-text-[1.2rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle"> Format </label>
+      <div class="flex items-center gap-3">
+        <label for="credits_media" class="text-[1.2rem] font-bold uppercase tracking-widest text-text-subtle"> Format </label>
 
         <select
           id="credits_media"
           v-model="active_media"
-          class="tw-bg-surface-2 tw-text-text-primary tw-border tw-border-border-subtle tw-rounded-lg tw-px-3 tw-py-2 tw-text-[1.3rem] tw-outline-none focus:tw-border-primary-amber"
+          class="bg-surface-2 text-text-primary border border-border-subtle rounded-lg px-3 py-2 text-[1.3rem] outline-none focus:border-primary-amber"
           @change="getCredits">
           <option value="combined_credits">
             All Formats
@@ -49,16 +49,16 @@
     <div
       v-for="category in active_credits"
       :key="`credits-${category.name.toLowerCase()}`"
-      class="tw-mb-12">
-      <div class="tw-flex tw-items-center tw-gap-3 tw-mb-4">
-        <span class="tw-inline-block tw-w-1 tw-h-6 tw-bg-primary-amber tw-rounded-full" />
-        <h2 class="tw-m-0 tw-text-[2rem] tw-font-bold tw-text-white -tw-tracking-wide">
+      class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="inline-block w-1 h-6 bg-primary-amber rounded-full" />
+        <h2 class="m-0 text-[2rem] font-bold text-white -tracking-wide">
           {{ category.name }}
         </h2>
       </div>
 
-      <div class="tw-overflow-hidden tw-rounded-xl tw-border tw-border-border-subtle tw-bg-surface-1">
-        <table class="tw-w-full tw-border-collapse">
+      <div class="overflow-hidden rounded-xl border border-border-subtle bg-surface-1">
+        <table class="w-full border-collapse">
           <tbody>
             <CreditsHistoryGroup
               v-for="group in category.groups"

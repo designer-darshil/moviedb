@@ -1,9 +1,9 @@
 <template>
-  <nav class="tw-fixed tw-top-0 tw-right-0 tw-left-0 tw-z-50 tw-flex tw-items-center tw-justify-center tw-h-14 tw-px-14 tw-bg-surface-1/80 tw-backdrop-blur-xl tw-border-b tw-border-border-subtle md:tw-hidden" aria-label="Contextual Top Navigation">
+  <nav class="fixed top-0 right-0 left-0 z-50 flex items-center justify-center h-14 px-14 bg-surface-1/80 backdrop-blur-xl border-b border-border-subtle md:hidden" aria-label="Contextual Top Navigation">
     <button
       type="button"
       aria-label="Go Back"
-      class="tw-absolute tw-top-1/2 tw-left-3 -tw-translate-y-1/2 tw-flex tw-items-center tw-justify-center tw-w-[3.8rem] tw-h-[3.8rem] tw-p-0 tw-text-text-primary tw-bg-surface-2 tw-border tw-border-border-medium tw-rounded-full hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-primary-amber focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber tw-cursor-pointer tw-transition-all tw-duration-200"
+      class="absolute top-1/2 left-3 -translate-y-1/2 flex items-center justify-center w-[3.8rem] h-[3.8rem] p-0 text-text-primary bg-surface-2 border border-border-medium rounded-full hover:text-white hover:bg-surface-3 hover:border-primary-amber focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber cursor-pointer transition-all duration-200"
       @click="$router.go(-1)">
       <svg
         width="20"
@@ -18,7 +18,7 @@
       </svg>
     </button>
 
-    <h2 class="tw-m-0 tw-overflow-hidden tw-font-display tw-text-[1.55rem] tw-font-bold tw-text-white tw-truncate tw-tracking-tight">
+    <h2 class="m-0 overflow-hidden font-display text-[1.55rem] font-bold text-white truncate tracking-tight">
       {{ title }}
     </h2>
   </nav>

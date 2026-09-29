@@ -1,13 +1,13 @@
 <template>
-  <nav class="tw-flex tw-justify-center tw-my-9 tw-px-4 tw-overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:tw-hidden" aria-label="Media Sections">
-    <div class="tw-inline-flex tw-items-center tw-gap-1.5 tw-p-1.5 tw-bg-[rgba(14,17,23,0.9)] tw-backdrop-blur-xl tw-border tw-border-white/15 tw-rounded-full tw-shadow-cinema-md">
+  <nav class="flex justify-center my-9 px-4 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Media Sections">
+    <div class="inline-flex items-center gap-1.5 p-1.5 bg-[rgba(14,17,23,0.9)] backdrop-blur-xl border border-white/15 rounded-full shadow-cinema-md">
       <button
         v-for="(item, index) in menu"
         :key="`tab-${index}`"
-        class="tw-px-6 tw-py-2.5 tw-text-[1.35rem] tw-font-semibold tw-rounded-full tw-cursor-pointer tw-whitespace-nowrap -tw-tracking-wide tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
+        class="px-6 py-2.5 text-[1.35rem] font-semibold rounded-full cursor-pointer whitespace-nowrap -tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         :class="active === index
-          ? '!tw-text-[#07080b] !tw-bg-gradient-to-br !tw-from-primary-amber !tw-to-[#ff8a00] !tw-border-primary-amber !tw-font-bold tw-shadow-[0_2px_14px_rgba(229,169,60,0.45)] hover:tw-shadow-[0_4px_18px_rgba(229,169,60,0.6)]'
-          : 'tw-text-text-muted hover:tw-text-white hover:tw-bg-white/[0.06] tw-border tw-border-transparent'"
+          ? '!text-[#07080b] !bg-gradient-to-br !from-primary-amber !to-[#ff8a00] !border-primary-amber !font-bold shadow-[0_2px_14px_rgba(229,169,60,0.45)] hover:shadow-[0_4px_18px_rgba(229,169,60,0.6)]'
+          : 'text-text-muted hover:text-white hover:bg-white/[0.06] border border-transparent'"
         type="button"
         @click="clicked(index, item)">
         <span>{{ item }}</span>

@@ -1,12 +1,12 @@
 <template>
-  <div class="tw-my-7 tw-mx-4 sm:tw-my-10 sm:tw-mx-8 lg:tw-my-12 lg:tw-mx-12">
-    <div class="tw-flex tw-items-center tw-justify-between tw-mb-6 tw-pb-4 tw-border-b tw-border-border-subtle">
-      <div class="tw-flex tw-items-center tw-gap-3">
+  <div class="my-7 mx-4 sm:my-10 sm:mx-8 lg:my-12 lg:mx-12">
+    <div class="flex items-center justify-between mb-6 pb-4 border-b border-border-subtle">
+      <div class="flex items-center gap-3">
         <select
           v-if="videoTypes.length > 1"
           v-model="activeType"
           aria-label="Filter videos by type"
-          class="tw-bg-surface-2 tw-text-text-primary tw-border tw-border-border-subtle tw-rounded-lg tw-px-3 tw-py-2 tw-text-[1.3rem] tw-outline-none focus:tw-border-primary-amber"
+          class="bg-surface-2 text-text-primary border border-border-subtle rounded-lg px-3 py-2 text-[1.3rem] outline-none focus:border-primary-amber"
           @change="filterVideos">
           <option value="all">
             All Video Types
@@ -20,12 +20,12 @@
         </select>
       </div>
 
-      <div class="tw-text-[1.35rem] tw-font-medium tw-text-text-muted">
+      <div class="text-[1.35rem] font-medium text-text-muted">
         {{ videoCount }}
       </div>
     </div>
 
-    <div class="tw-grid tw-grid-cols-1 xs:tw-grid-cols-2 md:tw-grid-cols-3 xl:tw-grid-cols-4 tw-gap-5">
+    <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
       <VideosItem
         v-for="(video, index) in activeVideos"
         :key="`video-${video.id}`"

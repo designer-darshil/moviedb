@@ -1,25 +1,25 @@
 <template>
-  <div class="tw-flex tw-flex-col tw-w-full">
+  <div class="flex flex-col w-full">
     <a
-      class="tw-group tw-flex tw-flex-col tw-h-full tw-no-underline tw-outline-none focus-visible:tw-outline-none"
+      class="group flex flex-col h-full no-underline outline-none focus-visible:outline-none"
       :href="video.url"
       :aria-label="`Play ${video.name}`"
       @click.prevent="handleVideo(index)">
-      <div class="tw-relative tw-w-full tw-h-0 tw-pb-[56.25%] tw-overflow-hidden tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-xl tw-transition-all tw-duration-300 group-hover:tw-shadow-cinema-md group-hover:tw-border-border-medium group-focus-visible:tw-ring-2 group-focus-visible:tw-ring-primary-amber">
+      <div class="relative w-full h-0 pb-[56.25%] overflow-hidden bg-surface-2 border border-border-subtle rounded-xl transition-all duration-300 group-hover:shadow-cinema-md group-hover:border-border-medium group-focus-visible:ring-2 group-focus-visible:ring-primary-amber">
         <img
           v-if="video.thumb"
           v-lazyload="video.thumb"
-          class="lazyload tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"
+          class="lazyload absolute inset-0 w-full h-full object-cover"
           :alt="video.name">
 
-        <div v-if="video.duration" class="tw-absolute tw-right-2 tw-bottom-2 tw-px-1.5 tw-py-0.5 tw-text-[1.15rem] tw-font-semibold tw-text-white tw-bg-[rgba(10,11,14,0.85)] tw-backdrop-blur tw-rounded">
+        <div v-if="video.duration" class="absolute right-2 bottom-2 px-1.5 py-0.5 text-[1.15rem] font-semibold text-white bg-[rgba(10,11,14,0.85)] backdrop-blur rounded">
           {{ formatDuration(video.duration) }}
         </div>
 
-        <div class="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-black/20">
-          <span class="tw-flex tw-items-center tw-justify-center tw-w-12 tw-h-12 tw-rounded-full tw-text-white tw-bg-[rgba(10,11,14,0.75)] tw-backdrop-blur-md tw-border tw-border-white/20 tw-transition-all tw-duration-200 group-hover:tw-scale-110 group-hover:tw-bg-primary-amber group-hover:tw-text-[#0a0b0e]">
+        <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+          <span class="flex items-center justify-center w-12 h-12 rounded-full text-white bg-[rgba(10,11,14,0.75)] backdrop-blur-md border border-white/20 transition-all duration-200 group-hover:scale-110 group-hover:bg-primary-amber group-hover:text-[#0a0b0e]">
             <svg
-              class="tw-ml-0.5"
+              class="ml-0.5"
               width="20"
               height="20"
               viewBox="0 0 24 24"
@@ -30,9 +30,9 @@
         </div>
       </div>
 
-      <div class="tw-flex tw-flex-col tw-pt-3">
-        <span class="tw-text-[1.1rem] tw-font-bold tw-text-primary-amber tw-uppercase tw-tracking-wider tw-mb-1">{{ video.type }}</span>
-        <h3 class="tw-m-0 tw-text-[1.45rem] tw-font-semibold tw-leading-snug tw-text-text-primary tw-line-clamp-2 tw-transition-colors tw-duration-200 group-hover:tw-text-primary-amber" :title="video.name">
+      <div class="flex flex-col pt-3">
+        <span class="text-[1.1rem] font-bold text-primary-amber uppercase tracking-wider mb-1">{{ video.type }}</span>
+        <h3 class="m-0 text-[1.45rem] font-semibold leading-snug text-text-primary line-clamp-2 transition-colors duration-200 group-hover:text-primary-amber" :title="video.name">
           {{ video.name }}
         </h3>
       </div>

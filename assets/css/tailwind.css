@@ -4,15 +4,15 @@
 
 @layer utilities {
   .is-nav-active {
-    @apply !tw-text-[#07080b] !tw-bg-primary-amber !tw-font-bold !tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)];
+    @apply !text-[#07080b] !bg-primary-amber !font-bold !shadow-[0_2px_12px_rgba(229,169,60,0.4)];
   }
 
   .is-dock-active {
-    @apply !tw-text-primary-amber;
+    @apply !text-primary-amber;
   }
 
   .is-dock-active .dock-icon {
-    @apply -tw-translate-y-0.5;
+    @apply -translate-y-0.5;
   }
 }
 

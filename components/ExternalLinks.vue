@@ -1,11 +1,11 @@
 <template>
-  <ul class="tw-flex tw-items-center tw-gap-2.5 tw-list-none tw-m-0 tw-p-0">
+  <ul class="flex items-center gap-2.5 list-none m-0 p-0">
     <li v-if="links.imdb_id">
       <a
         :href="`https://www.imdb.com/${imdb}/${links.imdb_id}`"
         target="_blank"
         aria-label="View on IMDb"
-        class="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path
@@ -23,7 +23,7 @@
         :href="links.homepage"
         target="_blank"
         aria-label="Official Website"
-        class="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         rel="noopener">
         <svg
           width="20"
@@ -47,7 +47,7 @@
         :href="`https://twitter.com/${links.twitter_id}`"
         target="_blank"
         aria-label="Twitter Profile"
-        class="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path
@@ -61,7 +61,7 @@
         :href="`https://instagram.com/${links.instagram_id}`"
         target="_blank"
         aria-label="Instagram Profile"
-        class="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         rel="noopener">
         <svg
           width="20"
@@ -90,7 +90,7 @@
         :href="`https://www.facebook.com/${links.facebook_id}`"
         target="_blank"
         aria-label="Facebook Profile"
-        class="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
+        class="flex items-center justify-center w-10 h-10 rounded-full text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium hover:-translate-y-0.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-amber"
         rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path

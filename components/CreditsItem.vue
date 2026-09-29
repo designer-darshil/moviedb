@@ -1,17 +1,17 @@
 <template>
-  <div class="tw-w-full">
+  <div class="w-full">
     <nuxt-link
-      class="tw-group tw-flex tw-flex-col tw-h-full tw-no-underline tw-outline-none focus-visible:tw-outline-none"
+      class="group flex flex-col h-full no-underline outline-none focus-visible:outline-none"
       :to="{ name: 'person-id', params: { id: person.id } }"
       :aria-label="`${person.name} as ${person.character}`">
-      <div class="tw-relative tw-w-full tw-h-0 tw-pt-[150%] tw-overflow-hidden tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-xl tw-transition-all tw-duration-300 group-hover:tw-border-border-medium group-hover:tw-shadow-cinema-md group-hover:-tw-translate-y-0.5 group-focus-visible:tw-ring-2 group-focus-visible:tw-ring-primary-amber">
+      <div class="relative w-full h-0 pt-[150%] overflow-hidden bg-surface-2 border border-border-subtle rounded-xl transition-all duration-300 group-hover:border-border-medium group-hover:shadow-cinema-md group-hover:-translate-y-0.5 group-focus-visible:ring-2 group-focus-visible:ring-primary-amber">
         <img
           v-if="poster"
           v-lazyload="poster"
-          class="lazyload tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-105"
+          class="lazyload absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           :alt="person.name">
 
-        <div v-else class="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-text-text-muted tw-bg-surface-1">
+        <div v-else class="absolute inset-0 flex items-center justify-center text-text-muted bg-surface-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -28,13 +28,13 @@
         </div>
       </div>
 
-      <div class="tw-flex tw-flex-col tw-pt-2.5 tw-px-0.5">
-        <h3 class="tw-m-0 tw-text-[1.35rem] tw-font-semibold tw-text-text-primary tw-leading-snug tw-truncate tw-transition-colors tw-duration-200 group-hover:tw-text-primary-amber" :title="person.name">
+      <div class="flex flex-col pt-2.5 px-0.5">
+        <h3 class="m-0 text-[1.35rem] font-semibold text-text-primary leading-snug truncate transition-colors duration-200 group-hover:text-primary-amber" :title="person.name">
           {{ person.name }}
         </h3>
         <p
           v-if="person.character"
-          class="tw-m-0 tw-mt-0.5 tw-text-[1.2rem] tw-text-text-muted tw-truncate"
+          class="m-0 mt-0.5 text-[1.2rem] text-text-muted truncate"
           :title="person.character">
           {{ person.character }}
         </p>

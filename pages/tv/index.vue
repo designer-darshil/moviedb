@@ -4,28 +4,28 @@
     <Hero :item="featured" />
 
     <!-- Category Discovery Switcher Bar -->
-    <section class="tw-relative tw-z-10 -tw-mt-6 sm:-tw-mt-8 tw-px-4 sm:tw-px-8 lg:tw-px-12 tw-pb-8">
-      <div class="tw-flex tw-items-center tw-gap-4 tw-max-w-[1600px] tw-mx-auto tw-px-5 tw-py-3 tw-bg-[rgba(14,17,23,0.9)] tw-backdrop-blur-xl tw-border tw-border-white/15 tw-rounded-full tw-shadow-cinema-md">
-        <span class="tw-hidden sm:tw-inline-block tw-text-[1.2rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-primary-amber tw-shrink-0">Explore Television:</span>
-        <div class="tw-flex tw-items-center tw-gap-2 tw-overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:tw-hidden">
+    <section class="relative z-10 -mt-6 sm:-mt-8 px-4 sm:px-8 lg:px-12 pb-8">
+      <div class="flex items-center gap-4 max-w-[1600px] mx-auto px-5 py-3 bg-[rgba(14,17,23,0.9)] backdrop-blur-xl border border-white/15 rounded-full shadow-cinema-md">
+        <span class="hidden sm:inline-block text-[1.2rem] font-bold uppercase tracking-widest text-primary-amber shrink-0">Explore Television:</span>
+        <div class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <nuxt-link
             :to="{ name: 'tv-category-name', params: { name: 'popular' } }"
-            class="tw-inline-flex tw-items-center tw-px-4 tw-py-1.5 tw-text-[1.3rem] tw-font-semibold tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-full tw-whitespace-nowrap hover:tw-text-[#07080b] hover:tw-bg-primary-amber hover:tw-border-primary-amber hover:tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
+            class="inline-flex items-center px-4 py-1.5 text-[1.3rem] font-semibold text-text-secondary bg-surface-2 border border-border-subtle rounded-full whitespace-nowrap hover:text-[#07080b] hover:bg-primary-amber hover:border-primary-amber hover:shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-translate-y-0.5 transition-all duration-200">
             Popular Series
           </nuxt-link>
           <nuxt-link
             :to="{ name: 'tv-category-name', params: { name: 'top_rated' } }"
-            class="tw-inline-flex tw-items-center tw-px-4 tw-py-1.5 tw-text-[1.3rem] tw-font-semibold tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-full tw-whitespace-nowrap hover:tw-text-[#07080b] hover:tw-bg-primary-amber hover:tw-border-primary-amber hover:tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
+            class="inline-flex items-center px-4 py-1.5 text-[1.3rem] font-semibold text-text-secondary bg-surface-2 border border-border-subtle rounded-full whitespace-nowrap hover:text-[#07080b] hover:bg-primary-amber hover:border-primary-amber hover:shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-translate-y-0.5 transition-all duration-200">
             Top Rated
           </nuxt-link>
           <nuxt-link
             :to="{ name: 'tv-category-name', params: { name: 'on_the_air' } }"
-            class="tw-inline-flex tw-items-center tw-px-4 tw-py-1.5 tw-text-[1.3rem] tw-font-semibold tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-full tw-whitespace-nowrap hover:tw-text-[#07080b] hover:tw-bg-primary-amber hover:tw-border-primary-amber hover:tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
+            class="inline-flex items-center px-4 py-1.5 text-[1.3rem] font-semibold text-text-secondary bg-surface-2 border border-border-subtle rounded-full whitespace-nowrap hover:text-[#07080b] hover:bg-primary-amber hover:border-primary-amber hover:shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-translate-y-0.5 transition-all duration-200">
             Currently Airing
           </nuxt-link>
           <nuxt-link
             :to="{ name: 'tv-category-name', params: { name: 'airing_today' } }"
-            class="tw-inline-flex tw-items-center tw-px-4 tw-py-1.5 tw-text-[1.3rem] tw-font-semibold tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-full tw-whitespace-nowrap hover:tw-text-[#07080b] hover:tw-bg-primary-amber hover:tw-border-primary-amber hover:tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
+            class="inline-flex items-center px-4 py-1.5 text-[1.3rem] font-semibold text-text-secondary bg-surface-2 border border-border-subtle rounded-full whitespace-nowrap hover:text-[#07080b] hover:bg-primary-amber hover:border-primary-amber hover:shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-translate-y-0.5 transition-all duration-200">
             Airing Today
           </nuxt-link>
         </div>

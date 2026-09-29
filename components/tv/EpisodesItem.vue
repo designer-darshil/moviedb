@@ -1,13 +1,13 @@
 <template>
-  <div class="tw-group tw-flex tw-flex-col tw-bg-surface-1 tw-border tw-border-border-subtle tw-rounded-xl tw-overflow-hidden tw-transition-all tw-duration-300 hover:tw-border-border-medium hover:tw-shadow-cinema-md hover:-tw-translate-y-0.5">
-    <div class="tw-relative tw-w-full tw-h-0 tw-pt-[56.25%] tw-overflow-hidden tw-bg-surface-2">
+  <div class="group flex flex-col bg-surface-1 border border-border-subtle rounded-xl overflow-hidden transition-all duration-300 hover:border-border-medium hover:shadow-cinema-md hover:-translate-y-0.5">
+    <div class="relative w-full h-0 pt-[56.25%] overflow-hidden bg-surface-2">
       <img
         v-if="poster"
         v-lazyload="poster"
-        class="lazyload tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-105"
+        class="lazyload absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         :alt="episode.name">
 
-      <div v-else class="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-text-text-muted tw-bg-surface-2">
+      <div v-else class="absolute inset-0 flex items-center justify-center text-text-muted bg-surface-2">
         <svg
           width="32"
           height="32"
@@ -28,22 +28,22 @@
         </svg>
       </div>
 
-      <div class="tw-absolute tw-top-2 tw-left-2 tw-px-2 tw-py-0.5 tw-text-[1.1rem] tw-font-bold tw-tracking-wide tw-text-[#0a0b0e] tw-bg-primary-amber tw-rounded">
+      <div class="absolute top-2 left-2 px-2 py-0.5 text-[1.1rem] font-bold tracking-wide text-[#0a0b0e] bg-primary-amber rounded">
         EP {{ episode.episode_number | numberWithDoubleDigits }}
       </div>
     </div>
 
-    <div class="tw-flex tw-flex-col tw-p-4 tw-gap-2 tw-flex-1">
-      <div class="tw-flex tw-flex-col tw-gap-1">
-        <h3 class="tw-m-0 tw-text-[1.5rem] tw-font-semibold tw-text-text-primary tw-leading-snug">
+    <div class="flex flex-col p-4 gap-2 flex-1">
+      <div class="flex flex-col gap-1">
+        <h3 class="m-0 text-[1.5rem] font-semibold text-text-primary leading-snug">
           {{ episode.name }}
         </h3>
-        <span v-if="episode.air_date" class="tw-text-[1.2rem] tw-font-medium tw-text-text-muted">
+        <span v-if="episode.air_date" class="text-[1.2rem] font-medium text-text-muted">
           {{ episode.air_date | fullDate }}
         </span>
       </div>
 
-      <p v-if="episode.overview" class="tw-m-0 tw-text-[1.35rem] tw-leading-relaxed tw-text-text-secondary">
+      <p v-if="episode.overview" class="m-0 text-[1.35rem] leading-relaxed text-text-secondary">
         {{ episode.overview | truncate(220) }}
       </p>
     </div>

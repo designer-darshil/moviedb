@@ -18,8 +18,8 @@ Every `.vue` Single File Component must follow this structural order:
 
 ```vue
 <template>
-  <div class="tw-relative tw-p-4 tw-bg-surface-1 tw-rounded-2xl">
-    <!-- Template markup with tw- utility classes -->
+  <div class="relative p-4 bg-surface-1 rounded-2xl">
+    <!-- Template markup with standard Tailwind utility classes -->
   </div>
 </template>
 
@@ -80,12 +80,12 @@ export default {
 
 ## 3. CSS & Styling Conventions (Tailwind-First)
 
-- **Tailwind-First Policy**: All UI layout, spacing, typography, colors, and responsive behavior are implemented using Tailwind CSS utilities.
-- **Mandatory `tw-` Prefix**: Every Tailwind class must include the `tw-` prefix (e.g. `tw-flex`, `tw-grid`, `tw-p-4`, `tw-text-white`). Unprefixed utilities are not permitted.
+- **Tailwind-First Policy**: All UI layout, spacing, typography, colors, and responsive behavior are implemented using standard Tailwind CSS utilities.
+- **Standard Unprefixed Classes**: Standard Tailwind utility classes are used directly without any prefix (e.g. `flex`, `grid`, `p-4`, `text-white`).
 - **No Component `<style>` Blocks**: Vue components should avoid `<style>` and `<style scoped/module>` blocks. Style components declaratively using Tailwind classes.
 - **Global Design Tokens**: Tokens are defined in `tailwind.config.js` (colors: `surface-0` through `surface-3`, `primary-amber`, `secondary-amber`, `border-subtle`, `border-medium`).
-- **Responsive Variants**: Use Tailwind responsive modifiers: `sm:tw-*`, `md:tw-*`, `lg:tw-*`, `xl:tw-*`.
-- **Interaction Variants**: Use Tailwind interaction modifiers: `hover:tw-*`, `focus:tw-*`, `focus-visible:tw-*`, `group-hover:tw-*`.
+- **Responsive Variants**: Use standard Tailwind responsive modifiers: `sm:*`, `md:*`, `lg:*`, `xl:*`, `2xl:*`.
+- **Interaction Variants**: Use standard Tailwind interaction modifiers: `hover:*`, `focus:*`, `focus-visible:*`, `group-hover:*`.
 - **Global Resets**: Base document resets, dark scrollbars, and page transitions reside in `assets/css/base/` and `assets/css/tailwind.css`.
 
 ---

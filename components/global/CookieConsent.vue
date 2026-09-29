@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="isOpen"
-    class="tw-relative tw-z-[80] tw-text-[1.35rem] tw-leading-normal tw-text-text-primary tw-bg-surface-1 tw-border-b tw-border-border-subtle tw-p-5 sm:tw-px-8 sm:tw-py-3.5 sm:tw-flex sm:tw-items-center sm:tw-justify-between">
-    <p class="tw-m-0 sm:tw-mr-8">
+    class="relative z-[80] text-[1.35rem] leading-normal text-text-primary bg-surface-1 border-b border-border-subtle p-5 sm:px-8 sm:py-3.5 sm:flex sm:items-center sm:justify-between">
+    <p class="m-0 sm:mr-8">
       We use cookies and other tracking technologies to improve your browsing
       experience on our website. By using our website, you consent to our use of
       cookies and other tracking technologies.
@@ -10,12 +10,12 @@
         target="_blank"
         href="https://jason.codes/cookie-policy"
         rel="noopener"
-        class="tw-text-primary-amber tw-underline hover:tw-text-[#f5c065]">Find out more</a>.
+        class="text-primary-amber underline hover:text-[#f5c065]">Find out more</a>.
     </p>
 
-    <div class="tw-flex tw-items-center tw-gap-2.5 tw-mt-3 sm:tw-mt-0 tw-shrink-0">
+    <div class="flex items-center gap-2.5 mt-3 sm:mt-0 shrink-0">
       <button
-        class="tw-px-4.5 tw-py-2 tw-text-[1.3rem] tw-font-semibold tw-text-text-primary tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded hover:tw-bg-surface-3 hover:tw-border-border-medium tw-cursor-pointer tw-transition-colors tw-duration-200"
+        class="px-4.5 py-2 text-[1.3rem] font-semibold text-text-primary bg-surface-2 border border-border-subtle rounded hover:bg-surface-3 hover:border-border-medium cursor-pointer transition-colors duration-200"
         type="button"
         aria-label="Decline cookies"
         @click="decline">
@@ -23,7 +23,7 @@
       </button>
 
       <button
-        class="tw-px-4.5 tw-py-2 tw-text-[1.3rem] tw-font-bold tw-text-[#0a0b0e] tw-bg-primary-amber hover:tw-bg-[#f5c065] tw-rounded tw-cursor-pointer tw-transition-colors tw-duration-200"
+        class="px-4.5 py-2 text-[1.3rem] font-bold text-[#0a0b0e] bg-primary-amber hover:bg-[#f5c065] rounded cursor-pointer transition-colors duration-200"
         type="button"
         aria-label="Accept cookies"
         @click="accept">

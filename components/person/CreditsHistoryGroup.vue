@@ -1,7 +1,7 @@
 <template>
-  <tr class="odd:tw-bg-surface-2/40">
-    <td class="tw-p-0">
-      <table class="tw-w-full tw-border-collapse">
+  <tr class="odd:bg-surface-2/40">
+    <td class="p-0">
+      <table class="w-full border-collapse">
         <tbody>
           <CreditsHistoryItem
             v-for="credit in group.credits"

@@ -1,6 +1,6 @@
 # moviedb — Cinematic Movie & TV Discovery Platform
 
-A modern, cinematic digital film catalogue and discovery platform powered by [The Movie Database (TMDb)](https://developers.themoviedb.org/3) API. Built with **Vue.js**, **Nuxt.js**, and **Tailwind CSS** (configured with project-wide `tw-` prefix) using an editorial, dark-first design system.
+A modern, cinematic digital film catalogue and discovery platform powered by [The Movie Database (TMDb)](https://developers.themoviedb.org/3) API. Built with **Vue.js**, **Nuxt.js**, and standard **Tailwind CSS** using an editorial, dark-first design system.
 
 ---
 

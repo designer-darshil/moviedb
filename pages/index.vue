@@ -7,15 +7,15 @@
       :featured-list="featuredItems" />
 
     <!-- Curated Quick Genre Discovery Bar -->
-    <section class="tw-relative tw-z-10 -tw-mt-6 sm:-tw-mt-8 tw-px-4 sm:tw-px-8 lg:tw-px-12 tw-pb-8">
-      <div class="tw-flex tw-items-center tw-gap-4 tw-max-w-[1600px] tw-mx-auto tw-px-5 tw-py-3 tw-bg-[rgba(14,17,23,0.9)] tw-backdrop-blur-xl tw-border tw-border-white/15 tw-rounded-full tw-shadow-cinema-md">
-        <span class="tw-hidden sm:tw-inline-block tw-text-[1.2rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-primary-amber tw-shrink-0">Browse by Genre:</span>
-        <div class="tw-flex tw-items-center tw-gap-2 tw-overflow-x-auto tw-scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:tw-hidden">
+    <section class="relative z-10 -mt-6 sm:-mt-8 px-4 sm:px-8 lg:px-12 pb-8">
+      <div class="flex items-center gap-4 max-w-[1600px] mx-auto px-5 py-3 bg-[rgba(14,17,23,0.9)] backdrop-blur-xl border border-white/15 rounded-full shadow-cinema-md">
+        <span class="hidden sm:inline-block text-[1.2rem] font-bold uppercase tracking-widest text-primary-amber shrink-0">Browse by Genre:</span>
+        <div class="flex items-center gap-2 overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <nuxt-link
             v-for="genre in quickGenres"
             :key="genre.id"
             :to="`/genre/${genre.id}/movie`"
-            class="tw-inline-flex tw-items-center tw-px-4 tw-py-1.5 tw-text-[1.25rem] tw-font-semibold tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-full tw-whitespace-nowrap hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-primary-amber tw-transition-all tw-duration-200">
+            class="inline-flex items-center px-4 py-1.5 text-[1.25rem] font-semibold text-text-secondary bg-surface-2 border border-border-subtle rounded-full whitespace-nowrap hover:text-white hover:bg-surface-3 hover:border-primary-amber transition-all duration-200">
             {{ genre.name }}
           </nuxt-link>
         </div>
@@ -32,48 +32,48 @@
       :is-ranked="true" />
 
     <!-- Editorial Spotlight Banner (Curated Masterpiece) -->
-    <section v-if="spotlightItem" class="tw-my-12 sm:tw-my-16 tw-px-4 sm:tw-px-8 lg:tw-px-12">
-      <div class="tw-max-w-[1600px] tw-mx-auto">
-        <div class="tw-relative tw-rounded-2xl tw-overflow-hidden tw-border tw-border-white/15 tw-bg-surface-1 tw-shadow-2xl">
-          <div class="tw-relative tw-w-full tw-h-[360px] sm:tw-h-[420px] tw-overflow-hidden">
+    <section v-if="spotlightItem" class="my-12 sm:my-16 px-4 sm:px-8 lg:px-12">
+      <div class="max-w-[1600px] mx-auto">
+        <div class="relative rounded-2xl overflow-hidden border border-white/15 bg-surface-1 shadow-2xl">
+          <div class="relative w-full h-[360px] sm:h-[420px] overflow-hidden">
             <img
               v-if="spotlightBackdrop"
               :src="spotlightBackdrop"
               :alt="spotlightItem.title || spotlightItem.name"
-              class="tw-w-full tw-h-full tw-object-cover tw-object-center">
-            <div class="tw-absolute tw-inset-0 tw-bg-gradient-to-t tw-from-[#07080b] tw-via-[rgba(7,8,11,0.7)] sm:tw-bg-gradient-to-r sm:tw-from-[#07080b] sm:tw-via-[rgba(7,8,11,0.85)] sm:tw-to-transparent" />
+              class="w-full h-full object-cover object-center">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#07080b] via-[rgba(7,8,11,0.7)] sm:bg-gradient-to-r sm:from-[#07080b] sm:via-[rgba(7,8,11,0.85)] sm:to-transparent" />
           </div>
 
-          <div class="tw-absolute tw-inset-y-0 tw-left-0 tw-z-10 tw-flex tw-flex-col tw-justify-center tw-max-w-[640px] tw-p-6 sm:tw-p-10 lg:tw-p-12">
-            <div class="tw-inline-flex tw-items-center tw-gap-2 tw-px-3 tw-py-1 tw-mb-3 tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-primary-amber tw-bg-primary-amber/12 tw-border tw-border-primary-amber/30 tw-rounded-full tw-w-fit">
+          <div class="absolute inset-y-0 left-0 z-10 flex flex-col justify-center max-w-[640px] p-6 sm:p-10 lg:p-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1 mb-3 text-[1.15rem] font-bold uppercase tracking-widest text-primary-amber bg-primary-amber/12 border border-primary-amber/30 rounded-full w-fit">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
               <span>Critic's Spotlight Choice</span>
             </div>
 
-            <h3 class="tw-m-0 tw-mb-3 tw-font-display tw-text-[2.6rem] sm:tw-text-[3.6rem] tw-font-black -tw-tracking-wider tw-text-white tw-leading-tight">
+            <h3 class="m-0 mb-3 font-display text-[2.6rem] sm:text-[3.6rem] font-black -tracking-wider text-white leading-tight">
               {{ spotlightItem.title || spotlightItem.name }}
             </h3>
 
-            <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-2.5 tw-mb-4 tw-text-[1.3rem] tw-text-text-muted">
-              <span class="tw-font-bold tw-text-primary-amber">
+            <div class="flex flex-wrap items-center gap-2.5 mb-4 text-[1.3rem] text-text-muted">
+              <span class="font-bold text-primary-amber">
                 ★ {{ spotlightItem.vote_average | rating }} Rating
               </span>
-              <span class="tw-opacity-40">•</span>
+              <span class="opacity-40">•</span>
               <span>{{ spotlightItem.release_date ? spotlightItem.release_date.split('-')[0] : 'Feature' }}</span>
-              <span v-if="spotlightItem.runtime" class="tw-opacity-40">•</span>
+              <span v-if="spotlightItem.runtime" class="opacity-40">•</span>
               <span v-if="spotlightItem.runtime">{{ spotlightItem.runtime | runtime }}</span>
             </div>
 
-            <p class="tw-m-0 tw-mb-6 tw-text-[1.45rem] tw-leading-relaxed tw-text-text-secondary tw-line-clamp-3">
+            <p class="m-0 mb-6 text-[1.45rem] leading-relaxed text-text-secondary line-clamp-3">
               {{ spotlightItem.overview | truncate(220) }}
             </p>
 
-            <div class="tw-flex tw-items-center">
+            <div class="flex items-center">
               <nuxt-link
                 :to="{ name: 'movie-id', params: { id: spotlightItem.id } }"
-                class="tw-inline-flex tw-items-center tw-gap-2 tw-h-11 tw-px-6 tw-text-[1.35rem] tw-font-bold tw-text-[#07080b] tw-bg-gradient-to-br tw-from-primary-amber tw-to-[#ff8a00] tw-rounded-xl tw-shadow-[0_4px_16px_rgba(229,169,60,0.4)] hover:tw-shadow-[0_6px_24px_rgba(229,169,60,0.6)] hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
+                class="inline-flex items-center gap-2 h-11 px-6 text-[1.35rem] font-bold text-[#07080b] bg-gradient-to-br from-primary-amber to-[#ff8a00] rounded-xl shadow-[0_4px_16px_rgba(229,169,60,0.4)] hover:shadow-[0_6px_24px_rgba(229,169,60,0.6)] hover:-translate-y-0.5 transition-all duration-200">
                 <span>Explore Feature</span>
                 <svg
                   width="16"
@@ -103,28 +103,28 @@
       :is-ranked="true" />
 
     <!-- Visual Genre Exploration Grid -->
-    <section class="tw-my-12 sm:tw-my-16 tw-px-4 sm:tw-px-8 lg:tw-px-12">
-      <div class="tw-max-w-[1600px] tw-mx-auto">
-        <div class="tw-flex tw-items-center tw-gap-3 tw-mb-6">
-          <span class="tw-inline-block tw-w-1 tw-h-7 tw-rounded-full tw-bg-gradient-to-b tw-from-primary-amber tw-to-[#ff8a00]" />
-          <h2 class="tw-m-0 tw-font-display tw-text-[2.2rem] sm:tw-text-[2.6rem] tw-font-bold tw-text-white -tw-tracking-wide">
+    <section class="my-12 sm:my-16 px-4 sm:px-8 lg:px-12">
+      <div class="max-w-[1600px] mx-auto">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="inline-block w-1 h-7 rounded-full bg-gradient-to-b from-primary-amber to-[#ff8a00]" />
+          <h2 class="m-0 font-display text-[2.2rem] sm:text-[2.6rem] font-bold text-white -tracking-wide">
             Explore Curated Worlds
           </h2>
         </div>
 
-        <div class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <nuxt-link
             v-for="tile in genreTiles"
             :key="tile.name"
             :to="tile.url"
-            class="tw-group tw-flex tw-items-center tw-gap-5 tw-p-6 tw-rounded-2xl tw-border tw-border-white/10 tw-no-underline hover:tw-border-primary-amber/40 hover:-tw-translate-y-1 hover:tw-shadow-xl tw-transition-all tw-duration-300"
+            class="group flex items-center gap-5 p-6 rounded-2xl border border-white/10 no-underline hover:border-primary-amber/40 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
             :style="{ background: tile.gradient }">
-            <span class="tw-text-[3rem]">{{ tile.icon }}</span>
-            <div class="tw-flex tw-flex-col tw-gap-1">
-              <h3 class="tw-m-0 tw-text-[1.7rem] tw-font-bold tw-text-white group-hover:tw-text-primary-amber tw-transition-colors tw-duration-200">
+            <span class="text-[3rem]">{{ tile.icon }}</span>
+            <div class="flex flex-col gap-1">
+              <h3 class="m-0 text-[1.7rem] font-bold text-white group-hover:text-primary-amber transition-colors duration-200">
                 {{ tile.name }}
               </h3>
-              <span class="tw-text-[1.25rem] tw-text-text-secondary">{{ tile.desc }}</span>
+              <span class="text-[1.25rem] text-text-secondary">{{ tile.desc }}</span>
             </div>
           </nuxt-link>
         </div>

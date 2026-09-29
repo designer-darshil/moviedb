@@ -1,19 +1,19 @@
 <template>
-  <tr class="tw-group hover:tw-bg-white/[0.03] tw-transition-colors tw-duration-200">
-    <td class="tw-w-24 tw-px-4 tw-py-3.5 tw-border-b tw-border-border-subtle tw-text-[1.4rem] tw-font-semibold tw-text-text-muted tw-align-middle">
+  <tr class="group hover:bg-white/[0.03] transition-colors duration-200">
+    <td class="w-24 px-4 py-3.5 border-b border-border-subtle text-[1.4rem] font-semibold text-text-muted align-middle">
       {{ year ? year : "—" }}
     </td>
-    <td class="tw-px-4 tw-py-3.5 tw-border-b tw-border-border-subtle tw-text-[1.5rem] tw-align-middle">
+    <td class="px-4 py-3.5 border-b border-border-subtle text-[1.5rem] align-middle">
       <nuxt-link
         :to="{ name: `${media}-id`, params: { id: credit.id } }"
-        class="tw-inline-flex tw-flex-wrap tw-items-baseline tw-gap-1.5 tw-no-underline">
-        <strong class="tw-text-text-primary tw-font-semibold group-hover:tw-text-primary-amber tw-transition-colors tw-duration-200">{{ name }}</strong>
+        class="inline-flex flex-wrap items-baseline gap-1.5 no-underline">
+        <strong class="text-text-primary font-semibold group-hover:text-primary-amber transition-colors duration-200">{{ name }}</strong>
 
-        <span v-if="episodes" class="tw-text-[1.25rem] tw-text-text-muted">
+        <span v-if="episodes" class="text-[1.25rem] text-text-muted">
           {{ episodes }}
         </span>
 
-        <span v-if="role" class="tw-text-[1.35rem] tw-text-text-secondary">
+        <span v-if="role" class="text-[1.35rem] text-text-secondary">
           {{ role }}
         </span>
       </nuxt-link>

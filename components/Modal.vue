@@ -2,18 +2,18 @@
   <transition name="modal" appear>
     <div
       ref="modal"
-      class="tw-fixed tw-inset-0 tw-z-[999] tw-overflow-x-hidden tw-overflow-y-auto tw-cursor-pointer tw-bg-[rgba(10,11,14,0.92)] tw-backdrop-blur-xl lg:tw-py-11 lg:tw-px-24"
+      class="fixed inset-0 z-[999] overflow-x-hidden overflow-y-auto cursor-pointer bg-[rgba(10,11,14,0.92)] backdrop-blur-xl lg:py-11 lg:px-24"
       tabindex="-1"
       aria-hidden="false"
       :aria-label="label"
       role="dialog"
       :class="modalClass"
       @click="close">
-      <div class="tw-flex tw-flex-col tw-min-h-full">
-        <div class="tw-relative tw-m-auto tw-cursor-default" @click.stop>
+      <div class="flex flex-col min-h-full">
+        <div class="relative m-auto cursor-default" @click.stop>
           <button
-            class="tw-fixed lg:tw-absolute tw-top-4 lg:tw-top-0 tw-right-4 lg:tw-right-0 tw-z-10 tw-flex tw-items-center tw-justify-center tw-w-11 tw-h-11 lg:tw-w-10 lg:tw-h-10 tw-p-0 tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-full tw-cursor-pointer hover:tw-bg-surface-3 hover:tw-border-border-medium hover:tw-scale-105 tw-transition-all tw-duration-200"
-            :class="(type === 'image' || type === 'iframe') ? 'lg:-tw-top-11' : ''"
+            class="fixed lg:absolute top-4 lg:top-0 right-4 lg:right-0 z-10 flex items-center justify-center w-11 h-11 lg:w-10 lg:h-10 p-0 bg-surface-2 border border-border-subtle rounded-full cursor-pointer hover:bg-surface-3 hover:border-border-medium hover:scale-105 transition-all duration-200"
+            :class="(type === 'image' || type === 'iframe') ? 'lg:-top-11' : ''"
             aria-label="Close"
             type="button"
             @click.stop="close">
@@ -36,31 +36,31 @@
 
           <div
             v-if="type === 'iframe'"
-            class="modal__iframe tw-relative tw-w-full tw-h-0 tw-pb-[56.25%] tw-overflow-hidden">
+            class="modal__iframe relative w-full h-0 pb-[56.25%] overflow-hidden">
             <iframe
               v-if="activeItem"
               :src="activeItem.src"
               frameborder="0"
               allow="autoplay; encrypted-media"
               allowfullscreen
-              class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-p-0 tw-m-0 tw-bg-black tw-border-0" />
+              class="absolute inset-0 w-full h-full p-0 m-0 bg-black border-0" />
           </div>
 
           <div
             v-else-if="type === 'image'"
-            class="tw-relative">
+            class="relative">
             <img
               v-if="activeItem"
               v-lazyload="activeItem.src"
-              class="lazyload tw-max-h-screen lg:tw-max-h-[calc(100vh-8.8rem)] tw-block tw-mx-auto"
+              class="lazyload max-h-screen lg:max-h-[calc(100vh-8.8rem)] block mx-auto"
               alt="">
           </div>
 
           <div
             v-if="showNav"
-            class="tw-fixed lg:tw-absolute tw-inset-x-0 tw-bottom-0 lg:-tw-bottom-11 tw-flex tw-items-center tw-justify-between lg:tw-justify-end tw-h-[5rem] lg:tw-h-[4.4rem] tw-bg-black lg:tw-bg-transparent">
+            class="fixed lg:absolute inset-x-0 bottom-0 lg:-bottom-11 flex items-center justify-between lg:justify-end h-[5rem] lg:h-[4.4rem] bg-black lg:bg-transparent">
             <button
-              class="tw-flex tw-items-center tw-justify-center tw-p-0 tw-bg-transparent tw-flex-1 lg:tw-flex-none tw-h-[5rem] lg:tw-fixed lg:tw-top-1/2 lg:tw-left-0 lg:tw-w-24 lg:tw-h-24 lg:-tw-mt-12 tw-cursor-pointer"
+              class="flex items-center justify-center p-0 bg-transparent flex-1 lg:flex-none h-[5rem] lg:fixed lg:top-1/2 lg:left-0 lg:w-24 lg:h-24 lg:-mt-12 cursor-pointer"
               aria-label="Previous"
               type="button"
               @click.stop="previous">
@@ -81,12 +81,12 @@
               </svg>
             </button>
 
-            <div class="tw-text-[1.6rem] tw-leading-none tw-text-white tw-px-4">
+            <div class="text-[1.6rem] leading-none text-white px-4">
               {{ selected + 1 }} / {{ data.length }}
             </div>
 
             <button
-              class="tw-flex tw-items-center tw-justify-center tw-p-0 tw-bg-transparent tw-flex-1 lg:tw-flex-none tw-h-[5rem] lg:tw-fixed lg:tw-top-1/2 lg:tw-right-0 lg:tw-w-24 lg:tw-h-24 lg:-tw-mt-12 tw-cursor-pointer"
+              class="flex items-center justify-center p-0 bg-transparent flex-1 lg:flex-none h-[5rem] lg:fixed lg:top-1/2 lg:right-0 lg:w-24 lg:h-24 lg:-mt-12 cursor-pointer"
               aria-label="Next"
               type="button"
               title="Next"

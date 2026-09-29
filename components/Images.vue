@@ -1,16 +1,16 @@
 <template>
-  <div class="tw-my-7 tw-mx-4 sm:tw-my-10 sm:tw-mx-8 lg:tw-my-12 lg:tw-mx-12">
-    <div class="tw-flex tw-items-baseline tw-mb-4 lg:tw-mb-6">
-      <h2 class="tw-m-0 tw-text-[1.8rem] lg:tw-text-[2.4rem] tw-font-bold tw-text-white -tw-tracking-wide">
+  <div class="my-7 mx-4 sm:my-10 sm:mx-8 lg:my-12 lg:mx-12">
+    <div class="flex items-baseline mb-4 lg:mb-6">
+      <h2 class="m-0 text-[1.8rem] lg:text-[2.4rem] font-bold text-white -tracking-wide">
         {{ title }}
       </h2>
 
-      <strong class="tw-ml-4 tw-text-[1.2rem] lg:tw-text-[1.4rem] tw-font-medium tw-text-text-muted">
+      <strong class="ml-4 text-[1.2rem] lg:text-[1.4rem] font-medium text-text-muted">
         {{ imagesCount }}
       </strong>
     </div>
 
-    <div class="tw-flex tw-flex-wrap -tw-mx-1.5">
+    <div class="flex flex-wrap -mx-1.5">
       <ImagesItem
         v-for="(image, index) in images"
         :key="`image-${index}`"

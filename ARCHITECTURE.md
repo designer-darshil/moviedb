@@ -38,9 +38,9 @@ vue-movies/
 │   │   ├── base/            # Reset, typography, layout, animations
 │   │   ├── utilities/       # SCSS tokens and helpers
 │   │   ├── global.scss      # Global base styles and transitions
-│   │   └── tailwind.css     # Tailwind CSS entry with tw- utility layers
+│   │   └── tailwind.css     # Tailwind CSS entry with standard utility layers
 │   └── images/              # Static assets & SVG icons
-├── tailwind.config.js       # Tailwind CSS v3 config (prefix: 'tw-', cinema tokens)
+├── tailwind.config.js       # Tailwind CSS v3 config (standard utility tokens)
 ├── components/
 │   ├── global/              # Nav (floating header & bottom dock), TopNav, SearchForm, Footer, CookieConsent
 │   ├── movie/               # MovieInfo (production stats grid, hero metadata)
@@ -108,7 +108,7 @@ vue-movies/
 ## 4. Build & Deployment Lifecycle
 
 - **Build Engine**: Webpack 4 via Nuxt 2.15.8 with `@nuxt/postcss8`, `tailwindcss` v3.4.19, and `autoprefixer` v10.6.1.
-- **Styling Architecture**: Tailwind-first styling system with mandatory `tw-` prefix. Zero scoped SCSS modules in Vue components.
+- **Styling Architecture**: Tailwind-first styling system with standard unprefixed utilities. Zero scoped SCSS modules in Vue components.
 - **Node Runtime**: Compatible with Node 18 through 24 using `NODE_OPTIONS=--openssl-legacy-provider`.
 - **Development Server**: Hosted on `http://localhost:5173`.
 - **Static Export**: `yarn generate` pre-renders pages into `/dist`.

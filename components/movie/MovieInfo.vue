@@ -1,16 +1,16 @@
 <template>
-  <div class="tw-flex tw-flex-col lg:tw-flex-row tw-gap-10 lg:tw-gap-16 tw-my-12 sm:tw-my-16 tw-px-4 sm:tw-px-8 lg:tw-px-12">
+  <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 my-12 sm:my-16 px-4 sm:px-8 lg:px-12">
     <!-- Left Column: Floating Key Artwork & Quick Utility -->
-    <div class="tw-w-full lg:tw-w-[340px] xl:tw-w-[380px] tw-shrink-0">
-      <div class="tw-relative tw-rounded-2xl tw-overflow-hidden tw-bg-surface-1 tw-border tw-border-white/15 tw-shadow-2xl">
-        <div class="tw-relative tw-w-full tw-h-0 tw-pt-[150%] tw-overflow-hidden tw-bg-surface-2">
+    <div class="w-full lg:w-[340px] xl:w-[380px] shrink-0">
+      <div class="relative rounded-2xl overflow-hidden bg-surface-1 border border-white/15 shadow-2xl">
+        <div class="relative w-full h-0 pt-[150%] overflow-hidden bg-surface-2">
           <img
             v-if="poster"
             v-lazyload="poster"
-            class="lazyload tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"
+            class="lazyload absolute inset-0 w-full h-full object-cover"
             :alt="name">
 
-          <div v-else class="tw-absolute tw-inset-0 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-3 tw-text-text-subtle tw-bg-surface-2">
+          <div v-else class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-text-subtle bg-surface-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="48"
@@ -36,95 +36,95 @@
               <line x1="17" y1="17" x2="22" y2="17" />
               <line x1="17" y1="7" x2="22" y2="7" />
             </svg>
-            <span class="tw-text-[1.1rem] tw-font-semibold tw-tracking-wider tw-uppercase">No Poster Available</span>
+            <span class="text-[1.1rem] font-semibold tracking-wider uppercase">No Poster Available</span>
           </div>
         </div>
 
-        <div v-if="item.tagline" class="tw-p-5 tw-text-center tw-font-serif tw-italic tw-text-[1.45rem] tw-text-text-muted tw-border-t tw-border-white/10 tw-bg-surface-2/50">
+        <div v-if="item.tagline" class="p-5 text-center font-serif italic text-[1.45rem] text-text-muted border-t border-white/10 bg-surface-2/50">
           &ldquo;{{ item.tagline }}&rdquo;
         </div>
       </div>
     </div>
 
     <!-- Right Column: Editorial Narrative & Production Intelligence -->
-    <div class="tw-flex-1 tw-flex tw-flex-col tw-gap-8">
+    <div class="flex-1 flex flex-col gap-8">
       <!-- Storyline Section -->
-      <div v-if="item.overview" class="tw-flex tw-flex-col tw-gap-4">
-        <div class="tw-flex tw-items-center tw-gap-3">
-          <span class="tw-inline-block tw-w-1 tw-h-7 tw-rounded-full tw-bg-gradient-to-b tw-from-primary-amber tw-to-[#ff8a00] tw-shadow-[0_0_12px_rgba(229,169,60,0.4)]" />
-          <h2 class="tw-m-0 tw-font-display tw-text-[2.2rem] tw-font-bold tw-text-white -tw-tracking-wide">
+      <div v-if="item.overview" class="flex flex-col gap-4">
+        <div class="flex items-center gap-3">
+          <span class="inline-block w-1 h-7 rounded-full bg-gradient-to-b from-primary-amber to-[#ff8a00] shadow-[0_0_12px_rgba(229,169,60,0.4)]" />
+          <h2 class="m-0 font-display text-[2.2rem] font-bold text-white -tracking-wide">
             The Storyline
           </h2>
         </div>
-        <p class="tw-m-0 tw-text-[1.6rem] tw-leading-relaxed tw-text-text-secondary" v-html="item.overview" />
+        <p class="m-0 text-[1.6rem] leading-relaxed text-text-secondary" v-html="item.overview" />
       </div>
 
       <!-- Genre Pills -->
-      <div v-if="item.genres && item.genres.length" class="tw-flex tw-flex-wrap tw-gap-2.5">
+      <div v-if="item.genres && item.genres.length" class="flex flex-wrap gap-2.5">
         <nuxt-link
           v-for="genre in item.genres"
           :key="genre.id"
           :to="`/genre/${genre.id}/movie`"
-          class="tw-inline-flex tw-items-center tw-px-4 tw-py-2 tw-text-[1.25rem] tw-font-semibold tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-white/15 tw-rounded-full hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-primary-amber tw-transition-all tw-duration-200">
+          class="inline-flex items-center px-4 py-2 text-[1.25rem] font-semibold text-text-secondary bg-surface-2 border border-white/15 rounded-full hover:text-white hover:bg-surface-3 hover:border-primary-amber transition-all duration-200">
           {{ genre.name }}
         </nuxt-link>
       </div>
 
       <!-- Production Intelligence Grid -->
-      <div class="tw-bg-surface-1 tw-border tw-border-white/15 tw-rounded-2xl tw-p-6 sm:tw-p-8 tw-shadow-xl">
-        <div class="tw-pb-5 tw-mb-6 tw-border-b tw-border-white/10">
-          <h3 class="tw-m-0 tw-font-display tw-text-[1.8rem] tw-font-bold tw-text-white -tw-tracking-wide">
+      <div class="bg-surface-1 border border-white/15 rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div class="pb-5 mb-6 border-b border-white/10">
+          <h3 class="m-0 font-display text-[1.8rem] font-bold text-white -tracking-wide">
             Production Intelligence
           </h3>
         </div>
 
-        <ul class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 md:tw-grid-cols-3 tw-gap-6 tw-list-none tw-m-0 tw-p-0">
-          <li v-if="directors" class="tw-flex tw-flex-col tw-gap-1.5">
-            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Directed By</span>
-            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary" v-html="directors" />
+        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 list-none m-0 p-0">
+          <li v-if="directors" class="flex flex-col gap-1.5">
+            <span class="text-[1.15rem] font-bold uppercase tracking-widest text-text-subtle">Directed By</span>
+            <span class="text-[1.4rem] font-semibold text-text-primary" v-html="directors" />
           </li>
 
-          <li v-if="item.release_date" class="tw-flex tw-flex-col tw-gap-1.5">
-            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Release Date</span>
-            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">{{
+          <li v-if="item.release_date" class="flex flex-col gap-1.5">
+            <span class="text-[1.15rem] font-bold uppercase tracking-widest text-text-subtle">Release Date</span>
+            <span class="text-[1.4rem] font-semibold text-text-primary">{{
               item.release_date | fullDate
             }}</span>
           </li>
 
-          <li v-if="item.runtime" class="tw-flex tw-flex-col tw-gap-1.5">
-            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Total Runtime</span>
-            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">{{ item.runtime | runtime }}</span>
+          <li v-if="item.runtime" class="flex flex-col gap-1.5">
+            <span class="text-[1.15rem] font-bold uppercase tracking-widest text-text-subtle">Total Runtime</span>
+            <span class="text-[1.4rem] font-semibold text-text-primary">{{ item.runtime | runtime }}</span>
           </li>
 
-          <li v-if="item.status" class="tw-flex tw-flex-col tw-gap-1.5">
-            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Theatrical Status</span>
-            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">{{ item.status }}</span>
+          <li v-if="item.status" class="flex flex-col gap-1.5">
+            <span class="text-[1.15rem] font-bold uppercase tracking-widest text-text-subtle">Theatrical Status</span>
+            <span class="text-[1.4rem] font-semibold text-text-primary">{{ item.status }}</span>
           </li>
 
-          <li v-if="item.budget" class="tw-flex tw-flex-col tw-gap-1.5">
-            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Production Budget</span>
-            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">${{ item.budget | numberWithCommas }}</span>
+          <li v-if="item.budget" class="flex flex-col gap-1.5">
+            <span class="text-[1.15rem] font-bold uppercase tracking-widest text-text-subtle">Production Budget</span>
+            <span class="text-[1.4rem] font-semibold text-text-primary">${{ item.budget | numberWithCommas }}</span>
           </li>
 
-          <li v-if="item.revenue" class="tw-flex tw-flex-col tw-gap-1.5">
-            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Worldwide Box Office</span>
-            <span class="tw-text-[1.4rem] tw-font-bold tw-text-accent-green">
+          <li v-if="item.revenue" class="flex flex-col gap-1.5">
+            <span class="text-[1.15rem] font-bold uppercase tracking-widest text-text-subtle">Worldwide Box Office</span>
+            <span class="text-[1.4rem] font-bold text-accent-green">
               ${{ item.revenue | numberWithCommas }}
             </span>
           </li>
 
-          <li v-if="item.original_language" class="tw-flex tw-flex-col tw-gap-1.5">
-            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Original Language</span>
-            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">{{
+          <li v-if="item.original_language" class="flex flex-col gap-1.5">
+            <span class="text-[1.15rem] font-bold uppercase tracking-widest text-text-subtle">Original Language</span>
+            <span class="text-[1.4rem] font-semibold text-text-primary">{{
               item.original_language | fullLang
             }}</span>
           </li>
 
           <li
             v-if="item.production_companies && item.production_companies.length"
-            class="tw-flex tw-flex-col tw-gap-1.5">
-            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Studio / Production</span>
-            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">{{
+            class="flex flex-col gap-1.5">
+            <span class="text-[1.15rem] font-bold uppercase tracking-widest text-text-subtle">Studio / Production</span>
+            <span class="text-[1.4rem] font-semibold text-text-primary">{{
               item.production_companies | arrayToList
             }}</span>
           </li>
@@ -132,7 +132,7 @@
       </div>
 
       <!-- External Links & Socials -->
-      <div v-if="item.external_ids" class="tw-pt-2">
+      <div v-if="item.external_ids" class="pt-2">
         <ExternalLinks :links="item.external_ids" />
       </div>
     </div>

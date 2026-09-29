@@ -3,16 +3,16 @@
     <TopNav :title="metaTitle" />
 
     <!-- Category Pill Switcher -->
-    <div class="tw-px-4 sm:tw-px-8 lg:tw-px-12 tw-pt-6 sm:tw-pt-8 lg:tw-pt-10">
-      <div class="tw-flex tw-items-center tw-gap-2 tw-overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:tw-hidden">
+    <div class="px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 lg:pt-10">
+      <div class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <nuxt-link
           v-for="cat in categories"
           :key="cat.query"
           :to="{ name: 'movie-category-name', params: { name: cat.query } }"
-          class="tw-inline-flex tw-items-center tw-px-5 tw-py-2 tw-text-[1.3rem] tw-font-semibold tw-rounded-full tw-whitespace-nowrap tw-transition-all tw-duration-200"
+          class="inline-flex items-center px-5 py-2 text-[1.3rem] font-semibold rounded-full whitespace-nowrap transition-all duration-200"
           :class="$route.params.name === cat.query
-            ? '!tw-text-[#07080b] !tw-bg-primary-amber !tw-border-primary-amber !tw-font-bold tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
-            : 'tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium'">
+            ? '!text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
+            : 'text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium'">
           {{ cat.title }}
         </nuxt-link>
       </div>

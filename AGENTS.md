@@ -11,7 +11,7 @@ This document specifies repository-specific rules, constraints, and operational 
 - **Framework**: Nuxt.js 2.15.8 (Vue.js 2.7.10) configured with `target: 'static'` and `ssr: false`.
 - **Node Environment**: Node.js 18+ (requires `NODE_OPTIONS=--openssl-legacy-provider` for Webpack 4 compilation on Node 17+).
 - **Package Manager**: `yarn` is the canonical package manager. Do not mix with `npm` lockfiles.
-- **Styling Architecture**: Tailwind CSS v3 with mandatory project-wide `tw-` prefix. Utility-first declarative styling with zero scoped SCSS modules in Vue components. Centralized tokens defined in `tailwind.config.js`.
+- **Styling Architecture**: Tailwind CSS v3 with standard utility classes. Utility-first declarative styling with zero scoped SCSS modules in Vue components. Centralized tokens defined in `tailwind.config.js`.
 
 ---
 

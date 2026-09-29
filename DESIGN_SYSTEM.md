@@ -109,24 +109,25 @@ When a poster, profile, or still path is missing from TMDb:
 
 ---
 
-## 6. Tailwind CSS Architecture (`tw-` Prefix)
+## 6. Tailwind CSS Architecture (Standard Unprefixed)
 
-The project has completely transitioned from custom scoped SCSS modules to a **Tailwind-First Styling System** utilizing Tailwind CSS v3 with a mandatory project-wide `tw-` prefix.
+The project has completely transitioned from custom scoped SCSS modules to a **Tailwind-First Styling System** utilizing standard Tailwind CSS v3 utility classes without any prefix.
 
-### Prefix Specification
-- **Prefix**: `tw-`
-- **Rule**: Every utility class must include the prefix (e.g., `tw-flex`, `tw-grid`, `tw-p-4`, `tw-text-white`). Unprefixed Tailwind utilities are strictly prohibited.
-- **Variant Prefixing**: Variants precede the prefix: `hover:tw-text-primary-amber`, `group-hover:tw-scale-105`, `md:tw-flex`, `focus-visible:tw-ring-2`.
+### Standard Utility Conventions
+- Standard Tailwind utilities are used directly across all components and pages (e.g., `flex`, `grid`, `p-4`, `text-white`).
+- Responsive modifiers follow standard Tailwind syntax: `sm:*`, `md:*`, `lg:*`, `xl:*`, `2xl:*`.
+- State variants follow standard syntax: `hover:*`, `focus:*`, `focus-visible:*`, `group-hover:*`.
 
 ### Tailwind Theme Tokens (`tailwind.config.js`)
 - **Colors**:
-  - `tw-bg-surface-0` (`#07080b`), `tw-bg-surface-1` (`#0e1015`), `tw-bg-surface-2` (`#161920`), `tw-bg-surface-3` (`#222630`)
-  - `tw-text-primary-amber` / `tw-bg-primary-amber` (`#e5a93c`), `tw-text-secondary-amber` (`#ff8a00`)
-  - `tw-text-text-primary` (`#ffffff`), `tw-text-text-secondary` (`#94a3b8`), `tw-text-text-muted` (`#64748b`), `tw-text-text-subtle` (`#475569`)
-  - `tw-border-border-subtle` (`rgba(255,255,255,0.08)`), `tw-border-border-medium` (`rgba(255,255,255,0.16)`)
+  - `bg-surface-0` (`#07080b`), `bg-surface-1` (`#0e1117`), `bg-surface-2` (`#151922`), `bg-surface-3` (`#1e2430`)
+  - `text-primary-amber` / `bg-primary-amber` (`#e5a93c`), `text-secondary-amber` (`#ff8a00`)
+  - `text-text-primary` (`#f8fafc`), `text-text-secondary` (`#cbd5e1`), `text-text-muted` (`#94a3b8`), `text-text-subtle` (`#64748b`)
+  - `border-border-subtle` (`rgba(255,255,255,0.07)`), `border-border-medium` (`rgba(255,255,255,0.14)`)
 - **Typography**:
-  - Display Font: `tw-font-display` (`Cinzel`, `Outfit`, sans-serif)
-  - Body Font: `tw-font-sans` (`Inter`, system-ui, sans-serif)
+  - Display Font: `font-display` (`Inter`, `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `Roboto`, sans-serif)
+  - Body Font: `font-sans` (`Inter`, `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `Roboto`, sans-serif)
 - **Shadows**:
-  - `tw-shadow-cinema-sm`, `tw-shadow-cinema-md`, `tw-shadow-cinema-lg`, `tw-shadow-cinema-glow`
+  - `shadow-cinema-sm`, `shadow-cinema-md`, `shadow-cinema-lg`, `shadow-glow`, `shadow-poster`
+
 

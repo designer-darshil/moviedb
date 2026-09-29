@@ -1,54 +1,54 @@
 <template>
-  <main class="main tw-min-h-[80vh] tw-pb-32">
+  <main class="main min-h-[80vh] pb-32">
     <!-- Search Query & Filter Header -->
-    <div v-if="items && items.results.length" class="tw-px-4 sm:tw-px-8 lg:tw-px-12 tw-pt-8 sm:tw-pt-12 lg:tw-pt-14 tw-pb-6 sm:tw-pb-7 lg:tw-pb-8 tw-max-w-[1600px] tw-mx-auto">
-      <div class="tw-mb-5">
-        <h1 class="tw-m-0 tw-mb-1.5 tw-font-display tw-text-[2.8rem] sm:tw-text-[3.6rem] tw-font-extrabold tw-text-white tw-tracking-tight">
+    <div v-if="items && items.results.length" class="px-4 sm:px-8 lg:px-12 pt-8 sm:pt-12 lg:pt-14 pb-6 sm:pb-7 lg:pb-8 max-w-[1600px] mx-auto">
+      <div class="mb-5">
+        <h1 class="m-0 mb-1.5 font-display text-[2.8rem] sm:text-[3.6rem] font-extrabold text-white tracking-tight">
           Results for &ldquo;{{ query }}&rdquo;
         </h1>
-        <span class="tw-text-[1.4rem] tw-font-medium tw-text-primary-amber">
+        <span class="text-[1.4rem] font-medium text-primary-amber">
           {{ filteredResults.length }} {{ filteredResults.length === 1 ? 'match' : 'matches' }} found
         </span>
       </div>
 
       <!-- Media Type Filters -->
-      <div class="tw-flex tw-items-center tw-gap-2 tw-overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:tw-hidden">
+      <div class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <button
           type="button"
-          class="tw-inline-flex tw-items-center tw-px-4.5 tw-py-1.5 tw-text-[1.3rem] tw-font-semibold tw-rounded-full tw-whitespace-nowrap tw-cursor-pointer tw-transition-all tw-duration-200"
+          class="inline-flex items-center px-4.5 py-1.5 text-[1.3rem] font-semibold rounded-full whitespace-nowrap cursor-pointer transition-all duration-200"
           :class="activeFilter === 'all'
-            ? '!tw-text-[#07080b] !tw-bg-primary-amber !tw-border-primary-amber !tw-font-bold tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
-            : 'tw-text-text-secondary tw-bg-surface-1 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-2 hover:tw-border-border-medium'"
+            ? '!text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
+            : 'text-text-secondary bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-border-medium'"
           @click="activeFilter = 'all'">
           All ({{ items.results.length }})
         </button>
         <button
           v-if="counts.movie"
           type="button"
-          class="tw-inline-flex tw-items-center tw-px-4.5 tw-py-1.5 tw-text-[1.3rem] tw-font-semibold tw-rounded-full tw-whitespace-nowrap tw-cursor-pointer tw-transition-all tw-duration-200"
+          class="inline-flex items-center px-4.5 py-1.5 text-[1.3rem] font-semibold rounded-full whitespace-nowrap cursor-pointer transition-all duration-200"
           :class="activeFilter === 'movie'
-            ? '!tw-text-[#07080b] !tw-bg-primary-amber !tw-border-primary-amber !tw-font-bold tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
-            : 'tw-text-text-secondary tw-bg-surface-1 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-2 hover:tw-border-border-medium'"
+            ? '!text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
+            : 'text-text-secondary bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-border-medium'"
           @click="activeFilter = 'movie'">
           Movies ({{ counts.movie }})
         </button>
         <button
           v-if="counts.tv"
           type="button"
-          class="tw-inline-flex tw-items-center tw-px-4.5 tw-py-1.5 tw-text-[1.3rem] tw-font-semibold tw-rounded-full tw-whitespace-nowrap tw-cursor-pointer tw-transition-all tw-duration-200"
+          class="inline-flex items-center px-4.5 py-1.5 text-[1.3rem] font-semibold rounded-full whitespace-nowrap cursor-pointer transition-all duration-200"
           :class="activeFilter === 'tv'
-            ? '!tw-text-[#07080b] !tw-bg-primary-amber !tw-border-primary-amber !tw-font-bold tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
-            : 'tw-text-text-secondary tw-bg-surface-1 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-2 hover:tw-border-border-medium'"
+            ? '!text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
+            : 'text-text-secondary bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-border-medium'"
           @click="activeFilter = 'tv'">
           TV Series ({{ counts.tv }})
         </button>
         <button
           v-if="counts.person"
           type="button"
-          class="tw-inline-flex tw-items-center tw-px-4.5 tw-py-1.5 tw-text-[1.3rem] tw-font-semibold tw-rounded-full tw-whitespace-nowrap tw-cursor-pointer tw-transition-all tw-duration-200"
+          class="inline-flex items-center px-4.5 py-1.5 text-[1.3rem] font-semibold rounded-full whitespace-nowrap cursor-pointer transition-all duration-200"
           :class="activeFilter === 'person'
-            ? '!tw-text-[#07080b] !tw-bg-primary-amber !tw-border-primary-amber !tw-font-bold tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
-            : 'tw-text-text-secondary tw-bg-surface-1 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-2 hover:tw-border-border-medium'"
+            ? '!text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
+            : 'text-text-secondary bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-border-medium'"
           @click="activeFilter = 'person'">
           People ({{ counts.person }})
         </button>
@@ -56,8 +56,8 @@
     </div>
 
     <!-- Results Grid -->
-    <div v-if="filteredResults.length" class="tw-px-4 sm:tw-px-8 lg:tw-px-12 tw-max-w-[1600px] tw-mx-auto">
-      <div class="tw-grid tw-grid-cols-2 xs:tw-grid-cols-3 sm:tw-grid-cols-4 md:tw-grid-cols-5 xl:tw-grid-cols-6 tw-gap-[1.8rem] xs:tw-gap-[2.2rem] sm:tw-gap-[2.6rem] xl:tw-gap-[2.8rem]">
+    <div v-if="filteredResults.length" class="px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
+      <div class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-[1.8rem] xs:gap-[2.2rem] sm:gap-[2.6rem] xl:gap-[2.8rem]">
         <Card
           v-for="item in filteredResults"
           :key="`search-card-${item.id}`"
@@ -65,10 +65,10 @@
       </div>
 
       <!-- Infinite Scroll Loading Indicator -->
-      <div v-if="items.page < items.total_pages" class="tw-flex tw-items-center tw-justify-center tw-py-12">
-        <div v-if="loading" class="tw-flex tw-flex-col tw-items-center tw-gap-3.5">
-          <span class="tw-w-9 tw-h-9 tw-border-[3px] tw-border-primary-amber/20 tw-border-t-primary-amber tw-rounded-full tw-animate-spin" />
-          <span class="tw-text-[1.35rem] tw-text-text-muted">Loading more results...</span>
+      <div v-if="items.page < items.total_pages" class="flex items-center justify-center py-12">
+        <div v-if="loading" class="flex flex-col items-center gap-3.5">
+          <span class="w-9 h-9 border-[3px] border-primary-amber/20 border-t-primary-amber rounded-full animate-spin" />
+          <span class="text-[1.35rem] text-text-muted">Loading more results...</span>
         </div>
       </div>
     </div>
@@ -76,8 +76,8 @@
     <!-- Empty State -->
     <div
       v-else-if="query && (!items || !items.results.length || !filteredResults.length)"
-      class="tw-flex tw-flex-col tw-items-center tw-justify-center tw-text-center tw-py-20 tw-px-5 tw-max-w-[640px] tw-mx-auto">
-      <div class="tw-flex tw-items-center tw-justify-center tw-w-[8.8rem] tw-h-[8.8rem] tw-rounded-full tw-text-primary-amber tw-bg-primary-amber/10 tw-border tw-border-primary-amber/25 tw-mb-6 tw-shadow-[0_0_24px_rgba(229,169,60,0.15)]">
+      class="flex flex-col items-center justify-center text-center py-20 px-5 max-w-[640px] mx-auto">
+      <div class="flex items-center justify-center w-[8.8rem] h-[8.8rem] rounded-full text-primary-amber bg-primary-amber/10 border border-primary-amber/25 mb-6 shadow-[0_0_24px_rgba(229,169,60,0.15)]">
         <svg
           width="48"
           height="48"
@@ -93,25 +93,25 @@
         </svg>
       </div>
 
-      <h2 class="tw-m-0 tw-mb-3 tw-font-display tw-text-[2.6rem] tw-font-extrabold tw-text-white tw-tracking-tight">
+      <h2 class="m-0 mb-3 font-display text-[2.6rem] font-extrabold text-white tracking-tight">
         No titles found for &ldquo;{{ query }}&rdquo;
       </h2>
 
-      <p class="tw-m-0 tw-mb-9 tw-text-[1.6rem] tw-leading-relaxed tw-text-text-secondary">
+      <p class="m-0 mb-9 text-[1.6rem] leading-relaxed text-text-secondary">
         We couldn't find any movies, TV series, or people matching your query.
         Try checking your spelling or search for another title.
       </p>
 
-      <div class="tw-flex tw-flex-col tw-items-center tw-gap-4 tw-w-full">
-        <span class="tw-text-[1.2rem] tw-font-bold tw-text-text-muted tw-uppercase tw-tracking-widest">Or browse curated categories:</span>
-        <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-3">
-          <nuxt-link to="/movie" class="tw-inline-flex tw-items-center tw-px-5 tw-py-2.5 tw-text-[1.4rem] tw-font-semibold tw-text-text-primary tw-bg-surface-2 tw-border tw-border-border-medium tw-rounded-full hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-primary-amber hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
+      <div class="flex flex-col items-center gap-4 w-full">
+        <span class="text-[1.2rem] font-bold text-text-muted uppercase tracking-widest">Or browse curated categories:</span>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <nuxt-link to="/movie" class="inline-flex items-center px-5 py-2.5 text-[1.4rem] font-semibold text-text-primary bg-surface-2 border border-border-medium rounded-full hover:text-white hover:bg-surface-3 hover:border-primary-amber hover:-translate-y-0.5 transition-all duration-200">
             Explore Movies
           </nuxt-link>
-          <nuxt-link to="/tv" class="tw-inline-flex tw-items-center tw-px-5 tw-py-2.5 tw-text-[1.4rem] tw-font-semibold tw-text-text-primary tw-bg-surface-2 tw-border tw-border-border-medium tw-rounded-full hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-primary-amber hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
+          <nuxt-link to="/tv" class="inline-flex items-center px-5 py-2.5 text-[1.4rem] font-semibold text-text-primary bg-surface-2 border border-border-medium rounded-full hover:text-white hover:bg-surface-3 hover:border-primary-amber hover:-translate-y-0.5 transition-all duration-200">
             Explore TV Shows
           </nuxt-link>
-          <nuxt-link to="/" class="tw-inline-flex tw-items-center tw-px-5 tw-py-2.5 tw-text-[1.4rem] !tw-text-[#07080b] !tw-bg-primary-amber !tw-border-primary-amber !tw-font-bold tw-shadow-[0_2px_14px_rgba(229,169,60,0.4)] tw-rounded-full hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
+          <nuxt-link to="/" class="inline-flex items-center px-5 py-2.5 text-[1.4rem] !text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_14px_rgba(229,169,60,0.4)] rounded-full hover:-translate-y-0.5 transition-all duration-200">
             Back to Home
           </nuxt-link>
         </div>

@@ -1,25 +1,25 @@
 <template>
-  <div class="tw-min-h-[80vh] tw-flex tw-items-center tw-justify-center tw-p-8 tw-text-center">
-    <div class="tw-max-w-[540px] tw-w-full tw-bg-surface-1 tw-border tw-border-border-medium tw-rounded-3xl tw-p-10 sm:tw-py-14 sm:tw-px-9 tw-shadow-cinema-lg tw-flex tw-flex-col tw-items-center">
-      <div class="tw-font-display tw-text-[8.8rem] tw-font-black tw-leading-none tw-tracking-tighter tw-mb-4 tw-bg-gradient-to-br tw-from-primary-amber tw-to-[#ff8a00] tw-bg-clip-text tw-text-transparent">
+  <div class="min-h-[80vh] flex items-center justify-center p-8 text-center">
+    <div class="max-w-[540px] w-full bg-surface-1 border border-border-medium rounded-3xl p-10 sm:py-14 sm:px-9 shadow-cinema-lg flex flex-col items-center">
+      <div class="font-display text-[8.8rem] font-black leading-none tracking-tighter mb-4 bg-gradient-to-br from-primary-amber to-[#ff8a00] bg-clip-text text-transparent">
         {{ error.statusCode || 404 }}
       </div>
 
-      <h1 class="tw-m-0 tw-mb-3 tw-font-display tw-text-[2.6rem] tw-font-extrabold tw-text-white tw-tracking-tight">
+      <h1 class="m-0 mb-3 font-display text-[2.6rem] font-extrabold text-white tracking-tight">
         {{ message }}
       </h1>
 
-      <p v-if="error.statusCode === 504" class="tw-m-0 tw-mb-9 tw-text-[1.55rem] tw-leading-relaxed tw-text-text-secondary">
+      <p v-if="error.statusCode === 504" class="m-0 mb-9 text-[1.55rem] leading-relaxed text-text-secondary">
         We are unable to connect to the film database at this moment. Please
         check your internet connection or try again in a few moments.
       </p>
-      <p v-else class="tw-m-0 tw-mb-9 tw-text-[1.55rem] tw-leading-relaxed tw-text-text-secondary">
+      <p v-else class="m-0 mb-9 text-[1.55rem] leading-relaxed text-text-secondary">
         The title, page, or resource you are looking for does not exist or may
         have been moved.
       </p>
 
-      <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-3.5">
-        <nuxt-link to="/" class="tw-inline-flex tw-items-center tw-justify-center tw-gap-2 tw-h-[4.6rem] tw-px-6 tw-text-[1.4rem] tw-font-bold tw-text-[#07080b] tw-bg-primary-amber tw-border tw-border-primary-amber tw-rounded-full tw-shadow-[0_2px_14px_rgba(229,169,60,0.4)] hover:tw-shadow-[0_4px_20px_rgba(229,169,60,0.6)] hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
+      <div class="flex flex-wrap items-center justify-center gap-3.5">
+        <nuxt-link to="/" class="inline-flex items-center justify-center gap-2 h-[4.6rem] px-6 text-[1.4rem] font-bold text-[#07080b] bg-primary-amber border border-primary-amber rounded-full shadow-[0_2px_14px_rgba(229,169,60,0.4)] hover:shadow-[0_4px_20px_rgba(229,169,60,0.6)] hover:-translate-y-0.5 transition-all duration-200">
           <svg
             width="16"
             height="16"
@@ -34,7 +34,7 @@
           <span>Return Home</span>
         </nuxt-link>
 
-        <nuxt-link to="/movie" class="tw-inline-flex tw-items-center tw-justify-center tw-gap-2 tw-h-[4.6rem] tw-px-6 tw-text-[1.4rem] tw-font-semibold tw-text-text-primary tw-bg-surface-2 tw-border tw-border-border-medium tw-rounded-full hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-white/30 hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
+        <nuxt-link to="/movie" class="inline-flex items-center justify-center gap-2 h-[4.6rem] px-6 text-[1.4rem] font-semibold text-text-primary bg-surface-2 border border-border-medium rounded-full hover:text-white hover:bg-surface-3 hover:border-white/30 hover:-translate-y-0.5 transition-all duration-200">
           <span>Explore Movies</span>
         </nuxt-link>
       </div>
