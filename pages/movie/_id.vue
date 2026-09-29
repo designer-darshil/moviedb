@@ -76,12 +76,7 @@ export default {
   async asyncData ({ params, error }) {
     try {
       const item = await getMovie(params.id);
-
-      if (item.adult) {
-        error({ message: 'This movie is not available' });
-      } else {
-        return { item };
-      }
+      return { item };
     } catch {
       error({ statusCode: 404, message: 'Page not found' });
     }

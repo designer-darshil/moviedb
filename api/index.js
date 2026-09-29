@@ -463,6 +463,7 @@ export function getMediaByGenre (media, genre, page = 1) {
           language: process.env.API_LANG,
           with_genres: genre,
           page,
+          include_adult: true,
         },
       })
       .then((response) => {
@@ -550,6 +551,7 @@ export function search (query, page = 1) {
           language: process.env.API_LANG,
           query,
           page,
+          include_adult: true,
         },
       })
       .then((response) => {

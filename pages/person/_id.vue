@@ -55,12 +55,7 @@ export default {
   async asyncData ({ params, error }) {
     try {
       const person = await getPerson(params.id);
-
-      if (person.adult) {
-        error({ message: 'This person is not available' });
-      } else {
-        return { person };
-      }
+      return { person };
     } catch {
       error({ statusCode: 404, message: 'Page not found' });
     }
@@ -183,11 +178,6 @@ export default {
       if (!results) return;
 
       results = this.removeDuplicates(results);
-
-      // results = results.filter((item) => {
-      //   if (item.adult) return false;
-      //   return true;
-      // });
 
       results.sort((a, b) => (a.vote_count > b.vote_count ? -1 : 1));
 
