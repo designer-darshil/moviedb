@@ -1,32 +1,30 @@
 <template>
   <div
     v-if="isOpen"
-    class="relative z-[80] text-[1.35rem] leading-normal text-text-primary bg-surface-1 border-b border-border-subtle p-5 sm:px-8 sm:py-3.5 sm:flex sm:items-center sm:justify-between">
-    <p class="m-0 sm:mr-8">
-      We use cookies and other tracking technologies to improve your browsing
-      experience on our website. By using our website, you consent to our use of
-      cookies and other tracking technologies.
-      <a
-        target="_blank"
-        href="https://jason.codes/cookie-policy"
-        rel="noopener"
-        class="text-primary-amber underline hover:text-[#f5c065]">Find out more</a>.
+    class="relative z-[80] text-[1.35rem] leading-normal text-text-primary bg-surface-1 border-b border-border-subtle p-5 sm:px-8 sm:py-3.5 sm:flex sm:items-center sm:justify-between shadow-cinema-sm"
+  >
+    <p class="m-0 sm:mr-8 text-text-secondary">
+      We use cookies and analytical technologies to enhance your cinematic
+      discovery experience on our platform. By continuing, you agree to our
+      standard operating policies.
     </p>
 
     <div class="flex items-center gap-2.5 mt-3 sm:mt-0 shrink-0">
       <button
-        class="px-4.5 py-2 text-[1.3rem] font-semibold text-text-primary bg-surface-2 border border-border-subtle rounded hover:bg-surface-3 hover:border-border-medium cursor-pointer transition-colors duration-200"
+        class="px-4 py-2 text-[1.3rem] font-semibold text-text-muted bg-surface-2 border border-border-subtle rounded-xl hover:text-white hover:bg-surface-3 cursor-pointer transition-colors duration-150"
         type="button"
         aria-label="Decline cookies"
-        @click="decline">
+        @click="decline"
+      >
         Decline
       </button>
 
       <button
-        class="px-4.5 py-2 text-[1.3rem] font-bold text-[#0a0b0e] bg-primary-amber hover:bg-[#f5c065] rounded cursor-pointer transition-colors duration-200"
+        class="px-5 py-2 text-[1.3rem] font-bold text-[#07080b] bg-primary-amber hover:bg-primary-hover active:bg-primary-active rounded-xl shadow-cinema-sm cursor-pointer transition-colors duration-150"
         type="button"
         aria-label="Accept cookies"
-        @click="accept">
+        @click="accept"
+      >
         Accept
       </button>
     </div>
@@ -38,21 +36,21 @@ import { get, set } from 'tiny-cookie';
 import { supportsLocalStorage } from '~/mixins/Functions';
 
 export default {
-  data () {
+  data() {
     return {
       isOpen: false,
       storageName: 'cookieconsent',
     };
   },
 
-  mounted () {
+  mounted() {
     if (!this.getVisited()) {
       this.isOpen = true;
     }
   },
 
   methods: {
-    getVisited () {
+    getVisited() {
       if (supportsLocalStorage()) {
         return localStorage.getItem(this.storageName);
       } else {
@@ -60,7 +58,7 @@ export default {
       }
     },
 
-    setAccepted () {
+    setAccepted() {
       if (supportsLocalStorage()) {
         localStorage.setItem(this.storageName, 'accepted');
       } else {
@@ -68,7 +66,7 @@ export default {
       }
     },
 
-    setDeclined () {
+    setDeclined() {
       if (supportsLocalStorage()) {
         localStorage.setItem(this.storageName, 'declined');
       } else {
@@ -76,12 +74,12 @@ export default {
       }
     },
 
-    accept () {
+    accept() {
       this.setAccepted();
       this.isOpen = false;
     },
 
-    decline () {
+    decline() {
       this.setDeclined();
       this.isOpen = false;
     },

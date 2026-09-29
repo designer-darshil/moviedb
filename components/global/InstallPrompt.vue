@@ -1,34 +1,38 @@
 <template>
   <div
     v-if="isOpen"
-    class="relative z-[80] text-[1.35rem] leading-normal text-text-primary bg-surface-1 border-b border-border-subtle flex">
-    <p class="flex-1 m-0 px-5 py-3.5">
-      Do you want to
+    class="relative z-[80] text-[1.35rem] leading-normal text-text-primary bg-surface-1 border-b border-border-subtle flex items-center justify-between px-5 sm:px-8 py-3.5 shadow-cinema-sm"
+  >
+    <p class="m-0 text-text-secondary">
+      Install CINEPULSE as an app on your device for instant offline access and
+      quick discovery:
       <a
         href="#"
-        class="text-primary-amber underline hover:text-[#f5c065]"
-        @click.prevent="install">add this app to your home screen?</a>
+        class="text-primary-amber font-semibold underline hover:text-primary-hover ml-1"
+        @click.prevent="install"
+      >
+        Add to Home Screen
+      </a>
     </p>
 
     <button
-      class="flex shrink-0 items-center justify-center px-5 bg-transparent border-0 border-l border-border-subtle text-text-muted hover:text-white cursor-pointer transition-colors duration-200"
+      class="flex shrink-0 items-center justify-center w-8 h-8 rounded-lg bg-surface-2 text-text-muted hover:text-white hover:bg-surface-3 cursor-pointer transition-colors duration-150"
       type="button"
       aria-label="Close"
-      @click="close">
-      <!-- eslint-disable-next-line -->
+      @click="close"
+    >
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="15"
-        height="15"
-        viewBox="0 0 15 15">
-        <g
-          fill="none"
-          stroke="#fff"
-          stroke-linecap="round"
-          stroke-miterlimit="10"
-          stroke-width="1.5">
-          <path d="M.75.75l13.5 13.5M14.25.75L.75 14.25" />
-        </g>
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
       </svg>
     </button>
   </div>
@@ -41,14 +45,14 @@ import { supportsLocalStorage } from '~/mixins/Functions';
 let installEvent;
 
 export default {
-  data () {
+  data() {
     return {
       isOpen: false,
       storageName: 'installprompt',
     };
   },
 
-  mounted () {
+  mounted() {
     window.addEventListener('beforeinstallprompt', (event) => {
       event.preventDefault();
 
@@ -60,7 +64,7 @@ export default {
   },
 
   methods: {
-    setVisited () {
+    setVisited() {
       if (supportsLocalStorage()) {
         localStorage.setItem(this.storageName, true);
       } else {
@@ -68,7 +72,7 @@ export default {
       }
     },
 
-    getVisited () {
+    getVisited() {
       if (supportsLocalStorage()) {
         return localStorage.getItem(this.storageName);
       } else {
@@ -76,13 +80,13 @@ export default {
       }
     },
 
-    close () {
+    close() {
       this.setVisited();
       this.isOpen = false;
       installEvent = null;
     },
 
-    install () {
+    install() {
       this.isOpen = false;
       installEvent.prompt();
 
