@@ -1,15 +1,16 @@
 <template>
-  <div class="my-7 mx-4 sm:my-10 sm:mx-8 lg:my-12 lg:mx-12">
-    <div class="flex flex-wrap items-center gap-6 mb-8 pb-4 border-b border-border-subtle">
+  <div class="my-6 sm:my-8 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
+    <!-- Filter Bar -->
+    <div class="flex flex-wrap items-center gap-6 mb-8 pb-3 border-b border-border-subtle">
       <div class="flex items-center gap-3">
-        <label for="credits_category" class="text-[1.2rem] font-bold uppercase tracking-widest text-text-subtle">
+        <label for="credits_category" class="text-[1.2rem] font-medium uppercase tracking-wider text-text-subtle">
           Department
         </label>
 
         <select
           id="credits_category"
           v-model="active_category"
-          class="bg-surface-2 text-text-primary border border-border-subtle rounded-lg px-3 py-2 text-[1.3rem] outline-none focus:border-primary-amber"
+          class="bg-surface-2 text-text-primary border border-border-subtle rounded-md px-3 py-1.5 text-[1.25rem] outline-none focus:border-border-medium"
           :disabled="!categories.length || categories.length === 1"
           @change="filterCredits">
           <option value="all">
@@ -26,38 +27,40 @@
       </div>
 
       <div class="flex items-center gap-3">
-        <label for="credits_media" class="text-[1.2rem] font-bold uppercase tracking-widest text-text-subtle"> Format </label>
+        <label for="credits_media" class="text-[1.2rem] font-medium uppercase tracking-wider text-text-subtle">
+          Format
+        </label>
 
         <select
           id="credits_media"
           v-model="active_media"
-          class="bg-surface-2 text-text-primary border border-border-subtle rounded-lg px-3 py-2 text-[1.3rem] outline-none focus:border-primary-amber"
+          class="bg-surface-2 text-text-primary border border-border-subtle rounded-md px-3 py-1.5 text-[1.25rem] outline-none focus:border-border-medium"
           @change="getCredits">
           <option value="combined_credits">
             All Formats
           </option>
           <option value="movie_credits">
-            Feature Films
+            Movies
           </option>
           <option value="tv_credits">
-            TV Series
+            TV Shows
           </option>
         </select>
       </div>
     </div>
 
+    <!-- Department Sections -->
     <div
       v-for="category in active_credits"
       :key="`credits-${category.name.toLowerCase()}`"
-      class="mb-12">
-      <div class="flex items-center gap-3 mb-4">
-        <span class="inline-block w-1 h-6 bg-primary-amber rounded-full" />
-        <h2 class="m-0 text-[2rem] font-bold text-white -tracking-wide">
+      class="mb-10">
+      <div class="flex items-center gap-2.5 mb-3">
+        <h2 class="m-0 text-[1.8rem] font-bold text-white -tracking-wide">
           {{ category.name }}
         </h2>
       </div>
 
-      <div class="overflow-hidden rounded-xl border border-border-subtle bg-surface-1">
+      <div class="overflow-hidden rounded-lg border border-border-subtle bg-surface-1">
         <table class="w-full border-collapse">
           <tbody>
             <CreditsHistoryGroup

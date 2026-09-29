@@ -4,18 +4,18 @@
       class="group flex flex-col h-full no-underline outline-none focus-visible:outline-none"
       :to="{ name: 'person-id', params: { id: person.id } }"
       :aria-label="`${person.name} as ${person.character}`">
-      <div class="relative w-full h-0 pt-[150%] overflow-hidden bg-surface-2 border border-border-subtle rounded-xl transition-all duration-300 group-hover:border-border-medium group-hover:shadow-cinema-md group-hover:-translate-y-0.5 group-focus-visible:ring-2 group-focus-visible:ring-primary-amber">
+      <div class="relative w-full h-0 pt-[140%] overflow-hidden bg-surface-2 border border-border-subtle rounded-lg transition-all duration-200 group-hover:border-border-medium group-hover:-translate-y-0.5">
         <img
           v-if="poster"
           v-lazyload="poster"
-          class="lazyload absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          class="lazyload absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           :alt="person.name">
 
-        <div v-else class="absolute inset-0 flex items-center justify-center text-text-muted bg-surface-1">
+        <div v-else class="absolute inset-0 flex items-center justify-center text-text-subtle bg-surface-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
+            width="28"
+            height="28"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -28,13 +28,13 @@
         </div>
       </div>
 
-      <div class="flex flex-col pt-2.5 px-0.5">
-        <h3 class="m-0 text-[1.35rem] font-semibold text-text-primary leading-snug truncate transition-colors duration-200 group-hover:text-primary-amber" :title="person.name">
+      <div class="flex flex-col pt-2 px-0.5">
+        <h3 class="m-0 text-[1.25rem] font-medium text-text-primary leading-snug truncate transition-colors duration-150 group-hover:text-primary-amber" :title="person.name">
           {{ person.name }}
         </h3>
         <p
           v-if="person.character"
-          class="m-0 mt-0.5 text-[1.2rem] text-text-muted truncate"
+          class="m-0 mt-0.5 text-[1.15rem] text-text-subtle truncate"
           :title="person.character">
           {{ person.character }}
         </p>

@@ -1,13 +1,13 @@
 <template>
-  <div class="my-7 mx-4 sm:my-10 sm:mx-8 lg:my-12 lg:mx-12">
-    <div class="flex items-baseline mb-4 lg:mb-6">
-      <h2 class="m-0 text-[1.8rem] lg:text-[2.4rem] font-bold text-white -tracking-wide">
+  <div class="my-6 sm:my-8 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
+    <div class="flex items-baseline gap-3 mb-4 pb-3 border-b border-border-subtle">
+      <h2 class="m-0 text-[1.8rem] font-bold text-white -tracking-wide">
         {{ title }}
       </h2>
 
-      <strong class="ml-4 text-[1.2rem] lg:text-[1.4rem] font-medium text-text-muted">
+      <span class="text-[1.25rem] text-text-muted">
         {{ imagesCount }}
-      </strong>
+      </span>
     </div>
 
     <div class="flex flex-wrap -mx-1.5">
@@ -69,7 +69,7 @@ export default {
   computed: {
     imagesCount () {
       return `${this.images.length} ${
-        this.images.length > 1 ? 'Images' : 'Image'
+        this.images.length > 1 ? 'images' : 'image'
       }`;
     },
   },

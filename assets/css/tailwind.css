@@ -4,7 +4,7 @@
 
 @layer utilities {
   .is-nav-active {
-    @apply !text-[#07080b] !bg-primary-amber !font-bold !shadow-[0_2px_12px_rgba(229,169,60,0.4)];
+    @apply !text-white !bg-white/10 !font-semibold;
   }
 
   .is-dock-active {
@@ -33,5 +33,5 @@ body.modal-open {
 
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }

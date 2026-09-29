@@ -1,13 +1,13 @@
 <template>
-  <main class="main min-h-[80vh] pb-32">
+  <main class="main min-h-[80vh] pb-24">
     <!-- Search Query & Filter Header -->
-    <div v-if="items && items.results.length" class="px-4 sm:px-8 lg:px-12 pt-8 sm:pt-12 lg:pt-14 pb-6 sm:pb-7 lg:pb-8 max-w-[1600px] mx-auto">
-      <div class="mb-5">
-        <h1 class="m-0 mb-1.5 font-display text-[2.8rem] sm:text-[3.6rem] font-extrabold text-white tracking-tight">
+    <div v-if="items && items.results.length" class="px-4 sm:px-8 lg:px-12 pt-8 sm:pt-10 pb-6 max-w-[1600px] mx-auto">
+      <div class="mb-4">
+        <h1 class="m-0 mb-1 font-display text-[2.4rem] sm:text-[3rem] font-bold text-white -tracking-wide">
           Results for &ldquo;{{ query }}&rdquo;
         </h1>
-        <span class="text-[1.4rem] font-medium text-primary-amber">
-          {{ filteredResults.length }} {{ filteredResults.length === 1 ? 'match' : 'matches' }} found
+        <span class="text-[1.3rem] text-text-muted">
+          {{ filteredResults.length }} {{ filteredResults.length === 1 ? 'result' : 'results' }}
         </span>
       </div>
 
@@ -15,40 +15,40 @@
       <div class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <button
           type="button"
-          class="inline-flex items-center px-4.5 py-1.5 text-[1.3rem] font-semibold rounded-full whitespace-nowrap cursor-pointer transition-all duration-200"
+          class="inline-flex items-center px-3.5 py-1.5 text-[1.25rem] font-medium rounded-md whitespace-nowrap cursor-pointer transition-colors duration-150"
           :class="activeFilter === 'all'
-            ? '!text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
-            : 'text-text-secondary bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-border-medium'"
+            ? 'text-white bg-surface-3 font-semibold'
+            : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'"
           @click="activeFilter = 'all'">
           All ({{ items.results.length }})
         </button>
         <button
           v-if="counts.movie"
           type="button"
-          class="inline-flex items-center px-4.5 py-1.5 text-[1.3rem] font-semibold rounded-full whitespace-nowrap cursor-pointer transition-all duration-200"
+          class="inline-flex items-center px-3.5 py-1.5 text-[1.25rem] font-medium rounded-md whitespace-nowrap cursor-pointer transition-colors duration-150"
           :class="activeFilter === 'movie'
-            ? '!text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
-            : 'text-text-secondary bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-border-medium'"
+            ? 'text-white bg-surface-3 font-semibold'
+            : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'"
           @click="activeFilter = 'movie'">
           Movies ({{ counts.movie }})
         </button>
         <button
           v-if="counts.tv"
           type="button"
-          class="inline-flex items-center px-4.5 py-1.5 text-[1.3rem] font-semibold rounded-full whitespace-nowrap cursor-pointer transition-all duration-200"
+          class="inline-flex items-center px-3.5 py-1.5 text-[1.25rem] font-medium rounded-md whitespace-nowrap cursor-pointer transition-colors duration-150"
           :class="activeFilter === 'tv'
-            ? '!text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
-            : 'text-text-secondary bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-border-medium'"
+            ? 'text-white bg-surface-3 font-semibold'
+            : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'"
           @click="activeFilter = 'tv'">
-          TV Series ({{ counts.tv }})
+          TV Shows ({{ counts.tv }})
         </button>
         <button
           v-if="counts.person"
           type="button"
-          class="inline-flex items-center px-4.5 py-1.5 text-[1.3rem] font-semibold rounded-full whitespace-nowrap cursor-pointer transition-all duration-200"
+          class="inline-flex items-center px-3.5 py-1.5 text-[1.25rem] font-medium rounded-md whitespace-nowrap cursor-pointer transition-colors duration-150"
           :class="activeFilter === 'person'
-            ? '!text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
-            : 'text-text-secondary bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2 hover:border-border-medium'"
+            ? 'text-white bg-surface-3 font-semibold'
+            : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'"
           @click="activeFilter = 'person'">
           People ({{ counts.person }})
         </button>
@@ -57,7 +57,7 @@
 
     <!-- Results Grid -->
     <div v-if="filteredResults.length" class="px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
-      <div class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-[1.8rem] xs:gap-[2.2rem] sm:gap-[2.6rem] xl:gap-[2.8rem]">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5">
         <Card
           v-for="item in filteredResults"
           :key="`search-card-${item.id}`"
@@ -66,56 +66,45 @@
 
       <!-- Infinite Scroll Loading Indicator -->
       <div v-if="items.page < items.total_pages" class="flex items-center justify-center py-12">
-        <div v-if="loading" class="flex flex-col items-center gap-3.5">
-          <span class="w-9 h-9 border-[3px] border-primary-amber/20 border-t-primary-amber rounded-full animate-spin" />
-          <span class="text-[1.35rem] text-text-muted">Loading more results...</span>
+        <div v-if="loading" class="flex items-center gap-3 text-text-muted text-[1.3rem]">
+          <span class="w-5 h-5 border-2 border-white/20 border-t-primary-amber rounded-full animate-spin" />
+          <span>Loading more results...</span>
         </div>
       </div>
     </div>
 
-    <!-- Empty State -->
+    <!-- Clean, Minimal Empty State -->
     <div
       v-else-if="query && (!items || !items.results.length || !filteredResults.length)"
-      class="flex flex-col items-center justify-center text-center py-20 px-5 max-w-[640px] mx-auto">
-      <div class="flex items-center justify-center w-[8.8rem] h-[8.8rem] rounded-full text-primary-amber bg-primary-amber/10 border border-primary-amber/25 mb-6 shadow-[0_0_24px_rgba(229,169,60,0.15)]">
+      class="flex flex-col items-center justify-center text-center py-24 px-4 max-w-[480px] mx-auto">
+      <div class="flex items-center justify-center w-14 h-14 rounded-full text-text-muted bg-surface-2 border border-border-subtle mb-4">
         <svg
-          width="48"
-          height="48"
+          width="24"
+          height="24"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="1.8"
+          stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round">
           <circle cx="11" cy="11" r="8" />
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          <line x1="8" y1="11" x2="14" y2="11" />
         </svg>
       </div>
 
-      <h2 class="m-0 mb-3 font-display text-[2.6rem] font-extrabold text-white tracking-tight">
-        No titles found for &ldquo;{{ query }}&rdquo;
+      <h2 class="m-0 mb-2 font-display text-[2rem] font-bold text-white">
+        No results found
       </h2>
 
-      <p class="m-0 mb-9 text-[1.6rem] leading-relaxed text-text-secondary">
-        We couldn't find any movies, TV series, or people matching your query.
-        Try checking your spelling or search for another title.
+      <p class="m-0 mb-6 text-[1.4rem] text-text-secondary">
+        We couldn't find anything matching &ldquo;{{ query }}&rdquo;. Try searching with another term.
       </p>
 
-      <div class="flex flex-col items-center gap-4 w-full">
-        <span class="text-[1.2rem] font-bold text-text-muted uppercase tracking-widest">Or browse curated categories:</span>
-        <div class="flex flex-wrap items-center justify-center gap-3">
-          <nuxt-link to="/movie" class="inline-flex items-center px-5 py-2.5 text-[1.4rem] font-semibold text-text-primary bg-surface-2 border border-border-medium rounded-full hover:text-white hover:bg-surface-3 hover:border-primary-amber hover:-translate-y-0.5 transition-all duration-200">
-            Explore Movies
-          </nuxt-link>
-          <nuxt-link to="/tv" class="inline-flex items-center px-5 py-2.5 text-[1.4rem] font-semibold text-text-primary bg-surface-2 border border-border-medium rounded-full hover:text-white hover:bg-surface-3 hover:border-primary-amber hover:-translate-y-0.5 transition-all duration-200">
-            Explore TV Shows
-          </nuxt-link>
-          <nuxt-link to="/" class="inline-flex items-center px-5 py-2.5 text-[1.4rem] !text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_14px_rgba(229,169,60,0.4)] rounded-full hover:-translate-y-0.5 transition-all duration-200">
-            Back to Home
-          </nuxt-link>
-        </div>
-      </div>
+      <nuxt-link
+        to="/"
+        class="inline-flex items-center px-4 py-2 text-[1.3rem] font-medium text-text-primary bg-surface-2 border border-border-subtle rounded-md hover:bg-surface-3 hover:text-white transition-colors duration-150">
+        Back to Home
+      </nuxt-link>
     </div>
   </main>
 </template>

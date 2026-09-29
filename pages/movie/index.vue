@@ -1,69 +1,38 @@
 <template>
-  <main class="main">
+  <main class="main pb-16">
     <!-- Featured Cinema Spotlight -->
     <Hero :item="featured" />
 
-    <!-- Category Discovery Switcher Bar -->
-    <section class="relative z-10 -mt-6 sm:-mt-8 px-4 sm:px-8 lg:px-12 pb-8">
-      <div class="flex items-center gap-4 max-w-[1600px] mx-auto px-5 py-3 bg-[rgba(14,17,23,0.9)] backdrop-blur-xl border border-white/15 rounded-full shadow-cinema-md">
-        <span class="hidden sm:inline-block text-[1.2rem] font-bold uppercase tracking-widest text-primary-amber shrink-0">Explore Cinema:</span>
-        <div class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <nuxt-link
-            :to="{ name: 'movie-category-name', params: { name: 'popular' } }"
-            class="inline-flex items-center px-4 py-1.5 text-[1.3rem] font-semibold text-text-secondary bg-surface-2 border border-border-subtle rounded-full whitespace-nowrap hover:text-[#07080b] hover:bg-primary-amber hover:border-primary-amber hover:shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-translate-y-0.5 transition-all duration-200">
-            Popular Films
-          </nuxt-link>
-          <nuxt-link
-            :to="{ name: 'movie-category-name', params: { name: 'top_rated' } }"
-            class="inline-flex items-center px-4 py-1.5 text-[1.3rem] font-semibold text-text-secondary bg-surface-2 border border-border-subtle rounded-full whitespace-nowrap hover:text-[#07080b] hover:bg-primary-amber hover:border-primary-amber hover:shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-translate-y-0.5 transition-all duration-200">
-            Top Rated
-          </nuxt-link>
-          <nuxt-link
-            :to="{ name: 'movie-category-name', params: { name: 'upcoming' } }"
-            class="inline-flex items-center px-4 py-1.5 text-[1.3rem] font-semibold text-text-secondary bg-surface-2 border border-border-subtle rounded-full whitespace-nowrap hover:text-[#07080b] hover:bg-primary-amber hover:border-primary-amber hover:shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-translate-y-0.5 transition-all duration-200">
-            Upcoming Releases
-          </nuxt-link>
-          <nuxt-link
-            :to="{ name: 'movie-category-name', params: { name: 'now_playing' } }"
-            class="inline-flex items-center px-4 py-1.5 text-[1.3rem] font-semibold text-text-secondary bg-surface-2 border border-border-subtle rounded-full whitespace-nowrap hover:text-[#07080b] hover:bg-primary-amber hover:border-primary-amber hover:shadow-[0_2px_12px_rgba(229,169,60,0.4)] hover:-translate-y-0.5 transition-all duration-200">
-            Now Playing
-          </nuxt-link>
-        </div>
-      </div>
-    </section>
+    <!-- Movie Rails -->
+    <div class="flex flex-col gap-2 mt-4 sm:mt-6">
+      <!-- Popular Films -->
+      <ListingCarousel
+        v-if="popular && popular.results.length"
+        :title="popularTitle"
+        :view-all-url="popularUrl"
+        :items="popular" />
 
-    <!-- Popular Cinema Carousel (Ranked) -->
-    <ListingCarousel
-      v-if="popular && popular.results.length"
-      :title="popularTitle"
-      subtitle="Trending theatrical releases and crowd favourites"
-      :view-all-url="popularUrl"
-      :items="popular"
-      :is-ranked="true" />
+      <!-- Top Rated Films -->
+      <ListingCarousel
+        v-if="topRated && topRated.results.length"
+        :title="topRatedTitle"
+        :view-all-url="topRatedUrl"
+        :items="topRated" />
 
-    <!-- Top Rated Masterpieces Carousel -->
-    <ListingCarousel
-      v-if="topRated && topRated.results.length"
-      :title="topRatedTitle"
-      subtitle="All-time cinematic milestones rated by millions"
-      :view-all-url="topRatedUrl"
-      :items="topRated" />
+      <!-- Upcoming Releases -->
+      <ListingCarousel
+        v-if="upcoming && upcoming.results.length"
+        :title="upcomingTitle"
+        :view-all-url="upcomingUrl"
+        :items="upcoming" />
 
-    <!-- Upcoming Releases Carousel -->
-    <ListingCarousel
-      v-if="upcoming && upcoming.results.length"
-      :title="upcomingTitle"
-      subtitle="Highly anticipated films heading to screens soon"
-      :view-all-url="upcomingUrl"
-      :items="upcoming" />
-
-    <!-- Now In Theatres Carousel -->
-    <ListingCarousel
-      v-if="nowPlaying && nowPlaying.results.length"
-      :title="nowPlayingTitle"
-      subtitle="Currently screening in cinema halls today"
-      :view-all-url="nowPlayingUrl"
-      :items="nowPlaying" />
+      <!-- Now In Theatres -->
+      <ListingCarousel
+        v-if="nowPlaying && nowPlaying.results.length"
+        :title="nowPlayingTitle"
+        :view-all-url="nowPlayingUrl"
+        :items="nowPlaying" />
+    </div>
   </main>
 </template>
 
@@ -80,11 +49,15 @@ export default {
 
   async asyncData ({ error }) {
     try {
-      const popular = await getMovies('popular');
-      const topRated = await getMovies('top_rated');
-      const upcoming = await getMovies('upcoming');
-      const nowPlaying = await getMovies('now_playing');
-      const featured = await getMovie(upcoming.results[0].id);
+      const [popular, topRated, upcoming, nowPlaying] = await Promise.all([
+        getMovies('popular'),
+        getMovies('top_rated'),
+        getMovies('upcoming'),
+        getMovies('now_playing'),
+      ]);
+
+      const heroId = upcoming.results[0] ? upcoming.results[0].id : popular.results[0].id;
+      const featured = await getMovie(heroId);
 
       return { popular, topRated, upcoming, nowPlaying, featured };
     } catch {
@@ -96,7 +69,7 @@ export default {
     return {
       title: 'Movies — CINEPULSE',
       meta: [
-        { hid: 'og:title', property: 'og:title', content: 'Movies Catalog' },
+        { hid: 'og:title', property: 'og:title', content: 'Movies' },
         {
           hid: 'description',
           name: 'description',

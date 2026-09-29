@@ -1,12 +1,12 @@
 <template>
-  <div class="my-7 mx-4 sm:my-10 sm:mx-8 lg:my-12 lg:mx-12">
-    <div class="flex items-center justify-between mb-6 pb-4 border-b border-border-subtle">
+  <div class="my-6 sm:my-8 px-4 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
+    <div class="flex items-center justify-between mb-6 pb-3 border-b border-border-subtle">
       <div class="flex items-center">
         <select
           v-if="seasons.length > 1"
           v-model="activeSeason"
           aria-label="Select TV Season"
-          class="bg-surface-2 text-text-primary border border-border-subtle rounded-lg px-3 py-2 text-[1.3rem] outline-none focus:border-primary-amber"
+          class="bg-surface-2 text-text-primary border border-border-subtle rounded-md px-3 py-1.5 text-[1.25rem] outline-none focus:border-border-medium"
           @change="getEpisodes">
           <option
             v-for="season in seasons"
@@ -15,14 +15,15 @@
             Season {{ season.season }}
           </option>
         </select>
+        <span v-else class="text-[1.4rem] font-semibold text-white">Episodes</span>
       </div>
 
-      <div v-if="activeEpisodes" class="text-[1.35rem] font-medium text-text-muted">
+      <div v-if="activeEpisodes" class="text-[1.25rem] text-text-muted">
         {{ episodeCount }}
       </div>
     </div>
 
-    <div v-if="activeEpisodes" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    <div v-if="activeEpisodes" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
       <EpisodesItem
         v-for="episode in activeEpisodes"
         :key="`episode-${episode.id}`"
@@ -57,7 +58,7 @@ export default {
   computed: {
     episodeCount () {
       return `${this.activeEpisodes.length} ${
-        this.activeEpisodes.length > 1 ? 'Episodes' : 'Episode'
+        this.activeEpisodes.length > 1 ? 'episodes' : 'episode'
       }`;
     },
 

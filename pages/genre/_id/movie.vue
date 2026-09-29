@@ -3,16 +3,16 @@
     <TopNav :title="metaTitle" />
 
     <!-- Genre Pill Switcher -->
-    <div class="px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 lg:pt-10">
-      <div class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-2">
+    <div class="px-4 sm:px-8 lg:px-12 pt-6 sm:pt-8 max-w-[1600px] mx-auto">
+      <div class="flex items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-1">
         <nuxt-link
           v-for="g in allGenres"
           :key="g.id"
           :to="`/genre/${g.id}/movie`"
-          class="inline-flex items-center px-5 py-2 text-[1.3rem] font-semibold rounded-full whitespace-nowrap transition-all duration-200"
+          class="inline-flex items-center px-4 py-1.5 text-[1.25rem] font-medium rounded-md whitespace-nowrap transition-colors duration-150"
           :class="genre.id === g.id
-            ? '!text-[#07080b] !bg-primary-amber !border-primary-amber !font-bold shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
-            : 'text-text-secondary bg-surface-2 border border-border-subtle hover:text-white hover:bg-surface-3 hover:border-border-medium'">
+            ? 'text-white bg-surface-3 font-semibold'
+            : 'text-text-muted bg-surface-1 border border-border-subtle hover:text-white hover:bg-surface-2'">
           {{ g.name }}
         </nuxt-link>
       </div>
@@ -81,7 +81,7 @@ export default {
 
     title () {
       if (this.genre) {
-        return `Genre: ${this.genre.name}`;
+        return `${this.genre.name} Movies`;
       } else {
         return 'Movie Genre';
       }

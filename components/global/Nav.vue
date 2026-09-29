@@ -1,109 +1,103 @@
 <template>
-  <header class="fixed top-0 inset-x-0 z-50 bg-[rgba(7,8,11,0.88)] backdrop-blur-xl border-b border-border-subtle transition-all duration-200">
-    <div class="flex items-center justify-between w-full max-w-[1600px] h-[6rem] md:h-[7.2rem] mx-auto px-4 sm:px-8 md:px-12">
-      <!-- Brand Logo -->
-      <div class="flex items-center">
-        <nuxt-link to="/" class="inline-flex items-center gap-3 no-underline group" aria-label="CINEPULSE Home">
-          <div class="flex items-center justify-center w-[3.8rem] h-[3.8rem] rounded-xl text-[#07080b] bg-gradient-to-br from-primary-amber to-[#ff8a00] shadow-[0_4px_16px_rgba(229,169,60,0.35)] group-hover:scale-105 transition-transform duration-200">
+  <header class="fixed top-0 inset-x-0 z-50 bg-[rgba(7,8,11,0.85)] backdrop-blur-md border-b border-border-subtle transition-all duration-200">
+    <div class="flex items-center justify-between w-full max-w-[1600px] h-[5.6rem] sm:h-[6.4rem] mx-auto px-4 sm:px-8 lg:px-12">
+      <!-- Left: Brand & Desktop Navigation -->
+      <div class="flex items-center gap-8 lg:gap-10">
+        <!-- Brand Logo -->
+        <nuxt-link to="/" class="inline-flex items-center gap-2.5 no-underline group" aria-label="CINEPULSE Home">
+          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-amber text-[#07080b]">
             <svg
               class="ml-0.5"
-              width="22"
-              height="22"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round">
+              fill="currentColor">
               <polygon points="5 3 19 12 5 21 5 3" />
             </svg>
           </div>
-          <div class="flex items-baseline gap-1.5">
-            <span class="font-display text-[1.8rem] font-black -tracking-wider text-white uppercase">CINEPULSE</span>
-            <span class="text-[1rem] font-extrabold tracking-widest text-primary-amber bg-[rgba(229,169,60,0.12)] border border-[rgba(229,169,60,0.3)] px-1.5 py-0.5 rounded">STUDIO</span>
-          </div>
+          <span class="font-display text-[1.6rem] font-bold tracking-tight text-white uppercase">CINEPULSE</span>
         </nuxt-link>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:block" aria-label="Main Navigation">
+          <ul class="flex items-center gap-1 list-none m-0 p-0">
+            <li>
+              <nuxt-link
+                exact
+                :to="{ name: 'index' }"
+                class="inline-flex items-center px-3.5 py-1.5 text-[1.3rem] font-medium text-text-muted rounded-md hover:text-white hover:bg-white/5 transition-colors duration-150"
+                active-class="is-nav-active"
+                exact-active-class="is-nav-active">
+                Discover
+              </nuxt-link>
+            </li>
+            <li>
+              <nuxt-link
+                :to="{ name: 'movie' }"
+                class="inline-flex items-center px-3.5 py-1.5 text-[1.3rem] font-medium text-text-muted rounded-md hover:text-white hover:bg-white/5 transition-colors duration-150"
+                active-class="is-nav-active">
+                Movies
+              </nuxt-link>
+            </li>
+            <li>
+              <nuxt-link
+                :to="{ name: 'tv' }"
+                class="inline-flex items-center px-3.5 py-1.5 text-[1.3rem] font-medium text-text-muted rounded-md hover:text-white hover:bg-white/5 transition-colors duration-150"
+                active-class="is-nav-active">
+                TV Shows
+              </nuxt-link>
+            </li>
+            <li>
+              <nuxt-link
+                :to="{ name: 'movie-category-name', params: { name: 'trending' } }"
+                class="inline-flex items-center px-3.5 py-1.5 text-[1.3rem] font-medium text-text-muted rounded-md hover:text-white hover:bg-white/5 transition-colors duration-150"
+                active-class="is-nav-active">
+                Trending
+              </nuxt-link>
+            </li>
+          </ul>
+        </nav>
       </div>
 
-      <!-- Desktop Center Navigation Links -->
-      <nav class="hidden md:block" aria-label="Main Navigation">
-        <ul class="flex items-center gap-2 list-none m-0 p-1 bg-white/[0.03] border border-border-subtle rounded-full">
-          <li>
-            <nuxt-link
-              exact
-              :to="{ name: 'index' }"
-              class="relative inline-flex items-center px-4.5 py-2 text-[1.35rem] font-semibold text-text-muted rounded-full hover:text-white hover:bg-white/[0.06] transition-all duration-200"
-              active-class="is-nav-active"
-              exact-active-class="is-nav-active">
-              Discover
-            </nuxt-link>
-          </li>
-          <li>
-            <nuxt-link
-              :to="{ name: 'movie' }"
-              class="relative inline-flex items-center px-4.5 py-2 text-[1.35rem] font-semibold text-text-muted rounded-full hover:text-white hover:bg-white/[0.06] transition-all duration-200"
-              active-class="is-nav-active">
-              Movies
-            </nuxt-link>
-          </li>
-          <li>
-            <nuxt-link
-              :to="{ name: 'tv' }"
-              class="relative inline-flex items-center px-4.5 py-2 text-[1.35rem] font-semibold text-text-muted rounded-full hover:text-white hover:bg-white/[0.06] transition-all duration-200"
-              active-class="is-nav-active">
-              TV Series
-            </nuxt-link>
-          </li>
-          <li>
-            <nuxt-link
-              :to="{ name: 'movie-category-name', params: { name: 'trending' } }"
-              class="relative inline-flex items-center px-4.5 py-2 text-[1.35rem] font-semibold text-text-muted rounded-full hover:text-white hover:bg-white/[0.06] transition-all duration-200"
-              active-class="is-nav-active">
-              Top Charts
-            </nuxt-link>
-          </li>
-        </ul>
-      </nav>
-
-      <!-- Right Utility Actions -->
+      <!-- Right: Search Trigger -->
       <div class="flex items-center gap-3">
-        <!-- Search Trigger Pill for Desktop -->
+        <!-- Desktop Search Pill -->
         <button
           type="button"
-          class="hidden md:inline-flex items-center gap-3 h-[4.2rem] px-4 text-[1.3rem] font-medium text-text-muted bg-surface-1 border border-white/15 rounded-full cursor-pointer hover:text-white hover:bg-surface-2 hover:border-white/30 hover:shadow-sm transition-all duration-200"
-          :class="searchOpen ? '!border-primary-amber !ring-2 !ring-primary-amber/30' : ''"
+          class="hidden md:inline-flex items-center gap-2.5 h-9 px-3 text-[1.25rem] font-normal text-text-muted bg-surface-2 border border-border-subtle rounded-lg cursor-pointer hover:text-white hover:bg-surface-3 hover:border-border-medium transition-colors duration-150"
+          :class="searchOpen ? '!border-primary-amber' : ''"
           aria-label="Search Catalog (Press Command + K)"
           :aria-expanded="`${searchOpen}`"
           @click="toggleSearch">
           <svg
-            width="16"
-            height="16"
+            width="15"
+            height="15"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2.2"
+            stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round">
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
-          <span class="text-text-subtle">Search movies, series, cast...</span>
-          <span class="px-1.5 py-0.5 text-[1.1rem] font-bold text-text-muted bg-surface-3 border border-border-subtle rounded">⌘K</span>
+          <span class="text-text-subtle">Search...</span>
+          <span class="px-1.5 py-0.5 text-[1rem] font-semibold text-text-subtle bg-surface-3 border border-border-subtle rounded">⌘K</span>
         </button>
 
-        <!-- Mobile Quick Search Icon Button -->
+        <!-- Mobile Search Icon Button -->
         <button
           type="button"
-          class="flex md:hidden items-center justify-center w-10 h-10 rounded-full text-text-primary bg-surface-2 border border-border-subtle"
+          class="flex md:hidden items-center justify-center w-9 h-9 rounded-lg text-text-muted hover:text-white bg-surface-2 border border-border-subtle"
           aria-label="Search Catalog"
           @click="toggleSearch">
           <svg
-            width="20"
-            height="20"
+            width="18"
+            height="18"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2.2"
+            stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round">
             <circle cx="11" cy="11" r="8" />
@@ -114,19 +108,19 @@
     </div>
 
     <!-- Mobile Bottom Navigation Dock -->
-    <nav class="fixed inset-x-0 bottom-0 z-50 md:hidden flex items-center justify-around h-[6.2rem] bg-[rgba(7,8,11,0.94)] backdrop-blur-xl border-t border-border-subtle pb-[env(safe-area-inset-bottom,0)]" aria-label="Mobile Navigation Dock">
+    <nav class="fixed inset-x-0 bottom-0 z-50 md:hidden flex items-center justify-around h-[5.6rem] bg-[rgba(7,8,11,0.92)] backdrop-blur-lg border-t border-border-subtle pb-[env(safe-area-inset-bottom,0)]" aria-label="Mobile Navigation">
       <ul class="flex items-center justify-around w-full list-none m-0 p-0">
         <li class="flex-1 flex justify-center">
           <nuxt-link
             exact
             :to="{ name: 'index' }"
-            class="flex flex-col items-center justify-center gap-1 w-full py-1.5 text-text-muted no-underline text-[1.1rem] font-medium transition-all duration-200"
+            class="flex flex-col items-center justify-center gap-1 w-full py-1 text-text-muted no-underline text-[1.05rem] font-medium transition-colors duration-150"
             active-class="is-dock-active"
             exact-active-class="is-dock-active">
-            <span class="flex items-center justify-center transition-transform duration-200 dock-icon">
+            <span class="dock-icon flex items-center justify-center transition-transform duration-150">
               <svg
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -137,19 +131,19 @@
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
             </span>
-            <span class="tracking-wide">Home</span>
+            <span>Discover</span>
           </nuxt-link>
         </li>
 
         <li class="flex-1 flex justify-center">
           <nuxt-link
             :to="{ name: 'movie' }"
-            class="flex flex-col items-center justify-center gap-1 w-full py-1.5 text-text-muted no-underline text-[1.1rem] font-medium transition-all duration-200"
+            class="flex flex-col items-center justify-center gap-1 w-full py-1 text-text-muted no-underline text-[1.05rem] font-medium transition-colors duration-150"
             active-class="is-dock-active">
-            <span class="flex items-center justify-center transition-transform duration-200 dock-icon">
+            <span class="dock-icon flex items-center justify-center transition-transform duration-150">
               <svg
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -166,19 +160,19 @@
                 <line x1="17" y1="7" x2="22" y2="7" />
               </svg>
             </span>
-            <span class="tracking-wide">Movies</span>
+            <span>Movies</span>
           </nuxt-link>
         </li>
 
         <li class="flex-1 flex justify-center">
           <nuxt-link
             :to="{ name: 'tv' }"
-            class="flex flex-col items-center justify-center gap-1 w-full py-1.5 text-text-muted no-underline text-[1.1rem] font-medium transition-all duration-200"
+            class="flex flex-col items-center justify-center gap-1 w-full py-1 text-text-muted no-underline text-[1.05rem] font-medium transition-colors duration-150"
             active-class="is-dock-active">
-            <span class="flex items-center justify-center transition-transform duration-200 dock-icon">
+            <span class="dock-icon flex items-center justify-center transition-transform duration-150">
               <svg
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -195,21 +189,21 @@
                 <polyline points="17 2 12 7 7 2" />
               </svg>
             </span>
-            <span class="tracking-wide">TV Shows</span>
+            <span>TV Shows</span>
           </nuxt-link>
         </li>
 
         <li class="flex-1 flex justify-center">
           <button
             type="button"
-            class="flex flex-col items-center justify-center gap-1 w-full py-1.5 text-text-muted no-underline text-[1.1rem] font-medium transition-all duration-200"
+            class="flex flex-col items-center justify-center gap-1 w-full py-1 text-text-muted no-underline text-[1.05rem] font-medium transition-colors duration-150"
             :class="searchOpen ? 'is-dock-active' : ''"
             aria-label="Search Catalog"
             @click="toggleSearch">
-            <span class="flex items-center justify-center transition-transform duration-200 dock-icon">
+            <span class="dock-icon flex items-center justify-center transition-transform duration-150">
               <svg
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -220,7 +214,7 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </span>
-            <span class="tracking-wide">Search</span>
+            <span>Search</span>
           </button>
         </li>
       </ul>
