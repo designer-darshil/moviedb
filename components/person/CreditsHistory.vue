@@ -1,14 +1,15 @@
 <template>
-  <div class="spacing">
-    <div :class="$style.head">
-      <div :class="$style.filter">
-        <label for="credits_category" :class="$style.filterLabel">
+  <div class="tw-my-7 tw-mx-4 sm:tw-my-10 sm:tw-mx-8 lg:tw-my-12 lg:tw-mx-12">
+    <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-6 tw-mb-8 tw-pb-4 tw-border-b tw-border-border-subtle">
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label for="credits_category" class="tw-text-[1.2rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">
           Department
         </label>
 
         <select
           id="credits_category"
           v-model="active_category"
+          class="tw-bg-surface-2 tw-text-text-primary tw-border tw-border-border-subtle tw-rounded-lg tw-px-3 tw-py-2 tw-text-[1.3rem] tw-outline-none focus:tw-border-primary-amber"
           :disabled="!categories.length || categories.length === 1"
           @change="filterCredits">
           <option value="all">
@@ -24,10 +25,14 @@
         </select>
       </div>
 
-      <div :class="$style.filter">
-        <label for="credits_media" :class="$style.filterLabel"> Format </label>
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label for="credits_media" class="tw-text-[1.2rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle"> Format </label>
 
-        <select id="credits_media" v-model="active_media" @change="getCredits">
+        <select
+          id="credits_media"
+          v-model="active_media"
+          class="tw-bg-surface-2 tw-text-text-primary tw-border tw-border-border-subtle tw-rounded-lg tw-px-3 tw-py-2 tw-text-[1.3rem] tw-outline-none focus:tw-border-primary-amber"
+          @change="getCredits">
           <option value="combined_credits">
             All Formats
           </option>
@@ -44,16 +49,16 @@
     <div
       v-for="category in active_credits"
       :key="`credits-${category.name.toLowerCase()}`"
-      :class="$style.category">
-      <div :class="$style.categoryHeader">
-        <span :class="$style.accentBar" />
-        <h2 :class="$style.title">
+      class="tw-mb-12">
+      <div class="tw-flex tw-items-center tw-gap-3 tw-mb-4">
+        <span class="tw-inline-block tw-w-1 tw-h-6 tw-bg-primary-amber tw-rounded-full" />
+        <h2 class="tw-m-0 tw-text-[2rem] tw-font-bold tw-text-white -tw-tracking-wide">
           {{ category.name }}
         </h2>
       </div>
 
-      <div :class="$style.tableWrap">
-        <table :class="$style.table">
+      <div class="tw-overflow-hidden tw-rounded-xl tw-border tw-border-border-subtle tw-bg-surface-1">
+        <table class="tw-w-full tw-border-collapse">
           <tbody>
             <CreditsHistoryGroup
               v-for="group in category.groups"
@@ -128,30 +133,32 @@ export default {
           items = credits.cast;
         } else {
           items = credits.crew.filter(
-            credit => credit.department === category,
+            crew => crew.department === category,
           );
         }
 
-        const dates = items
-          .map((item) => {
-            const date = item.release_date || item.first_air_date;
-            return date ? date.split('-')[0] : '';
-          })
-          .filter((date, index, self) => self.indexOf(date) === index)
-          .sort((a, b) => (a > b ? -1 : 1));
-
         const groups = [];
 
-        dates.forEach((date) => {
-          const group = {
-            year: date,
-            credits: items.filter((item) => {
-              const itemDate = item.release_date || item.first_air_date;
-              return itemDate ? itemDate.split('-')[0] === date : date === '';
-            }),
-          };
+        items.forEach((item) => {
+          const date = item.release_date || item.first_air_date;
+          const year = date ? date.split('-')[0] : '';
 
-          groups.push(group);
+          const group = groups.find(group => group.year === year);
+
+          if (group) {
+            group.credits.push(item);
+          } else {
+            groups.push({
+              year,
+              credits: [item],
+            });
+          }
+        });
+
+        groups.sort((a, b) => {
+          if (a.year === '') return -1;
+          if (b.year === '') return 1;
+          return a.year > b.year ? -1 : 1;
         });
 
         temp.push({
@@ -167,10 +174,10 @@ export default {
       if (this.active_category === 'all') {
         this.formatCredits(this.data);
       } else {
-        const credits = this.active_credits.filter(
-          credit => credit.name.toLowerCase() === this.active_category,
+        const category = this.active_credits.find(
+          item => item.name.toLowerCase() === this.active_category,
         );
-        this.active_credits = credits;
+        this.active_credits = [category];
       }
     },
 
@@ -184,70 +191,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2rem;
-  margin-bottom: 3.2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid $border-subtle;
-}
-
-.filter {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.filterLabel {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: $text-muted;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.category {
-  margin-bottom: 4.8rem;
-}
-
-.categoryHeader {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-.accentBar {
-  display: inline-block;
-  width: 4px;
-  height: 2.2rem;
-  background-color: $primary-color;
-  border-radius: $radius-full;
-}
-
-.title {
-  margin: 0;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: $text-primary;
-  letter-spacing: -0.01em;
-}
-
-.tableWrap {
-  background-color: $surface-1;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-md;
-  overflow: hidden;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-</style>

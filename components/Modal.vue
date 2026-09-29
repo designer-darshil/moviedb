@@ -2,17 +2,18 @@
   <transition name="modal" appear>
     <div
       ref="modal"
-      class="modal"
+      class="tw-fixed tw-inset-0 tw-z-[999] tw-overflow-x-hidden tw-overflow-y-auto tw-cursor-pointer tw-bg-[rgba(10,11,14,0.92)] tw-backdrop-blur-xl lg:tw-py-11 lg:tw-px-24"
       tabindex="-1"
       aria-hidden="false"
       :aria-label="label"
       role="dialog"
       :class="modalClass"
       @click="close">
-      <div class="modal__wrap">
-        <div class="modal__body" @click.stop>
+      <div class="tw-flex tw-flex-col tw-min-h-full">
+        <div class="tw-relative tw-m-auto tw-cursor-default" @click.stop>
           <button
-            class="modal__close"
+            class="tw-fixed lg:tw-absolute tw-top-4 lg:tw-top-0 tw-right-4 lg:tw-right-0 tw-z-10 tw-flex tw-items-center tw-justify-center tw-w-11 tw-h-11 lg:tw-w-10 lg:tw-h-10 tw-p-0 tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-full tw-cursor-pointer hover:tw-bg-surface-3 hover:tw-border-border-medium hover:tw-scale-105 tw-transition-all tw-duration-200"
+            :class="(type === 'image' || type === 'iframe') ? 'lg:-tw-top-11' : ''"
             aria-label="Close"
             type="button"
             @click.stop="close">
@@ -33,24 +34,33 @@
             </svg>
           </button>
 
-          <div :class="`modal__${type}`">
+          <div
+            v-if="type === 'iframe'"
+            class="modal__iframe tw-relative tw-w-full tw-h-0 tw-pb-[56.25%] tw-overflow-hidden">
             <iframe
-              v-if="type === 'iframe' && activeItem"
+              v-if="activeItem"
               :src="activeItem.src"
               frameborder="0"
               allow="autoplay; encrypted-media"
-              allowfullscreen />
+              allowfullscreen
+              class="tw-absolute tw-inset-0 tw-w-full tw-h-full tw-p-0 tw-m-0 tw-bg-black tw-border-0" />
+          </div>
 
+          <div
+            v-else-if="type === 'image'"
+            class="tw-relative">
             <img
-              v-if="type === 'image' && activeItem"
+              v-if="activeItem"
               v-lazyload="activeItem.src"
-              class="lazyload"
+              class="lazyload tw-max-h-screen lg:tw-max-h-[calc(100vh-8.8rem)] tw-block tw-mx-auto"
               alt="">
           </div>
 
-          <div v-if="showNav" class="modal__nav">
+          <div
+            v-if="showNav"
+            class="tw-fixed lg:tw-absolute tw-inset-x-0 tw-bottom-0 lg:-tw-bottom-11 tw-flex tw-items-center tw-justify-between lg:tw-justify-end tw-h-[5rem] lg:tw-h-[4.4rem] tw-bg-black lg:tw-bg-transparent">
             <button
-              class="modal__arrow modal__arrow--prev"
+              class="tw-flex tw-items-center tw-justify-center tw-p-0 tw-bg-transparent tw-flex-1 lg:tw-flex-none tw-h-[5rem] lg:tw-fixed lg:tw-top-1/2 lg:tw-left-0 lg:tw-w-24 lg:tw-h-24 lg:-tw-mt-12 tw-cursor-pointer"
               aria-label="Previous"
               type="button"
               @click.stop="previous">
@@ -71,12 +81,12 @@
               </svg>
             </button>
 
-            <div class="modal__count">
+            <div class="tw-text-[1.6rem] tw-leading-none tw-text-white tw-px-4">
               {{ selected + 1 }} / {{ data.length }}
             </div>
 
             <button
-              class="modal__arrow modal__arrow--next"
+              class="tw-flex tw-items-center tw-justify-center tw-p-0 tw-bg-transparent tw-flex-1 lg:tw-flex-none tw-h-[5rem] lg:tw-fixed lg:tw-top-1/2 lg:tw-right-0 lg:tw-w-24 lg:tw-h-24 lg:-tw-mt-12 tw-cursor-pointer"
               aria-label="Next"
               type="button"
               title="Next"
@@ -326,208 +336,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-@import "~/assets/css/utilities/_variables.scss";
-
-body.modal-open {
-  overflow: hidden;
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 999;
-  overflow-x: hidden;
-  overflow-y: auto;
-  cursor: pointer;
-  background-color: rgba(10, 11, 14, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  @media (min-width: $breakpoint-large) {
-    padding: 4.4rem 10rem;
-  }
-}
-
-.modal__wrap {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-}
-
-.modal__body {
-  position: relative;
-  margin: auto;
-  cursor: default;
-}
-
-.modal__close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 4rem;
-  height: 4rem;
-  padding: 0;
-  background-color: $surface-2;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-full;
-  cursor: pointer;
-  transition: all $transition-fast;
-
-  &:hover {
-    background-color: $surface-3;
-    border-color: $border-medium;
-    transform: scale(1.08);
-  }
-
-  @media (max-width: $breakpoint-large - 1) {
-    position: fixed;
-    top: 1.6rem;
-    right: 1.6rem;
-    left: auto;
-    width: 4.4rem;
-    height: 4.4rem;
-  }
-}
-
-.modal--nav {
-  @media (max-width: $breakpoint-large - 1) {
-    padding-bottom: 5rem;
-  }
-
-  .modal__image img {
-    @media (max-width: $breakpoint-large - 1) {
-      max-height: calc(100vh - 5rem);
-    }
-  }
-}
-
-.modal__nav {
-  position: absolute;
-  right: 0;
-  bottom: -4.4rem;
-  left: 0;
-  display: flex;
-  align-items: center;
-  height: 4.4rem;
-
-  @media (max-width: $breakpoint-large - 1) {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    justify-content: space-between;
-    height: 5rem;
-    background-color: #000;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    justify-content: flex-end;
-  }
-}
-
-.modal__arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  background: none;
-
-  @media (max-width: $breakpoint-large - 1) {
-    flex: 1;
-    height: 5rem;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    position: fixed;
-    top: 50%;
-    width: 10rem;
-    height: 10rem;
-    margin-top: -5rem;
-  }
-}
-
-@media (min-width: $breakpoint-large) {
-  .modal__arrow--prev {
-    left: 0;
-  }
-
-  .modal__arrow--next {
-    right: 0;
-  }
-}
-
-.modal__count {
-  font-size: 1.6rem;
-  line-height: 1;
-}
-
-@media (min-width: $breakpoint-large) {
-  .modal--images {
-    .modal__close {
-      top: -4.4rem;
-    }
-  }
-}
-
-.modal__image {
-  &.lazyloading {
-    background: url("~assets/images/loader.svg") no-repeat center;
-  }
-
-  img {
-    max-height: calc(100vh);
-
-    @media (min-width: $breakpoint-large) {
-      max-height: calc(100vh - 8.8rem);
-    }
-  }
-}
-
-@media (min-width: $breakpoint-large) {
-  .modal--iframe {
-    .modal__close {
-      top: -4.4rem;
-    }
-  }
-}
-
-.modal__iframe {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
-  overflow: hidden;
-
-  iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    background: #000;
-    border: 0;
-  }
-}
-
-.modal-enter,
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.3s ease;
-}
-</style>

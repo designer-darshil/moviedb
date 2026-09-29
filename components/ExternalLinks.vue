@@ -1,11 +1,11 @@
 <template>
-  <ul :class="$style.list">
+  <ul class="tw-flex tw-items-center tw-gap-2.5 tw-list-none tw-m-0 tw-p-0">
     <li v-if="links.imdb_id">
       <a
         :href="`https://www.imdb.com/${imdb}/${links.imdb_id}`"
         target="_blank"
         aria-label="View on IMDb"
-        :class="$style.link"
+        class="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
         rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path
@@ -23,7 +23,7 @@
         :href="links.homepage"
         target="_blank"
         aria-label="Official Website"
-        :class="$style.link"
+        class="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
         rel="noopener">
         <svg
           width="20"
@@ -47,7 +47,7 @@
         :href="`https://twitter.com/${links.twitter_id}`"
         target="_blank"
         aria-label="Twitter Profile"
-        :class="$style.link"
+        class="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
         rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path
@@ -61,7 +61,7 @@
         :href="`https://instagram.com/${links.instagram_id}`"
         target="_blank"
         aria-label="Instagram Profile"
-        :class="$style.link"
+        class="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
         rel="noopener">
         <svg
           width="20"
@@ -90,7 +90,7 @@
         :href="`https://www.facebook.com/${links.facebook_id}`"
         target="_blank"
         aria-label="Facebook Profile"
-        :class="$style.link"
+        class="tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-full tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
         rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
           <path
@@ -127,40 +127,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.list {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 4rem;
-  height: 4rem;
-  border-radius: $radius-full;
-  color: $text-secondary;
-  background-color: $surface-2;
-  border: 1px solid $border-subtle;
-  transition: all $transition-fast;
-
-  &:hover {
-    color: #fff;
-    background-color: $surface-3;
-    border-color: $border-medium;
-    transform: translateY(-2px);
-  }
-
-  &:focus-visible {
-    outline: 2px solid $primary-color;
-  }
-}
-</style>

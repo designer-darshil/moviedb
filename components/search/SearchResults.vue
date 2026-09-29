@@ -1,29 +1,29 @@
 <template>
-  <div :class="$style.listing">
-    <div v-if="title" :class="$style.head">
-      <div :class="$style.titleGroup">
-        <span :class="$style.accentBar" />
-        <h2 :class="$style.title">
+  <div class="tw-my-8 sm:tw-my-10 lg:tw-my-12 tw-mb-16 sm:tw-mb-20 tw-px-4 sm:tw-px-8 lg:tw-px-12">
+    <div v-if="title" class="tw-flex tw-items-center tw-justify-between tw-mb-7">
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <span class="tw-inline-block tw-w-1 tw-h-6 tw-bg-primary-amber tw-rounded-full" />
+        <h2 class="tw-m-0 tw-text-[2.2rem] tw-font-bold tw-text-white -tw-tracking-wide">
           {{ title }}
         </h2>
       </div>
-      <span v-if="items.total_results" :class="$style.count">
+      <span v-if="items.total_results" class="tw-text-[1.3rem] tw-font-medium tw-text-text-muted">
         {{ items.total_results }}
         {{ items.total_results === 1 ? "result" : "results" }}
       </span>
     </div>
 
-    <div :class="$style.grid">
+    <div class="tw-grid tw-grid-cols-2 xs:tw-grid-cols-3 sm:tw-grid-cols-4 md:tw-grid-cols-5 2xl:tw-grid-cols-6 tw-gap-4.5 xs:tw-gap-5.5 sm:tw-gap-6.5 2xl:tw-gap-7">
       <Card
         v-for="item in items.results"
         :key="`card-${item.id}`"
         :item="item" />
     </div>
 
-    <div v-if="items.page < items.total_pages" :class="$style.loaderContainer">
-      <div v-if="loading" :class="$style.spinner">
-        <span :class="$style.spinnerRing" />
-        <span :class="$style.spinnerText">Loading more results...</span>
+    <div v-if="items.page < items.total_pages" class="tw-flex tw-items-center tw-justify-center tw-py-12">
+      <div v-if="loading" class="tw-flex tw-flex-col tw-items-center tw-gap-3.5">
+        <span class="tw-w-9 tw-h-9 tw-border-[3px] tw-border-primary-amber/20 tw-border-t-primary-amber tw-rounded-full tw-animate-spin" />
+        <span class="tw-text-[1.35rem] tw-font-medium tw-text-text-muted tw-tracking-wide">Loading more results...</span>
       </div>
     </div>
   </div>
@@ -83,120 +83,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.listing {
-  margin: 3.2rem 0 6rem;
-  padding: 0 1.6rem;
-
-  @media (min-width: $breakpoint-small) {
-    padding: 0 3.2rem;
-    margin: 4rem 0 8rem;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    padding: 0 4.8rem;
-  }
-}
-
-.head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2.8rem;
-}
-
-.titleGroup {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.accentBar {
-  display: inline-block;
-  width: 4px;
-  height: 2.4rem;
-  background-color: $primary-color;
-  border-radius: $radius-full;
-}
-
-.title {
-  margin: 0;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: $text-primary;
-  letter-spacing: -0.02em;
-
-  @media (min-width: $breakpoint-small) {
-    font-size: 2.8rem;
-  }
-}
-
-.count {
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: $text-muted;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.6rem;
-
-  @media (min-width: $breakpoint-xsmall) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  @media (min-width: $breakpoint-small) {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2.4rem;
-  }
-
-  @media (min-width: $breakpoint-medium) {
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  @media (min-width: $breakpoint-xlarge) {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 2.8rem;
-  }
-}
-
-.loaderContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 0;
-}
-
-.spinner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.spinnerRing {
-  width: 3.2rem;
-  height: 3.2rem;
-  border: 3px solid rgba(229, 169, 60, 0.2);
-  border-top-color: $primary-color;
-  border-radius: $radius-full;
-  animation: spin 0.8s linear infinite;
-}
-
-.spinnerText {
-  font-size: 1.3rem;
-  color: $text-muted;
-  letter-spacing: 0.02em;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-</style>

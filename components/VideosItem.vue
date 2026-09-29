@@ -1,34 +1,38 @@
 <template>
-  <div :class="$style.item">
+  <div class="tw-flex tw-flex-col tw-w-full">
     <a
-      :class="$style.link"
+      class="tw-group tw-flex tw-flex-col tw-h-full tw-no-underline tw-outline-none focus-visible:tw-outline-none"
       :href="video.url"
       :aria-label="`Play ${video.name}`"
       @click.prevent="handleVideo(index)">
-      <div :class="$style.thumbWrap">
+      <div class="tw-relative tw-w-full tw-h-0 tw-pb-[56.25%] tw-overflow-hidden tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-xl tw-transition-all tw-duration-300 group-hover:tw-shadow-cinema-md group-hover:tw-border-border-medium group-focus-visible:tw-ring-2 group-focus-visible:tw-ring-primary-amber">
         <img
           v-if="video.thumb"
           v-lazyload="video.thumb"
-          class="lazyload"
-          :class="$style.image"
+          class="lazyload tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"
           :alt="video.name">
 
-        <div v-if="video.duration" :class="$style.duration">
+        <div v-if="video.duration" class="tw-absolute tw-right-2 tw-bottom-2 tw-px-1.5 tw-py-0.5 tw-text-[1.15rem] tw-font-semibold tw-text-white tw-bg-[rgba(10,11,14,0.85)] tw-backdrop-blur tw-rounded">
           {{ formatDuration(video.duration) }}
         </div>
 
-        <div :class="$style.playOverlay">
-          <span :class="$style.playBtn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <div class="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-black/20">
+          <span class="tw-flex tw-items-center tw-justify-center tw-w-12 tw-h-12 tw-rounded-full tw-text-white tw-bg-[rgba(10,11,14,0.75)] tw-backdrop-blur-md tw-border tw-border-white/20 tw-transition-all tw-duration-200 group-hover:tw-scale-110 group-hover:tw-bg-primary-amber group-hover:tw-text-[#0a0b0e]">
+            <svg
+              class="tw-ml-0.5"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor">
               <polygon points="5 3 19 12 5 21 5 3" />
             </svg>
           </span>
         </div>
       </div>
 
-      <div :class="$style.details">
-        <span :class="$style.typeBadge">{{ video.type }}</span>
-        <h3 :class="$style.name" :title="video.name">
+      <div class="tw-flex tw-flex-col tw-pt-3">
+        <span class="tw-text-[1.1rem] tw-font-bold tw-text-primary-amber tw-uppercase tw-tracking-wider tw-mb-1">{{ video.type }}</span>
+        <h3 class="tw-m-0 tw-text-[1.45rem] tw-font-semibold tw-leading-snug tw-text-text-primary tw-line-clamp-2 tw-transition-colors tw-duration-200 group-hover:tw-text-primary-amber" :title="video.name">
           {{ video.name }}
         </h3>
       </div>
@@ -105,135 +109,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.item {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.link {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  text-decoration: none;
-  outline: none;
-
-  &:hover {
-    .thumbWrap {
-      box-shadow: $shadow-md;
-      border-color: $border-medium;
-    }
-
-    .playBtn {
-      transform: scale(1.1);
-      background-color: $primary-color;
-      color: #0a0b0e;
-    }
-
-    .name {
-      color: $primary-color;
-    }
-  }
-
-  &:focus-visible .thumbWrap {
-    outline: 2px solid $primary-color;
-    outline-offset: 3px;
-  }
-}
-
-.thumbWrap {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%; // 16:9 ratio
-  overflow: hidden;
-  background-color: $surface-2;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-md;
-  transition: all $transition-normal;
-}
-
-.image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.duration {
-  position: absolute;
-  right: 0.8rem;
-  bottom: 0.8rem;
-  padding: 0.2rem 0.6rem;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #fff;
-  background-color: rgba(10, 11, 14, 0.85);
-  backdrop-filter: blur(4px);
-  border-radius: $radius-xs;
-}
-
-.playOverlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(10, 11, 14, 0.2);
-}
-
-.playBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 4.8rem;
-  height: 4.8rem;
-  border-radius: $radius-full;
-  color: #fff;
-  background-color: rgba(10, 11, 14, 0.75);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all $transition-fast;
-
-  svg {
-    margin-left: 2px;
-  }
-}
-
-.details {
-  display: flex;
-  flex-direction: column;
-  padding-top: 1.2rem;
-}
-
-.typeBadge {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: $primary-color;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.4rem;
-}
-
-.name {
-  margin: 0;
-  font-size: 1.45rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: $text-primary;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  transition: color $transition-fast;
-}
-</style>

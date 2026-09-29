@@ -18,15 +18,15 @@ Every `.vue` Single File Component must follow this structural order:
 
 ```vue
 <template>
-  <div :class="$style.root">
-    <!-- Template markup -->
+  <div class="tw-relative tw-p-4 tw-bg-surface-1 tw-rounded-2xl">
+    <!-- Template markup with tw- utility classes -->
   </div>
 </template>
 
 <script>
 // 1. Imports
-import { mapState } from "vuex";
-import ComponentA from "~/components/ComponentA";
+import { mapState } from 'vuex';
+import ComponentA from '~/components/ComponentA';
 
 export default {
   // 2. Component Registration
@@ -46,7 +46,7 @@ export default {
   },
 
   // 5. Reactive Data
-  data() {
+  data () {
     return {
       isOpen: false,
     };
@@ -54,40 +54,39 @@ export default {
 
   // 6. Computed Properties
   computed: {
-    ...mapState("search", ["searchOpen"]),
+    ...mapState('search', ['searchOpen']),
   },
 
   // 7. Lifecycle Hooks (mounted, created, beforeDestroy)
-  mounted() {
+  mounted () {
     // Event listeners
   },
 
-  beforeDestroy() {
+  beforeDestroy () {
     // Teardown event listeners
   },
 
   // 8. Methods
   methods: {
-    handleClick() {
+    handleClick () {
       // Logic
     },
   },
 };
 </script>
-
-<style lang="scss" module>
-// Component-scoped styles via CSS Modules
-</style>
 ```
 
 ---
 
-## 3. CSS & Styling Conventions
+## 3. CSS & Styling Conventions (Tailwind-First)
 
-- **CSS Modules**: Prefer `<style lang="scss" module>` for component-specific styles to avoid global style leakage and collision.
-- **Design Tokens**: Always use centralized tokens from `assets/css/utilities/_variables.scss` or CSS variables (`var(--bg-base)`, `var(--text-primary)`, etc.).
-- **Typography Units**: The project uses `1rem = 10px` root scale (`html { font-size: 62.5%; }`). Use `rem` for font sizes and layout margins.
-- **Media Queries**: Use defined breakpoint variables (`$breakpoint-small`, `$breakpoint-medium`, `$breakpoint-large`) for consistency across viewports.
+- **Tailwind-First Policy**: All UI layout, spacing, typography, colors, and responsive behavior are implemented using Tailwind CSS utilities.
+- **Mandatory `tw-` Prefix**: Every Tailwind class must include the `tw-` prefix (e.g. `tw-flex`, `tw-grid`, `tw-p-4`, `tw-text-white`). Unprefixed utilities are not permitted.
+- **No Component `<style>` Blocks**: Vue components should avoid `<style>` and `<style scoped/module>` blocks. Style components declaratively using Tailwind classes.
+- **Global Design Tokens**: Tokens are defined in `tailwind.config.js` (colors: `surface-0` through `surface-3`, `primary-amber`, `secondary-amber`, `border-subtle`, `border-medium`).
+- **Responsive Variants**: Use Tailwind responsive modifiers: `sm:tw-*`, `md:tw-*`, `lg:tw-*`, `xl:tw-*`.
+- **Interaction Variants**: Use Tailwind interaction modifiers: `hover:tw-*`, `focus:tw-*`, `focus-visible:tw-*`, `group-hover:tw-*`.
+- **Global Resets**: Base document resets, dark scrollbars, and page transitions reside in `assets/css/base/` and `assets/css/tailwind.css`.
 
 ---
 
@@ -95,8 +94,8 @@ export default {
 
 ```bash
 # Check code formatting and linting
-yarn lint
+yarn lint:js
 
-# Automatically fix linting and prettier errors
-yarn lintfix
+# Automatically fix linting errors
+yarn lint:js --fix
 ```

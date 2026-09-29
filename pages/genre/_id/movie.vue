@@ -2,6 +2,22 @@
   <main class="main">
     <TopNav :title="metaTitle" />
 
+    <!-- Genre Pill Switcher -->
+    <div class="tw-px-4 sm:tw-px-8 lg:tw-px-12 tw-pt-6 sm:tw-pt-8 lg:tw-pt-10">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:tw-hidden tw-pb-2">
+        <nuxt-link
+          v-for="g in allGenres"
+          :key="g.id"
+          :to="`/genre/${g.id}/movie`"
+          class="tw-inline-flex tw-items-center tw-px-5 tw-py-2 tw-text-[1.3rem] tw-font-semibold tw-rounded-full tw-whitespace-nowrap tw-transition-all tw-duration-200"
+          :class="genre.id === g.id
+            ? '!tw-text-[#07080b] !tw-bg-primary-amber !tw-border-primary-amber !tw-font-bold tw-shadow-[0_2px_12px_rgba(229,169,60,0.4)]'
+            : 'tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-border-medium'">
+          {{ g.name }}
+        </nuxt-link>
+      </div>
+    </div>
+
     <Listing
       v-if="items && items.results.length"
       :title="title"
@@ -25,13 +41,13 @@ export default {
   async asyncData ({ params, error }) {
     try {
       const items = await getMediaByGenre('movie', params.id);
-      const genres = await getGenreList('movie');
-      const genre = genres.find(genre => genre.id === parseInt(params.id));
+      const allGenres = await getGenreList('movie');
+      const genre = allGenres.find(g => g.id === parseInt(params.id));
 
       if (genre) {
-        return { items, genre };
+        return { items, genre, allGenres };
       } else {
-        error({ message: 'Page not found' });
+        error({ message: 'Genre not found' });
       }
     } catch {
       error({ statusCode: 504, message: 'Data not available' });
@@ -46,7 +62,7 @@ export default {
 
   head () {
     return {
-      title: this.metaTitle,
+      title: `${this.metaTitle} — CINEPULSE`,
       meta: [
         { hid: 'og:title', property: 'og:title', content: this.metaTitle },
         {
@@ -55,9 +71,6 @@ export default {
           content: `${process.env.FRONTEND_URL}${this.$route.path}`,
         },
       ],
-      bodyAttrs: {
-        class: 'topnav-active',
-      },
     };
   },
 
@@ -68,7 +81,7 @@ export default {
 
     title () {
       if (this.genre) {
-        return `Movie Genre: ${this.genre.name}`;
+        return `Genre: ${this.genre.name}`;
       } else {
         return 'Movie Genre';
       }

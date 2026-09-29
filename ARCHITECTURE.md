@@ -1,8 +1,8 @@
-# ARCHITECTURE.md — System Architecture
+# ARCHITECTURE.md — System Architecture (CINEPULSE 2.0)
 
 ## 1. High-Level Architecture
 
-**vue-movies** is a single-page application (SPA) statically generated using **Nuxt.js 2** in `target: 'static'`, `ssr: false` mode. It consumes external REST APIs to provide real-time media exploration and is hosted on Vercel Edge CDN.
+**CINEPULSE 2.0** is a single-page application (SPA) statically generated using **Nuxt.js 2** in `target: 'static'`, `ssr: false` mode. It consumes external REST APIs to provide real-time media exploration and is hosted on Vercel Edge CDN.
 
 ```
                   +---------------------------+
@@ -36,27 +36,28 @@ vue-movies/
 ├── assets/
 │   ├── css/
 │   │   ├── base/            # Reset, typography, layout, animations
-│   │   ├── components/      # Global component styles
-│   │   ├── utilities/       # SCSS variables, mixins, helpers
-│   │   └── global.scss      # Main entry point for global styles
+│   │   ├── utilities/       # SCSS tokens and helpers
+│   │   ├── global.scss      # Global base styles and transitions
+│   │   └── tailwind.css     # Tailwind CSS entry with tw- utility layers
 │   └── images/              # Static assets & SVG icons
+├── tailwind.config.js       # Tailwind CSS v3 config (prefix: 'tw-', cinema tokens)
 ├── components/
-│   ├── global/              # Nav, TopNav, SearchForm, Footer, CookieConsent, InstallPrompt
-│   ├── movie/               # MovieInfo
+│   ├── global/              # Nav (floating header & bottom dock), TopNav, SearchForm, Footer, CookieConsent
+│   ├── movie/               # MovieInfo (production stats grid, hero metadata)
 │   ├── tv/                  # TvInfo, Episodes, EpisodesItem
 │   ├── person/              # PersonInfo, CreditsHistory, CreditsHistoryGroup, CreditsHistoryItem
-│   ├── search/              # SearchResults
-│   ├── Card.vue             # Core media card (Movie, TV, Person)
-│   ├── Hero.vue             # Cinematic editorial hero component
+│   ├── search/              # SearchResults (media type filters: All, Movies, TV, People)
+│   ├── Card.vue             # Cinematic media card with rank ribbon support & hover glow
+│   ├── Hero.vue             # Multi-featured interactive hero ticker & ambient lighting
 │   ├── Listing.vue          # Infinite scroll grid listing
-│   ├── ListingCarousel.vue  # Horizontal scrolling media rail
+│   ├── ListingCarousel.vue  # Horizontal media rail with scroll snapping & Top 10 rank display
 │   ├── MediaNav.vue         # Detail section tab navigation
 │   ├── Modal.vue            # Accessible modal for trailers and gallery lightbox
 │   ├── Videos.vue & VideosItem.vue  # Video gallery
 │   ├── Images.vue & ImagesItem.vue  # Photo gallery
 │   └── Credits.vue & CreditsItem.vue # Cast carousel
 ├── layouts/
-│   ├── default.vue          # Global shell (Nav, Search, Footer, CookieConsent)
+│   ├── default.vue          # Global shell (Floating Nav, SearchForm modal, Footer)
 │   ├── no-footer.vue        # Footer-less layout
 │   └── error.vue            # Error boundary page (404, 504, generic)
 ├── mixins/
@@ -64,45 +65,51 @@ vue-movies/
 │   ├── Functions.js         # Debounce, local storage helpers
 │   └── Carousel.js          # Horizontal carousel scroll calculation logic
 ├── pages/
-│   ├── index.vue            # Home discovery page
+│   ├── index.vue            # Home discovery page with multi-hero ticker & Top 10 carousels
 │   ├── movie/
-│   │   ├── index.vue        # Movies hub
-│   │   ├── _id.vue          # Movie detail page
+│   │   ├── index.vue        # Movies hub with category switcher
+│   │   ├── _id.vue          # Movie detail page with production intelligence
 │   │   └── category/_name.vue # Movie category browse page
 │   ├── tv/
-│   │   ├── index.vue        # TV hub
+│   │   ├── index.vue        # TV hub with category switcher
 │   │   ├── _id.vue          # TV detail page
 │   │   └── category/_name.vue # TV category browse page
 │   ├── person/_id.vue       # Person detail page
-│   ├── search/index.vue     # Search results page
+│   ├── search/index.vue     # Search results page with filter pills
 │   └── genre/_id/
-│       ├── movie.vue        # Movies by genre
-│       └── tv.vue           # TV shows by genre
+│       ├── movie.vue        # Movies by genre with genre bar
+│       └── tv.vue           # TV shows by genre with genre bar
 ├── plugins/
 │   ├── filters.js           # Vue filters (dates, runtimes, commas, ratings)
 │   ├── lazyload.js          # IntersectionObserver-based image lazyloader
 │   └── ga.js                # Google Analytics plugin
 ├── store/
 │   └── search.js            # Vuex module for search overlay state
-├── nuxt.config.js           # Nuxt configuration
+├── nuxt.config.js           # Nuxt configuration (Port 5173, CSS, Plugins, Meta)
 ├── vercel.json              # Vercel deployment configuration
 └── package.json             # Dependencies and scripts
 ```
 
 ---
 
-## 3. Data Flow & State Management
+## 3. Navigation & Presentation Architecture
 
-1. **API Requests (`api/index.js`)**: All communication with TMDb (`api.themoviedb.org/3`) and YouTube uses Axios with parameter injection (`api_key`, `language`, `page`).
-2. **Page Data Fetching**: Pages utilize `asyncData` to pre-load critical catalog data on route transitions. Detail pages fetch secondary data (recommendations, episodes) dynamically on mount or tab change.
-3. **Global State (`store/search.js`)**: Vuex manages search drawer visibility (`searchOpen`) and previous route tracking (`fromPage`).
-4. **Mixins**: `mixins/Details.js` normalizes differences between TMDb Movie, TV, and Person schemas (e.g. `item.title` vs `item.name`, `item.release_date` vs `item.first_air_date`).
+1. **Widescreen Canvas**: The legacy desktop 10rem left-aligned sidebar was removed. Content now flows across the entire viewport width (`max-width: 1600px` centered), enabling panoramic movie backdrops.
+2. **Dual-Tier Navigation**:
+   - **Desktop (>= 1024px)**: Top floating frosted-glass header with CINEPULSE badge, route pills, and a `⌘K` command-palette quick-search trigger.
+   - **Mobile (< 1024px)**: Floating frosted-glass dock fixed at the bottom with safe-area support, complemented by a contextual back-button header (`TopNav.vue`).
+3. **Data Flow & State Management**:
+   - Centralized API requests via `api/index.js` (Axios).
+   - Async pre-fetching via Nuxt's `asyncData`.
+   - Vuex store `store/search.js` manages search modal state.
 
 ---
 
 ## 4. Build & Deployment Lifecycle
 
-- **Build Engine**: Webpack 4 via Nuxt 2.
-- **Node Runtime**: Compatible with Node 18 through 24 using the OpenSSL legacy provider flag.
-- **Static Export**: `yarn generate` writes pre-rendered HTML and client assets to `/dist`.
-- **Hosting**: Deployed automatically to Vercel via Git integration and CLI.
+- **Build Engine**: Webpack 4 via Nuxt 2.15.8 with `@nuxt/postcss8`, `tailwindcss` v3.4.19, and `autoprefixer` v10.6.1.
+- **Styling Architecture**: Tailwind-first styling system with mandatory `tw-` prefix. Zero scoped SCSS modules in Vue components.
+- **Node Runtime**: Compatible with Node 18 through 24 using `NODE_OPTIONS=--openssl-legacy-provider`.
+- **Development Server**: Hosted on `http://localhost:5173`.
+- **Static Export**: `yarn generate` pre-renders pages into `/dist`.
+- **Hosting**: Deployed automatically to Vercel Edge.

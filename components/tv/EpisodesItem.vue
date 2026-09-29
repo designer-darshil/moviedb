@@ -1,14 +1,13 @@
 <template>
-  <div :class="$style.card">
-    <div :class="$style.stillWrap">
+  <div class="tw-group tw-flex tw-flex-col tw-bg-surface-1 tw-border tw-border-border-subtle tw-rounded-xl tw-overflow-hidden tw-transition-all tw-duration-300 hover:tw-border-border-medium hover:tw-shadow-cinema-md hover:-tw-translate-y-0.5">
+    <div class="tw-relative tw-w-full tw-h-0 tw-pt-[56.25%] tw-overflow-hidden tw-bg-surface-2">
       <img
         v-if="poster"
         v-lazyload="poster"
-        class="lazyload"
-        :class="$style.image"
+        class="lazyload tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-105"
         :alt="episode.name">
 
-      <div v-else :class="$style.placeholder">
+      <div v-else class="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-text-text-muted tw-bg-surface-2">
         <svg
           width="32"
           height="32"
@@ -29,22 +28,22 @@
         </svg>
       </div>
 
-      <div :class="$style.episodeBadge">
+      <div class="tw-absolute tw-top-2 tw-left-2 tw-px-2 tw-py-0.5 tw-text-[1.1rem] tw-font-bold tw-tracking-wide tw-text-[#0a0b0e] tw-bg-primary-amber tw-rounded">
         EP {{ episode.episode_number | numberWithDoubleDigits }}
       </div>
     </div>
 
-    <div :class="$style.content">
-      <div :class="$style.header">
-        <h3 :class="$style.title">
+    <div class="tw-flex tw-flex-col tw-p-4 tw-gap-2 tw-flex-1">
+      <div class="tw-flex tw-flex-col tw-gap-1">
+        <h3 class="tw-m-0 tw-text-[1.5rem] tw-font-semibold tw-text-text-primary tw-leading-snug">
           {{ episode.name }}
         </h3>
-        <span v-if="episode.air_date" :class="$style.airDate">
+        <span v-if="episode.air_date" class="tw-text-[1.2rem] tw-font-medium tw-text-text-muted">
           {{ episode.air_date | fullDate }}
         </span>
       </div>
 
-      <p v-if="episode.overview" :class="$style.overview">
+      <p v-if="episode.overview" class="tw-m-0 tw-text-[1.35rem] tw-leading-relaxed tw-text-text-secondary">
         {{ episode.overview | truncate(220) }}
       </p>
     </div>
@@ -72,107 +71,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.card {
-  display: flex;
-  flex-direction: column;
-  background-color: $surface-1;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-md;
-  overflow: hidden;
-  transition: all $transition-normal;
-
-  &:hover {
-    border-color: $border-medium;
-    box-shadow: $shadow-md;
-    transform: translateY(-2px);
-
-    .image {
-      transform: scale(1.04);
-    }
-  }
-}
-
-.stillWrap {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-top: 56.25%; // 16:9 ratio
-  overflow: hidden;
-  background-color: $surface-2;
-}
-
-.image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform $transition-slow;
-}
-
-.placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $text-muted;
-  background-color: $surface-2;
-}
-
-.episodeBadge {
-  position: absolute;
-  top: 0.8rem;
-  left: 0.8rem;
-  padding: 0.3rem 0.7rem;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #0a0b0e;
-  background-color: $primary-color;
-  border-radius: $radius-xs;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  padding: 1.6rem;
-  gap: 0.8rem;
-  flex: 1;
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.title {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: $text-primary;
-  line-height: 1.35;
-}
-
-.airDate {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: $text-muted;
-}
-
-.overview {
-  margin: 0;
-  font-size: 1.35rem;
-  line-height: 1.6;
-  color: $text-secondary;
-}
-</style>

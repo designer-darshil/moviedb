@@ -1,7 +1,7 @@
 <template>
-  <tr :class="$style.group">
-    <td :class="$style.row">
-      <table>
+  <tr class="odd:tw-bg-surface-2/40">
+    <td class="tw-p-0">
+      <table class="tw-w-full tw-border-collapse">
         <tbody>
           <CreditsHistoryItem
             v-for="credit in group.credits"
@@ -30,15 +30,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.group:nth-child(odd) {
-  background-color: $secondary-color;
-}
-
-.row {
-  padding: 0;
-}
-</style>

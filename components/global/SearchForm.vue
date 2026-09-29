@@ -1,20 +1,22 @@
 <template>
-  <div :class="$style.overlay">
-    <div :class="$style.container">
-      <form autocomplete="off" :class="$style.form" @submit.prevent>
+  <div
+    class="tw-fixed tw-inset-0 tw-z-[150] tw-flex tw-items-start tw-justify-center tw-pt-16 sm:tw-pt-24 tw-px-4 tw-pb-8 tw-bg-[rgba(7,8,11,0.85)] tw-backdrop-blur-2xl"
+    @click.self="closeSearch">
+    <div class="tw-w-full tw-max-w-[760px] tw-bg-surface-1 tw-border tw-border-white/15 tw-rounded-2xl tw-shadow-2xl tw-p-5 sm:tw-p-7">
+      <form autocomplete="off" class="tw-flex tw-flex-col tw-gap-5 tw-w-full" @submit.prevent="goToRoute">
         <label
-          class="visuallyhidden"
+          class="tw-sr-only"
           for="search">Search Movies, TV Shows, and People</label>
 
-        <div :class="$style.field">
-          <span :class="$style.searchIcon">
+        <div class="tw-flex tw-items-center tw-gap-3.5 tw-px-4 tw-py-1.5 tw-bg-surface-2 tw-border tw-border-white/15 tw-rounded-xl focus-within:tw-border-primary-amber focus-within:tw-ring-2 focus-within:tw-ring-primary-amber/30 tw-transition-all tw-duration-200">
+          <span class="tw-flex tw-items-center tw-text-primary-amber">
             <svg
               width="22"
               height="22"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
+              stroke-width="2.2"
               stroke-linecap="round"
               stroke-linejoin="round">
               <circle cx="11" cy="11" r="8" />
@@ -28,18 +30,39 @@
             v-model.trim="query"
             name="search"
             type="text"
-            placeholder="Search for movies, TV series, actors, directors..."
-            :class="$style.input"
-            @keyup="goToRoute"
+            placeholder="Search by title, director, actor, genre..."
+            class="tw-flex-1 tw-h-12 sm:tw-h-13 tw-text-[1.6rem] sm:tw-text-[1.8rem] tw-font-medium tw-text-text-primary tw-bg-transparent tw-border-none tw-outline-none placeholder:tw-text-text-subtle"
+            @keyup.enter="goToRoute"
+            @input="handleInput"
             @keydown.esc="handleEscape">
 
-          <div :class="$style.actions">
-            <span :class="$style.kbdHint">ESC</span>
+          <div class="tw-flex tw-items-center tw-gap-2.5">
+            <button
+              v-if="query"
+              type="button"
+              aria-label="Clear query"
+              class="tw-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-rounded-full tw-text-text-muted tw-bg-surface-3 hover:tw-text-white hover:tw-bg-surface-4 tw-transition-colors tw-duration-200"
+              @click="clearQuery">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            <span class="tw-hidden sm:tw-inline-block tw-px-2 tw-py-1 tw-text-[1.1rem] tw-font-bold tw-tracking-wide tw-text-text-muted tw-bg-surface-3 tw-border tw-border-border-subtle tw-rounded">ESC</span>
 
             <button
               type="button"
               aria-label="Close Search"
-              :class="$style.closeButton"
+              class="tw-flex tw-items-center tw-justify-center tw-w-9 tw-h-9 tw-rounded-full tw-text-text-muted hover:tw-text-white hover:tw-bg-surface-3 tw-transition-colors tw-duration-200"
               @click="closeSearch">
               <svg
                 width="18"
@@ -47,12 +70,27 @@
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
+                stroke-width="2.2"
                 stroke-linecap="round"
                 stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Trending Suggestions -->
+        <div class="tw-flex tw-flex-col sm:tw-flex-row sm:tw-items-center tw-gap-2.5 tw-pt-3 tw-border-t tw-border-border-subtle">
+          <span class="tw-text-[1.2rem] tw-font-semibold tw-uppercase tw-tracking-wide tw-text-text-subtle tw-shrink-0">Popular Searches:</span>
+          <div class="tw-flex tw-flex-wrap tw-gap-2">
+            <button
+              v-for="tag in popularTags"
+              :key="tag"
+              type="button"
+              class="tw-inline-flex tw-items-center tw-px-3 tw-py-1 tw-text-[1.25rem] tw-font-medium tw-text-text-secondary tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-full tw-cursor-pointer hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-primary-amber hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200"
+              @click="selectTag(tag)">
+              {{ tag }}
             </button>
           </div>
         </div>
@@ -68,6 +106,14 @@ export default {
   data () {
     return {
       query: this.$route.query.q ? this.$route.query.q : '',
+      popularTags: [
+        'Dune',
+        'Oppenheimer',
+        'Interstellar',
+        'Breaking Bad',
+        'Succession',
+        'The Last of Us',
+      ],
     };
   },
 
@@ -84,6 +130,24 @@ export default {
   },
 
   methods: {
+    handleInput () {
+      if (this.query.length >= 2) {
+        this.goToRoute();
+      }
+    },
+
+    selectTag (tag) {
+      this.query = tag;
+      this.goToRoute();
+    },
+
+    clearQuery () {
+      this.query = '';
+      if (this.$refs.input) {
+        this.$refs.input.focus();
+      }
+    },
+
     goToRoute () {
       if (this.query) {
         this.$router.push({
@@ -109,124 +173,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 90;
-  background-color: rgba(10, 11, 14, 0.94);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid $border-subtle;
-  box-shadow: $shadow-lg;
-
-  @media (min-width: $breakpoint-medium) {
-    left: 8rem;
-  }
-}
-
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1.2rem 1.6rem;
-
-  @media (min-width: $breakpoint-small) {
-    padding: 1.6rem 3.2rem;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    padding: 2rem 4.8rem;
-  }
-}
-
-.form {
-  width: 100%;
-}
-
-.field {
-  display: flex;
-  align-items: center;
-  gap: 1.6rem;
-  padding: 0.8rem 1.6rem;
-  background-color: $surface-2;
-  border: 1px solid $border-medium;
-  border-radius: $radius-md;
-  transition: all $transition-fast;
-
-  &:focus-within {
-    border-color: $primary-color;
-    box-shadow: 0 0 0 3px rgba(229, 169, 60, 0.15);
-  }
-}
-
-.searchIcon {
-  display: flex;
-  align-items: center;
-  color: $primary-color;
-}
-
-.input {
-  flex: 1;
-  height: 4.4rem;
-  padding: 0;
-  font-size: 1.6rem;
-  font-weight: 500;
-  color: $text-primary;
-  background: transparent;
-  border: none;
-  outline: none;
-
-  &::placeholder {
-    color: $text-muted;
-  }
-
-  @media (min-width: $breakpoint-small) {
-    height: 4.8rem;
-    font-size: 1.8rem;
-  }
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.kbdHint {
-  display: none;
-  padding: 0.3rem 0.7rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: $text-muted;
-  background-color: $surface-3;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-xs;
-
-  @media (min-width: $breakpoint-small) {
-    display: inline-block;
-  }
-}
-
-.closeButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.4rem;
-  height: 3.4rem;
-  border-radius: $radius-full;
-  color: $text-muted;
-  background-color: transparent;
-  cursor: pointer;
-  transition: all $transition-fast;
-
-  &:hover {
-    color: #fff;
-    background-color: $surface-3;
-  }
-}
-</style>

@@ -1,88 +1,107 @@
 <template>
-  <div class="spacing" :class="$style.info">
-    <div :class="$style.left">
-      <div :class="$style.posterWrap">
-        <img
-          v-if="avatar"
-          v-lazyload="avatar"
-          class="lazyload"
-          :class="$style.image"
-          :alt="person.name">
+  <div class="tw-flex tw-flex-col lg:tw-flex-row tw-gap-10 lg:tw-gap-16 tw-my-12 sm:tw-my-16 tw-px-4 sm:tw-px-8 lg:tw-px-12">
+    <!-- Left Column: Portrait Avatar Card -->
+    <div class="tw-w-full lg:tw-w-[340px] xl:tw-w-[380px] tw-shrink-0">
+      <div class="tw-relative tw-rounded-2xl tw-overflow-hidden tw-bg-surface-1 tw-border tw-border-white/15 tw-shadow-2xl">
+        <div class="tw-relative tw-w-full tw-h-0 tw-pt-[140%] tw-overflow-hidden tw-bg-surface-2">
+          <img
+            v-if="avatar"
+            v-lazyload="avatar"
+            class="lazyload tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover"
+            :alt="person.name">
 
-        <div v-else :class="$style.placeholder">
-          <svg
-            width="48"
-            height="48"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-          <span :class="$style.placeholderText">No Photo Available</span>
+          <div v-else class="tw-absolute tw-inset-0 tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-3 tw-text-text-subtle tw-bg-surface-2">
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span class="tw-text-[1.1rem] tw-font-semibold tw-tracking-wider tw-uppercase">No Portrait</span>
+          </div>
+        </div>
+
+        <div v-if="person.known_for_department" class="tw-p-4 tw-text-center tw-text-[1.25rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-primary-amber tw-border-t tw-border-white/10 tw-bg-surface-2/50">
+          {{ person.known_for_department }}
         </div>
       </div>
     </div>
 
-    <div :class="$style.right">
-      <div :class="$style.biographySection">
-        <h1 :class="$style.personName">
+    <!-- Right Column: Biography & Career Stats -->
+    <div class="tw-flex-1 tw-flex tw-flex-col tw-gap-8">
+      <div class="tw-mb-2">
+        <h1 class="tw-m-0 tw-font-display tw-text-[3rem] sm:tw-text-[4.2rem] tw-font-black -tw-tracking-wider tw-text-white">
           {{ person.name }}
         </h1>
-
-        <div v-if="person.biography" :class="$style.bioContent">
-          <h2 :class="$style.bioTitle">
-            Biography
-          </h2>
-          <div
-            :class="$style.bioText"
-            v-html="formatContent(person.biography)" />
-        </div>
       </div>
 
-      <div :class="$style.metaCard">
-        <ul :class="$style.statsGrid">
-          <li v-if="person.known_for_department" :class="$style.statItem">
-            <span :class="$style.label">Known For</span>
-            <span :class="$style.value">{{ person.known_for_department }}</span>
+      <!-- Biography Section -->
+      <div v-if="person.biography" class="tw-flex tw-flex-col tw-gap-4">
+        <div class="tw-flex tw-items-center tw-gap-3">
+          <span class="tw-inline-block tw-w-1 tw-h-7 tw-rounded-full tw-bg-gradient-to-b tw-from-primary-amber tw-to-[#ff8a00] tw-shadow-[0_0_12px_rgba(229,169,60,0.4)]" />
+          <h2 class="tw-m-0 tw-font-display tw-text-[2.2rem] tw-font-bold tw-text-white -tw-tracking-wide">
+            Biography
+          </h2>
+        </div>
+        <div
+          class="tw-m-0 tw-text-[1.55rem] tw-leading-relaxed tw-text-text-secondary"
+          v-html="formatContent(person.biography)" />
+      </div>
+
+      <!-- Vital Statistics Card -->
+      <div class="tw-bg-surface-1 tw-border tw-border-white/15 tw-rounded-2xl tw-p-6 sm:tw-p-8 tw-shadow-xl">
+        <div class="tw-pb-5 tw-mb-6 tw-border-b tw-border-white/10">
+          <h3 class="tw-m-0 tw-font-display tw-text-[1.8rem] tw-font-bold tw-text-white -tw-tracking-wide">
+            Personal Information
+          </h3>
+        </div>
+
+        <ul class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 md:tw-grid-cols-3 tw-gap-6 tw-list-none tw-m-0 tw-p-0">
+          <li v-if="person.known_for_department" class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Department</span>
+            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">{{ person.known_for_department }}</span>
           </li>
 
-          <li v-if="person.birthday" :class="$style.statItem">
-            <span :class="$style.label">Born</span>
-            <span :class="$style.value">
+          <li v-if="person.birthday" class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Born</span>
+            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">
               {{ person.birthday | fullDate }}
               <span
                 v-if="!person.deathday"
-                :class="$style.ageText">(Age {{ age }})</span>
+                class="tw-text-text-muted tw-font-normal">({{ age }} years old)</span>
             </span>
           </li>
 
-          <li v-if="person.deathday" :class="$style.statItem">
-            <span :class="$style.label">Died</span>
-            <span :class="$style.value">{{ person.deathday | fullDate }}</span>
+          <li v-if="person.deathday" class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Passed Away</span>
+            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">{{ person.deathday | fullDate }}</span>
           </li>
 
-          <li v-if="person.place_of_birth" :class="$style.statItem">
-            <span :class="$style.label">Place of Birth</span>
-            <span :class="$style.value">{{ person.place_of_birth }}</span>
+          <li v-if="person.place_of_birth" class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Birthplace</span>
+            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">{{ person.place_of_birth }}</span>
           </li>
 
           <li
             v-if="person.also_known_as && person.also_known_as.length"
-            :class="$style.statItem">
-            <span :class="$style.label">Also Known As</span>
-            <span :class="$style.value">{{
+            class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-[1.15rem] tw-font-bold tw-uppercase tw-tracking-widest tw-text-text-subtle">Alternative Names</span>
+            <span class="tw-text-[1.4rem] tw-font-semibold tw-text-text-primary">{{
               person.also_known_as.slice(0, 3).join(", ")
             }}</span>
           </li>
         </ul>
       </div>
 
-      <div :class="$style.external">
-        <ExternalLinks :links="person.external_ids" />
+      <!-- External Links -->
+      <div v-if="person.external_ids" class="tw-pt-2">
+        <ExternalLinks media="person" :links="person.external_ids" />
       </div>
     </div>
   </div>
@@ -132,174 +151,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.info {
-  display: flex;
-  flex-direction: column;
-  gap: 3.2rem;
-
-  @media (min-width: $breakpoint-medium) {
-    flex-direction: row;
-    gap: 4.8rem;
-    align-items: flex-start;
-  }
-}
-
-.left {
-  width: 100%;
-  max-width: 320px;
-  margin: 0 auto;
-
-  @media (min-width: $breakpoint-medium) {
-    width: 30%;
-    max-width: 340px;
-    flex-shrink: 0;
-    margin: 0;
-  }
-}
-
-.posterWrap {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-top: 150%;
-  overflow: hidden;
-  background-color: $surface-2;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-lg;
-  box-shadow: $shadow-lg;
-}
-
-.image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.2rem;
-  color: $text-muted;
-  background-color: $surface-1;
-}
-
-.placeholderText {
-  font-size: 1.2rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2.8rem;
-}
-
-.biographySection {
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-}
-
-.personName {
-  margin: 0;
-  font-size: 3.2rem;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.02em;
-
-  @media (min-width: $breakpoint-small) {
-    font-size: 4rem;
-  }
-}
-
-.bioContent {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.bioTitle {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: 700;
-  color: $text-primary;
-  letter-spacing: -0.01em;
-}
-
-.bioText {
-  font-size: 1.55rem;
-  line-height: 1.7;
-  color: $text-secondary;
-}
-
-.metaCard {
-  background-color: $surface-1;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-md;
-  padding: 2.4rem;
-}
-
-.statsGrid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.8rem;
-
-  @media (min-width: $breakpoint-small) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem 2.8rem;
-  }
-}
-
-.statItem {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.label {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: $text-muted;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.value {
-  font-size: 1.45rem;
-  font-weight: 500;
-  color: $text-primary;
-  line-height: 1.4;
-}
-
-.ageText {
-  color: $text-muted;
-  font-size: 1.3rem;
-  margin-left: 0.4rem;
-}
-
-.external {
-  display: flex;
-  align-items: center;
-  padding-top: 0.8rem;
-}
-</style>

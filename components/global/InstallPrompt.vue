@@ -1,12 +1,17 @@
 <template>
-  <div v-if="isOpen" class="alert alert--default">
-    <p>
+  <div
+    v-if="isOpen"
+    class="tw-relative tw-z-[80] tw-text-[1.35rem] tw-leading-normal tw-text-text-primary tw-bg-surface-1 tw-border-b tw-border-border-subtle tw-flex">
+    <p class="tw-flex-1 tw-m-0 tw-px-5 tw-py-3.5">
       Do you want to
-      <a href="#" @click.prevent="install">add this app to your home screen?</a>
+      <a
+        href="#"
+        class="tw-text-primary-amber tw-underline hover:tw-text-[#f5c065]"
+        @click.prevent="install">add this app to your home screen?</a>
     </p>
 
     <button
-      class="alert__close"
+      class="tw-flex tw-shrink-0 tw-items-center tw-justify-center tw-px-5 tw-bg-transparent tw-border-0 tw-border-l tw-border-border-subtle tw-text-text-muted hover:tw-text-white tw-cursor-pointer tw-transition-colors tw-duration-200"
       type="button"
       aria-label="Close"
       @click="close">

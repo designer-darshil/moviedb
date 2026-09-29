@@ -2,25 +2,34 @@
   <main class="main">
     <TopNav :title="metaTitle" />
 
+    <!-- Person Hero & Bio Card -->
     <PersonInfo :person="person" />
 
+    <!-- Section Switcher Pills -->
     <MediaNav :menu="menu" @clicked="navClicked" />
 
-    <template v-if="activeMenu === 'known-for'">
-      <Listing v-if="knownFor && knownFor.results.length" :items="knownFor" />
-    </template>
+    <!-- Dynamic Section Container with Transitions -->
+    <transition name="fade" mode="out-in">
+      <div :key="`person-tab-${activeMenu}`">
+        <template v-if="activeMenu === 'known-for'">
+          <Listing
+            v-if="knownFor && knownFor.results.length"
+            :items="knownFor" />
+        </template>
 
-    <template v-if="activeMenu === 'credits'">
-      <CreditsHistory :credits="person.combined_credits" />
-    </template>
+        <template v-if="activeMenu === 'credits'">
+          <CreditsHistory :credits="person.combined_credits" />
+        </template>
 
-    <template v-if="activeMenu === 'photos' && showImages">
-      <Images
-        v-if="person.images.profiles.length"
-        title="Photos"
-        type="poster"
-        :images="person.images.profiles" />
-    </template>
+        <template v-if="activeMenu === 'photos' && showImages">
+          <Images
+            v-if="person.images.profiles.length"
+            title="Photos"
+            type="poster"
+            :images="person.images.profiles" />
+        </template>
+      </div>
+    </transition>
   </main>
 </template>
 
@@ -67,7 +76,7 @@ export default {
 
   head () {
     return {
-      title: this.metaTitle,
+      title: `${this.metaTitle} — CINEPULSE`,
       meta: [
         { hid: 'og:title', property: 'og:title', content: this.metaTitle },
         {
@@ -150,7 +159,6 @@ export default {
     },
 
     initKnownFor () {
-      // if recommendations don't exist, retreive them
       if (this.knownFor !== null) return;
 
       const department = this.person.known_for_department;
@@ -172,19 +180,15 @@ export default {
         );
       }
 
-      // if no results, return
       if (!results) return;
 
-      // remove duplicates
       results = this.removeDuplicates(results);
 
-      // remove adult
-      results = results.filter((item) => {
-        if (item.adult) return false;
-        return true;
-      });
+      // results = results.filter((item) => {
+      //   if (item.adult) return false;
+      //   return true;
+      // });
 
-      // sort by popularity
       results.sort((a, b) => (a.vote_count > b.vote_count ? -1 : 1));
 
       this.knownFor = {

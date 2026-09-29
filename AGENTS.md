@@ -11,7 +11,7 @@ This document specifies repository-specific rules, constraints, and operational 
 - **Framework**: Nuxt.js 2.15.8 (Vue.js 2.7.10) configured with `target: 'static'` and `ssr: false`.
 - **Node Environment**: Node.js 18+ (requires `NODE_OPTIONS=--openssl-legacy-provider` for Webpack 4 compilation on Node 17+).
 - **Package Manager**: `yarn` is the canonical package manager. Do not mix with `npm` lockfiles.
-- **Styling Architecture**: SCSS variables + CSS Modules / Scoped styles with unified Design Tokens. Standard responsive utilities and centralized tokens are preferred over arbitrary ad-hoc inline styles.
+- **Styling Architecture**: Tailwind CSS v3 with mandatory project-wide `tw-` prefix. Utility-first declarative styling with zero scoped SCSS modules in Vue components. Centralized tokens defined in `tailwind.config.js`.
 
 ---
 
@@ -34,7 +34,7 @@ This document specifies repository-specific rules, constraints, and operational 
 ## 3. Mandatory Commands
 
 - **Install**: `yarn`
-- **Development Server**: `yarn dev` (runs `NODE_OPTIONS=--openssl-legacy-provider nuxt --host`)
+- **Development Server**: `yarn dev` (runs `NODE_OPTIONS=--openssl-legacy-provider nuxt --host --port 5173`)
 - **Linting**: `yarn lint`
 - **Production Build**: `yarn build`
 - **Static Site Generation**: `yarn generate`

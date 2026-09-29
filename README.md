@@ -1,6 +1,6 @@
 # moviedb — Cinematic Movie & TV Discovery Platform
 
-A modern, cinematic digital film catalogue and discovery platform powered by [The Movie Database (TMDb)](https://developers.themoviedb.org/3) API. Built with **Vue.js**, **Nuxt.js**, and an editorial, dark-first design system.
+A modern, cinematic digital film catalogue and discovery platform powered by [The Movie Database (TMDb)](https://developers.themoviedb.org/3) API. Built with **Vue.js**, **Nuxt.js**, and **Tailwind CSS** (configured with project-wide `tw-` prefix) using an editorial, dark-first design system.
 
 ---
 
@@ -36,7 +36,8 @@ cp .env.sample .env
 Fill in the following values in `.env`:
 
 ```env
-FRONTEND_URL=http://localhost:3000
+FRONTEND_URL=http://localhost:5173
+PORT=5173
 API_KEY=your_tmdb_api_key_here
 API_LANG=en-US
 API_COUNTRY=US
@@ -49,7 +50,7 @@ API_YOUTUBE_KEY=your_optional_youtube_key
 # Install dependencies
 yarn
 
-# Start local dev server (http://localhost:3000)
+# Start local dev server (http://localhost:5173)
 yarn dev
 ```
 

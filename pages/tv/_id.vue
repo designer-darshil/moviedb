@@ -2,41 +2,51 @@
   <main class="main">
     <TopNav :title="metaTitle" />
 
+    <!-- Hero Backdrop & Spotlight Banner -->
     <Hero :item="item" />
 
+    <!-- Section Switcher Pills -->
     <MediaNav :menu="menu" @clicked="navClicked" />
 
-    <template v-if="activeMenu === 'overview'">
-      <TvInfo :item="item" />
+    <!-- Dynamic Section Container with Transitions -->
+    <transition name="fade" mode="out-in">
+      <div :key="`tv-tab-content-${activeMenu}`">
+        <template v-if="activeMenu === 'overview'">
+          <TvInfo :item="item" />
 
-      <Credits v-if="showCredits" :people="item.credits.cast" />
-    </template>
+          <!-- Top Cast Reel -->
+          <Credits v-if="showCredits" :people="item.credits.cast" />
+        </template>
 
-    <template v-if="activeMenu === 'episodes' && showEpisodes">
-      <Episodes :number-of-seasons="item.number_of_seasons" />
-    </template>
+        <template v-if="activeMenu === 'episodes' && showEpisodes">
+          <Episodes :number-of-seasons="item.number_of_seasons" />
+        </template>
 
-    <template v-if="activeMenu === 'videos' && showVideos">
-      <Videos :videos="item.videos.results" />
-    </template>
+        <template v-if="activeMenu === 'videos' && showVideos">
+          <Videos :videos="item.videos.results" />
+        </template>
 
-    <template v-if="activeMenu === 'photos' && showImages">
-      <Images
-        v-if="item.images.backdrops.length"
-        title="Backdrops"
-        type="backdrop"
-        :images="item.images.backdrops" />
+        <template v-if="activeMenu === 'photos' && showImages">
+          <Images
+            v-if="item.images.backdrops.length"
+            title="Backdrops"
+            type="backdrop"
+            :images="item.images.backdrops" />
 
-      <Images
-        v-if="item.images.posters.length"
-        title="Posters"
-        type="poster"
-        :images="item.images.posters" />
-    </template>
+          <Images
+            v-if="item.images.posters.length"
+            title="Posters"
+            type="poster"
+            :images="item.images.posters" />
+        </template>
+      </div>
+    </transition>
 
+    <!-- More Like This Recommendations -->
     <ListingCarousel
       v-if="recommended && recommended.results.length"
       title="More Like This"
+      subtitle="Recommended series based on genre and critical acclaim"
       :items="recommended" />
   </main>
 </template>
@@ -93,7 +103,7 @@ export default {
 
   head () {
     return {
-      title: this.metaTitle,
+      title: `${this.metaTitle} — CINEPULSE`,
       meta: [
         { hid: 'og:title', property: 'og:title', content: this.metaTitle },
         {
@@ -203,7 +213,6 @@ export default {
     },
 
     initRecommended () {
-      // if recommended don't exist, retreive them
       if (this.recommended !== null) return;
 
       getTvShowRecommended(this.$route.params.id).then((response) => {

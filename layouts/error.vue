@@ -1,25 +1,25 @@
 <template>
-  <div :class="$style.wrapper">
-    <div :class="$style.card">
-      <div :class="$style.statusCode">
+  <div class="tw-min-h-[80vh] tw-flex tw-items-center tw-justify-center tw-p-8 tw-text-center">
+    <div class="tw-max-w-[540px] tw-w-full tw-bg-surface-1 tw-border tw-border-border-medium tw-rounded-3xl tw-p-10 sm:tw-py-14 sm:tw-px-9 tw-shadow-cinema-lg tw-flex tw-flex-col tw-items-center">
+      <div class="tw-font-display tw-text-[8.8rem] tw-font-black tw-leading-none tw-tracking-tighter tw-mb-4 tw-bg-gradient-to-br tw-from-primary-amber tw-to-[#ff8a00] tw-bg-clip-text tw-text-transparent">
         {{ error.statusCode || 404 }}
       </div>
 
-      <h1 :class="$style.title">
+      <h1 class="tw-m-0 tw-mb-3 tw-font-display tw-text-[2.6rem] tw-font-extrabold tw-text-white tw-tracking-tight">
         {{ message }}
       </h1>
 
-      <p v-if="error.statusCode === 504" :class="$style.description">
+      <p v-if="error.statusCode === 504" class="tw-m-0 tw-mb-9 tw-text-[1.55rem] tw-leading-relaxed tw-text-text-secondary">
         We are unable to connect to the film database at this moment. Please
         check your internet connection or try again in a few moments.
       </p>
-      <p v-else :class="$style.description">
+      <p v-else class="tw-m-0 tw-mb-9 tw-text-[1.55rem] tw-leading-relaxed tw-text-text-secondary">
         The title, page, or resource you are looking for does not exist or may
         have been moved.
       </p>
 
-      <div :class="$style.actions">
-        <nuxt-link to="/" class="button button--primary">
+      <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-3.5">
+        <nuxt-link to="/" class="tw-inline-flex tw-items-center tw-justify-center tw-gap-2 tw-h-[4.6rem] tw-px-6 tw-text-[1.4rem] tw-font-bold tw-text-[#07080b] tw-bg-primary-amber tw-border tw-border-primary-amber tw-rounded-full tw-shadow-[0_2px_14px_rgba(229,169,60,0.4)] hover:tw-shadow-[0_4px_20px_rgba(229,169,60,0.6)] hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
           <svg
             width="16"
             height="16"
@@ -34,7 +34,7 @@
           <span>Return Home</span>
         </nuxt-link>
 
-        <nuxt-link to="/movie" class="button">
+        <nuxt-link to="/movie" class="tw-inline-flex tw-items-center tw-justify-center tw-gap-2 tw-h-[4.6rem] tw-px-6 tw-text-[1.4rem] tw-font-semibold tw-text-text-primary tw-bg-surface-2 tw-border tw-border-border-medium tw-rounded-full hover:tw-text-white hover:tw-bg-surface-3 hover:tw-border-white/30 hover:-tw-translate-y-0.5 tw-transition-all tw-duration-200">
           <span>Explore Movies</span>
         </nuxt-link>
       </div>
@@ -55,7 +55,7 @@ export default {
 
   head () {
     return {
-      title: this.message,
+      title: `${this.message} — CINEPULSE`,
     };
   },
 
@@ -71,63 +71,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.wrapper {
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 2rem;
-  text-align: center;
-}
-
-.card {
-  max-width: 540px;
-  background-color: $surface-1;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-lg;
-  padding: 4.8rem 3.2rem;
-  box-shadow: $shadow-lg;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.statusCode {
-  font-size: 8rem;
-  font-weight: 800;
-  line-height: 1;
-  color: $primary-color;
-  letter-spacing: -0.04em;
-  margin-bottom: 1.6rem;
-  background: linear-gradient(135deg, $primary-color 0%, $primary-hover 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.title {
-  margin: 0 0 1.2rem;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: $text-primary;
-  letter-spacing: -0.02em;
-}
-
-.description {
-  margin: 0 0 3.2rem;
-  font-size: 1.55rem;
-  line-height: 1.6;
-  color: $text-muted;
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1.2rem;
-}
-</style>

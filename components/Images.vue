@@ -1,16 +1,16 @@
 <template>
-  <div class="spacing">
-    <div :class="$style.head">
-      <h2 :class="$style.title">
+  <div class="tw-my-7 tw-mx-4 sm:tw-my-10 sm:tw-mx-8 lg:tw-my-12 lg:tw-mx-12">
+    <div class="tw-flex tw-items-baseline tw-mb-4 lg:tw-mb-6">
+      <h2 class="tw-m-0 tw-text-[1.8rem] lg:tw-text-[2.4rem] tw-font-bold tw-text-white -tw-tracking-wide">
         {{ title }}
       </h2>
 
-      <strong :class="$style.count">
+      <strong class="tw-ml-4 tw-text-[1.2rem] lg:tw-text-[1.4rem] tw-font-medium tw-text-text-muted">
         {{ imagesCount }}
       </strong>
     </div>
 
-    <div :class="$style.items">
+    <div class="tw-flex tw-flex-wrap -tw-mx-1.5">
       <ImagesItem
         v-for="(image, index) in images"
         :key="`image-${index}`"
@@ -104,44 +104,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.head {
-  display: flex;
-  align-items: baseline;
-  margin-bottom: 1.5rem;
-
-  @media (min-width: $breakpoint-large) {
-    margin-bottom: 2rem;
-  }
-}
-
-.title {
-  font-size: 1.8rem;
-  letter-spacing: $letter-spacing;
-
-  @media (min-width: $breakpoint-large) {
-    font-size: 2.4rem;
-  }
-}
-
-.count {
-  margin-left: 1rem;
-  font-size: 1.2rem;
-  color: $text-color-grey;
-  letter-spacing: $letter-spacing;
-
-  @media (min-width: $breakpoint-large) {
-    font-size: 1.4rem;
-  }
-}
-
-.items {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -0.4rem;
-  margin-left: -0.4rem;
-}
-</style>

@@ -1,18 +1,17 @@
 <template>
-  <div :class="$style.item">
+  <div class="tw-w-full">
     <nuxt-link
-      :class="$style.link"
+      class="tw-group tw-flex tw-flex-col tw-h-full tw-no-underline tw-outline-none focus-visible:tw-outline-none"
       :to="{ name: 'person-id', params: { id: person.id } }"
       :aria-label="`${person.name} as ${person.character}`">
-      <div :class="$style.photoWrap">
+      <div class="tw-relative tw-w-full tw-h-0 tw-pt-[150%] tw-overflow-hidden tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-xl tw-transition-all tw-duration-300 group-hover:tw-border-border-medium group-hover:tw-shadow-cinema-md group-hover:-tw-translate-y-0.5 group-focus-visible:tw-ring-2 group-focus-visible:tw-ring-primary-amber">
         <img
           v-if="poster"
           v-lazyload="poster"
-          class="lazyload"
-          :class="$style.image"
+          class="lazyload tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-105"
           :alt="person.name">
 
-        <div v-else :class="$style.placeholder">
+        <div v-else class="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-text-text-muted tw-bg-surface-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -29,13 +28,13 @@
         </div>
       </div>
 
-      <div :class="$style.content">
-        <h3 :class="$style.name" :title="person.name">
+      <div class="tw-flex tw-flex-col tw-pt-2.5 tw-px-0.5">
+        <h3 class="tw-m-0 tw-text-[1.35rem] tw-font-semibold tw-text-text-primary tw-leading-snug tw-truncate tw-transition-colors tw-duration-200 group-hover:tw-text-primary-amber" :title="person.name">
           {{ person.name }}
         </h3>
         <p
           v-if="person.character"
-          :class="$style.character"
+          class="tw-m-0 tw-mt-0.5 tw-text-[1.2rem] tw-text-text-muted tw-truncate"
           :title="person.character">
           {{ person.character }}
         </p>
@@ -65,102 +64,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.item {
-  width: 100%;
-}
-
-.link {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  text-decoration: none;
-  outline: none;
-
-  &:hover {
-    .photoWrap {
-      border-color: $border-medium;
-      box-shadow: $shadow-md;
-      transform: translateY(-3px);
-    }
-
-    .image {
-      transform: scale(1.05);
-    }
-
-    .name {
-      color: $primary-color;
-    }
-  }
-
-  &:focus-visible .photoWrap {
-    outline: 2px solid $primary-color;
-    outline-offset: 2px;
-  }
-}
-
-.photoWrap {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-top: 150%; // Standard 2:3 portrait ratio
-  overflow: hidden;
-  background-color: $surface-2;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-md;
-  transition: all $transition-normal;
-}
-
-.image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform $transition-slow;
-}
-
-.placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $text-muted;
-  background-color: $surface-1;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 0.2rem 0;
-}
-
-.name {
-  margin: 0;
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: $text-primary;
-  line-height: 1.3;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  transition: color $transition-fast;
-}
-
-.character {
-  margin: 0.3rem 0 0;
-  font-size: 1.2rem;
-  color: $text-muted;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-</style>

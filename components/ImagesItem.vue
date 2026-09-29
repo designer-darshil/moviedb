@@ -1,18 +1,23 @@
 <template>
-  <div :class="[$style.item, $style[type]]">
+  <div
+    class="tw-p-1.5"
+    :class="type === 'poster'
+      ? 'tw-w-1/3 xs:tw-w-1/4 md:tw-w-1/5 lg:tw-w-1/6'
+      : 'tw-w-1/2 xs:tw-w-1/3 md:tw-w-1/4 lg:tw-w-1/5'">
     <a
-      :class="$style.link"
+      class="tw-group tw-block tw-w-full tw-h-full tw-outline-none"
       :href="image.src"
       aria-label="View photo full size"
       @click.prevent="handleGallery(index)">
-      <div :class="$style.imageWrap">
+      <div
+        class="tw-relative tw-h-0 tw-overflow-hidden tw-bg-surface-2 tw-border tw-border-border-subtle tw-rounded-xl tw-transition-all tw-duration-300 group-hover:tw-border-border-medium group-hover:tw-shadow-cinema-md group-focus-visible:tw-ring-2 group-focus-visible:tw-ring-primary-amber"
+        :class="type === 'poster' ? 'tw-pt-[150%]' : 'tw-pt-[56.25%]'">
         <img
           v-lazyload="image.thumb"
-          class="lazyload"
-          :class="$style.img"
+          class="lazyload tw-absolute tw-inset-0 tw-w-full tw-h-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-105"
           alt="Film gallery photograph">
 
-        <div :class="$style.overlay">
+        <div class="tw-absolute tw-inset-0 tw-flex tw-items-center tw-justify-center tw-text-white tw-bg-black/40 tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity tw-duration-200">
           <svg
             width="20"
             height="20"
@@ -59,113 +64,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.item {
-  padding: 0.6rem;
-}
-
-.link {
-  display: block;
-  width: 100%;
-  height: 100%;
-  outline: none;
-
-  &:hover {
-    .imageWrap {
-      border-color: $border-medium;
-      box-shadow: $shadow-md;
-    }
-
-    .img {
-      transform: scale(1.05);
-    }
-
-    .overlay {
-      opacity: 1;
-    }
-  }
-
-  &:focus-visible .imageWrap {
-    outline: 2px solid $primary-color;
-    outline-offset: 2px;
-  }
-}
-
-.imageWrap {
-  position: relative;
-  height: 0;
-  overflow: hidden;
-  background-color: $surface-2;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-md;
-  transition: all $transition-normal;
-}
-
-.img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform $transition-slow;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  background-color: rgba(10, 11, 14, 0.4);
-  opacity: 0;
-  transition: opacity $transition-fast;
-}
-
-.backdrop {
-  width: 50%;
-
-  @media (min-width: $breakpoint-xsmall) {
-    width: 33.3333333%;
-  }
-
-  @media (min-width: $breakpoint-medium) {
-    width: 25%;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    width: 20%;
-  }
-
-  .imageWrap {
-    padding-top: 56.25%; // 16:9 ratio
-  }
-}
-
-.poster {
-  width: 33.3333333%;
-
-  @media (min-width: $breakpoint-xsmall) {
-    width: 25%;
-  }
-
-  @media (min-width: $breakpoint-medium) {
-    width: 20%;
-  }
-
-  @media (min-width: $breakpoint-large) {
-    width: 16.6666667%;
-  }
-
-  .imageWrap {
-    padding-top: 150%; // 2:3 ratio
-  }
-}
-</style>

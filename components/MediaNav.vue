@@ -1,10 +1,13 @@
 <template>
-  <nav :class="$style.navWrap" aria-label="Media Sections">
-    <div :class="$style.nav">
+  <nav class="tw-flex tw-justify-center tw-my-9 tw-px-4 tw-overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:tw-hidden" aria-label="Media Sections">
+    <div class="tw-inline-flex tw-items-center tw-gap-1.5 tw-p-1.5 tw-bg-[rgba(14,17,23,0.9)] tw-backdrop-blur-xl tw-border tw-border-white/15 tw-rounded-full tw-shadow-cinema-md">
       <button
         v-for="(item, index) in menu"
         :key="`tab-${index}`"
-        :class="[$style.button, { [$style.buttonActive]: active === index }]"
+        class="tw-px-6 tw-py-2.5 tw-text-[1.35rem] tw-font-semibold tw-rounded-full tw-cursor-pointer tw-whitespace-nowrap -tw-tracking-wide tw-transition-all tw-duration-200 focus-visible:tw-outline-none focus-visible:tw-ring-2 focus-visible:tw-ring-primary-amber"
+        :class="active === index
+          ? '!tw-text-[#07080b] !tw-bg-gradient-to-br !tw-from-primary-amber !tw-to-[#ff8a00] !tw-border-primary-amber !tw-font-bold tw-shadow-[0_2px_14px_rgba(229,169,60,0.45)] hover:tw-shadow-[0_4px_18px_rgba(229,169,60,0.6)]'
+          : 'tw-text-text-muted hover:tw-text-white hover:tw-bg-white/[0.06] tw-border tw-border-transparent'"
         type="button"
         @click="clicked(index, item)">
         <span>{{ item }}</span>
@@ -36,66 +39,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.navWrap {
-  display: flex;
-  justify-content: center;
-  margin: 3.2rem 0;
-  padding: 0 1.6rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-.nav {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.4rem;
-  background-color: $surface-1;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-full;
-  box-shadow: $shadow-sm;
-}
-
-.button {
-  padding: 0.9rem 2.2rem;
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: $text-muted;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: $radius-full;
-  cursor: pointer;
-  white-space: nowrap;
-  letter-spacing: -0.01em;
-  transition: all $transition-fast;
-
-  &:hover {
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.04);
-  }
-
-  &:focus-visible {
-    outline: 2px solid $primary-color;
-  }
-}
-
-.buttonActive {
-  color: #0a0b0e !important;
-  background-color: $primary-color !important;
-  border-color: $primary-color !important;
-  font-weight: 700;
-  box-shadow: 0 2px 10px rgba(229, 169, 60, 0.35);
-
-  &:hover {
-    background-color: $primary-hover !important;
-  }
-}
-</style>

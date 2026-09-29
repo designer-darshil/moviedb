@@ -1,11 +1,12 @@
 <template>
-  <div class="spacing">
-    <div :class="$style.head">
-      <div :class="$style.filters">
+  <div class="tw-my-7 tw-mx-4 sm:tw-my-10 sm:tw-mx-8 lg:tw-my-12 lg:tw-mx-12">
+    <div class="tw-flex tw-items-center tw-justify-between tw-mb-6 tw-pb-4 tw-border-b tw-border-border-subtle">
+      <div class="tw-flex tw-items-center tw-gap-3">
         <select
           v-if="videoTypes.length > 1"
           v-model="activeType"
           aria-label="Filter videos by type"
+          class="tw-bg-surface-2 tw-text-text-primary tw-border tw-border-border-subtle tw-rounded-lg tw-px-3 tw-py-2 tw-text-[1.3rem] tw-outline-none focus:tw-border-primary-amber"
           @change="filterVideos">
           <option value="all">
             All Video Types
@@ -19,12 +20,12 @@
         </select>
       </div>
 
-      <div :class="$style.count">
+      <div class="tw-text-[1.35rem] tw-font-medium tw-text-text-muted">
         {{ videoCount }}
       </div>
     </div>
 
-    <div :class="$style.grid">
+    <div class="tw-grid tw-grid-cols-1 xs:tw-grid-cols-2 md:tw-grid-cols-3 xl:tw-grid-cols-4 tw-gap-5">
       <VideosItem
         v-for="(video, index) in activeVideos"
         :key="`video-${video.id}`"
@@ -143,47 +144,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" module>
-@import "~/assets/css/utilities/_variables.scss";
-
-.head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2.4rem;
-  padding-bottom: 1.6rem;
-  border-bottom: 1px solid $border-subtle;
-}
-
-.filters {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.count {
-  font-size: 1.35rem;
-  font-weight: 500;
-  color: $text-muted;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-
-  @media (min-width: $breakpoint-xsmall) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: $breakpoint-medium) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (min-width: $breakpoint-xlarge) {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2.4rem;
-  }
-}
-</style>
