@@ -44,13 +44,33 @@
     <div class="flex-1 flex flex-col gap-6">
       <div>
         <div
-          v-if="person.known_for_department"
-          class="flex items-center gap-2 mb-2"
+          class="flex items-center gap-2 mb-2 text-[1.15rem] font-semibold tracking-wider uppercase text-primary-amber"
         >
-          <Tag
-            :value="person.known_for_department"
-            class="cinema-badge-amber !text-[1.15rem] !px-3 !py-1"
+          <button
+            type="button"
+            aria-label="Go Back"
+            class="inline-flex items-center gap-1.5 text-text-muted hover:text-text-primary transition-colors duration-150 cursor-pointer mr-1"
+            @click="goBack"
+          >
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            <span>Back</span>
+          </button>
+          <span class="opacity-30">|</span>
+          <span
+            class="w-1.5 h-1.5 rounded-full bg-primary-amber animate-pulse"
           />
+          <span>{{ person.known_for_department || 'Artist Profile' }}</span>
         </div>
         <h1
           class="m-0 font-display text-[2.8rem] sm:text-[3.8rem] lg:text-[4.4rem] font-extrabold leading-[1.1] -tracking-wide text-text-primary"
@@ -221,6 +241,16 @@ export default {
         age--;
       }
       return age;
+    },
+  },
+
+  methods: {
+    goBack() {
+      if (window.history.length > 1) {
+        this.$router.go(-1);
+      } else {
+        this.$router.push('/');
+      }
     },
   },
 };

@@ -16,12 +16,6 @@
   }
 }
 
-@media (max-width: 1023px) {
-  .topnav-active {
-    padding-top: 5.6rem;
-  }
-}
-
 body.modal-open {
   overflow: hidden;
 }

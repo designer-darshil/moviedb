@@ -20,40 +20,38 @@
 
 ### 3.1 Global Shell & Navigation
 
-- **Floating Top Bar (`Nav.vue`)**: Frosted glassmorphism header on desktop featuring CINEPULSE brand emblem, primary navigation pills (Discover, Movies, TV Series, Top Charts), and a quick-action command palette search trigger (`⌘K`).
-- **Mobile Bottom Dock**: Thumb-friendly floating glass dock on viewport `< 1024px` with safe-area inset support.
+- **Quiet Header (`Nav.vue`)**: Compact, unobtrusive header (`h-14` / `h-16`) on desktop featuring CINEPULSE brand emblem, clean navigation links (Discover, Movies, TV Series), and a subtle command palette search trigger (`⌘K`).
+- **Mobile Bottom Dock**: Thumb-friendly floating dock on mobile viewports with safe-area inset support (Discover, Movies, TV, Search).
 - **Command Palette Search (`SearchForm.vue`)**: Keyboard-driven modal search overlay with instant debounced queries, ESC dismissal, and trending quick tags.
 - **Footer (`Footer.vue`)**: Brand statement, directory links (cinema, television, genres), legal disclaimer, and TMDb attribution.
-- **Contextual Mobile Header (`TopNav.vue`)**: Glassmorphism mobile bar with history back navigation and page title.
 
 ### 3.2 Homepage (`/`)
 
-- **Multi-Item Interactive Hero (`Hero.vue`)**: Displays the top 5 trending titles in an interactive ticker `[01, 02, 03, 04, 05]` with synchronized ambient lighting, rating badge, year, runtime, storyline synopsis, and trailer playback.
-- **Genre Discovery Bar**: Instant category pill strip linking to curated genre listings.
-- **Top 10 Trending Cinema Ribbon**: High-impact horizontal carousel with oversized ranking numbers (`1` to `10`) layered behind posters.
-- **Top 10 TV Series Ribbon**: Ranked television series carousel.
-- **Critic's Spotlight**: Curated high-aesthetic banner highlighting top-rated cinema.
-- **Curated Visual Genre Cards**: Atmospheric genre tiles with subtle background glows.
+- **Atmospheric Editorial Hero (`Hero.vue`)**: Multi-item hero with w1280 backdrop, multi-directional dark scrims, high-impact typography, metadata specs (rating, year, runtime, genres, cert), synopsis, trailer modal playback, and interactive featured-item indicators.
+- **Trending Discovery Rail (`ListingCarousel.vue`)**: Smooth horizontal snap-scrolling rail with ranked badges (1 to 10) and understated chevron navigation controls.
+- **Editorial Spotlight (`EditorialSpotlight.vue`)**: Asymmetric curated showcase with dominant 7-column cinematic feature card and supporting 5-column stack of titles.
+- **Acclaimed Television Rail**: Curated television series rail.
+- **Explore The Catalog (`Listing.vue`)**: Clean poster-first grid with category switcher tabs (Popular, Top Rated, Upcoming) adapting from 2 to 6 columns.
 
 ### 3.3 Movies (`/movie`, `/movie/:id`, `/movie/category/:name`)
 
-- **Movie Hub (`/movie`)**: Featured spotlight hero, quick category switcher tabs (Popular, Top Rated, Upcoming, Now Playing), and ranked carousels.
-- **Movie Detail (`/movie/:id`)**: Atmospheric hero banner, floating poster card, tagline, narrative storyline, genre pills, and production intelligence stats grid (budget, box office, directors, language, companies). Tabbed media navigation (Overview, Videos, Photos, Recommendations).
-- **Movie Categories (`/movie/category/:name`)**: Active category switcher pills and infinite-scroll media grid.
+- **Movie Hub (`/movie`)**: Featured spotlight hero, quick category switcher tabs (Popular, Top Rated, Upcoming, Now Playing), and horizontal carousels.
+- **Movie Detail (`/movie/:id`)**: Full-width cinematic backdrop, massive editorial title, specs, overview, action buttons (Watch Trailer, Official Site, Share), floating poster artwork overlapping hero atmosphere, production intelligence grid (directors, release date, runtime, status, budget, box office multiplier, language, companies, external references), media switcher (Overview, Videos, Photos), cast carousel, and similar titles rail.
+- **Movie Categories (`/movie/category/:name`)**: Category pill switcher, breadcrumb navigation, and infinite-scroll poster grid.
 
 ### 3.4 TV Shows (`/tv`, `/tv/:id`, `/tv/category/:name`)
 
-- **TV Hub (`/tv`)**: Series spotlight hero, category switcher (Popular, Top Rated, Currently Airing, Airing Today), and ranked carousels.
-- **TV Detail (`/tv/:id`)**: Hero banner, television intelligence card (creators, premiere date, latest airing, episode runtime, network), tabbed media navigation (Overview, Episodes, Videos, Photos), and recommendations.
+- **TV Hub (`/tv`)**: Series spotlight hero, category switcher (Popular, Top Rated, Currently Airing, Airing Today), and horizontal carousels.
+- **TV Detail (`/tv/:id`)**: Full-width backdrop, series title, specs, overview, actions, floating poster, production intelligence card (creators, premiere date, status, language, networks, companies, external references), media switcher (Overview, Episodes, Videos, Photos), cast carousel, and similar series rail.
 - **Episodes Browser (`Episodes.vue`)**: Season selector dropdown and episode list with episode stills, air dates, and overviews.
 
 ### 3.5 People (`/person/:id`)
 
-- **Person Profile**: Large portrait avatar, department badge, biographical narrative, personal stats (born, age, birthplace), photo gallery, and chronological credits history grouped by department.
+- **Person Profile**: Large portrait avatar, department badge, biographical narrative with expand/collapse, personal details grid, photo gallery, and chronological credits history grouped by department.
 
 ### 3.6 Search (`/search?q=...`)
 
-- **Search Results (`SearchResults.vue`)**: Unified paginated grid with media filter pills (All, Movies, TV, People), sort options (Relevance, Highest Rated, Newest), and live result counts.
+- **Universal Search Destination (`pages/search/index.vue`)**: Large focused search input, trending search pills, trending exploration grid for empty states, multi-type filter tabs (All, Movies, TV, People), sort options (Relevance, Highest Rated, Newest), and responsive poster grid.
 
 ---
 

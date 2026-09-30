@@ -42,16 +42,14 @@ vue-movies/
 │   └── images/              # Static assets & SVG icons
 ├── tailwind.config.js       # Tailwind CSS v3 config (standard utility tokens)
 ├── components/
-│   ├── global/              # Nav (floating header & bottom dock), TopNav, SearchForm, Footer, CookieConsent
-│   ├── movie/               # MovieInfo (production stats grid, hero metadata)
-│   ├── tv/                  # TvInfo, Episodes, EpisodesItem
+│   ├── global/              # Nav (quiet header & mobile bottom dock), SearchForm, Footer, CookieConsent
+│   ├── tv/                  # Episodes, EpisodesItem
 │   ├── person/              # PersonInfo, CreditsHistory, CreditsHistoryGroup, CreditsHistoryItem
-│   ├── search/              # SearchResults (media type filters: All, Movies, TV, People)
-│   ├── ui/                 # Reusable UI primitives: Button, Badge, RatingBadge, EmptyState, LoadingSkeleton
+│   ├── ui/                  # Reusable UI primitives: Button, Badge, RatingBadge, EmptyState, LoadingSkeleton
 │   ├── Card.vue             # Poster-first media card with hover explore action & rank badges
-│   ├── Hero.vue             # Cinematic full-width hero with interactive featured switcher
+│   ├── Hero.vue             # Atmospheric cinematic full-width hero with interactive featured switcher
 │   ├── EditorialSpotlight.vue # Asymmetric curated spotlight (7-col feature + 5-col supporting stack)
-│   ├── Listing.vue          # Infinite scroll grid listing
+│   ├── Listing.vue          # Responsive poster grid (2-6 cols) with infinite scroll
 │   ├── ListingCarousel.vue  # Horizontal media rail with scroll snapping & ranked badges
 │   ├── MediaNav.vue         # Detail section tab navigation
 │   ├── Modal.vue            # Accessible modal for trailers and gallery lightbox
@@ -98,8 +96,8 @@ vue-movies/
 
 1. **Widescreen Canvas**: The legacy desktop 10rem left-aligned sidebar was removed. Content now flows across the entire viewport width (`max-width: 1600px` centered), enabling panoramic movie backdrops.
 2. **Dual-Tier Navigation**:
-   - **Desktop (>= 1024px)**: Top floating frosted-glass header with CINEPULSE badge, route pills, and a `⌘K` command-palette quick-search trigger.
-   - **Mobile (< 1024px)**: Floating frosted-glass dock fixed at the bottom with safe-area support, complemented by a contextual back-button header (`TopNav.vue`).
+   - **Desktop (>= 1024px)**: Quiet, compact top header (`h-14` / `h-16`) with CINEPULSE badge, clean route links, and a subtle `⌘K` command-palette quick-search trigger.
+   - **Mobile (< 1024px)**: Compact top brand bar and floating frosted-glass dock fixed at the bottom with safe-area support, complemented by inline back navigation on subpages.
 3. **Data Flow & State Management**:
    - Centralized API requests via `api/index.js` (Axios).
    - Async pre-fetching via Nuxt's `asyncData`.

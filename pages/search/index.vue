@@ -2,7 +2,7 @@
   <main class="main min-h-[85vh] pb-24">
     <!-- 1. SEARCH DESTINATION HEADER -->
     <div
-      class="relative w-full max-w-[1200px] mx-auto px-4 sm:px-8 pt-10 sm:pt-16 pb-8"
+      class="relative w-full max-w-[1200px] mx-auto px-4 sm:px-8 pt-20 sm:pt-24 lg:pt-28 pb-8"
     >
       <div
         class="flex flex-col items-center text-center max-w-[760px] mx-auto mb-8"

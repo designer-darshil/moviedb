@@ -1,7 +1,5 @@
 <template>
-  <main class="main">
-    <TopNav :title="metaTitle" />
-
+  <main class="main pt-20 sm:pt-24 lg:pt-28 pb-20">
     <!-- Person Hero & Bio Card -->
     <PersonInfo :person="person" />
 
@@ -37,7 +35,6 @@
 
 <script>
 import { apiImgUrl, getPerson } from '~/api';
-import TopNav from '~/components/global/TopNav';
 import PersonInfo from '~/components/person/PersonInfo';
 import MediaNav from '~/components/MediaNav';
 import CreditsHistory from '~/components/person/CreditsHistory';
@@ -46,7 +43,6 @@ import Listing from '~/components/Listing';
 
 export default {
   components: {
-    TopNav,
     PersonInfo,
     MediaNav,
     CreditsHistory,
@@ -93,9 +89,6 @@ export default {
           content: `${process.env.FRONTEND_URL}${this.$route.path}`,
         },
       ],
-      bodyAttrs: {
-        class: 'topnav-active',
-      },
     };
   },
 

@@ -1,7 +1,5 @@
 <template>
   <main class="main pb-20">
-    <TopNav :title="metaTitle" />
-
     <!-- 1. FULL-WIDTH CINEMATIC BACKDROP & EDITORIAL HERO -->
     <div class="relative w-full overflow-hidden bg-base-bg select-none">
       <!-- Full-Width Cinematic Backdrop Atmosphere -->
@@ -39,6 +37,27 @@
             <div
               class="flex items-center gap-3 mb-4 text-[1.2rem] font-semibold tracking-wider uppercase text-primary-amber"
             >
+              <button
+                type="button"
+                aria-label="Go Back"
+                class="inline-flex items-center gap-1.5 text-text-muted hover:text-text-primary transition-colors duration-150 cursor-pointer"
+                @click="goBack"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+                <span>Back</span>
+              </button>
+              <span class="opacity-30">|</span>
               <span
                 class="w-1.5 h-1.5 rounded-full bg-primary-amber animate-pulse"
               />
@@ -448,7 +467,6 @@ import {
   getTvShowRecommended,
 } from '~/api';
 import { name, yearStart, yearEnd, creators } from '~/mixins/Details';
-import TopNav from '~/components/global/TopNav';
 import MediaNav from '~/components/MediaNav';
 import Episodes from '~/components/tv/Episodes';
 import Videos from '~/components/Videos';
@@ -460,7 +478,6 @@ import ExternalLinks from '~/components/ExternalLinks';
 
 export default {
   components: {
-    TopNav,
     MediaNav,
     Episodes,
     Videos,
@@ -514,9 +531,6 @@ export default {
           content: `${process.env.FRONTEND_URL}${this.$route.path}`,
         },
       ],
-      bodyAttrs: {
-        class: 'topnav-active',
-      },
     };
   },
 
@@ -655,6 +669,14 @@ export default {
 
     closeModal() {
       this.modalVisible = false;
+    },
+
+    goBack() {
+      if (window.history.length > 1) {
+        this.$router.go(-1);
+      } else {
+        this.$router.push('/tv');
+      }
     },
 
     copyShareLink() {

@@ -1,15 +1,34 @@
 <template>
   <main class="main pb-20">
-    <TopNav :title="metaTitle" />
-
     <!-- Genre Header Banner -->
-    <div class="px-4 sm:px-8 lg:px-12 pt-8 sm:pt-12 max-w-[1600px] mx-auto">
+    <div
+      class="px-4 sm:px-8 lg:px-12 pt-20 sm:pt-24 lg:pt-28 max-w-[1600px] mx-auto"
+    >
       <div class="flex flex-col gap-2 mb-6">
         <div
           class="flex items-center gap-2 text-[1.15rem] font-semibold tracking-wider uppercase text-primary-amber"
         >
+          <nuxt-link
+            to="/movie"
+            class="inline-flex items-center gap-1.5 text-text-muted hover:text-text-primary transition-colors duration-150 mr-1"
+          >
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            <span>Movies</span>
+          </nuxt-link>
+          <span class="opacity-30">/</span>
           <span class="w-1.5 h-1.5 rounded-full bg-primary-amber" />
-          <span>Genre Discovery</span>
+          <span>Genre</span>
         </div>
         <h1
           class="m-0 font-display text-[2.8rem] sm:text-[3.6rem] font-extrabold text-text-primary leading-[1.1] -tracking-wide"
@@ -54,12 +73,10 @@
 
 <script>
 import { getMediaByGenre, getGenreList } from '~/api';
-import TopNav from '~/components/global/TopNav';
 import Listing from '~/components/Listing';
 
 export default {
   components: {
-    TopNav,
     Listing,
   },
 
@@ -96,9 +113,6 @@ export default {
           content: `${process.env.FRONTEND_URL}${this.$route.path}`,
         },
       ],
-      bodyAttrs: {
-        class: 'topnav-active',
-      },
     };
   },
 
